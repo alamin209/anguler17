@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Component, OnInit, HostListener, ViewChild, Input, ElementRef} from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 

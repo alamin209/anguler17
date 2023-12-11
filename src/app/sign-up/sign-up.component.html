@@ -144,7 +144,7 @@
                         required
                         placeholder="{{ 'PHONE_NUMBER' | translate }}"
                         mask="(000) 000-0000"
-                        (keyup)="setPhoneValue($event.target.value)"
+                        (keyup)="setPhoneValue($event)"
                         />
                         <input
                         *ngIf="!PHONE_NUMBER_MASK"
@@ -155,7 +155,7 @@
                         name="phone"
                         required
                         placeholder="{{ 'PHONE_NUMBER' | translate }}"
-                        (keyup)="setPhoneValue($event.target.value)"
+                        (keyup)="setPhoneValue($event)"
                         maxlength="10"
                         />
 
@@ -239,7 +239,7 @@
                         *ngIf="GOOGLE_PLACES_SEARCH_API"
                         (setAddress)="getAddress($event)"
                         adressType="geocode"
-                        (change)="changeValue($event.target.value)"
+                        (change)="changeValue($event)"
                         ></AutocompleteComponent>
 
                         <div
@@ -345,7 +345,7 @@
                         name="country"
                         required
                         placeholder="Country"
-                        (change)="SetBillingCountry($event.target.value)"
+                        (change)="SetBillingCountry($event)"
                         >
                         <option class="placeholder" selected value="">
                         {{ "COUNTRY" | translate }}
@@ -742,7 +742,7 @@
                                                             <div class="input-couponcode w-100 text-left">
                                                                 <label for="couponcode" class="mb-2"><strong>{{ "COUPON_CODE" | translate }}</strong></label>
                                                                 <div class="input-group mb-0">
-                                                                    <input (keyup)="getCouponValue($event.target.value)" type="text" class="form-control couponcode solid rounded" formControlName="couponcode" id="couponcode" name="couponcode" placeholder="{{ 'COUPON_CODE' | translate }}" />
+                                                                    <input (keyup)="getCouponValue($event)" type="text" class="form-control couponcode solid rounded" formControlName="couponcode" id="couponcode" name="couponcode" placeholder="{{ 'COUPON_CODE' | translate }}" />
                                                                     <div class="input-group-append">
                                                                         <button *ngIf="!CouponCodeApplied" class="button button--blue" type="button" (click)="ApplyCoupon()"><i class="fe-check mr-1"></i>Apply</button>
                                                                         <button *ngIf="CouponCodeApplied" class="button button--red" type="button" (click)="RemoveCoupon()"><i class="fe-x mr-1"></i>Remove</button>

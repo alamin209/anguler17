@@ -168,7 +168,7 @@ export class ManufacturerSignupComponent implements OnInit {
   
   setPhoneValue(value) {
     if (value != '') {
-      this.Phone = value;
+      this.Phone = value.target.value;
     }
   }
 
@@ -231,7 +231,7 @@ export class ManufacturerSignupComponent implements OnInit {
   changeValue(event){
     // set value
     this.userForm.patchValue({
-      Address: event
+      Address: event.target.value
     });
   }
 

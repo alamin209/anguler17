@@ -71,7 +71,7 @@
                                             <div class="control-group mb-3">
                                                 <div [ngClass]="submitted && videoForm.controls.Video_Url.errors ? 'form-group form-group--has-error' : 'form-group'">
                                                     <label class="mb-1" for="Video_Url">{{"VIDEO_URL" | translate}} <span class="mandatory_asterisk">*</span></label>
-                                                    <input (input)="SetVideoURL($event.target.value);" type="text" class="form-control solid rounded" formControlName="Video_Url" id="Video_Url" name="Video_Url" placeholder="{{ 'VIDEO_URL' | translate }}" />
+                                                    <input (input)="SetVideoURL($event);" type="text" class="form-control solid rounded" formControlName="Video_Url" id="Video_Url" name="Video_Url" placeholder="{{ 'VIDEO_URL' | translate }}" />
                                                     <div *ngIf="submitted && videoForm.controls.Video_Url.errors">
                                                         <div *ngIf="videoForm.controls.Video_Url.errors.required">
                                                             <div class="help-block" style="display: block">

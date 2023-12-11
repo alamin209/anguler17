@@ -597,15 +597,15 @@ export class ProductsComponent implements OnInit {
       this.TagSearch = "";
       this.Keyword = "";
 
-      this.Keyword = value;
+      this.Keyword = value.target.value;
       this.get_all_posts();
     }
   }
   // Select category on channge
-  onChangeCategorySelected(categoryId:string){
+  onChangeCategorySelected(categoryId:any){
     console.log("categoryId",categoryId);
-    this.selectedCategoryFilter = categoryId;
-    this.sendCategories = [categoryId]
+    this.selectedCategoryFilter = categoryId.target.value;
+    this.sendCategories = [categoryId.target.value]
     this.get_all_posts();
   }
   // Select tag on click

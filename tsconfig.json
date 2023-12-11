@@ -20,6 +20,8 @@
     "types": ["jest","jasmine"],
     "skipDefaultLibCheck": true,
     "strictNullChecks": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     
   },
   "angularCompilerOptions": {

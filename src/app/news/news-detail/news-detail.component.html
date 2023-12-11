@@ -142,7 +142,7 @@
                 (keyup)="SearchByKeywordEnter($event)"
                 value="{{ Keyword }}"
                 class="form-control js-typeahead"
-                (input)="SearchBlogValue($event.target.value)"
+                (input)="SearchBlogValue($event)"
                 name="q"
                 type="search"
                 autofocus=""
@@ -168,7 +168,7 @@
           <div class="sidebar--widget__content">
             <ul class="sidebar--widget__categories">
                 <li *ngFor="let newscategory of newscategoryList let i=index" class="sidebar--widget__categories--items">
-                    <a [ngClass]="{'is-active': newscategory.slug ==CateGorySearch}" routerLink="/blog" [queryParams]="{category: newscategory.slug}" class="level-top" [innerHtml]="newscategory.name | safeHtml"></a>
+                    <a  routerLink="/blog" [queryParams]="{category: newscategory.slug}" class="level-top" [innerHtml]="newscategory.name | safeHtml"></a>
                 </li>
             </ul>
           </div>

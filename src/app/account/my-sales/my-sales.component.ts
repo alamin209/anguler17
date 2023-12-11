@@ -42,8 +42,8 @@ export class MySalesComponent implements OnInit {
   OrderID: Number;
   ProductID: Number;
   OProductID: Number;
-  OPStatus: Number;
-  OPNewStatus: Number;
+  OPStatus: any;
+  OPNewStatus: any;
   ChangingStatus: boolean = false;
   getParams:any;
 
@@ -250,7 +250,7 @@ export class MySalesComponent implements OnInit {
   }
 
   SetNewStatus(OPNewStatus:any){
-    this.OPNewStatus = OPNewStatus;
+    this.OPNewStatus = OPNewStatus.target.value;
   }
 
   // for model 

@@ -437,7 +437,7 @@
                             required
                             placeholder="{{ 'PHONE_NUMBER' | translate }}"
                             mask="(000) 000-0000"
-                            (keyup)="setPhoneValue($event.target.value)"
+                            (keyup)="setPhoneValue($event)"
                           />
                           <input
                             *ngIf="!PHONE_NUMBER_MASK"
@@ -448,7 +448,7 @@
                             name="phone"
                             maxlength="10"
                             placeholder="{{ 'PHONE_NUMBER' | translate }}"
-                            (keyup)="setPhoneValue($event.target.value)"
+                            (keyup)="setPhoneValue($event)"
                           />
                           <div
                             *ngIf="
@@ -636,7 +636,7 @@
                               name="country"
                               required
                               placeholder="Country"
-                              (change)="SetBillingCountry($event.target.value)"
+                              (change)="SetBillingCountry($event)"
                             >
                               <option class="placeholder" selected value="">
                                 {{ "COUNTRY" | translate }}

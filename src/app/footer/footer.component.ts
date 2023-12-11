@@ -29,7 +29,7 @@ export class FooterComponent implements OnInit {
   PORTAL_URL: string = environment.config.PORTAL_URL;
   awsCloudfrontURL: string = environment.config.AWSBUCKETURL;
   categoryList: any = [];
-  footerMList: Array<[]>;
+  footerMList: any = [];
   pageContentData: any = [];
   pageNotFound: any;
   PageContent: any;

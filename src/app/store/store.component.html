@@ -11,7 +11,7 @@
                         <div class="shop--search p-3 rounded-sm mt-3 mt-md-0 mb-5 order-1 order-sm-1">
                             <div class="input-group rounded">
                                 <input type="hidden" name="search_param" value="all" id="search_param">
-                                <input id="search" class="form-control" name="search" placeholder="What are you looking for?" type="text" autofocus="autofocus" (input)="setSearchKeyword($event.target.value)" (keyup)="SearchEnter($event)" value="{{ Keyword }}">
+                                <input id="search" class="form-control" name="search" placeholder="What are you looking for?" type="text" autofocus="autofocus" (input)="setSearchKeyword($event)" (keyup)="SearchEnter($event)" value="{{ Keyword }}">
 
                                 <span class="input-group-append">
                                     <button class="button" type="button" (click)="SearchByKeyword()"><span>Search</span></button>
@@ -53,7 +53,7 @@
                                         <span class="products--view__title">Show</span>
                                         <div class="sort-by">
                                             <select name="sort_by" class="orderby"
-                                                (change)="changePagination($event.target.value)">
+                                                (change)="changePagination($event)">
                                                 <option value="20" selected="selected">20</option>
                                                 <option value="40">40</option>
                                                 <option value="60">60</option>
@@ -236,7 +236,7 @@
                                                             </div>
                                                             <div class="product-buttons">
                                                                 <div class="wrap-wishlist-button">
-                                                                    <a href="javascript:void(0);" (click)="AddtoWishlist(storeItem.ID,storeItem.Product_Slug,WishlistModal); "
+                                                                    <a href="javascript:void(0);" (click)="AddtoWishlist(storeItem.ID,storeItem.Product_Slug); "
                                                                         tooltip="{{'ADD_TO_WISH_LIST' | translate}}"  id="{{storeItem.ID}}_add_to_wish_list"><span></span></a>
                                                                     <div class="clear"></div>
                                                                 </div>
@@ -326,7 +326,7 @@
                                             </div>
                                             <div class="product-buttons">
                                                 <div class="wrap-wishlist-button"><a
-                                                        (click)="AddtoWishlist(storeItem.ID,storeItem.Product_Slug,WishlistModal); "
+                                                        (click)="AddtoWishlist(storeItem.ID,storeItem.Product_Slug); "
                                                         href="javascript:;"
                                                         tooltip="{{'ADD_TO_WISH_LIST' | translate}}"><span>{{'ADD_TO_WISH_LIST' | translate}}</span></a>
                                                     <div class="clear"></div>

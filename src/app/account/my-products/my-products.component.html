@@ -108,7 +108,7 @@
                                     <form class="my-products-search-form form-horizontal">
                                         <div class="my-products-search-form-wrapper">
 
-                                            <input type="text" class="form-control" id="search" name="search"  placeholder="Enter keyword to search here" (input)="setSearchKeyword($event.target.value)" (keyup)="SearchEnter($event)" value="{{ Keyword }}">
+                                            <input type="text" class="form-control" id="search" name="search"  placeholder="Enter keyword to search here" (input)="setSearchKeyword($event)" (keyup)="SearchEnter($event)" value="{{ Keyword }}">
                                             <button type="button" class="my-products-search-button" (click)="SearchByKeyword()"><span class="fe-search"></span></button>
                                         </div>
                                     </form>
@@ -182,8 +182,7 @@
                                           [infiniteScrollDistance]="0.1"
                                           [infiniteScrollUpDistance]="5"
                                           [infiniteScrollThrottle]="200"
-                                          [infiniteScrollDisabled]="blockInfiniteScroll"
-                                          (scrolled)="onLoadMore()"></div>
+                                           (scrolled)="onLoadMore()"></div>
 
                             </div>
                         </div>
@@ -242,8 +241,7 @@
                                           [infiniteScrollDistance]="0.1"
                                           [infiniteScrollUpDistance]="5"
                                           [infiniteScrollThrottle]="200"
-                                          [infiniteScrollDisabled]="blockInfiniteScroll"
-                                          (scrolled)="onLoadMore2()"></div>
+                                           (scrolled)="onLoadMore2()"></div>
 
                             </div>
                         </div>
@@ -307,8 +305,7 @@
                                           [infiniteScrollDistance]="0.1"
                                           [infiniteScrollUpDistance]="5"
                                           [infiniteScrollThrottle]="200"
-                                          [infiniteScrollDisabled]="blockInfiniteScroll"
-                                          (scrolled)="onLoadMore3()"></div>
+                                           (scrolled)="onLoadMore3()"></div>
 
                             </div>
                         </div>

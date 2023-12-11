@@ -1085,9 +1085,9 @@ export class ProductComponent implements OnInit {
     gallery.init();
   }
 
-  SetOptionValue(field: any, value: any): void {
+  SetOptionValue(field: any, valueParam: any): void {
 
-   
+    let value = valueParam.target.value;
     if (field && field.ShowFrontendAs == 'Color') {
       this.SelectedColor = value;
     }

@@ -207,14 +207,14 @@ export class ProductFormComponent implements OnInit {
   }
 
   SetShipment(value): void {
-    this.ShipmentType = value;
+    this.ShipmentType = value.target.value;
   }
   SetTaxable(value): void {
-    this.Taxable = value;
+    this.Taxable = value.target.value;
   }
 
   SetDiscountType(value): void {
-    this.DiscountTypeVal = value;
+    this.DiscountTypeVal = value.target.value;
   }
 
   addItem(): void {
@@ -248,7 +248,7 @@ export class ProductFormComponent implements OnInit {
     });
   }
   onChangeCountry(country){
-    this.get_states(country);
+    this.get_states(country.target.value);
   }
   load_resource_data(){
     let cond = {
@@ -500,8 +500,8 @@ export class ProductFormComponent implements OnInit {
     return text;
   }  
 
-  processFile(files: any) { 
-
+  processFile(fileParam: any) { 
+    let files = fileParam.target.files
     if (files.length === 0) return;
 
     var err = '';
@@ -548,8 +548,8 @@ export class ProductFormComponent implements OnInit {
 
   }
 
-  processDocs(files: any) { 
-
+  processDocs(fileParam: any) { 
+    let files = fileParam.target.files
     if (files.length === 0) return;
 
     var err = '';
@@ -600,8 +600,8 @@ export class ProductFormComponent implements OnInit {
 
   }
 
-  processOrderFiles(files: any) { 
-
+  processOrderFiles(fileParam: any) { 
+    let files = fileParam.target.files
     console.log(files);
     if (files.length === 0) return;
     console.log(files);

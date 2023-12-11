@@ -118,7 +118,7 @@
                 
                 <div class="products-footer u-mt--40" *ngIf="(AllTrainings && totalItems > AllTrainings.length)">
                     <div class="pagination--list">
-                        <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="get_all_resources($event)" [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="limit"></pagination>
+                        <pagination [totalItems]="totalItems" [(ngModel)]="currentPage"  [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="limit"></pagination>
                     </div>
                 </div>
 

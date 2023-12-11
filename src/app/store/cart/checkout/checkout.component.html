@@ -31,8 +31,8 @@
                                     </div>
                                 </div>
                                 <div [ngClass]="checkoutForm.controls['billing_phone'].dirty && checkoutForm.controls['billing_phone'].errors ? 'col-12 col-lg-4 col-sm-6 form-group--has-error' : 'col-12 col-lg-4 col-sm-6'">
-                                    <input *ngIf="PHONE_NUMBER_MASK" value="" type="text" class="form-control solid rounded" [formControl]="checkoutForm.controls['billing_phone']" id="billing_phone" name="billing_phone" placeholder="{{'PHONE_NUMBER' | translate}} *" mask='(000) 000-0000' (keyup)="setBillingPhoneValue($event.target.value)">
-                                    <input *ngIf="!PHONE_NUMBER_MASK" value="" type="text" class="form-control solid rounded" [formControl]="checkoutForm.controls['billing_phone']" id="billing_phone" maxlength="10" name="billing_phone" placeholder="{{'PHONE_NUMBER' | translate}} *"   (keyup)="setBillingPhoneValue($event.target.value)">
+                                    <input *ngIf="PHONE_NUMBER_MASK" value="" type="text" class="form-control solid rounded" [formControl]="checkoutForm.controls['billing_phone']" id="billing_phone" name="billing_phone" placeholder="{{'PHONE_NUMBER' | translate}} *" mask='(000) 000-0000' (keyup)="setBillingPhoneValue($event)">
+                                    <input *ngIf="!PHONE_NUMBER_MASK" value="" type="text" class="form-control solid rounded" [formControl]="checkoutForm.controls['billing_phone']" id="billing_phone" maxlength="10" name="billing_phone" placeholder="{{'PHONE_NUMBER' | translate}} *"   (keyup)="setBillingPhoneValue($event)">
                                     <div *ngIf="checkoutForm.controls['billing_phone'].dirty && checkoutForm.controls['billing_phone'].errors">
                                         <div *ngIf="checkoutForm.controls['billing_phone'].errors.required">
                                             <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
@@ -78,7 +78,7 @@
 
                                 <div class="col-12 col-sm-3" [ngClass]="{'form-group--has-error':(checkoutForm.controls['billing_country'].dirty && checkoutForm.controls['billing_country'].errors),'col-lg-6':(checkoutForm.controls['billing_country'].value && checkoutForm.controls['billing_country'].value == 'TT'),'col-lg-3':(checkoutForm.controls['billing_country'].value && checkoutForm.controls['billing_country'].value != 'TT')}" >
                                     <div class="selectdropdown">
-                                        <select class="form-control solid rounded" formControlName="billing_country" id="billing_country" name="billing_country" required (change)="SetBillingCountry($event.target.value);">
+                                        <select class="form-control solid rounded" formControlName="billing_country" id="billing_country" name="billing_country" required (change)="SetBillingCountry($event);">
                                             <option class="placeholder" selected value="">{{'COUNTRY' | translate}}</option>
                                             <option *ngFor="let country of countriesList let i = index" value="{{country.Country_Code}}">{{country.Country_Name}}</option>
                                         </select>
@@ -194,7 +194,7 @@
                                                     {{address?.City+','}} {{address?.State}} {{address?.ZipCode}}<br>
                                                     {{'US' | translate}}
                                                 </p>
-                                                <p *ngIf="PHONE_NUMBER_MASK" class="form-control-static u-mb--5"><span>{{address?.Phone_Number | mask: '(000) 000-0000'}}</span></p>
+                                                <p *ngIf="PHONE_NUMBER_MASK" class="form-control-static u-mb--5"><span>{{address?.Phone_Number}}</span></p>
                                                 <p *ngIf="!PHONE_NUMBER_MASK" class="form-control-static u-mb--5"><span>{{address?.Phone_Number}}</span></p>
                                                 
                                                 <a href="javascript:void(0);" (click)="DeliverToAddress(address)" class="link-blue">{{'DELIVER_TO_THIS_ADDRESS' | translate}}</a> 
@@ -293,7 +293,7 @@
 
                                             <div class="col-12 col-sm-3" [ngClass]="{'form-group--has-error':(checkoutForm.controls['shipping_country'].dirty && checkoutForm.controls['shipping_country'].errors),'col-lg-6':(checkoutForm.controls['shipping_country'].value && checkoutForm.controls['shipping_country'].value == 'TT'),'col-lg-3':(checkoutForm.controls['shipping_country'].value && checkoutForm.controls['shipping_country'].value != 'TT')}" >
                                                 <div class="selectdropdown">
-                                                    <select class="form-control solid rounded" formControlName="shipping_country" id="shipping_country" name="shipping_country" required (change)="SetBillingCountry($event.target.value);">
+                                                    <select class="form-control solid rounded" formControlName="shipping_country" id="shipping_country" name="shipping_country" required (change)="SetBillingCountry($event);">
                                                         <option class="placeholder" selected value="">{{'COUNTRY' | translate}}</option>
                                                         <option *ngFor="let country of countriesList let i = index" value="{{country.Country_Code}}">{{country.Country_Name}}</option>
                                                     </select>

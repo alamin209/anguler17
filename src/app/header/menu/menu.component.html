@@ -266,9 +266,9 @@
             <!-- Print menu section here-->
             <ul class="navigation--list" *ngIf="membershipMenuList && membershipMenuList.length">
                 <li [ngClass]="{'menu-item-has-children': (item && item.childrenMenu && item.childrenMenu.length>0)}" *ngFor="let item of membershipMenuList let i = index">
-                   <a *ngIf="!rItem?.ExternalLink" routerLink="{{item.url}}" [ngClass]="{'active':activeMenu==item.url}" [ngClass]="{'has-child': (item && item.childrenMenu && item.childrenMenu.length>0)}">{{item.title}}</a>
+                   <a *ngIf="!item?.ExternalLink" routerLink="{{item.url}}" [ngClass]="{'active':activeMenu==item.url}" [ngClass]="{'has-child': (item && item.childrenMenu && item.childrenMenu.length>0)}">{{item.title}}</a>
                    
-                   <a *ngIf="rItem?.ExternalLink" href="{{rItem.url}}" [ngClass]="{'active':activeMenu==item.url}" [ngClass]="{'has-child': (item && item.childrenMenu && item.childrenMenu.length>0)}">{{item.title}}</a>
+                   <a *ngIf="item?.ExternalLink" href="{{item.url}}" [ngClass]="{'active':activeMenu==item.url}" [ngClass]="{'has-child': (item && item.childrenMenu && item.childrenMenu.length>0)}">{{item.title}}</a>
                    
                     <ul class="sub-menu" *ngIf="item && item.childrenMenu && item.childrenMenu.length">
                         <li *ngFor="let subMenu of item.childrenMenu let j = index">
@@ -451,7 +451,7 @@
     <div *ngIf="IS_STORE" class="widget--search">
         <form role="search" method="get" class="searchform" action="/search">
             <div>
-                <input (keyup)="setSearchValue($event.target.value)" type="text" class="s" placeholder="Search for products" value="{{Keyword}}" name="q" autocomplete="off">
+                <input type="text" class="s" placeholder="Search for products" value="{{Keyword}}" name="q" autocomplete="off">
                 <button (click)="SearchProducts()" type="button" class="searchsubmit">Search</button>
             </div>
         </form>

@@ -165,7 +165,7 @@ export class AddPaymentOptionComponent implements OnInit {
 
   setPhoneValue(value) {
     if (value != '') {
-      this.Phone = value;
+      this.Phone = value.target.value;
     }
   }
   
@@ -271,8 +271,7 @@ export class AddPaymentOptionComponent implements OnInit {
     }
   }
   
-  getAddress(place: object, addressName:string) {
-    
+  getAddress(place: any, addressName:string) { 
     let address1 = '', streetNumber, street, city, state,country, postCode, Latitude, Longitude;
     streetNumber = this.getAddrComponent(place, { street_number: 'long_name' });
     street = this.getAddrComponent(place, { route: 'long_name' });
@@ -334,7 +333,7 @@ export class AddPaymentOptionComponent implements OnInit {
   
   // change ups shipping 
   SetBillingCountry(value): void {
-    this.get_states(value);
+    this.get_states(value.target.value);
   }
 
 }

@@ -180,7 +180,7 @@ export class MyProductsComponent implements OnInit {
 
   setSearchKeyword(value) {
     if (value != "") {
-      this.Keyword = value;
+      this.Keyword = value.target.value;
     }
   }
 

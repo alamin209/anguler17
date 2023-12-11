@@ -8,7 +8,7 @@
                 <ngx-avatar *ngIf="ProfilePicURL" src="{{ProfilePicURL}}" size="74" [round]="true" ></ngx-avatar>
                 
                 <!-- Use this when we don't have Avatar Image -->
-                <ngx-avatar *ngIf="!ProfilePicURL" name="{{sliderData.first_name ? sliderData.first_name : ''}} {{sliderData.last_name ? sliderData.last_name : ''}}" size="74" [round]="true" bgColor="#4167b0" fgColor="#99CC67" textSizeRatio="2.5"></ngx-avatar>
+                <ngx-avatar *ngIf="!ProfilePicURL" name="{{sliderData.first_name ? sliderData.first_name : ''}} {{sliderData.last_name ? sliderData.last_name : ''}}" size="74" [round]="true" bgColor="#4167b0" fgColor="#99CC67" ></ngx-avatar>
                 
             </figure>
             <div class="w-100 d-flex align-items-center justify-content-between mb-2">

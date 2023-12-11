@@ -81,7 +81,7 @@
                     <h2 class="sidebar--widget__subtitle">{{'CHALKCHAT' | translate}}</h2>
                     <div class="sidebar--widget__content">
                         <ul class="sidebar--widget__categories">
-                            <li *ngFor="let forumcategory of forumcategoryList let i=index" class="sidebar--widget__categories--items"><a [ngClass]="{'is-active': forumcategory.slug ==CateGorySearch}" routerLink="/forum/all" [queryParams]="{category: forumcategory.slug}" class="level-top" [innerHtml]="forumcategory.name | safeHtml"></a></li>
+                            <li *ngFor="let forumcategory of forumcategoryList let i=index" class="sidebar--widget__categories--items"><a  routerLink="/forum/all" [queryParams]="{category: forumcategory.slug}" class="level-top" [innerHtml]="forumcategory.name | safeHtml"></a></li>
                         </ul>
                     </div>
                 </div>

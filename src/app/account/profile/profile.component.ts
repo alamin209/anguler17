@@ -189,19 +189,19 @@ export class ProfileComponent implements OnInit {
 
   FilterByCategory(category:any){
     console.log(category);
-    this.FilterCategory = category;
+    this.FilterCategory = category.target.value;
     this.get_user_videos();
     
   }
 
   FilterByType(type:any){
-    this.FilterType = type;
+    this.FilterType = type.target.value;
     this.get_user_videos();
     
   }
   
   SaveKeyword(keyword:any){
-    this.FilterKeyword = keyword;
+    this.FilterKeyword = keyword.target.value;
   }
   
 

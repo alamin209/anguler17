@@ -22,7 +22,7 @@ export class PaymentOptionsComponent implements OnInit {
   addressList: any;
   currentUser: any;
   Cards: any;
-
+  ASK_COMPANY_NAME: boolean = environment.config.ASK_COMPANY_NAME;
   constructor(
     private router: Router,
     private UserService: UserService,

@@ -112,7 +112,7 @@ export class LeadFormComponent implements OnInit {
   
   setPhoneValue(value) {
     if (value != '') {
-      this.Phone = value;
+      this.Phone = value.target.value;
     }
   }
 
@@ -331,7 +331,7 @@ export class LeadFormComponent implements OnInit {
   
   // change ups shipping 
   SetBillingCountry(value): void {
-    this.get_states(value);
+    this.get_states(value.target.value);
   }
 
 }

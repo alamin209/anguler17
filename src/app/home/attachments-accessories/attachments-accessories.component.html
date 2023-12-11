@@ -6,8 +6,7 @@
     </div>
     <div class="container" *ngIf="aAttachmentList && aAttachmentList.length">
         <div id="AgfolksAccessories" class="AgfolksAccessories">
-            <owl-carousel-o [options]="attachmentASOptions" [items]="images"
-                [carouselClasses]="['owl-theme', 'sliding']">
+            <owl-carousel-o [options]="attachmentASOptions">
                 <div class="" *ngFor="let aATypes of aAttachmentList let i = index">
                     <div class="item">
                         <div class="item">

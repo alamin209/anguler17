@@ -10,7 +10,7 @@
             </ul>
         </div>
     </div>
-    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTxt" (click)="onSearchChange($event.target.value)" (input)="onSearchChange($event.target.value)" (keyup.enter)="SearchProducts();">
+    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTxt" (click)="onSearchChange($event)" (input)="onSearchChange($event)" (keyup.enter)="SearchProducts();">
     <div class="suggestion" [hidden]="!isSuggestionVisible">
       <ul class="profile--actions" *ngIf="ResultsList && ResultsList.length && qProductType == 'Products'">
         <li class="profile--actions__items" *ngFor="let product of ResultsList" routerLink="{{'/shop/product/p/'+product.Product_Slug}}" (click)="unSetProduct()">

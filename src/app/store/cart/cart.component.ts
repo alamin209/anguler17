@@ -21,7 +21,7 @@ export class CartComponent implements OnInit {
   awsCloudfrontURL: string = environment.config.AWSBUCKETURL;
   cartProductList: any;
   productCount: Number;
-  subTotal: Number;
+  subTotal: any;
   CartProducts: any;
   UpdateCartAct:boolean;
   userData:any;

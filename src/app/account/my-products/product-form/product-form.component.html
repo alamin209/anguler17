@@ -107,7 +107,7 @@
                                                             <i class="fe-upload mr-2"></i>
                                                             <h3>{{"ORDER_UPLOAD_FILES" | translate}}</h3>
                                                         </div>
-                                                        <input type="file" #file type="file" (change)="processOrderFiles($event.target.files)" class="solid rounded" id="order_files" name="order_files" placeholder="{{ 'ORDER_UPLOAD_FILES' | translate }}" />
+                                                        <input type="file" #file type="file" (change)="processOrderFiles($event)" class="solid rounded" id="order_files" name="order_files" placeholder="{{ 'ORDER_UPLOAD_FILES' | translate }}" />
                                                         <div class="drag-drop">{{"OR_DRAG_DROP" | translate}}</div>
                                                         <div class="max-filesize">{{"UP_TO_200_MB" | translate}}</div>
                                                     </label>
@@ -231,7 +231,7 @@
                                                     <div class="control-group">
                                                         <label for="DiscountType">Discount </label>
                                                         <div class="selectdropdown">
-                                                            <select class="form-control" name="DiscountType" id="DiscountType" formControlName="DiscountType" (click)="SetDiscountType($event.target.value)">
+                                                            <select class="form-control" name="DiscountType" id="DiscountType" formControlName="DiscountType" (click)="SetDiscountType($event)">
                                                                 <option value="">No Discount</option>
                                                                 <option value="percent">Percent (%)</option>
                                                                 <option value="amount"> Fixed Amount</option>
@@ -265,7 +265,7 @@
                                                     <div class="control-group">
                                                         <label for="Product_Taxable">Taxable</label>
                                                         <div class="selectdropdown">
-                                                            <select class="form-control" name="Product_Taxable" formControlName="taxable" id="Product_Taxable" (change)="SetTaxable($event.target.value)">
+                                                            <select class="form-control" name="Product_Taxable" formControlName="taxable" id="Product_Taxable" (change)="SetTaxable($event)">
                                                                 <option value="No">NO</option>
                                                                 <option value="Yes">YES</option>
                                                             </select>
@@ -488,7 +488,7 @@
                                                     <div class="form-group control-group clearfix">
                                                         <label for="Country">Country</label>
                                                         <div class="selectdropdown">
-                                                            <select class="form-control" formControlName="Country" name="Country" id="Country" (change)="onChangeCountry($event.target.value)"
+                                                            <select class="form-control" formControlName="Country" name="Country" id="Country" (change)="onChangeCountry($event)"
 >
                                                                 <option value="">Please Select Country</option>
                                                                 <option *ngFor="let itm of countryList let i=index" value="{{itm.Country_Code}}">{{itm.Country_Name}}</option>
@@ -501,7 +501,7 @@
                                                     <div class="form-group control-group clearfix">
                                                         <label for="Shipment">Shipment</label>
                                                         <div class="selectdropdown">
-                                                            <select class="form-control" formControlName="Shipment" name="Shipment" id="Shipment" (change)="SetShipment($event.target.value)">
+                                                            <select class="form-control" formControlName="Shipment" name="Shipment" id="Shipment" (change)="SetShipment($event)">
                                                                 <option value="Free">Free Shipping</option>
                                                                 <option value="Paid">Paid Shipping</option>
                                                                 
@@ -695,7 +695,7 @@
                                                             <i class="fe-upload mr-2"></i>
                                                             <h3>{{"PRODUCT_UPLOAD" | translate}}</h3>
                                                         </div>
-                                                        <input type="file" #file type="file" accept="image/*" (change)="processFile($event.target.files)" class="solid rounded" id="product_image" name="product_image" placeholder="{{ 'PRODUCT_UPLOAD' | translate }}" multiple="true" />
+                                                        <input type="file" #file type="file" accept="image/*" (change)="processFile($event)" class="solid rounded" id="product_image" name="product_image" placeholder="{{ 'PRODUCT_UPLOAD' | translate }}" multiple="true" />
                                                         <div class="drag-drop">{{"OR_DRAG_DROP" | translate}}</div>
                                                         <div class="max-filesize">Recommended dimensions of <strong>800 x 800</strong></div>
                                                     </label>
@@ -725,7 +725,7 @@
                                                     <label class="upload--button" for="product_docs">
                                                     <i class="fe-upload mr-2"></i>
                                                     <h3>{{"DOCS_UPLOAD" | translate}}</h3>
-                                                    <input type="file" #file type="file" accept="application/pdf" (change)="processDocs($event.target.files)" class="solid rounded" id="product_docs" name="product_docs" placeholder="{{ 'DOCS_UPLOAD' | translate }}" />
+                                                    <input type="file" #file type="file" accept="application/pdf" (change)="processDocs($event)" class="solid rounded" id="product_docs" name="product_docs" placeholder="{{ 'DOCS_UPLOAD' | translate }}" />
                                                     </label>
                                                 </div>
                                             </div>

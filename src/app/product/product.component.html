@@ -154,8 +154,7 @@
                     <div class="product-rating">
                         <div class="star-rating">
 
-                            <button type="button" class="star-badge" [ngx-scroll-to]="'#c'"
-                                [ngx-scroll-to-offset]="scrollToOffset" data-placement="top"
+                            <button type="button" class="star-badge"  data-placement="top"
                                 tooltip="{{'SCROLL_TO_REVIEWS' | translate}}"
                                 style="display: block; position: relative; z-index: 10;">
                                 <span class="star-badge-wrap">
@@ -395,7 +394,7 @@
                                 <div class="selectdropdown">
                                     <select id="Sel_{{attribute.ID}}" class="form-control solid rounded"
                                         placeholder="attribute.Field_Name"
-                                        (change)="SetOptionValue(attribute,$event.target.value);">
+                                        (change)="SetOptionValue(attribute,$event);">
                                         <option class="placeholder" value="">Select Option</option>
                                         <option *ngFor="let otpItem of attribute.OptsData" value="{{otpItem.ID}}">
                                             {{otpItem.Option}}

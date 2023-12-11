@@ -112,7 +112,7 @@
                               </div>
                             </div>
 
-                            <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = iindex">
+                            <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = index">
                               <div class="Order--History--Cards__Body--GridLeft Order--History--Cards__Body--GridLeft-xs">
                                 <div class="Details__Top" >
                                     <h3 [ngSwitch]="product.Shipping_Status">
@@ -238,7 +238,7 @@
                                 </div>
                               </div>
 
-                              <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = iindex">
+                              <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = index">
                                 <div
                                   class="Order--History--Cards__Body--GridLeft Order--History--Cards__Body--GridLeft-xs">
                                   <div class="Details__Top">
@@ -353,7 +353,7 @@
                       <div [ngClass]="changeStatusForm.controls['Status'].dirty && changeStatusForm.controls['Status'].errors ? 'form-group form-group--has-error' : 'form-group'">
                           <label class="form-label">New Status</label>
                           <div class="selectdropdown">
-                              <select (change)="SetNewStatus($event.target.value)" class="form-control solid rounded" formControlName="Status" id="Status" name="Status" required placeholder="Status" >
+                              <select (change)="SetNewStatus($event)" class="form-control solid rounded" formControlName="Status" id="Status" name="Status" required placeholder="Status" >
                                 <option value="">Select Status</option>
                                 <option *ngIf="OPStatus == '2'" value="3">Order Shipped</option>
                                 <option *ngIf="OPStatus == '3'" value="5">Order Delivered</option>

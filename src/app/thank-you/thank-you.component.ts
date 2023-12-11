@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as qs from 'qs';
@@ -15,7 +16,7 @@ export class ThankYouComponent implements OnInit {
   getParams:any;
   url: string = environment.config.API_URL;
   private CID: Number = environment.config.CID;
-  private EMAIL_CONFIRMATION: boolean = environment.config.EMAIL_CONFIRMATION;
+  public EMAIL_CONFIRMATION: boolean = environment.config.EMAIL_CONFIRMATION;
   
   constructor(
     private router: Router,

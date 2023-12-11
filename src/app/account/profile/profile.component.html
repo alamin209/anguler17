@@ -12,12 +12,12 @@
                             <div class="w-65 sm:mw-100 d-flex align-items-center">
                                 <form class="my-products-search-form form-horizontal">
                                     <div class="my-products-search-form-wrapper top-1">
-                                        <input class="form-control" id="search" name="search" placeholder="{{'SEARCH_WHITEPAPERS' | translate}}" type="text" (input)="SaveKeyword($event.target.value);">
+                                        <input class="form-control" id="search" name="search" placeholder="{{'SEARCH_WHITEPAPERS' | translate}}" type="text" (input)="SaveKeyword($event);">
                                         <button class="my-products-search-button" type="button"><span class="fe-search" (click)="get_user_videos();"></span></button>
                                     </div>
                                 </form>
                                 <div class="selectdropdown product-type ml-2 ml-md-3">
-                                    <select class="form-control" id="ProductType" name="ProductType" (change)="FilterByType($event.target.value)">
+                                    <select class="form-control" id="ProductType" name="ProductType" (change)="FilterByType($event)">
                                         <option value="">All Product Types</option>
                                         <option *ngFor="let ptype of ProductTypes; let i = index" value="{{ptype.id}}">{{ptype.name}}</option>
                                     
@@ -26,8 +26,8 @@
                             </div>
                             <div class="w-35 sm:mw-100 d-flex align-items-center">
                                 <div class="selectdropdown category-filter ml-0 mt-3 mt-md-0 ml-md-3">
-                                    <!--<select class="form-control select2" id="CategoryFilter" multiple="multiple" (change)="FilterByCategory($event.target.value)">-->
-                                    <select class="form-control " id="CategoryFilter"  (change)="FilterByCategory($event.target.value)">
+                                    <!--<select class="form-control select2" id="CategoryFilter" multiple="multiple" (change)="FilterByCategory($event)">-->
+                                    <select class="form-control " id="CategoryFilter"  (change)="FilterByCategory($event)">
                                         <option value="">All Categories</option>
                                         <option *ngFor="let cat of usercats_arr; let i = index" value="{{cat.ID}}">{{cat.name}}</option>
                                     </select>

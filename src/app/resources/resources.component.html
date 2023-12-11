@@ -97,20 +97,20 @@
                                 <ul class="resources--categories--lists" >
                                     <li class="resources--categories--lists-items">
                                         <div class="checkbox checkbox-primary">
-                                            <input type="checkbox" id="{{parent_cats.ID}}" [checked]="addFilter(parent_cats.ID)" (change)="applyFilters($event.target.checked, parent_cats.ID)" />
+                                            <input type="checkbox" id="{{parent_cats.ID}}" [checked]="addFilter(parent_cats.ID)" (change)="applyFilters($event, parent_cats.ID)" />
                                             <label for="{{parent_cats.ID}}"><h4>{{ parent_cats.name }}</h4></label>
                                         </div>
                                         <ul class="resources--categories--lists" >
                                             <li class="resources--categories--lists-items ml-4" *ngFor="let sub_cats of parent_cats.Subcategories">
                                                 <div class="checkbox checkbox-primary">
-                                                    <input type="checkbox" id="{{sub_cats.ID}}" [checked]="addFilter(sub_cats.ID)" (change)="applyFilters($event.target.checked, sub_cats.ID)" />
+                                                    <input type="checkbox" id="{{sub_cats.ID}}" [checked]="addFilter(sub_cats.ID)" (change)="applyFilters($event, sub_cats.ID)" />
                                                     
                                                     <label for="{{sub_cats.ID}}">{{ sub_cats.name }}</label>
                                                 </div>
                                                 <ul class="resources--categories--lists" >
                                                     <li class="resources--categories--lists-items ml-4" *ngFor="let sub_cats2 of sub_cats.Subcategories">
                                                         <div class="checkbox checkbox-primary">
-                                                            <input type="checkbox" id="{{sub_cats2.ID}}" [checked]="addFilter(sub_cats2.ID)" (change)="applyFilters($event.target.checked, sub_cats2.ID)" />
+                                                            <input type="checkbox" id="{{sub_cats2.ID}}" [checked]="addFilter(sub_cats2.ID)" (change)="applyFilters($event, sub_cats2.ID)" />
                                                             
                                                             <label for="{{sub_cats2.ID}}">{{ sub_cats2.name }}</label>
                                                         </div>
@@ -139,10 +139,10 @@
                                   <div class="input-group">
                                     <input
                                       #searchKey
-                                      (keyup)="SearchByKeywordEnter($event, $event.target.value)"
+                                      (keyup)="SearchByKeywordEnter($event, $event)"
                                       value="{{ Keyword }}"
                                       class="form-control js-typeahead"
-                                      (input)="SearchResourceValue($event.target.value)"
+                                      (input)="SearchResourceValue($event)"
                                       name="q"
                                       type="search"
                                       autofocus=""
@@ -282,7 +282,7 @@
                                 </li>
                                 <li class="resources--categories--lists-items" *ngFor="let sub_cats of parent_cats.Subcategories">
                                     <div class="checkbox checkbox-primary">
-                                        <input type="checkbox" id="{{sub_cats.ID}}" [checked]="addFilter(sub_cats.ID)" (change)="applyFilters($event.target.checked, sub_cats.ID)" />
+                                        <input type="checkbox" id="{{sub_cats.ID}}" [checked]="addFilter(sub_cats.ID)" (change)="applyFilters($event, sub_cats.ID)" />
 
                                         <label for="{{sub_cats.ID}}">{{ sub_cats.name }}</label>
                                     </div>

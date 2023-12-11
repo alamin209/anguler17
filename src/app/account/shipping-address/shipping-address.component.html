@@ -58,7 +58,7 @@
                                                         {{address?.City+','}} {{(address?.State) ? address?.State : ''}} {{(address?.ZipCode) ? address?.ZipCode : ''}}<br>
                                                         {{address?.Country | translate}}
                                                     </p>
-                                                    <p *ngIf="PHONE_NUMBER_MASK" class="u-mb--5"><span>{{address?.Phone_Number | mask: '(000) 000-0000'}}</span></p>
+                                                    <p *ngIf="PHONE_NUMBER_MASK" class="u-mb--5"><span>{{address?.Phone_Number}}</span></p>
                                                     <p *ngIf="!PHONE_NUMBER_MASK" class="u-mb--5"><span>{{address?.Phone_Number}}</span></p>
                                                     
                                                 </div>

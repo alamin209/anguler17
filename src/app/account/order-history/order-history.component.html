@@ -132,7 +132,7 @@
                               </div>
                             </div>
 
-                            <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = iindex">
+                            <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = index">
                               <div class="Order--History--Cards__Body--GridLeft Order--History--Cards__Body--GridLeft-xs">
                                 <div class="Details__Top">
                                     <h3 [ngSwitch]="product.Shipping_Status">
@@ -268,7 +268,7 @@
                                 </div>
                               </div>
 
-                              <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = iindex">
+                              <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = index">
                                 <div
                                   class="Order--History--Cards__Body--GridLeft Order--History--Cards__Body--GridLeft-xs">
                                   <div class="Details__Top">
@@ -400,7 +400,7 @@
                                     </div>
                                   </div>
 
-                                  <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = iindex">
+                                  <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = index">
                                     <div
                                       class="Order--History--Cards__Body--GridLeft Order--History--Cards__Body--GridLeft-xs">
                                       <div class="Details__Top">
@@ -493,7 +493,7 @@
               <div class="row justify-content-center u-mb--15">
                   <div class="col-12 col-md-12 col-sm-12 col-xs-12">
                       <div [ngClass]="reviewForm.controls['Rating'].dirty && reviewForm.controls['Rating'].errors ? 'form-group form-group--has-error' : 'form-group'">
-                          <rating id="Rating" name="Rating" formControlName="Rating" [max]="max" [readonly]="isReadonly" ></rating>
+                          <rating id="Rating" name="Rating" formControlName="Rating" [max]="max"  [readonly]="isReadonly" ></rating>
                           <div *ngIf="reviewForm.controls['Rating'].dirty && reviewForm.controls['Rating'].errors">
                               <div *ngIf="reviewForm.controls['Rating'].errors.required">
                                   <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>

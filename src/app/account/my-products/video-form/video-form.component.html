@@ -70,7 +70,7 @@
                                             <div *ngIf="videoSingle && videoSingle.Video_Source != 'Uploaded'" class="control-group mb-3">
                                                 <div [ngClass]="submitted && videoForm.controls.Video_Url.errors ? 'form-group form-group--has-error' : 'form-group'">
                                                     <label class="mb-1" for="Video_Url">{{"VIDEO_URL" | translate}} <span class="mandatory_asterisk">*</span></label>
-                                                    <input (input)="SetVideoURL($event.target.value);" type="text" class="form-control solid rounded" formControlName="Video_Url" id="Video_Url" name="Video_Url" placeholder="{{ 'VIDEO_URL' | translate }}" />
+                                                    <input  type="text" class="form-control solid rounded" formControlName="Video_Url" id="Video_Url" name="Video_Url" placeholder="{{ 'VIDEO_URL' | translate }}" />
                                                     <div *ngIf="submitted && videoForm.controls.Video_Url.errors">
                                                         <div *ngIf="videoForm.controls.Video_Url.errors.required">
                                                             <div class="help-block" style="display: block">
@@ -79,7 +79,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button (click)='GetVideoMeta()'  class="button button--green button-md d-inline-block button-radius ml-2" type="button"><i class="fe-code mr-1"></i> Get Video</button>
+                                                <button  class="button button--green button-md d-inline-block button-radius ml-2" type="button"><i class="fe-code mr-1"></i> Get Video</button>
                                             </div>
                                             <div class="control-group mb-3">
                                                 <div [ngClass]="submitted && videoForm.controls.title.errors ? 'form-group form-group--has-error' : 'form-group'">

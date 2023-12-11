@@ -79,7 +79,7 @@ export class MenuComponent implements OnInit {
   siteSettings: any;
   ComapnyLogo: any;
   ComapnyRetinaLogo: any;
-
+  openMenu: boolean;
   // Getting stickly menu height
 
   @ViewChild("pageMenu") menuElement: ElementRef;

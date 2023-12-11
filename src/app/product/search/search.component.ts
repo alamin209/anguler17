@@ -115,7 +115,7 @@ export class SearchComponent implements OnInit {
   }
   
   onSearchChange(searchValue) {
-    this.Keyword = searchValue;
+    this.Keyword = searchValue.target.value;
   }
 
   onSearchChange2(searchValue) {

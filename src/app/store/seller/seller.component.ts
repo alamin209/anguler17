@@ -828,7 +828,7 @@ export class SellerComponent implements OnInit {
   }
 
   // add to wishlist
-  AddtoWishlist(ID: Number, Slug: String, WishlistModal) {
+  AddtoWishlist(ID: Number, Slug: String) {
     // Set sesson id;
     if (!this.userData) {
       let slug = "login?redirect=product&slug=" + Slug;
@@ -862,7 +862,7 @@ export class SellerComponent implements OnInit {
 
   // change page display list
   changePagination(event): void {
-    this.limit = event;
+    this.limit = event.target.value;
     // call product method
     //this.get_products_list('null', 'true');
     // check product.

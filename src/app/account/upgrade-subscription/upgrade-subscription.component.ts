@@ -362,7 +362,7 @@ export class UpgradeSubscriptionComponent implements OnInit {
 
   getCouponValue(value) {
     if (value != "") {
-      this.CouponCode = value;
+      this.CouponCode = value.target.value;
       this.HaveCouponCode = true;
     } else {
       this.HaveCouponCode = false;

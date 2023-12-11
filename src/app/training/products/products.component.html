@@ -70,7 +70,7 @@
                         <div class="my-products-search d-flex align-items-center form-group mb-md-0">
                             <form class="my-products-search-form form-horizontal">
                                 <div class="my-products-search-form-wrapper top-1">
-                                    <input class="form-control" id="search" (keyup)="SearchByKeywordEnter($event,$event.target.value)"
+                                    <input class="form-control" id="search" (keyup)="SearchByKeywordEnter($event,$event)"
                                     value="{{ Keyword }}" name="search" placeholder="{{'SEARCH_WHITEPAPERS' | translate}}" type="text">
                                     <button class="my-products-search-button" type="button"><span class="fe-search"></span></button>
                                 </div>
@@ -80,7 +80,7 @@
                                 <select class="form-control" 
                                 
                                 [(ngModel)]="selectedCategoryFilter"
-                                (change)='onChangeCategorySelected($event.target.value)'
+                                (change)='onChangeCategorySelected($event)'
                                 >
                                     <option value="">All Categories</option>
                                     <option *ngFor="let category of ResourcesCategories; let i = index" [value]="category.ID" >{{category.name}}</option>
@@ -275,7 +275,7 @@
 
                             <div class="products-footer u-mt--40" *ngIf="(AllResources && totalItems > AllResources.length)">
                                 <div class="pagination--list">
-                                    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="get_all_resources($event)" [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="limit"></pagination>
+                                    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="get_traiing_products($event)" [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="limit"></pagination>
                                 </div>
                             </div>
 

@@ -55,7 +55,7 @@
                                               {{OrderData.Shipping_Country}}</p>
                                             <p class="text no-padd">{{OrderData.Billing_Email}}</p>
                                             
-                                            <p class="text no-padd"><span>{{OrderData.Billing_Phone | mask: '(000) 000-0000'}}</span></p>
+                                            <p class="text no-padd"><span>{{OrderData.Billing_Phone  }}</span></p>
                                             
                                         </div>-->
                                         <div class="ship--details ship--details-sm">
@@ -75,7 +75,7 @@
                                                 {{OrderData?.Billing_Country | translate}}
                                             </p>
                                             <p *ngIf="PHONE_NUMBER_MASK" class="form-control-static u-mb--5">
-                                                <span>{{OrderData?.Billing_Phone | mask: '(000) 000-0000'}}</span>
+                                                <span>{{OrderData?.Billing_Phone  }}</span>
                                             </p>
                                             <p *ngIf="!PHONE_NUMBER_MASK" class="form-control-static u-mb--5">
                                                 <span>{{OrderData?.Billing_Phone}}</span>
@@ -102,7 +102,7 @@
                                                 {{OrderData?.Shipping_Country | translate}}
                                             </p>
                                             <p *ngIf="PHONE_NUMBER_MASK" class="form-control-static u-mb--5">
-                                                <span>{{OrderData?.Shipping_Phone | mask: '(000) 000-0000'}}</span>
+                                                <span>{{OrderData?.Shipping_Phone }}</span>
                                             </p>
                                             <p *ngIf="!PHONE_NUMBER_MASK" class="form-control-static u-mb--5">
                                                 <span>{{OrderData?.Shipping_Phone}}</span>
@@ -126,7 +126,7 @@
                                             <p *ngIf="OrderData.Shipping_EqpUpload">{{(OrderData.Shipping_EqpUpload) ? 'Have Equipment to Unload' : ''}}</p>
                                             <p *ngIf="OrderData.Shipping_LiftGate">{{(OrderData.Shipping_LiftGate) ? 'Need Lift Gate' : ''}}</p>
                                             <p *ngIf="OrderData.Shipping_SemiTrucks">{{(OrderData.Shipping_SemiTrucks) ? 'Limited Access for Semi-Trucks' : ''}}</p>
-                                            <p *ngIf="OrderData.Shipping_CallAhead">{{(OrderData.Shipping_CallAhead) ? 'Call Ahead '+ (OrderData?.Shipping_Phone | mask: '(000) 000-0000') : ''}}</p>
+                                            <p *ngIf="OrderData.Shipping_CallAhead">{{(OrderData.Shipping_CallAhead) ? 'Call Ahead '+ (OrderData?.Shipping_Phone  ) : ''}}</p>
                                             
                                             <p *ngIf="OrderData.Extra_Info"><strong>Additional Notes:</strong><br>
                                             {{(OrderData.Extra_Info) ? OrderData.Extra_Info : ''}}</p>
@@ -159,7 +159,7 @@
                                         </thead>
 
                                         <tbody>
-                                            <tr class="cart_item" *ngFor="let product of OrderData.products; let ii = iindex">
+                                            <tr class="cart_item" *ngFor="let product of OrderData.products; let ii = index">
                                                 <td class="product-name">
                                                     <span [innerHtml]="((product && product.Product_Name)? product.Product_Name : '') | safeHtml"></span>
                                                     <strong class="product-quantity"> x {{product.Product_Count}}</strong>

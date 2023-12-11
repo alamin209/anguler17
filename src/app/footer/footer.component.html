@@ -7,16 +7,15 @@
                     <ul class="footer__navigation--items footer__navigation--items-xs">
                         <li *ngFor="let rItem of footerMList let i = index">
                             
-                            <a *ngIf="!rItem?.ExternalLink"  routerLink="javascript:" routerLink="{{rItem.url}}"  [ngClass]="{'active':activeMenu==rItem.url}" [innerHtml]="rItem?.title | safeHtml"></a>
-                            <a *ngIf="rItem?.ExternalLink" target="{{rItem.target}}" href="{{rItem.url}}"  [ngClass]="{'active':activeMenu==rItem.url}" [innerHtml]="rItem?.title | safeHtml"></a>
-
+                            <a *ngIf="!rItem?.ExternalLink"  routerLink="javascript:" routerLink="{{rItem.url}}"  [innerHtml]="rItem?.title | safeHtml"></a>
+                            <a *ngIf="rItem?.ExternalLink" target="{{rItem.target}}" href="{{rItem.url}}"   [innerHtml]="rItem?.title | safeHtml"></a>
                         </li>
                     </ul>
                 </div>
                 
                 <div class="footer--copyright footer--copyright-sm"><a class="mx-1" href="/privacy-policy">Privacy Policy</a> <span class="spacer">|</span> <a class="mx-1" href="/terms-of-use">Terms of Use</a> <span class="spacer">|</span> <a class="mx-1" href="/sitemap.xml">Sitemap</a></div>
                 
-                <!--<div class="footer--copyright footer--copyright-sm"><a class="mx-1" href="javascript:void(0);" (click)="openModal('privacy-policy')">Privacy Policy</a> <span class="spacer">|</span> <a class="mx-1" href="javascript:void(0);" (click)="openModal('terms-of-use')">Terms of Use</a> <span class="spacer">|</span> <a class="mx-1" href="/sitemap.xml">Sitemap</a></div>-->
+                <!-- <div class="footer--copyright footer--copyright-sm"><a class="mx-1" href="javascript:void(0);" (click)="openModal('privacy-policy')">Privacy Policy</a> <span class="spacer">|</span> <a class="mx-1" href="javascript:void(0);" (click)="openModal('terms-of-use')">Terms of Use</a> <span class="spacer">|</span> <a class="mx-1" href="/sitemap.xml">Sitemap</a></div> -->
             </div>
             
             <div class="col-12 col-lg-3 col-md-3 col-sm-12">
@@ -210,8 +209,7 @@
             </button>
         </div>
         <div class="modal-body modal-body-sm">
-            <img src="{{(productInfo && productInfo.SizeGuide) ? PORTAL_URL + 'files/store/products/' + productInfo.CID + '/'+ productInfo.ID + '/' + productInfo.SizeGuide : './assets/images/sizing-guide/01.png'}}"
-                alt="" class="img-fluid">
+           
         </div>
     </div>
 </ng-template>

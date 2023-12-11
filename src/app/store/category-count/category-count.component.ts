@@ -22,7 +22,7 @@ export class CategoryCountComponent implements OnInit {
   productsList: Array<any>;
   newUUid: string;
   sliderData: Array<[]>;
-  categoriesData: Array<[]>;
+  categoriesData: any[] = [];
   sliderImage: string;
   sliderTitle: string;
   findSelectedCategories: any;

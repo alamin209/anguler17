@@ -108,7 +108,7 @@
                             <form class="search-popup" id="header-search-form">
                                 <div class="input--with-icon input--icon-right">
                                     <div class="input-group">
-                                        <input id="search" class="input--squared" name="search" placeholder="What are you looking for?" type="text" autofocus="autofocus" (input)="setSearchKeyword($event.target.value)" (keyup)="SearchEnter($event)" value="{{ Keyword }}">
+                                        <input id="search" class="input--squared" name="search" placeholder="What are you looking for?" type="text" autofocus="autofocus" (input)="setSearchKeyword($event)" (keyup)="SearchEnter($event)" value="{{ Keyword }}">
                                         <div class="input-group-append">
                                             <button (click)="SearchByKeyword()" type="button" class="btn--search" role="button" tabindex="0"><i class="fe-search"></i> Search</button>
                                         </div>
@@ -173,7 +173,7 @@
                                 </div>-->
 
                                 <div class="header__right--cart js-cartOpener ml-2 d-none" (click)="cartSiderBar();">
-                                    <a href="javascript:void(0);"><span class="count">{{(productCount && productCount>0)? productCount : 0}}</span></a>
+                                    <a href="javascript:void(0);"><span class="count">{{(productCount && productCount > 0)? productCount : 0}}</span></a>
                                 </div>
                             </div>
                         </div>

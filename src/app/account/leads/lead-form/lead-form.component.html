@@ -66,8 +66,8 @@
                                             </div>
                                             <div class="col-12 col-md-6 col-sm-6 col-xs-12">
                                                 <div [ngClass]="userForm.controls['Phone_Number'].dirty && userForm.controls['Phone_Number'].errors ? 'form-group form-group--has-error' : 'form-group'">
-                                                    <input *ngIf="PHONE_NUMBER_MASK" type="text" class="form-control solid rounded" formControlName="Phone_Number" id="phone" name="Phone_Number" required placeholder="{{'PHONE_NUMBER' | translate}}" mask="(000) 000-0000" (keyup)="setPhoneValue($event.target.value)">
-                                                    <input *ngIf="!PHONE_NUMBER_MASK" type="text" class="form-control solid rounded" formControlName="Phone_Number" id="phone" name="Phone_Number" required placeholder="{{'PHONE_NUMBER' | translate}}" maxlength="10"   (keyup)="setPhoneValue($event.target.value)">
+                                                    <input *ngIf="PHONE_NUMBER_MASK" type="text" class="form-control solid rounded" formControlName="Phone_Number" id="phone" name="Phone_Number" required placeholder="{{'PHONE_NUMBER' | translate}}" mask="(000) 000-0000" (keyup)="setPhoneValue($event)">
+                                                    <input *ngIf="!PHONE_NUMBER_MASK" type="text" class="form-control solid rounded" formControlName="Phone_Number" id="phone" name="Phone_Number" required placeholder="{{'PHONE_NUMBER' | translate}}" maxlength="10"   (keyup)="setPhoneValue($event)">
                                                     <div *ngIf="userForm.controls['Phone_Number'].dirty && userForm.controls['Phone_Number'].errors">
                                                         <div *ngIf="userForm.controls['Phone_Number'].errors.required">
                                                             <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
@@ -214,7 +214,7 @@
                                             <div class="col-12 col-sm-3 col-xs-12" [ngClass]="{'col-md-6':(userForm.controls['Country'].value && userForm.controls['Country'].value == 'TT'),'col-md-3':(userForm.controls['Country'].value && userForm.controls['Country'].value != 'TT')}">
                                                 <div [ngClass]="userForm.controls['Country'].dirty && userForm.controls['Country'].errors ? 'form-group form-group--has-error' : 'form-group'">
                                                     <div class="selectdropdown">
-                                                        <select class="form-control solid rounded" formControlName="Country" id="Country" name="Country" required placeholder="Country" (change)="SetBillingCountry($event.target.value);">
+                                                        <select class="form-control solid rounded" formControlName="Country" id="Country" name="Country" required placeholder="Country" (change)="SetBillingCountry($event);">
                                                             <option class="placeholder" selected value="">{{'COUNTRY' | translate}}</option>
                                                             <option *ngFor="let country of CountriesList let i = index" value="{{country.Country_Code}}">{{country.Country_Name}}</option>
                                                         </select>

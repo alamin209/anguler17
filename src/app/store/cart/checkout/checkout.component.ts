@@ -1123,8 +1123,8 @@ export class CheckoutComponent implements OnInit {
   
   setBillingPhoneValue(value) {
     if (value != '') {
-      this.BillingPhone = value;
-      this.ShippingPhone = value;
+      this.BillingPhone = value.target.value;
+      this.ShippingPhone = value.target.value;
     }
     this.setShippingAddress();
   }
@@ -1138,7 +1138,7 @@ export class CheckoutComponent implements OnInit {
   
   // change ups shipping 
   SetBillingCountry(value): void {
-    this.get_states(value);
+    this.get_states(value.target.value);
     this.setShippingAddress();
   }
   

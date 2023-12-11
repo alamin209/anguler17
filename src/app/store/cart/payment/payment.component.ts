@@ -550,7 +550,7 @@ export class PaymentComponent implements OnInit {
     this.statusNotifyValue = false;
   }
   additionalNotes(value): void {
-    this.notesValue = value;
+    this.notesValue = value.target.value;
   }
   setPaymentOption(value): void {
     this.PaymentOption = value;
@@ -563,7 +563,7 @@ export class PaymentComponent implements OnInit {
 
   getCouponValue(value) {
     if (value != '') {
-      this.CouponCode = value;
+      this.CouponCode = value.target.value;
       this.HaveCouponCode = true;
     } else {
       this.HaveCouponCode = false;
@@ -693,7 +693,7 @@ export class PaymentComponent implements OnInit {
   // change ups shipping 
   SetOptionValue(code, item): void {
     let data = {
-      code: code,
+      code: code.target.value,
       item: item
     }
     // check data

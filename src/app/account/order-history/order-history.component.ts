@@ -28,7 +28,7 @@ export class OrderHistoryComponent implements OnInit {
   OrdersData: Array<any>;
   setTab: string;
   modalRef: BsModalRef;
-  max: Number = 5;
+  max: any = 5;
   rate: Number = 0;
   isReadonly: boolean = false;
   productReviews: any;

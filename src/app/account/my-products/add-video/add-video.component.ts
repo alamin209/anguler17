@@ -158,7 +158,7 @@ export class AddVideoComponent implements OnInit {
   }
 
   SetVideoURL(value): void {
-    this.vvideoURL = value;
+    this.vvideoURL = value.target.value;
   }
 
   GetVideoMeta(){

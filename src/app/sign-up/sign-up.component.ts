@@ -227,7 +227,7 @@ export class SignUpComponent implements OnInit {
 
   setPhoneValue(value) {
     if (value != "") {
-      this.Phone = value;
+      this.Phone = value.target.value;
     }
   }
 
@@ -286,7 +286,7 @@ export class SignUpComponent implements OnInit {
   
   getCouponValue(value) {
     if (value != '') {
-      this.CouponCode = value;
+      this.CouponCode = value.target.value;
       this.HaveCouponCode = true;
     } else {
       this.HaveCouponCode = false;
@@ -626,13 +626,13 @@ export class SignUpComponent implements OnInit {
   changeValue(event) {
     // set value
     this.userForm.patchValue({
-      address1: event,
+      address1: event.target.value,
     });
   }
 
   // change ups shipping
   SetBillingCountry(value): void {
-    this.get_states(value);
+    this.get_states(value.target.value);
   }
   
   BackToSignup():void{

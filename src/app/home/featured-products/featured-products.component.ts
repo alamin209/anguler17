@@ -261,7 +261,7 @@ export class FeaturedProductsComponent implements OnInit {
   }
 
   // add to wishlist
-  AddtoWishlist(ID: Number, Slug: String, WishlistModal) {
+  AddtoWishlist(ID: Number, Slug: String) {
     // Set sesson id;
     if (!this.userData) {
       let slug = "login?redirect=product&slug=" + Slug;

@@ -554,7 +554,7 @@ export class ResourcesComponent implements OnInit {
    */
 
   SearchResourceValue(value): void {
-    this.Keyword = value;
+    this.Keyword = value.target.value;
   }
 
   SearchByKeyword(value) {
@@ -572,7 +572,7 @@ export class ResourcesComponent implements OnInit {
       this.TagSearch = "";
       this.Keyword = "";
 
-      this.Keyword = value;
+      this.Keyword = value.target.value;
       this.get_all_resources();
     }
   }
@@ -593,7 +593,7 @@ export class ResourcesComponent implements OnInit {
   }
 
   applyFilters(checked, category_id) {
-    if (checked) {
+    if (checked.target.checked) {
       let subcateselected = false;
       let allsubcats = [];
       let SearchFilters = this.SearchFilters;

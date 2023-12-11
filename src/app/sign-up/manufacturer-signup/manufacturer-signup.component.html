@@ -201,7 +201,7 @@
                     required
                     placeholder="{{ 'Phone' | translate }}"
                     mask="(000) 000-0000"
-                    (keyup)="setPhoneValue($event.target.value)"
+                    (keyup)="setPhoneValue($event)"
                   />
                   <div
                     *ngIf="
@@ -243,7 +243,7 @@
                   <AutocompleteComponent
                     (setAddress)="getAddress($event)"
                     adressType="geocode"
-                    (change)="changeValue($event.target.value)"
+                    (change)="changeValue($event)"
                   ></AutocompleteComponent>
                   <div
                     *ngIf="

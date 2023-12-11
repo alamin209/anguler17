@@ -1,3 +1,4 @@
+// @ts-ignore
 import {
   Component,
   OnInit,
@@ -6,7 +7,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { Location } from "@angular/common";
-import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
+import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { TranslateService } from "@ngx-translate/core";
 import * as qs from "qs";
@@ -43,8 +44,8 @@ export class HeaderComponent implements OnInit {
   IS_STORE: boolean = environment.config.IS_STORE;
   AWSBUCKETURL: string = environment.config.AWSBUCKETURL;
   cartProductList: any;
-  productCount: Number;
-  subTotal: Number;
+  productCount: any;
+  subTotal: any;
   UserToken: string;
   userData: any;
   siteSettings: any;
@@ -61,6 +62,7 @@ export class HeaderComponent implements OnInit {
 
   // calling child component method in parent compenent
   @ViewChild(MenuComponent) child: MenuComponent;
+  activeMenu: any;
 
   constructor(
     private globals: Globals,
@@ -171,6 +173,20 @@ export class HeaderComponent implements OnInit {
         jQuery(".box-nav-vertical").toggleClass("show");
       });
     });
+
+      // for active url
+      this.router.events.subscribe((value) => {
+        if (value instanceof NavigationStart) {
+          if (value && value.url) {
+            let getParams = value.url.split("/");
+            //console.log(getParams);
+            this.activeMenu = getParams[1];
+            if (this.activeMenu == "") {
+              this.activeMenu = "/";
+            }
+          }
+        }
+      });
   }
 
   // get current user
@@ -195,7 +211,7 @@ export class HeaderComponent implements OnInit {
 
   setSearchKeyword(value) {
     if (value != "") {
-      this.Keyword = value;
+      this.Keyword = value.target.value;
     }
   }
 

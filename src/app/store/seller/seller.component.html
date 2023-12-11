@@ -65,7 +65,7 @@
                                                     <span class="products--view__title">Show</span>
                                                     <div class="sort-by">
                                                         <select name="sort_by" class="orderby"
-                                                            (change)="changePagination($event.target.value)">
+                                                            (change)="changePagination($event)">
                                                             <option value="20" selected="selected">20</option>
                                                             <option value="40">40</option>
                                                             <option value="60">60</option>
@@ -164,7 +164,7 @@
                                                             </div>
                                                             <div class="product-buttons">
                                                                 <div class="wrap-wishlist-button"><a
-                                                                        (click)="AddtoWishlist(storeItem.ID,storeItem.Product_Slug,WishlistModal); "
+                                                                        (click)="AddtoWishlist(storeItem.ID,storeItem.Product_Slug); "
                                                                         href="javascript:;"
                                                                         tooltip="{{'ADD_TO_WISH_LIST' | translate}}"><span>{{'ADD_TO_WISH_LIST' | translate}}</span></a>
                                                                     <div class="clear"></div>

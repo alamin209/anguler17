@@ -50,18 +50,18 @@ export class HomeFiltersComponent implements OnInit {
 
   SetProductType(stype){
     
-    this.qProductType = stype;
+    this.qProductType = stype.target.value;
     this.categoryList = [];
     
-    if(stype == 'Products'){
+    if(this.qProductType == 'Products'){
       this.getStoreCategoryList();
     }
 
-    if(stype == 'Resources'){
+    if(this.qProductType == 'Resources'){
       this.getResourcesCategories();
     }
     
-    if(stype == 'Videos'){
+    if(this.qProductType == 'Videos'){
       this.getVideosCategories();
     }
     
