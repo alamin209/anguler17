@@ -1,0 +1,120 @@
+<app-forum-banner></app-forum-banner>
+
+<section class="section--forum section--forum-sm">
+    <div class="container p-0 w-100">
+        <div class="row mb-3">
+            <div class="col-12 col-lg-9 col-md-8 col-sm-12 d-none">
+                <div class="page-head page-head-xs column start">
+                    <h2 class="u-heading--large u-heading--large-sm mb-2">{{'CHALKCHAT' | translate}}</h2>
+                    <p class="fs20 fs20-sm">{{'CHALKCHAT_DESC' | translate}}</p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-10 col-md-10 col-sm-12 col-centered">
+                <div class="d-flex w-100 justify-content-end">
+                    <a routerLink="{{'/forum/new'}}" class="button button--green button-inline button-md button--has-icon-before"><i class="fe-plus"></i> {{'START_A_NEW_TOPIC' | translate}}</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">            
+            <div class="col-12 col-lg-10 col-md-10 col-sm-12 col-centered">
+                
+                <div class="page--withSidebar page--withSidebar-sm pr-0">
+                    <div class="page-head page-head-xs column start mb-1">
+                        <h3 class="u-heading--small u-heading--small-sm">{{'TIP_FORUM' | translate}}</h3>
+                    </div>
+                    
+                    <ul class="forum--group">
+                        <li class="forum--group--items" *ngFor="let forumcat of forumcategoryList; let i = index"><a routerLink="/forum/all" [queryParams]="{category: forumcat.slug}" (click)="checkKeyParam();"  [innerHtml]="forumcat.name | safeHtml"></a></li>
+                    </ul>
+                    
+                    <div class="clearfix"></div>
+                    
+                    <div class="hr"><hr /></div>
+                </div>
+                
+                <div class="page--withSidebar page--withSidebar-sm pr-0">
+                    <div class="page-head page-head-xs align-items-center start mb-1">
+                        <h3 class="u-heading--small u-heading--small-sm">{{'TOPICS' | translate}}</h3>
+                    </div>
+                    
+                    <article *ngFor="let forum of forumList; let i = index" class="forum--post forum--post-sm">
+                        <div class="forum--post__details forum--post__details-sm">
+                            <div class="teacherinfo teacherinfo-sm">
+                                <div class="avatar avatar-sm">
+
+                                    <img *ngIf="forum && forum?.profile_picture && forum?.posted_from == 'frontend'"
+                                        src="{{ AWSBUCKETURL }}files/avatar/{{
+                                          forum?.CID
+                                        }}/{{
+                                          forum?.profile_picture
+                                        }}"
+                                        alt="{{
+                                          forum && forum && forum?.screen_name
+                                            ? forum?.screen_name
+                                            : ''
+                                        }}"
+                                      />
+                                      <img *ngIf="forum && !forum?.profile_picture  && forum?.posted_from == 'frontend'"
+                                        src="./assets/images/300_1.jpg"
+                                        alt="{{
+                                          forum && forum && forum?.screen_name
+                                            ? forum?.screen_name
+                                            : ''
+                                        }}"
+                                      />
+                                      <img *ngIf="forum && forum?.posted_from == 'backend'"
+                                        src="./assets/images/300_1.jpg"
+                                        alt="{{
+                                          forum && forum && forum?.Creater_name
+                                            ? forum?.Creater_name
+                                            : ''
+                                        }}"
+                                      />
+                                    <div class="status green"></div>
+                                    <div class="user--name" *ngIf="forum && forum?.posted_from == 'backend'">{{forum?.Creater_name}}</div>
+                                    <div class="user--name" *ngIf="forum && forum?.posted_from == 'frontend'">{{forum?.screen_name}}</div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="forum--post__desc">
+                                <h2><a routerLink="{{ '/forum/details/' + forum.slug }}" [innerHtml]="forum.title | safeHtml"></a></h2>
+                                <p [innerHtml]="forum.short_description | safeHtml"></p>
+                            </div>
+                        </div>
+                        <div class="forum--post__info forum--post__info-sm">
+                            <div class="comments">
+                                <div class="comments--bg">
+                                    {{forum?.total_comments}}
+                                    <div class="mark"></div>
+                                </div>
+                            </div>
+                            <div class="views"><i class="fe-eye"></i> {{forum?.total_hits}}</div>
+                            <div class="time"> {{forum?.created_at}}</div>                                    
+                        </div>
+                    </article>
+                    
+                    <article *ngIf="ForumNotFound" class="forum--post forum--post-sm">
+                        <div class="forum--post__details forum--post__details-sm">
+                            <div class="forum--post__desc">
+                                <p>Not any Articles yet. </p>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    
+                    <div class="clearfix"></div>
+                    
+                </div>
+            </div>
+            <!--
+            <aside class="col-12 col-lg-5 col-md-5 col-sm-12">
+                <div class="right-box">
+                    <app-tip></app-tip>
+                </div>
+            </aside>
+            -->
+        </div>
+    </div>
+</section>

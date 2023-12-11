@@ -1,0 +1,178 @@
+<div class="auth--body auth--body-md My--Profile">
+<div class="auth--body auth--body-md My--Profile">
+    <div class="auth--body__inner auth--body__inner-md">
+        <div class="container">
+            <div class="row">
+                <aside class="col-12 col-lg-3 col-xl-3">
+                    <div class="row u-mb--30 u-mb--30-sm">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <h3 class="section--title section--title-sm"><a routerLink="/member">{{'MY_ACCOUNT' | translate}}</a></h3>
+                        </div>
+                    </div>
+                    
+                    <!--Add side bar-->
+                    <app-side-bar></app-side-bar>
+                </aside>
+                <div class="col-12 col-lg-9 col-xl-9 has--leftsidebar has--leftsidebar-md">
+                    <div class="c-breadcrumb">
+                        <nav class="missio-breadcrumb">
+                            <a class="breadcrumb-link" routerLink="/">Home</a> <a class="breadcrumb-link "  routerLink="/member" >My Account</a> <a class="breadcrumb-link "  routerLink="/member/payment-options">{{'PAYMENT_OPTIONS' | translate}}</a> <span class="breadcrumb-last">{{'EDIT_CARD' | translate}}</span>
+                        </nav>
+                    </div>
+                    
+                    <div class="page-head page-head-sm">
+                        <h3 class="u-heading--small u-heading--small-sm">{{'EDIT_CARD' | translate}}</h3>
+                    </div>
+                    
+                    <div class="profile--box">
+                        <div class="portlet light">
+                            <div class="portlet--body">
+                                <div class="portlet--body--inner portlet--body--inner-sm">
+                                    
+                                    <form  id="card-form" (ngSubmit)="SaveCard(cardForm.value)" [formGroup]="cardForm" >
+                                        
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-md-4 col-sm-6 col-xs-12">
+                                                <div [ngClass]="cardForm.controls['First_Name'].dirty && cardForm.controls['First_Name'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <input type="text" class="form-control solid rounded" formControlName="First_Name" id="First_Name" name="First_Name" placeholder="{{'FIRST_NAME' | translate}}">
+                                                    <div *ngIf="cardForm.controls['First_Name'].dirty && cardForm.controls['First_Name'].errors">
+                                                        <div *ngIf="cardForm.controls['First_Name'].errors.required">
+                                                            <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-4 col-sm-6 col-xs-12">
+                                                <div [ngClass]="cardForm.controls['Last_Name'].dirty && cardForm.controls['Last_Name'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <input type="text" class="form-control solid rounded" formControlName="Last_Name" id="last_name" name="Last_Name" required placeholder="{{'LAST_NAME' | translate}}">
+                                                    <div *ngIf="cardForm.controls['Last_Name'].dirty && cardForm.controls['Last_Name'].errors">
+                                                        <div *ngIf="cardForm.controls['Last_Name'].errors.required">
+                                                            <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-4 col-sm-6 col-xs-12">
+                                                <div [ngClass]="cardForm.controls['Phone_Number'].dirty && cardForm.controls['Phone_Number'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <input *ngIf="PHONE_NUMBER_MASK" type="text" class="form-control solid rounded" formControlName="Phone_Number" id="phone" name="Phone_Number" required placeholder="{{'PHONE_NUMBER' | translate}}" mask="(000) 000-0000" (keyup)="setPhoneValue($event.target.value)">
+                                                    <input *ngIf="!PHONE_NUMBER_MASK" type="text" class="form-control solid rounded" formControlName="Phone_Number" id="phone" name="Phone_Number" required placeholder="{{'PHONE_NUMBER' | translate}}" maxlength="10"  (keyup)="setPhoneValue($event.target.value)">
+                                                    <div *ngIf="cardForm.controls['Phone_Number'].dirty && cardForm.controls['Phone_Number'].errors">
+                                                        <div *ngIf="cardForm.controls['Phone_Number'].errors.required">
+                                                            <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row justify-content-center" [ngClass]="ASK_COMPANY_NAME ? '' : 'd-none'">
+                                            <div class="col-12 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control solid rounded" id="Company_Name" formControlName="Company_Name" name="Company_Name" required placeholder="{{'COMPANY_BUSINESS' | translate}}">
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div [ngClass]="cardForm.controls['Address'].dirty && cardForm.controls['Address'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <input type="hidden" id="Latitude" formControlName="Latitude" name="Latitude" />
+                                                    <input type="hidden" id="Longitude" formControlName="Longitude" name="Longitude" />
+                                                    <input *ngIf="!GOOGLE_PLACES_SEARCH_API" type="text" class="form-control solid rounded" formControlName="Address" name="Address" required placeholder="{{'ADDRESS_1' | translate}}"> 
+                                                    <input *ngIf="GOOGLE_PLACES_SEARCH_API" type="hidden" class="form-control solid rounded" formControlName="Address" name="Address" required placeholder="{{'ADDRESS_1' | translate}}"> 
+                                                    <AutocompleteComponent *ngIf="GOOGLE_PLACES_SEARCH_API" (setAddress)="getAddress($event,'')" adressType="geocode"></AutocompleteComponent>
+                                                    
+                                                    <div *ngIf="cardForm.controls['Address'].dirty && cardForm.controls['Address'].errors">
+                                                        <div *ngIf="cardForm.controls['Address'].errors.required">
+                                                            <div class="help-block" style="display: block"> {{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control solid rounded" formControlName="Address2" id="Address2" name="Address2" required placeholder="{{'ADDRESS_2' | translate}}"> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-sm-3 col-xs-12" [ngClass]="{'col-md-6':(cardForm.controls['Country'].value && cardForm.controls['Country'].value == 'TT'),'col-md-3':(cardForm.controls['Country'].value && cardForm.controls['Country'].value != 'TT')}">
+                                                <div [ngClass]="cardForm.controls['City'].dirty && cardForm.controls['City'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <input type="text" class="form-control solid rounded" formControlName="City" id="City" name="City" required placeholder="{{'CITY' | translate}}">
+                                                    <div *ngIf="cardForm.controls['City'].dirty && cardForm.controls['City'].errors">
+                                                        <div *ngIf="cardForm.controls['City'].errors.required">
+                                                            <div class="help-block" style="display: block"> {{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-3 col-xs-12" [ngClass]="{'col-md-6':(cardForm.controls['Country'].value && cardForm.controls['Country'].value == 'TT'),'col-md-3':(cardForm.controls['Country'].value && cardForm.controls['Country'].value != 'TT')}">
+                                                <div [ngClass]="cardForm.controls['Country'].dirty && cardForm.controls['Country'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <div class="selectdropdown">
+                                                        <select class="form-control solid rounded" formControlName="Country" id="Country" name="Country" required placeholder="Country" (change)="SetBillingCountry($event.target.value);">
+                                                            <option class="placeholder" selected value="">{{'COUNTRY' | translate}}</option>
+                                                            <option *ngFor="let country of CountriesList let i = index" value="{{country.Country_Code}}">{{country.Country_Name}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div *ngIf="cardForm.controls['Country'].dirty && cardForm.controls['Country'].errors">
+                                                        <div *ngIf="cardForm.controls['Country'].errors.required">
+                                                            <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-3 col-sm-3 col-xs-12" [ngClass]="{'d-none':(cardForm.controls['Country'].value && cardForm.controls['Country'].value == 'TT')}">
+                                                <div [ngClass]="cardForm.controls['State'].dirty && cardForm.controls['State'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <div class="selectdropdown">
+                                                        <select class="form-control solid rounded" formControlName="State" id="State" name="State" required placeholder="State">
+                                                            <option class="placeholder" selected value="">{{'STATE' | translate}}</option>
+                                                            <option *ngFor="let state of statesList let i = index" value="{{state.State_Name}}"> {{state.State_Name}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div *ngIf="cardForm.controls['State'].dirty && cardForm.controls['State'].errors">
+                                                        <div *ngIf="cardForm.controls['State'].errors.required">
+                                                            <div class="help-block" style="display: block"> {{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-3 col-sm-3 col-xs-12" [ngClass]="{'d-none':(cardForm.controls['Country'].value && cardForm.controls['Country'].value == 'TT')}">
+                                                <div [ngClass]="cardForm.controls['ZipCode'].dirty && cardForm.controls['ZipCode'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <input type="text" class="form-control solid rounded" formControlName="ZipCode" id="ZipCode" name="ZipCode" required placeholder="{{'ZIP' | translate}}">
+                                                    <div class="d-none" *ngIf="cardForm.controls['ZipCode'].dirty && cardForm.controls['ZipCode'].errors">
+                                                        <div *ngIf="cardForm.controls['ZipCode'].errors.required">
+                                                            <div class="help-block" style="display: block"> {{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="row justify-content-start u-align-center">
+                                            
+                                            <div class="col-12 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="form-group u-flexed u-align-center">
+                                                    <button type="submit" class="button button--green button-md">{{'SAVE' | translate}}</button>
+                                                    <button type="button" routerLink="/member/payment-options" class="button button--grey button-md u-ml--10">{{'CANCEL' | translate}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

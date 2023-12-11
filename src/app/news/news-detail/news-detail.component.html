@@ -1,0 +1,261 @@
+<div class="sectionhead sectionhead-xs mb-0 d-none">
+  <picture>
+    <img
+      alt="Resources"
+      class="lazy img-fluid"
+      src="../assets/images/Parallax/Parallax_05.jpg"
+    />
+  </picture>
+  <div class="sectionhead--inner">
+    <div class="container">
+      <header class="sectionhead__name sectionhead__name-xs">
+        <h1 class="entry-title">Events and Seminars</h1>
+        <p class="text-white">
+          Attend live streaming events, online workshops, pre-recorded content
+          and listen to other teacher’s as they share their experiences and
+          learning opportunities.
+        </p>
+      </header>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+
+<!-- Begin Home Page Content Area -->
+<section
+  class="Blog--Section Blog--Section-sm System-Single-Page Right--Sidebar--Enabled"
+>
+  <div class="sidebar--enabled"></div>
+  <div class="container">
+    <div class="row" *ngIf="newsdetail && newsdetail.title">
+      <div
+        class="col-12 col-lg-9 col-md-9 col-sm-12 col-xs-12 padding-30px-right xs-padding-15px-right"
+      >
+        <div class="blogs js-enabledBlog">
+          <div class="posts pb-4">
+            <div class="post">
+              <div class="post__content">
+                <div class="post-meta">
+                  <div class="post-title">
+                    <h2
+                      class="h2 h2-sm"
+                      [innerHtml]="newsdetail.title | safeHtml"
+                    ></h2>
+                  </div>
+                  <ul class="meta">
+                    <li>
+                      <span><i class="fe-user" aria-hidden="true"></i></span
+                      >&nbsp;<span rel="author"> {{ newsdetail.author }}</span>
+                    </li>
+
+                    <li>
+                      <span><i class="fe-calendar" aria-hidden="true"></i></span
+                      >&nbsp;<time
+                        class="updated"
+                        datetime="2018-04-20T08:43:04+00:00"
+                        >{{ newsdetail.created_at }}</time
+                      >
+                    </li>
+
+                    <li>
+                      <span
+                        ><i class="fe-message-square" aria-hidden="true"></i> 0
+                        Comments</span
+                      >
+                    </li>
+                  </ul>
+                </div>
+                  
+                <div class="meta-post-categories meta-post-categories-sm">
+                    <a *ngFor="let post_category of post_categories let i=index" routerLink="/blog" [queryParams]="{category: post_category.slug}"  class="level-top" [innerHtml]="post_category.name+((post_categories.length > i+1)?'':'') | safeHtml"></a> 
+                </div>
+
+                <picture *ngIf="!newsdetail?.video_file && !newsdetail?.video_url && newsdetail.image" class="post__img"><span class="imagewash"></span>
+                  <!--[if IE 9]><video style="display: none;"><![endif]-->
+                  <source
+                    srcset="{{(newsdetail && newsdetail.image) ? PORTAL_URL + 'files/blog/' + newsdetail.CID + '/large_2x_' + newsdetail.image : './assets/images/news/detail.jpg'}}"
+                    media="(min-width: 800px)"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset="{{(newsdetail && newsdetail.image) ? PORTAL_URL + 'files/blog/' + newsdetail.CID + '/large_2x_' + newsdetail.image : './assets/images/news/detail.jpg'}}"
+                    media="(min-width: 800px)"
+                  />
+                  <source
+                    srcset="{{(newsdetail && newsdetail.image) ? PORTAL_URL + 'files/blog/' + newsdetail.CID + '/large_' + newsdetail.image : './assets/images/news/detail.jpg'}}"
+                    media="(min-width: 400px)"
+                  />
+                  <!--[if IE 9]></video><![endif]-->
+                  <img *ngIf="newsdetail && newsdetail.image"
+                    class="img-fluid"
+                    alt="Featured Image"
+                    src="{{
+                      newsdetail && newsdetail.image
+                        ? PORTAL_URL +
+                          'files/blog/' +
+                          newsdetail.CID +
+                          '/large_' +
+                          newsdetail.image
+                        : './assets/images/news/detail.jpg'
+                    }}"
+                  />
+                </picture>
+                <div class="video-responsive video-responsive-sm position-relative" *ngIf="newsdetail?.video_file">
+                    <video width="100%" height="100%" id="S3Video" plays-inline controls loop controls="true" >
+                        <source type="video/{{newsdetail?.video_type}}" src="{{bucketURL+'files/videos/'+newsdetail?.CID+'/'+newsdetail?.video_file}}" /> </video>
+                    
+                </div>
+
+                <!-- YT Video -->
+                <div class="yt--video yt--video-sm" *ngIf="newsdetail?.video_id && newsdetail?.video_file == ''">
+                    <iframe width="100%" height="100%" id="YVideo"  controls=0 [src]="VideoURL"></iframe>
+                </div>
+
+                <br>
+                <div
+                  class="post--cont"
+                  [innerHtml]="newsdetail.description | safeHtml"
+                ></div>
+              </div>
+            </div>
+            <div class="sharethis-inline-share-buttons" attr.data-url="{{ogurl}}"></div>
+            
+          </div>
+        </div>
+
+        <!--Product reviews sectons start here -->
+        <div *ngIf="newsdetail && newsdetail.ID">
+          <app-comments [NewsID]="newsdetail.ID" [NewsComments]="NewsComments"></app-comments>
+        </div>
+        <!--Product reviews sectons start end -->
+      </div>
+
+      <!-- Sidebar -->
+      <aside
+        class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 content-with-sidebar content-with-sidebar-xs"
+      >
+        <!--
+        <div class="sidebar--widget sidebar--widget-xs">
+          <div class="sidebar--widget__search">
+            <div class="input-group">
+              <input
+                (keyup)="SearchByKeywordEnter($event)"
+                value="{{ Keyword }}"
+                class="form-control js-typeahead"
+                (input)="SearchBlogValue($event.target.value)"
+                name="q"
+                type="search"
+                autofocus=""
+                autocomplete="off"
+                placeholder="Search options..."
+              />
+
+              <div class="input-group-append">
+                <button
+                  (click)="SearchByKeyword()"
+                  type="button"
+                  class="button button--black"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        -->
+        <div class="sidebar--widget sidebar--widget-xs">
+          <h2 class="sidebar--widget__subtitle">{{ "CATEGORIES" | translate }}</h2>
+          <div class="sidebar--widget__content">
+            <ul class="sidebar--widget__categories">
+                <li *ngFor="let newscategory of newscategoryList let i=index" class="sidebar--widget__categories--items">
+                    <a [ngClass]="{'is-active': newscategory.slug ==CateGorySearch}" routerLink="/blog" [queryParams]="{category: newscategory.slug}" class="level-top" [innerHtml]="newscategory.name | safeHtml"></a>
+                </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sidebar--widget sidebar--widget-xs">
+          <h2 class="sidebar--widget__subtitle">{{ "RECENT_POSTS" | translate }}</h2>
+          <div class="sidebar--widget__content">
+            <ul class="sidebar--widget__blogLists">
+              <li
+                *ngFor="let recentnews of recentnewsList; let i = index"
+                class="sidebar--widget__blogLists--items"
+              >
+                <a
+                  routerLink="{{ '/blog/post/' + recentnews.slug }}"
+                  class="widget-item-image"
+                >
+                  <img srcset="{{
+                    (recentnews && recentnews.image)
+                      ? PORTAL_URL +
+                        'files/blog/' +
+                        recentnews.CID +
+                        '/small_' +
+                        recentnews.image
+                      : './assets/images/news/detail.jpg'
+                  }}, {{
+                    (recentnews && recentnews.image)
+                      ? PORTAL_URL +
+                        'files/blog/' +
+                        recentnews.CID +
+                        '/small_' +
+                        recentnews.image
+                      : './assets/images/news/detail.jpg'
+                  }} 1.5x, {{
+                    (recentnews && recentnews.image)
+                      ? PORTAL_URL +
+                        'files/blog/' +
+                        recentnews.CID +
+                        '/small_' +
+                        recentnews.image
+                      : './assets/images/news/detail.jpg'
+                  }} 2x"
+                  src="{{
+                    recentnews && recentnews.image
+                      ? PORTAL_URL +
+                        'files/blog/' +
+                        recentnews.CID +
+                        '/small_' +
+                        recentnews.image
+                      : './assets/images/news/detail.jpg'
+                  }}"
+                  width="63"
+                  height="63"
+                />
+                </a>
+                <div class="widget-item-info">
+                  <h3 class="product-title">
+                    <a
+                      routerLink="{{ '/blog/post/' + recentnews.slug }}"
+                      [innerHtml]="recentnews.title | safeHtml"
+                    ></a>
+                  </h3>
+                  <div class="star-rating widget-rating">
+                    <span class="star-badge">
+                      <span class="star-badge-wrap">{{
+                        recentnews.created_at
+                      }}</span>
+                    </span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+          
+          <div class="sidebar--widget sidebar--widget-xs" *ngIf="newstagsList && newstagsList.length">
+            <h2 class="sidebar--widget__subtitle">{{ "SHARE_US" | translate }}</h2>
+              <ul class="sidebar--widget__social">
+                <li class="facebook"><a href="{{'https://'+siteSettings?.facebook}}" target="_blank"><i class="fe-facebook"></i></a></li>
+                <li class="twitter"><a href="{{'https://'+siteSettings?.twitter}}"><i class="fe-twitter"></i></a></li>
+                <li class="linkedin"><a href="{{'https://'+siteSettings?.LinkedIn}}"><i class="fe-linkedin"></i></a></li>
+                <li class="instagram"><a href="{{'https://'+siteSettings?.instagram}}"><i class="fe-instagram"></i></a></li>
+            </ul>
+          </div>
+      </aside>
+    </div>
+  </div>
+</section>
+<!-- //End Home Page Content Area -->
+<div class="clearfix"></div>

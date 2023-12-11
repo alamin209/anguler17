@@ -1,0 +1,27 @@
+<div class="hero__inner large large-xs overlay u-image--cover" style="background: rgba(0, 0, 0, 0) url('./assets/images/Parallax/Parallax_06.png') no-repeat center right;">
+    <div class="container">
+        <header class="hero__inner--content hero__inner--content-xs">
+            <div class="subhead subhead-xs text-white">
+                <h1 class="subhead subhead-xs u-upper">{{'FAQS' | translate}}</h1>
+            </div>
+        </header>
+    </div>
+</div>
+
+<section *ngIf="Faqs && Faqs.length" class="section__60 section__60-sm">
+    <div class="container faqs">
+        <div class="faq">
+            <div class="faq-inner" *ngFor="let Faqs of Faqs; let i=index ">
+                <div class="question"><h2 [innerHtml]="((Faqs && Faqs.Title)? Faqs.Title : '') | safeHtml"></h2></div>
+                <div class="answer">
+                    <!--<div *ngIf="Faqs.Image">
+                        <div class="author--image">
+                            <img alt="Author" class="img-fluid" src="{{PORTAL_URL+'/files/faqs/'+CID+'/'+Faqs.Image}}" />
+                        </div>
+                    </div>-->
+                    <div [innerHtml]="((Faqs && Faqs.Description)? Faqs.Description : '') | safeHtml"></div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

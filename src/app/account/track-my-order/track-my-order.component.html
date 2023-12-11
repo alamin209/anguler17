@@ -1,0 +1,153 @@
+<div class="auth--body auth--body-md My--Profile Order--History checkout--Page checkout--Page-sm">
+    <div class="auth--body__inner auth--body__inner-md">
+        <div class="container">
+            <div class="row">
+                <aside class="col-12 col-lg-3 col-xl-3">
+                    <div class="row u-mb--30 u-mb--30-sm">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <h3 class="section--title section--title-sm">{{'MY_ACCOUNT' | translate}}</h3>
+                        </div>
+                    </div>
+                    <!--Add side bar-->
+                    <app-side-bar></app-side-bar>
+                </aside>
+                <div class="col-12 col-lg-9 col-xl-9 has--leftsidebar has--leftsidebar-md">
+                    <div class="c-breadcrumb">
+                        <nav class="missio-breadcrumb">
+                            <a class="breadcrumb-link"routerLink="/">Home</a> <a class="breadcrumb-link "
+                                routerLink="/member/profile">{{'MY_DASHBOARD' | translate}}</a>
+                            <a class="breadcrumb-link " routerLink="/member/order-history">{{'ORDERS' | translate}}</a>
+                            <span class="breadcrumb-last">{{'TRACK_MY_ORDER' | translate}}</span>
+                        </nav>
+                    </div>
+                    <div class="page-head page-head-sm">
+                        <h3 class="u-heading--small u-heading--small-sm">{{'TRACK_MY_ORDER' | translate}}</h3>
+                    </div>
+                    <div class="Track--Package">
+                        <div class="row u-align-center">
+                            <div class="col-12 col-sm-9">
+                                <!-- Begin Vertical Wizard -->
+                                <div class="track__timeline">
+                                    <div class="track__timeline--bar"></div>
+                                    <!--This for LTL API -->
+                                    <ul *ngIf="shippingData && shippingData.ShippingType == 'LTL'">
+                                        <li class="completed">
+                                            <div class="milestone-content">
+                                                <p *ngIf="shippingData && shippingData.Order_Date">Ordered
+                                                    {{shippingData.Order_Date}}</p>
+                                            </div>
+                                        </li>
+                                        <li class="completed" *ngFor="let item of trackingDetailData; let i=index">
+                                            <div class="milestone-content">
+                                                <p>{{item?.message}}</p>
+                                                <p class="small">{{item?.code}} {{item?.date}} </p>
+                                            </div>
+                                        </li>
+                                        <li class="active"
+                                            *ngIf="trackingData && trackingData.TrackingResponse && trackingData.TrackingResponse.responses && trackingData.TrackingResponse.responses.response && trackingData.TrackingResponse.responses.response.message">
+                                            <div class="column milestone-content">
+                                                <p>
+                                                    {{trackingData.TrackingResponse.responses.response.message}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                    <!--This for UPS API -->
+                                    <ul *ngIf="shippingData && shippingData.ShippingType == 'UPS'">
+                                        <li class="completed">
+                                            <div class="milestone-content">
+                                                <p *ngIf="trackingData && trackingData.Order_Date">Ordered
+                                                    {{trackingData.Order_Date}}</p>
+                                            </div>
+                                        </li>
+                                        <li class="completed"
+                                            *ngIf="upsShippingData && upsShippingData.Activity && upsShippingData.Activity.ActivityLocation">
+                                            <div class="milestone-content">
+                                                <p>{{upsShippingData?.Activity?.ActivityLocation?.Address?.City}},
+                                                    {{upsShippingData?.Activity?.ActivityLocation?.Address?.PostalCode}},
+                                                    {{upsShippingData?.Activity?.ActivityLocation?.Address?.CountryCode}}
+                                                </p>
+                                                <p class="small">{{upsShippingData?.Activity?.ActivityLocation?.Code}},
+                                                    {{upsShippingData?.Activity?.ActivityLocation?.Description}}</p>
+                                            </div>
+                                        </li>
+                                        <li class="completed"
+                                            *ngIf="upsShippingData && upsShippingData.Activity && upsShippingData.Activity.Status">
+                                            <div class="milestone-content">
+                                                <p>
+                                                    {{upsShippingData?.Activity?.Status?.StatusCode?.Code}},
+                                                    {{upsShippingData?.Activity?.Status?.StatusType?.Description}}
+                                                </p>
+                                                <p class="small">
+                                                    {{upsShippingData?.Activity?.Date}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="active"
+                                            *ngIf="trackingData && trackingData.TrackingResponse && trackingData.TrackingResponse.Response && trackingData.TrackingResponse.Response.Error && trackingData.TrackingResponse.Response.Error.ErrorDescription">
+                                            <div class="column milestone-content">
+                                                <p>
+                                                    {{trackingData.TrackingResponse.Response.Error.ErrorDescription}}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <!-- //End Vertical Wizard -->
+                            </div>
+                            <div class="col-12 col-sm-3" *ngIf="productImage && productImage.ImageUrl">
+                                <a routerLink="{{'/shop/product/p/'+productData.Product_Slug}}"
+                                    class="Ordered--Product"><img [src]="productImage.ImageUrl" class="img-fluid"
+                                        alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card_buttons u-mt--40">
+                        <div class="card_buttons__items card_buttons__items-sm" *ngIf="shippingData">
+                            <div class="card_buttons__items--inner">
+                                <div class="card_buttons--body__full">
+                                    <h3 class="card_buttons--title card_buttons--title-sm u-mb--20">Shipping Address
+                                    </h3>
+                                    <div class="shippingAddress">
+                                        <p class="u-mb--10">
+                                            {{(shippingData.Shipping_First_Name) ? shippingData.Shipping_First_Name : '' }}
+                                            {{(shippingData.Shipping_Last_Name) ? ' '+ shippingData.Shipping_Last_Name : '' }}
+                                            <br>
+                                            <strong class="u-capitalize">
+                                                <span style="color:#999;">{{shippingData?.Shipping_Company_Name}}
+                                                </span>
+                                            </strong>
+                                            <br>
+                                            {{(shippingData.Shipping_Address) ? shippingData.Shipping_Address : '' }}<br>
+                                            <span
+                                                [innerHtml]="(shippingData.Shipping_Address2) ? ((shippingData.Shipping_Address2 + '<br>') | safeHtml) : ''"></span>
+                                            {{(shippingData.Shipping_City) ? shippingData.Shipping_City+',' : '' }}
+                                            {{(shippingData.Shipping_State) ? shippingData.Shipping_State : '' }}
+                                            {{(shippingData.Shipping_Zip) ? shippingData.Shipping_Zip : '' }}<br>
+                                            {{'US' | translate}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card_buttons__items card_buttons__items-sm">
+                            <div class="card_buttons__items--inner">
+                                <div class="card_buttons--body__full">
+                                    <h3 class="card_buttons--title card_buttons--title-sm u-mb--20" *ngIf='shippingData && shippingData.BolNumber'>Tracking ID: {{shippingData?.BolNumber}}</h3> 
+                                    
+                                    <div class="shippingAddress u-mt--20">
+                                        <a routerLink="{{'/member/order-detail/'+orderId}}"  class="button button-md button--black button-radius u-mb--10">View Order
+                                            Details</a>
+                                        <!--<a href="javascript:;" class="button button-md button--green button-radius u-mb--10">Cancel Order</a>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,462 @@
+/* Begin page head style */
+.page-head {
+  $pageHeadSelf: &;
+
+  z-index: 1;
+  @include flexbox();
+  position: relative;
+  @include font-size(13);
+  line-height: 18px;
+  @include margin-bottom(20);
+  @include padding-bottom(12);
+  @include align-items(flex-start);
+  @include justify-content(center);
+  @include flex-direction(column, vertical);
+
+  &.noborder {
+    border-bottom: 0px none;
+    @include padding-bottom(0);
+  }
+
+  &.border-bottom {
+    @include padding-bottom(10);
+    border-bottom: 1px solid $border;
+  }
+
+  @include responsive(xs) {
+    @include margin-bottom(25);
+    @include align-items(flex-start);
+    @include flex-direction(column, vertical);
+
+    @include respond-to(sm) {
+      @include align-items(flex-start);
+      @include flex-direction(column, vertical);
+
+      @include respond-to(md) {
+        @include align-items(center);
+        @include flex-direction(row, horizontal);
+      }
+    }
+  }
+
+  &.start,
+  &.flexstart {
+    @include align-items(flex-start);
+    @include justify-content(flex-start);
+  }
+
+  &.center {
+    @include align-items(center);
+    @include justify-content(center);
+  }
+
+  &.column {
+    @include flex-direction(column, vertical);
+  }
+
+  &--link {
+    color: $primary;
+    font-style: normal;
+    @include font-size(13);
+    line-height: 18px;
+    @include margin-left(5);
+    font-weight: $weightSemibold;
+    @include transition(all 0.3s ease);
+
+    &:hover,
+    &:focus {
+      color: $primary;
+    }
+  }
+
+  .fs20 {
+    color: $greyish;
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: $weightLight;
+
+    @include responsive(sm) {
+      @include font-size(18);
+
+      @include respond-to(md) {
+        @include font-size(19);
+
+        @include respond-to(md) {
+          @include font-size(20);
+        }
+      }
+    }
+  }
+
+  .u-heading--huge,
+  .u-heading--exlarge,
+  .u-heading--large,
+  .u-heading--medium,
+  .u-heading--small,
+  .u-heading--exsmall {
+    color: $black;
+    margin-top: 0px !important;
+    letter-spacing: 1px !important;
+    font-weight: $weightUltrabold !important;
+    font-family: $headingFont !important;
+  }
+
+  .u-heading--huge {
+    z-index: 2;
+    width: 100%;
+    font-style: normal;
+    position: relative;
+    @include font-size(40);
+    line-height: 1;
+    letter-spacing: 0.075em;
+    @include margin-bottom(20);
+    font-weight: $weightMedium;
+    font-family: $headingFont !important;
+
+    strong {
+      font-weight: $weightBold;
+    }
+
+    @include responsive(sm) {
+      @include font-size(50);
+
+      @include respond-to(md) {
+        @include font-size(60);
+
+        @include respond-to(md) {
+          @include font-size(70);
+        }
+      }
+    }
+
+    &.start {
+      @include justify-content(flex-start);
+    }
+  }
+
+  .u-heading--exlarge {
+    color: $greyish;
+    @include font-size(35);
+    line-height: 1;
+    font-weight: $weightBold;
+
+    @include responsive(xs) {
+      @include font-size(40);
+
+      @include respond-to(sm) {
+        @include font-size(50);
+
+        @include respond-to(md) {
+          @include font-size(60);
+
+          @include respond-to(md) {
+            @include font-size(70);
+          }
+        }
+      }
+    }
+
+    small {
+      font-size: 80%;
+      @include opacity(0.7);
+    }
+  }
+
+  .u-heading--large {
+    @include font-size(26);
+    line-height: 1;
+    font-weight: $weightLight;
+    @include margin-bottom(0);
+    letter-spacing: 2px !important;
+    font-family: $headingFont !important;
+
+    strong {
+      font-weight: $weightBold;
+    }
+
+    @include responsive(sm) {
+      @include font-size(32);
+
+      @include respond-to(md) {
+        @include font-size(40);
+      }
+    }
+  }
+
+  .u-heading--medium {
+    @include font-size(24);
+    line-height: 1;
+    font-weight: $weightBold;
+    @include margin-bottom(0);
+    font-family: $headingFont !important;
+
+    @include responsive(sm) {
+      @include font-size(30);
+
+      @include respond-to(md) {
+        @include font-size(36);
+      }
+    }
+  }
+
+  .u-heading--small {
+    @include font-size(20);
+    line-height: 1;
+    font-weight: $weightBold;
+    @include margin-bottom(0);
+    letter-spacing: 0em !important;
+    font-family: $headingFont !important;
+
+    @include responsive(sm) {
+      @include font-size(22);
+
+      @include respond-to(md) {
+        @include font-size(24);
+      }
+    }
+    &.upper {
+      text-transform: uppercase !important;
+    }
+  }
+
+  .u-heading--exsmall {
+    @include font-size(16);
+    line-height: 1;
+    font-weight: $weightBold;
+    letter-spacing: 2px !important;
+    font-family: $headingFont !important;
+
+    @include responsive(sm) {
+      @include font-size(18);
+    }
+  }
+
+  &--actions {
+    @include flexbox();
+    @include padding(0);
+    @include font-size(15);
+    @include margin-top(10);
+    margin-left: 0px !important;
+
+    @include responsive(xs) {
+      @include margin(0);
+    }
+  }
+
+  &--actions {
+    @include flexbox();
+    @include padding(0);
+    @include font-size(15);
+    @include margin-top(10);
+    margin-left: 0px !important;
+
+    @include responsive(xs) {
+      @include margin(0);
+    }
+  }
+}
+
+.sectionTitle-wrapper {
+  text-align: left;
+  @include margin-bottom(20);
+  @include padding-bottom(0);
+
+  @include responsive(sm) {
+    @include margin-bottom(30);
+  }
+
+  .heading--title {
+    color: $blue;
+    text-align: left;
+    position: relative;
+    font-style: normal;
+    @include font-size(30);
+    line-height: 1;
+    letter-spacing: 0;
+    @include margin-bottom(0);
+    font-family: $primaryFont;
+
+    @include responsive(sm) {
+      @include font-size(40);
+
+      @include respond-to(md) {
+        @include font-size(50);
+      }
+    }
+
+    span {
+      width: 100%;
+      display: inline-block;
+    }
+
+    &--medium {
+      text-align: left;
+      color: $black_sh1;
+      position: relative;
+      letter-spacing: 0.1em;
+      @include font-size(20);
+      font-weight: $weightBold;
+      @include padding-bottom(5);
+      font-family: $primaryFont;
+
+      @include responsive(sm) {
+        @include font-size(22);
+
+        @include respond-to(md) {
+          @include font-size(24);
+        }
+      }
+    }
+
+    &--semiMedium {
+      color: $white;
+      @include font-size(26);
+      letter-spacing: 0.035em;
+      font-weight: $weightUltabold;
+
+      @include responsive(xs) {
+        @include font-size(30);
+
+        @include respond-to(sm) {
+          @include font-size(35);
+
+          @include respond-to(md) {
+            @include font-size(40);
+
+            @include respond-to(lg) {
+              @include font-size(50);
+            }
+          }
+        }
+      }
+    }
+
+    &--small {
+      color: $white;
+      @include font-size(16);
+      letter-spacing: 0.035em;
+      font-weight: $weightBold;
+
+      @include responsive(xs) {
+        @include font-size(18);
+
+        @include respond-to(sm) {
+          @include font-size(20);
+
+          @include respond-to(md) {
+            @include font-size(20);
+          }
+        }
+      }
+    }
+  }
+
+  .heading--description {
+    color: $greyish;
+    @include font-size(16);
+    line-height: 1;
+    font-weight: $weightRegular;
+
+    @include responsive(xs) {
+      @include font-size(18);
+    }
+  }
+
+  &.center {
+    text-align: center;
+
+    .heading--title {
+      color: $black;
+      text-align: center;
+      font-family: $banneFont !important;
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+}
+
+.sectionTitle-wrapper {
+  .heading--title {
+    &--medium,
+    &--semiMedium,
+    &--small {
+      letter-spacing: 0 !important;
+      font-family: $headingFont !important;
+      font-weight: $weightBold !important;
+    }
+  }
+}
+
+.page--title {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  font-family: $banneFont;
+  @include margin-bottom(10);
+
+  h3,
+  h4 {
+    color: $white;
+    @extend .ls25;
+    @include font-size(60);
+    line-height: 40px;
+    font-family: $primaryFont;
+    @include margin-bottom(10);
+    font-weight: $weightRegular;
+  }
+
+  &.text--black {
+    h3,
+    h4 {
+      color: $grey;
+    }
+
+    h3 {
+      @include font-size(34);
+      line-height: 1.35;
+    }
+  }
+
+  p {
+    color: $white;
+    font-style: italic;
+    @include font-size(18);
+    font-weight: $weightBold;
+    font-family: $primaryFont;
+
+    &:last-child,
+    &:only-child {
+      @include margin-bottom(10);
+    }
+  }
+}
+
+.fancy--text {
+  h2 {
+    position: relative;
+
+    &:before {
+      left: 50%;
+      content: " ";
+      bottom: -15px;
+      position: absolute;
+      @include size(150px, 5px);
+      background-color: $red;
+      @include transform(translateX(-50%));
+    }
+  }
+}
+
+.three--ws,
+.work--with--luke,
+.section.white.u-pb--0 {
+  .sectionTitle-wrapper,
+  .page-head {
+    border-bottom: 0px none;
+    @include padding-bottom(0);
+  }
+}
+
+/* End page head style */

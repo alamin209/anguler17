@@ -1,0 +1,321 @@
+<style type="text/css">@media (min-width:1200px){app-my-account{min-height:550px!important}}</style>
+
+<div class="content__wrap content__wrap-sm">
+    <div class="Shop__Listings Shop__Listings-xs memberResource">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="page-head flex-row">
+                        <h3 class="u-heading--medium u-heading--medium-sm no-upper">{{"MY_LISTINGS" | translate}}</h3>
+                        
+                        <div class="w-60 ml-auto">
+                            
+                            <a style="float: left;" href="/member/profile" class="button button--green button-sm button-radius mr-2"><i class="fe-layers mr-2"></i>Dashboard</a>
+
+                            <!-- <a style="float: left;" href="/shop/seller/{{currentUser?.first_name ? currentUser?.first_name+'-' : ''}}{{currentUser?.last_name ? currentUser?.last_name+'-' : ''}}{{currentUser?.id}}" class="button button--grey button-sm button-radius mr-2"><i class="fe-eye mr-2"></i>My Shop</a>
+                            <a routerLink="/member/products/type" class="button button--green button-sm button-radius"><i class="fe-plus mr-2"></i>Add New Product</a> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-product-listing">
+                <div class="col-12 col-lg-3 col-md-3">
+                    <div class="w-100 category-widget mb-5">
+                        <h3 class="category-title mb-3">Product Type</h3>
+                        <ul class="resources--group">
+                            <li class="resources--group-items" *ngIf="userPackage && userPackage.SellerPackage == 'Yes'">
+                                <div class="w-100 d-flex align-items-center">
+                                    <div class="radio mb-0">
+                                        <input  (click)="SetProductType('Physical')" type="radio" id="Physical" name="CategoryProducts" value="Physical" >
+                                        <label for="Physical">Products</label>
+                                    </div>
+                                    <span class="text-dark-50 ml-auto mr-2">{{totalPros}}</span>
+                                </div>
+                            </li>
+                            <li class="resources--group-items" *ngIf="userPackage && userPackage.SellerPackage == 'Yes'">
+                                <div class="w-100 d-flex align-items-center">
+                                    <div class="radio mb-0" >
+                                        <input (click)="SetProductType('Digital')" type="radio" id="Digital" name="CategoryProducts" value="Digital">
+                                        <label for="Digital">Digital Products</label>
+                                    </div>
+                                    <span class="text-dark-50 ml-auto mr-2">{{totalDigPros}}</span>
+                                </div>
+                            </li>
+                            
+                            <li class="resources--group-items">
+                                <div class="w-100 d-flex align-items-center">
+                                    <div class="radio mb-0" >
+                                        <input (click)="SetProductType('Videos')" type="radio" id="Videos" name="CategoryProducts" value="Videos">
+                                        <label  for="Videos">Videos</label>
+                                    </div>
+                                    <span class="text-dark-50 ml-auto mr-2">{{totalVideos}}</span>
+                                </div>
+                            </li>
+                            <li class="resources--group-items">
+                                <div class="w-100 d-flex align-items-center">
+                                    <div class="radio mb-0" >
+                                        <input (click)="SetProductType('Resources')" type="radio" id="Resources" name="CategoryProducts" value="Resources">
+                                        <label for="Resources">Resources</label>
+                                    </div>
+                                    <span class="text-dark-50 ml-auto mr-2">{{totalResources}}</span>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                    </div>
+
+                    <div class="w-100 category-widget mb-4 d-none">
+                        <h3 class="category-title mb-3">Product Status</h3>
+                        <ul class="resources--group">
+                            <li class="resources--group-items">
+                                <div class="w-100 d-flex align-items-center">
+                                    <div class="checkbox checkbox-primary mb-0">
+                                        <input type="checkbox" id="CategoryFeatured" name="CategoryFeatured" value="CategoryFeatured">
+                                        <label for="CategoryFeatured">Featured</label>
+                                    </div>
+                                    <span class="text-dark-50 ml-auto mr-2">0</span>
+                                </div>
+                            </li>
+                            <li class="resources--group-items">
+                                <div class="w-100 d-flex align-items-center">
+                                    <div class="checkbox checkbox-primary mb-0">
+                                        <input type="checkbox" id="CategoryActive" name="CategoryActive" value="CategoryActive">
+                                        <label for="CategoryActive">Active</label>
+                                    </div>
+                                    <span class="text-dark-50 ml-auto mr-2">0</span>
+                                </div>
+                            </li>
+                            <li class="resources--group-items">
+                                <div class="w-100 d-flex align-items-center">
+                                    <div class="checkbox checkbox-primary mb-0">
+                                        <input type="checkbox" id="CategoryInActive" name="CategoryInActive" value="CategoryInActive">
+                                        <label for="CategoryInActive">InActive</label>
+                                    </div>
+                                    <span class="text-dark-50 ml-auto mr-2">0</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-9 col-md-9">
+                    <div class="w-100 pl-md-5">
+                        <div class="row justify-content-between" >
+                            <div class="col-md-6">
+                                <div class="my-products-search form-group mb-4 mb-md-0">
+                                    <form class="my-products-search-form form-horizontal">
+                                        <div class="my-products-search-form-wrapper">
+
+                                            <input type="text" class="form-control" id="search" name="search"  placeholder="Enter keyword to search here" (input)="setSearchKeyword($event.target.value)" (keyup)="SearchEnter($event)" value="{{ Keyword }}">
+                                            <button type="button" class="my-products-search-button" (click)="SearchByKeyword()"><span class="fe-search"></span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="col-md-5 d-flex justify-content-md-end ">
+                                <div class="my-products-sort form-group mb-0">
+                                    <label for="MyProductsOrder" class="mb-0 mr-2">Sort</label>
+                                    <div class="selectdropdown">
+                                        <select class="NativeSelect" id="MyProductsOrder" name="MyProductsOrder">
+                                            <option selected="" value="MOST_RECENTLY_POSTED">Most Recently Posted</option><option value="LAST_MODIFIED">Last Modified Date</option><option value="PRICE_ASCENDING">Price (low to high)</option><option value="PRICE_DESCENDING">Price (high to low)</option><option value="ALPHABETICAL">Alphabetically</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+
+                        </div>
+
+                        <div class="my-products-layouts w-100 mt-5" *ngIf="ProductType == 'Physical' || ProductType == 'Digital'">
+                            <div class="text-center product-not-found product-not-found-sm u-mt--40" *ngIf="productNFound">
+                                {{'FILTER_ZERO_RESULTS' | translate}}
+                            </div>
+                            <div class="my-products-layouts-lists" *ngIf="productsList && productsList.length">
+                                <div class="my-products-layouts-lists-item" *ngFor="let storeItem of productsList let i=index">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="w-100 d-flex">
+                                                <div class="my-products-layouts-image">
+                                                    <a routerLink="{{'/shop/product/p/'+storeItem.Product_Slug}}"><img class="img-fluid" src="{{storeItem.imageUrl}}" alt="{{storeItem.Product_Name}}"></a>
+                                                </div>
+                                                <div class="w-100 d-flex flex-column py-3">
+                                                    <h3 class="mb-2 font-size-lg"><a class="link-primary"  routerLink="{{'/shop/product/p/'+storeItem.Product_Slug}}">{{storeItem.Product_Name}}</a></h3>
+                                                    <div class="w-100 d-flex mb-2">
+                                                      <div *ngIf="storeItem && storeItem?.Product_Status == 1" class="d-flex align-items-center badge badge-success mr-2">Active</div>
+                                                      <div *ngIf="storeItem && storeItem?.Product_Status == 0" class="d-flex align-items-center badge badge-warning mr-2">Inactive</div>
+                                                      
+                                                    </div>
+
+                                                    <div class="d-flex align-items-center"><a class="button-link" href="javascript:void(0);" (click)="editProduct(storeItem.ID)">Edit</a> <span class="ml-2 mr-2">|</span> <a class="button-link text-red" href="javascript:void(0);" (click)="deleteProduct(storeItem.ID)">Delete</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-6 mobile-half">
+                                                    <div class="w-100 d-flex flex-column py-3">
+                                                        <div class="text-dark-50 mb-3">Last Modified</div>
+                                                        <div><i class="fe-clock mr-2"></i>{{storeItem.Product_UpdatedOn != '' ? storeItem.Product_UpdatedOn : '-'}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mobile-half">
+                                                    <div class="w-100 d-flex flex-column py-3">
+                                                        <div class="text-dark font-weight-bolder mb-3" *ngIf="(storeItem && (storeItem.DiscountType=='amount' || storeItem.DiscountType=='percent'))">${{storeItem.Discount_Price}}</div>
+                                                        <div class="text-dark font-weight-bolder mb-3" *ngIf="!(storeItem && (storeItem.DiscountType=='amount' || storeItem.DiscountType=='percent'))">${{storeItem.Product_Price}}</div>
+                                                        <div *ngIf="storeItem.ProductType == 'Digital'"><i class="fe-file-text mr-1"></i>Digital</div>
+                                                        <div *ngIf="storeItem.ProductType == 'Physical'"><i class="fe-layers mr-1"></i>Physical</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="products-footer u-mt--40" *ngIf="(productsList && totalItems > productsList.length) && productNFound==false">
+                                <div class="search-results"
+                                          infiniteScroll
+                                          [infiniteScrollDistance]="0.1"
+                                          [infiniteScrollUpDistance]="5"
+                                          [infiniteScrollThrottle]="200"
+                                          [infiniteScrollDisabled]="blockInfiniteScroll"
+                                          (scrolled)="onLoadMore()"></div>
+
+                            </div>
+                        </div>
+
+                        <div class="my-products-layouts w-100 mt-5" *ngIf="ProductType == 'Resources'">
+                            <div class="text-center product-not-found product-not-found-sm u-mt--40" *ngIf="AllResourcesNotFound">
+                                {{'FILTER_ZERO_RESULTS' | translate}}
+                            </div>
+                            <div class="my-products-layouts-lists" *ngIf="AllResources && AllResources.length">
+                                <div class="my-products-layouts-lists-item" *ngFor="let vResource of AllResources let i=index">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="w-100 d-flex">
+                                                <div class="my-products-layouts-image">
+                                                    <a routerLink="{{'/resource/'+vResource.slug}}">
+                                                    
+                                                        <img *ngIf="vResource.image" src="{{ PORTAL_URL + 'files/blog/' + vResource.CID + '/' + vResource.image }}" onerror="this.onerror=null; this.src='./assets/images/media/no--image.jpg'" alt="" width="160" height="110">
+                                                                
+                                                        <img *ngIf="!vResource.image" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+
+                                                    </a>
+                                                </div>
+                                                <div class="w-100 d-flex flex-column py-3">
+                                                    <h3 class="mb-2 font-size-lg"><a class="link-primary"  routerLink="{{'/resource/'+vResource.slug}}">{{vResource.title}}</a></h3>
+                                                    
+                                                    <div class="d-flex align-items-center"><a class="button-link" href="javascript:void(0);" routerLink="{{'/member/resource/edit/'+vResource.ID}}">Edit</a> <span class="ml-2 mr-2">|</span> <a class="button-link text-red" href="javascript:void(0);" (click)="deleteResource(vResource.ID)">Delete</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-6 mobile-half">
+                                                    <div class="w-100 d-flex flex-column py-3">
+                                                        <div class="text-dark-50 mb-3">Last Modified</div>
+                                                        <div><i class="fe-clock mr-2"></i>{{vResource.updated_at != '' ? vResource.updated_at : '-'}}</div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mobile-half">
+                                                    <div class="w-100 d-flex flex-column py-3">
+                                                        <div *ngIf="vResource.status == '1'"><button type="button" class="btn btn-success btn-sm"><i class="fe-check mr-1"></i>{{'APPROVED' | translate}}</button></div>
+                                                        <div *ngIf="vResource.status == '0'"><button type="button" class="btn btn-danger btn-sm"><i class="fe-x mr-1"></i>{{'UNAPPROVED' | translate}}</button></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="products-footer u-mt--40" *ngIf="(AllResources && totalItems3 > AllResources.length) && AllResourcesNotFound==false">
+                                <div class="search-results"
+                                          infiniteScroll
+                                          [infiniteScrollDistance]="0.1"
+                                          [infiniteScrollUpDistance]="5"
+                                          [infiniteScrollThrottle]="200"
+                                          [infiniteScrollDisabled]="blockInfiniteScroll"
+                                          (scrolled)="onLoadMore2()"></div>
+
+                            </div>
+                        </div>
+
+                        <div class="my-products-layouts w-100 mt-5" *ngIf="ProductType == 'Videos'">
+                            <div class="text-center product-not-found product-not-found-sm u-mt--40" *ngIf="NoVideosFound">
+                                {{'FILTER_ZERO_RESULTS' | translate}}
+                            </div>
+                            <div class="my-products-layouts-lists" *ngIf="AllVideos && AllVideos.length">
+                                <div class="my-products-layouts-lists-item" *ngFor="let vItem of AllVideos let i=index">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="w-100 d-flex">
+                                                <div class="my-products-layouts-image">
+                                                    <a routerLink="{{'/academy/video/'+vItem.Video_slug+'-'+vItem.ID}}">
+                                                        
+                                                        <img *ngIf="(vItem.Video_Source == 'youtube' || vItem.Video_Source == 'vimeo') && vItem.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="https://{{vItem.Video_Thumbnail_Small}}" />
+
+                                                        <img *ngIf="vItem.Video_UploadedOn == 'S3' && vItem.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="{{vItem.Video_Thumbnail_Small}}" />
+
+                                                        <img *ngIf="!vItem.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+
+                                                    </a>
+                                                </div>
+                                                <div class="w-100 d-flex flex-column py-3">
+                                                    <h3 class="mb-2 font-size-lg"><a class="link-primary"  routerLink="{{'/academy/video/'+vItem.Video_slug+'-'+vItem.ID}}">{{vItem.Video_Title}}</a></h3>
+                                                    
+                                                    <div class="d-flex align-items-center">
+                                                        
+                                                        <a class="button-link" href="javascript:void(0);" routerLink="{{'/member/video/edit/'+vItem.ID}}">Edit</a>
+                                                        <span class="ml-2 mr-2">|</span>
+                                                        
+                                                        <a class="button-link text-red" href="javascript:void(0);" (click)="deleteVideo(vItem.ID)">Delete</a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-6 mobile-half">
+                                                    <div class="w-100 d-flex flex-column py-3">
+                                                        <div class="text-dark-50 mb-3">Last Modified</div>
+                                                        <div><i class="fe-clock mr-2"></i>{{vItem.Video_Upload_Date != '' ? vItem.Video_Upload_Date : '-'}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mobile-half">
+                                                    <div class="w-100 d-flex flex-column py-3">
+                                                        <div *ngIf="vItem.Video_Is_Approved == '1'"><button type="button" class="btn btn-success btn-sm"><i class="fe-check mr-1"></i>{{'APPROVED' | translate}}</button></div>
+                                                        <div *ngIf="vItem.Video_Is_Approved == '0'"><button type="button" class="btn btn-danger btn-sm"><i class="fe-x mr-1"></i>{{'UNAPPROVED' | translate}}</button></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="products-footer u-mt--40" *ngIf="(AllVideos && totalItems3 > AllVideos.length) && NoVideosFound==false">
+                                <div class="search-results"
+                                          infiniteScroll
+                                          [infiniteScrollDistance]="0.1"
+                                          [infiniteScrollUpDistance]="5"
+                                          [infiniteScrollThrottle]="200"
+                                          [infiniteScrollDisabled]="blockInfiniteScroll"
+                                          (scrolled)="onLoadMore3()"></div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

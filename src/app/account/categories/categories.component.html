@@ -1,0 +1,150 @@
+<style type="text/css">
+.resources--inner > .checkbox-primary input[type="checkbox"]:checked + label {
+    color: #fff !important;
+}
+</style>
+<div class="auth--body auth--body-md My--Profile">
+    <div class="auth--body__inner auth--body__inner-md">
+        <div class="container">
+            <div class="row">
+                <aside class="col-12 col-xl-3 col-lg-3">
+                    <div class="row u-mb--30 u-mb--30-sm">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <h3 class="section--title section--title-sm"><a routerLink="/member/profile">{{'MY_ACCOUNT' | translate}}</a></h3>
+                        </div>
+                    </div>
+                    
+                    <!--Add side bar-->
+                    <app-side-bar></app-side-bar>
+                </aside>
+
+                <div class="col-12 col-xl-9 col-lg-9">
+                    <div class="c-breadcrumb">
+                        <nav class="missio-breadcrumb">
+                            <a class="breadcrumb-link" routerLink="/">Home</a> 
+                            <a class="breadcrumb-link " routerLink="/member/profile">{{'MY_DASHBOARD' | translate}}</a> 
+                            <span class="breadcrumb-last">{{'CHOOSE_CATEGORIES' | translate}}</span>
+                        </nav>
+                    </div>
+                    
+
+                    <div class="w-100">
+                        <div class="banner-feature">
+                            <div class="container-fluid p-0">
+                                <div class="row ">
+                                    <div class="col-12 col-xl-8 col-lg-11 col-md-12">
+                                        <div class="p-3 p-md-4">
+                                            <h3 class="fs-30 fw-bold text-dblue">Welcome, {{userData.screen_name}}!</h3>
+                                            <p class="fs-16 text-dark-50 mb-0">{{'TELL_US' | translate}}</p>
+
+                                            <div class="w-100 mt-4">
+                                                <h4 class="fs-24 fw-bold text-dark">{{'MAIN_GOAL' | translate}}</h4>
+                                                <p class="fs-16 text-dark-50 mb-0 fs-italic">{{'SELECT_NO' | translate}}</p>
+                                            </div>
+                                            
+                                            
+                                            <div class="w-100 mt-4 ">
+                                                <div class="radio-btn--group mb-4 d-none">
+                                                    <div class="button-set mr-4">
+                                                        <label for="ProductCategories"><input (change)="CategoriesFrom('products')" id="ProductCategories" type="radio" name="ProductCategories" value="1" [checked]="ProductCategories ? true : false" /><span></span>{{'RESOURCES' | translate}}</label>
+                                                    </div>
+
+                                                    <div class="button-set">
+                                                        <label for="VideoCategories"><input (change)="CategoriesFrom('video')" id="VideoCategories" type="radio" name="VideoCategories" value="1" [checked]="VideoCategories ? true : false" /><span></span> {{'VIDEO' | translate}}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                           
+                                            <!-- Begin Resources Categories -->
+                                            <div class="w-100 ">
+                                                <ul class="interest-list d-flex flex-wrap" *ngIf="ProductCategories && pcategories && pcategories.length">
+                                                    <li *ngFor="let cat of pcategories; let i = index">
+                                                        <div class="checkbox checkbox-primary mb-0 ml-0">
+                                                            <input (click)="SetMyInterest(cat,cat.ID,cat.name,PRODUCT_CATEGORIES_TABLE);"
+                                                                id="catName_{{cat.ID}}"
+                                                                type="checkbox"
+                                                                name="catName_{{cat.ID}}"
+                                                                value="catName_{{cat.ID}}"
+                                                                [checked]="cat.selected ? true : false"
+                                                              />
+                                                              <label for="catName_{{cat.ID}}"  [innerHtml]="cat?.name | safeHtml"></label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <!-- Sub Category -->
+                                                <ul class="interest-list d-flex flex-wrap" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                    <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                        <div class="checkbox checkbox-primary mb-0 ml-0">
+                                                            <input (click)="SetMyInterest(cat,cat.ID,cat.name,PRODUCT_CATEGORIES_TABLE);"
+                                                                id="catName_{{cat.ID}}"
+                                                                type="checkbox"
+                                                                name="catName_{{cat.ID}}"
+                                                                value="catName_{{cat.ID}}"
+                                                                [checked]="cat.selected ? true : false"
+                                                              />
+                                                              <label  for="catName_{{cat.ID}}"  [innerHtml]="cat?.name | safeHtml"></label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <!-- //End Sub Category -->
+                                            </div>
+                                            <!-- //Ends Resources Categories -->
+                                            
+                                            <!-- Begin Videos Categories -->
+                                            <div class="w-100">
+                                                <ul class="interest-list d-flex flex-wrap" *ngIf="VideoCategories && vcategories && vcategories.length">
+                                                    <li *ngFor="let cat of vcategories; let i = index">
+                                                        <div class="">
+                                                            <div class="checkbox checkbox-primary mb-0 ml-0">
+                                                                <input (click)="SetMyInterest(cat,cat.ID,cat.Category_Name,VIDEO_CATEGORIES_TABLE);"
+                                                                    id="catName_{{cat.ID}}"
+                                                                    type="checkbox"
+                                                                    name="catName_{{cat.ID}}"
+                                                                    value="catName_{{cat.ID}}"
+                                                                    [checked]="cat.selected ? true : false"
+                                                                  />
+                                                                  <label for="catName_{{cat.ID}}"  [innerHtml]="cat?.name | safeHtml"></label>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <ul class="interest-list d-flex flex-wrap" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                    <li *ngFor="let cat of cat.Subcategories; let i = index">
+                                                        <div class="checkbox checkbox-primary mb-0 ml-0">
+                                                            <input (click)="SetMyInterest(cat,cat.ID,cat.Category_Name,VIDEO_CATEGORIES_TABLE);"
+                                                                id="catName_{{cat.ID}}"
+                                                                type="checkbox"
+                                                                name="catName_{{cat.ID}}"
+                                                                value="catName_{{cat.ID}}"
+                                                                [checked]="cat.selected ? true : false"
+                                                              />
+                                                              <label  for="catName_{{cat.ID}}"  [innerHtml]="cat?.name | safeHtml"></label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <!-- //Ends Videos Categories -->
+                    
+                                            <div class="w-100 mt-4 mt-md-4">
+                                                <button routerLink="/member/profile" type="button" class="button button--lblue button-radius button-md button-inline">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-4 col-lg-1 col-md-12">
+                                        <div class="bg-cover w-100 h-100"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Newsletter component here -->
+<app-newsletter></app-newsletter>

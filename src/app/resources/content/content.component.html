@@ -1,0 +1,67 @@
+<div class="w-100 blogs js-enabledBlog">
+    <div class="posts">
+        <div class="post">
+            <div class="post__content">
+                <div class="post-meta">
+                    <div class="post-title">
+                        <h2 class="h2 h2-sm" [innerHtml]="newsdetail.title | safeHtml"></h2>
+                    </div>
+                    <ul class="meta d-">
+                        <li>
+                            <span><i class="fe-user" aria-hidden="true"></i></span>&nbsp;<span rel="author"> {{ newsdetail.author }}</span>
+                        </li>
+                        <li>
+                            <span><i class="fe-calendar" aria-hidden="true"></i></span>&nbsp;<time class="updated" datetime="2018-04-20T08:43:04+00:00">{{ newsdetail.created_at }}</time>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="meta-post-categories meta-post-categories-sm">
+                    <a *ngFor="let post_category of post_categories let i=index" class="level-top" [innerHtml]="post_category.name+((post_categories.length > i+1)?' ':'') | safeHtml"></a>
+                </div>
+
+                <picture *ngIf="!newsdetail?.video_file && !newsdetail?.video_url" class="post__img"><span class="imagewash"></span>
+                    <!--[if IE 9]><video style="display: none;"><![endif]-->
+                    <source srcset="{{(newsdetail && newsdetail.image) ? PORTAL_URL + 'files/blog/' + newsdetail.CID + '/' + newsdetail.image : './assets/images/news/detail.jpg'}}" media="(min-width: 800px)" type="image/webp" />
+                    <source srcset="{{(newsdetail && newsdetail.image) ? PORTAL_URL + 'files/blog/' + newsdetail.CID + '/' + newsdetail.image : './assets/images/news/detail.jpg'}}" media="(min-width: 800px)" />
+                    <source srcset="{{(newsdetail && newsdetail.image) ? PORTAL_URL + 'files/blog/' + newsdetail.CID + '/' + newsdetail.image : './assets/images/news/detail.jpg'}}" media="(min-width: 400px)" />
+                    <!--[if IE 9]></video><![endif]-->
+                    <img class="img-fluid" alt="Featured Image" src="{{newsdetail && newsdetail.image
+                        ? PORTAL_URL +
+                          'files/blog/' +
+                          newsdetail.CID +
+                          '/' +
+                          newsdetail.image
+                        : './assets/images/news/detail.jpg'
+                    }}" />
+                </picture>
+                <div class="video-responsive video-responsive-sm position-relative" *ngIf="newsdetail?.video_file">
+                    <video width="100%" height="100%" id="S3Video" plays-inline controls controls="true" poster="{{newsdetail && newsdetail.image
+                        ? PORTAL_URL +
+                          'files/blog/' +
+                          newsdetail.CID +
+                          '/' +
+                          newsdetail.image
+                        : './assets/images/news/detail.jpg'
+                    }}">
+                    <source type="video/{{newsdetail?.video_type}}" src="{{bucketURL+'files/videos/'+newsdetail?.CID+'/'+newsdetail?.video_file}}" />
+                    </video>
+                </div>
+
+                <!-- YT Video -->
+                <div class="yt--video yt--video-sm" *ngIf="newsdetail?.video_id && newsdetail?.video_file == ''">
+                    <iframe width="100%" height="100%" id="YVideo" controls=0 [src]="VideoURL"></iframe>
+                </div>
+                
+                
+                <div class="container pl-0 pr-0 pt-5">
+                    <div class="w-100 pr-md-5">
+                        <div class="post--cont" [innerHtml]="newsdetail.description | safeHtml"></div>
+
+                        <div class="sharethis-inline-share-buttons mt-4" attr.data-url="{{ogurl}}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

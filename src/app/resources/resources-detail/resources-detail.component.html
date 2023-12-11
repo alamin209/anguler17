@@ -1,0 +1,51 @@
+<div class="sectionhead sectionhead-xs mb-0 d-none">
+    <picture><img alt="Resources" class="lazy img-fluid" src="../assets/images/Parallax/Parallax_05.jpg" /></picture>
+    <div class="sectionhead--inner">
+        <div class="container">
+            <header class="sectionhead__name sectionhead__name-xs">
+                <h1 class="entry-title">Events and Seminars</h1>
+                <p class="text-white">Attend live streaming events, online workshops, pre-recorded content and listen to other teacher's as they share their experiences and learning opportunities.</p>
+            </header>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+
+<style type="text/css">
+.post--cont p > img {
+    margin-bottom: 0 !important;
+}
+.button--lblue {
+    background-color: #0094d4 !important;
+}
+</style>
+
+
+<!-- Begin Home Page Content Area -->
+<section class="Blog--Section Blog--Section-sm System-Single-Page Right--Sidebar--Enabled">
+    <div class="sidebar--enabled"></div>
+    <div class="container">
+        <div class="row justify-content-center" *ngIf="newsdetail && newsdetail.title">
+            <div class="col-12 col-xl-11 col-lg-11 col-md-11 col-sm-12 col-xs-12 ">
+                
+                <app-video *ngIf="newsdetail && newsdetail.product_identifier == 'videos'" [newsdetail]="newsdetail" [post_categories]="post_categories" [VideoURL]="VideoURL"></app-video>
+                
+                <app-whitepaper *ngIf="newsdetail && newsdetail.product_identifier == 'whitepapers'" [newsdetail]="newsdetail" [post_categories]="post_categories" [VideoURL]="VideoURL"></app-whitepaper>
+                
+                <app-announcement *ngIf="newsdetail && newsdetail.product_identifier == 'announcements'" [newsdetail]="newsdetail" [post_categories]="post_categories" [VideoURL]="VideoURL"></app-announcement>
+                
+                <app-content *ngIf="newsdetail && (newsdetail.product_identifier == 'courses' || newsdetail.product_identifier == 'resources')" [newsdetail]="newsdetail" [post_categories]="post_categories" [VideoURL]="VideoURL"></app-content>
+                
+                <app-podcast *ngIf="newsdetail && newsdetail.product_identifier == 'podcasts'" [newsdetail]="newsdetail" [post_categories]="post_categories" [VideoURL]="VideoURL"></app-podcast>
+                
+                    
+                <div class="mt-4" *ngIf="newsdetail && (newsdetail.product_identifier != 'whitepapers' && newsdetail.product_identifier != 'podcasts')">
+                    <app-resources-comments [NewsID]="newsdetail.ID" ></app-resources-comments>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //End Home Page Content Area -->
+<div class="clearfix"></div>

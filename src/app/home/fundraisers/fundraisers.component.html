@@ -1,0 +1,51 @@
+<div class="featured-products featured-products-xs mt-0 pt-0 pb-4 pb-md-5 mb-5" *ngIf="AllFundraiers && AllFundraiers.length">
+    <div class="container pl-0 pr-0">
+        <div class="sectionTitle-wrapper sectionTitle-wrapper-xs mb-4">
+            <h2 class="heading--title--medium heading--title--medium-xs ls0"><span>{{'TRENDING_FUNDRAISERS' | translate}}</span></h2>
+        </div>
+        
+        <div class="row">
+            <div *ngFor="let item of AllFundraiers let i=index" class="col-12 col-lg-4 col-md-4 col-sm-12">
+                <article class="tip--blog__lists">
+                    <div class="video--image d-inline-block w-100" style="font-size: 0;">
+                        <!--
+                        <div class="add-favorite"><span class="favorite-marker" role="button" tabindex="0"><i class="fe-heart"></i></span></div>
+                        -->
+                        <a href="{{FUNDRAISING_HOST}}fundraise/{{item?.Permalink}}" target="_blank" class="video--image--wrapper d-inline-block w-100">
+                            <span class="video--image--wrapper--inner">
+                                
+                                <img *ngIf="item?.banner_image" alt="{{item?.Name}}" class="img-fluid" src="{{PORTAL_MAIN}}files/story/{{item?.ID}}/{{item?.banner_image}}">
+                                
+                                <img *ngIf="!item?.banner_image" alt="{{item?.Name}}" class="img-fluid" src="./assets/images/media/no--image.jpg" />
+
+                            </span>
+                        </a>
+                    </div>
+                    <div class="tip--blog__content">
+                        <div class="tip--blog__description">
+                            <h2><a href="{{FUNDRAISING_HOST}}fundraise/{{item?.Permalink}}" target="_blank" [innerHtml]="((item && item?.Name)? item?.Name : '') | safeHtml"></a></h2>
+
+                            <p class="mb-0" [innerHtml]="((item && item?.Summary)? item?.Summary : '') | safeHtml"></p>
+                            <!--
+                            <div class="intro"><div><span class="name">Ms. Marino</span><div class="school-info">PS 107 Thomas A Dooley<span class="school-separator">•</span><span class="school-location">Flushing, NY</span></div></div></div>
+                            -->
+                        </div>
+                    
+                        <div class="tip--blog__footer">
+                            <!--
+                            <div class="progress mb-3">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="{{item?.DonationPercentLabel}}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            -->
+                            <ul class="project-data js-project-data">
+                                <li><span class="project-cost">{{item?.Total_Donations}}</span> donors<span class="no-mobile"> so far</span></li>
+                                <li class="project-cost-container pt-2"><div><span class=""><span class="project-cost">${{item?.Total_Donation}}</span> total donation</span></div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+        </div>
+    </div>
+</div>

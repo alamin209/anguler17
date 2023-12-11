@@ -1,0 +1,27 @@
+<section *ngIf="Testimonials && Testimonials.length" class="home--testimonials home--testimonials-sm">
+    
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 col-md-12">
+                <h2>What Our Client Says</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="owl-carousel owl-theme" id="HomeTestimonialsCarousel">
+        <div class="item" *ngFor="let Testimonial of Testimonials; let i=index ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div *ngIf="Testimonial.Image">
+                            <div class="author--image">
+                                <img alt="Author" class="img-fluid" src="{{PORTAL_URL+'/files/testimonials/'+CID+'/'+Testimonial.Image}}" />
+                            </div>
+                        </div>
+                        <div class="quotes" [innerHtml]="((Testimonial && Testimonial.Description)? Testimonial.Description : '') | safeHtml"></div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

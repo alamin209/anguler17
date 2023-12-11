@@ -1,0 +1,262 @@
+<div class="content__wrap content__wrap-sm">
+  <div class="Shop__Listings Shop__Listings-xs memberResource">
+      <div class="container">
+
+          <div class="row" style="padding-bottom: 40px;">
+              <div class="page-head"><div class="u-heading--medium">{{(recId > 0 ? "PRODUCT_UPDATE" : "PRODUCT_ADD") | translate}}</div></div>
+              <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                  <form name="Resource_Post_Form" id="Resource_Post_Form" [formGroup]="productForm"
+                  (ngSubmit)="onSubmit(productForm.value)">
+                      <input type="hidden" formControlName="id" name="id"/>
+                      <div class="row">
+                          <div class=" col-sm-12 col-lg-8 col-md-8">
+                              <div class="missio--panel">
+                                  <div class="panel-body">
+                                      <div class="form-horizontal">
+                                          <div class="control-group mb-3">
+                                              <div
+                                                [ngClass]="
+                                                  submitted && productForm.controls.title.errors
+                                                    ? 'form-group form-group--has-error'
+                                                    : 'form-group'
+                                                "
+                                              >
+                                                  <label class="mb-1" for="title">{{"PRODUCT_TITLE" | translate}} <span class="mandatory_asterisk">*</span></label>
+                                                  <input type="text" class="form-control solid rounded" formControlName="title" id="title" name="title" placeholder="{{ 'PRODUCT_TITLE' | translate }}"/>
+                                                  <div *ngIf="
+                                                        submitted && productForm.controls.title.errors">
+                                                      <div *ngIf="productForm.controls.title.errors.required">
+                                                        <div class="help-block" style="display: block">
+                                                          {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                                                        </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="control-group mb-3">
+                                              <div
+                                                [ngClass]="
+                                                  submitted && productForm.controls.short_desc.errors
+                                                    ? 'form-group form-group--has-error'
+                                                    : 'form-group'
+                                                "
+                                              >
+                                                  <label class="mb-1" for="short_desc">{{"PRODUCT_SHORTDESC" | translate}} <span class="mandatory_asterisk">*</span></label>
+                                                  <textarea class="form-control solid rounded" formControlName="short_desc" id="short_desc" name="short_desc" rows="4" placeholder="{{ 'PRODUCT_SHORTDESC' | translate }}"></textarea>
+                                                  <div *ngIf="
+                                                        submitted && productForm.controls.short_desc.errors">
+                                                      <div *ngIf="productForm.controls.short_desc.errors.required">
+                                                        <div class="help-block" style="display: block">
+                                                          {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                                                        </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="control-group mb-3">
+                                              <label class="mb-1" for="desc">{{"PRODUCT_DESC" | translate}}</label>
+                                              <ckeditor [editor]="editor" formControlName="desc" data=""></ckeditor>
+                                          </div>
+                                          <div class="control-group mb-3">
+                                              <div
+                                                [ngClass]="
+                                                  submitted && productForm.controls.price.errors
+                                                    ? 'form-group form-group--has-error'
+                                                    : 'form-group'
+                                                "
+                                              >
+                                                  <label class="mb-1" for="price">{{"PRODUCT_PRICE" | translate}} <span class="mandatory_asterisk">*</span></label>
+                                                  <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text" id="basic-addon2">$</span>
+                                                    </div>
+                                                    <input type="text" class="form-control solid rounded" formControlName="price" id="price" name="price" placeholder="{{ 'PRODUCT_PRICE' | translate }}"/>
+                                                    <div *ngIf="
+                                                          submitted && productForm.controls.price.errors">
+                                                        <div *ngIf="productForm.controls.price.errors.required">
+                                                          <div class="help-block" style="display: block">
+                                                            {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                                                          </div>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <!--<div class="panel-body mt-2">
+                                    <div class="page-head"><div class="u-heading--medium">{{"PRODUCT_PACKAGE" | translate }}</div></div>
+                                    <div class="form-horizontal">                                      
+                                      <div class="control-group mb-3">
+                                        <label class="mb-1">{{"PRODUCT_PACKAGE_TYPE" | translate }}</label>
+                                        <select class="form-control solid rounded packageType m-wrap col-12 col-lg-12 col-md-12 col-sm-12 chosen2" name="packageType[]" id="packageType" size="">
+                                            <option class="placeholder" selected value="">
+                                                {{ "SELECT" | translate }}
+                                            </option>
+                                            <option *ngFor="let resItem of packageTypeList let i=index" value={{resItem.Code}}>{{resItem.Type}}</option>
+                                        </select>
+                                      </div>
+                                      <div class="control-group mb-3">
+                                        <label class="mb-1">{{"PRODUCT_PACKAGE_DIMENSIONS" | translate }}</label>
+                                        <div class="row">
+                                          <div class="col-4">
+                                            <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon2">{{"PRODUCT_PACKAGE_LENGTH" | translate }}</span>
+                                              </div>
+                                              <input type="text" class="form-control solid rounded" id="package_length" name="package_length[]"/>
+                                            </div>
+                                          </div>
+                                          <div class="col-4">
+                                            <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon2">{{"PRODUCT_PACKAGE_WIDTH" | translate }}</span>
+                                              </div>
+                                              <input type="text" class="form-control solid rounded" id="package_width" name="package_width[]"/>
+                                            </div>
+                                          </div>
+                                          <div class="col-4">
+                                            <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon2">{{"PRODUCT_PACKAGE_HEIGHT" | translate }}</span>
+                                              </div>
+                                              <input type="text" class="form-control solid rounded" id="package_height" name="package_height[]"/>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                          <div class="col-4">
+                                            <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon2">{{"PRODUCT_PACKAGE_WEIGHT" | translate }}</span>
+                                              </div>
+                                              <input type="text" class="form-control solid rounded" id="package_weight" name="package_weight[]"/>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="control-group mb-3">                                        
+                                        <div class="row">
+                                          <div class="col-6">
+                                            <label class="mb-1">{{"PRODUCT_PACKAGE_SHIPMENT_VALUE" | translate }}</label>
+                                            <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                <span class="input-group-text" id="basic-addon2">$</span>
+                                              </div>
+                                              <input type="text" class="form-control solid rounded" id="shipment_value" name="shipment_value[]"/>
+                                            </div>
+                                          </div>
+                                          <div class="col-6">
+                                            <label class="mb-1">{{"PRODUCT_PACKAGE_NO_ITEMS" | translate }}</label>
+                                            <select class="form-control solid rounded packageItemsNo m-wrap col-12 col-lg-12 col-md-12 col-sm-12 chosen2" name="packageItemsNo[]" id="packageItemsNo" size="">
+                                              <option class="placeholder" selected value="">
+                                                  {{ "SELECT" | translate }}
+                                              </option>
+                                              <option *ngFor="let resItem of packageNumberItems let i=index" value={{resItem}}>{{resItem}}</option>
+                                          </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>-->
+                              </div>
+                          </div>
+
+                          <div class="col-lg-4 col-md-4 col-sm-12">
+                              <div class="missio--panel">
+                                  <div class="panel-body">
+
+                                      <h2 class="section--title" style="background-color: transparent;">{{"PRODUCT_IMAGE" | translate}}</h2>
+                                      <div
+                                        class="row d-flex align-items-center form-group mb-5"
+                                        *ngIf="imageURL"
+                                      >
+                                        <div class="col-12 col-md-9 col-sm-12 col-xs-12">
+                                          <div class="profilepic--preview">
+                                            <button
+                                              (click)="RemovePic()"
+                                              type="button"
+                                              class="btn--deleteProfile"
+                                            >
+                                              <i class="fe-x icon"></i>
+                                            </button>
+                                            <img
+                                              [src]="imageURL"
+                                              height="200"
+                                              *ngIf="imageURL"
+                                              class="thumbnail mb-0"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div class="row d-flex align-items-center form-group mb-3">
+                                        <div class="col-12 col-md-6 col-sm-12 col-xs-12">
+                                          <div class="button-wrap mb-2">
+                                            <label
+                                              *ngIf="PictureExist"
+                                              class="upload--button"
+                                              for="upload"
+                                              ><i class="fe-upload mr-2"></i>{{"PRODUCT_ADDING" | translate}}
+                                              <input
+                                                type="file"
+                                                #file
+                                                type="file"
+                                                accept="image/*"
+                                                (change)="processFile(file.files)"
+                                                class="solid rounded"
+                                                id="product_image"
+                                                name="product_image"
+                                                placeholder="{{ 'PROFILE_PIC' | translate }}"
+                                              />
+                                            </label>
+                                            <label
+                                              *ngIf="!PictureExist"
+                                              class="upload--button"
+                                              for="upload"
+                                            >
+                                              <i class="fe-upload mr-2"></i>{{"PRODUCT_ADDING" | translate}}
+                                              <input
+                                                type="file"
+                                                #file
+                                                type="file"
+                                                accept="image/*"
+                                                (change)="processFile(file.files)"
+                                                class="solid rounded"
+                                                id="product_image"
+                                                name="product_image"
+                                                placeholder="{{ 'PROFILE_PIC' | translate }}"
+                                              />
+                                            </label>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                     
+                                      <h2 class="section--title mt-3" style="background-color: transparent;">{{"PRODUCT_CATEGORIES" | translate}}</h2>
+
+                                      <div class="control-group mb-0">
+                                          <div class="controls">
+                                              <angular2-multiselect class="form-control solid rounded m-wrap col-12 col-lg-12 col-md-12 col-sm-12" [data]="catsList" [settings]="multiSelectTags" formControlName="Categories" (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                                          </div>
+                                      </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-12">
+                          <div class="panel--form-actions fixed">
+                              <button id="save_btn" type="submit" class="button button--green button-md d-inline-block u-ml--10"  id="save_publish_button"><i class="icon-ok"></i> {{ "SAVE" | translate }}</button>
+                              <button type="button" class="button button--grey button-md  d-inline-block u-ml--10" (click)="memberPage()" ><i class="icon-remove"></i> {{ "CANCEL" | translate }}</button>
+                          </div>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+</div>

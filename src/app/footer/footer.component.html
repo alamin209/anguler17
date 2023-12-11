@@ -1,0 +1,218 @@
+<!-- Begin Footer Section -->
+<footer class="footer footer-sm">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-9 col-md-9 col-sm-12">
+                <div class="footer__navigation footer__navigation-xs" *ngIf="footerMList && footerMList.length">
+                    <ul class="footer__navigation--items footer__navigation--items-xs">
+                        <li *ngFor="let rItem of footerMList let i = index">
+                            
+                            <a *ngIf="!rItem?.ExternalLink"  routerLink="javascript:" routerLink="{{rItem.url}}"  [ngClass]="{'active':activeMenu==rItem.url}" [innerHtml]="rItem?.title | safeHtml"></a>
+                            <a *ngIf="rItem?.ExternalLink" target="{{rItem.target}}" href="{{rItem.url}}"  [ngClass]="{'active':activeMenu==rItem.url}" [innerHtml]="rItem?.title | safeHtml"></a>
+
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer--copyright footer--copyright-sm"><a class="mx-1" href="/privacy-policy">Privacy Policy</a> <span class="spacer">|</span> <a class="mx-1" href="/terms-of-use">Terms of Use</a> <span class="spacer">|</span> <a class="mx-1" href="/sitemap.xml">Sitemap</a></div>
+                
+                <!--<div class="footer--copyright footer--copyright-sm"><a class="mx-1" href="javascript:void(0);" (click)="openModal('privacy-policy')">Privacy Policy</a> <span class="spacer">|</span> <a class="mx-1" href="javascript:void(0);" (click)="openModal('terms-of-use')">Terms of Use</a> <span class="spacer">|</span> <a class="mx-1" href="/sitemap.xml">Sitemap</a></div>-->
+            </div>
+            
+            <div class="col-12 col-lg-3 col-md-3 col-sm-12">
+                <div class="powered--by">Powered By: <a href="https://www.missio.io/"><img src="./assets/images/logo--missio.svg" class="logo--missio ml-2" alt="Missio"></a></div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="footer-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footer-bottom-area">
+                    <p class="copy-right">&copy; {{'COPYRIGHT' | translate}} <span id="year"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //End Footer Section -->
+
+
+<div bsModal #openContentModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="dialog-child-name">
+    <div class="modal-dialog-large modal-dialog-large-md">
+        <div class="modal-header modal-header-sm">
+            <h3 *ngIf="pageNotFound" style="text-transform: capitalize;">{{'PAGE_NOT_FOUND' | translate}}</h3>
+            <h3 *ngIf="PageContent && PageContent.page_title" [innerHtml]="PageContent?.page_title | safeHtml"></h3>
+            <button type="button" class="modal-close pull-right" aria-label="Close" (click)="hideChildModal()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body modal-body-sm">
+            <div class="w-100" *ngIf="PageContent && PageContent.page_desc">
+                <div [innerHtml]="PageContent?.page_desc | safeHtml"></div>
+            </div>
+
+            <div class="AgFolks__404 AgFolks__404-xs" *ngIf="pageNotFound">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="info info-xs">
+                                <div class="message">
+                                    <div class="AgFolks__404--Graphic"><img src="./assets/images/404.jpg" alt="Page Not Found" class="img-fluid"></div>
+                                    <p class="fs20 fs20-xs">This is somewhat embarrassing, isn't it? It looks like nothing was found at this location.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Begin Quick View Modal -->
+<div bsModal #quickViewModel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog-exlarge modal-dialog-exlarge-md no-radius QuickView--Modal">
+        <button type="button" class="modal-close pull-right" aria-label="Close" (click)="hideQuickProductModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal-body modal-body-sm no-padd modal-quickview">
+            <div class="product--quickview"> 
+                <div class="row">
+                    
+                    <!-- Begin Left Panel -->
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-images" [ngClass]="{'Single__Image': quickProductData && quickProductData.slider && quickProductData.slider.length =='1'}">
+                            <div class="product-main-image js-product-slider" *ngIf="quickProductData && quickProductData.slider && quickProductData.slider.length">
+                                <div class="item" *ngFor="let slide of quickProductData.slider; let ind=index;" [ngClass]="{'youtube': slide.type =='video'}">
+                                    <img [src]="slide.imageUrl" alt="photo" class="img-fluid">
+                                </div>
+                            </div>
+                            <a routerLink="{{'/shop/product/p/'+quickProductData.Product_Slug}}" (click)="hideQuickProductModal()" class="view-details-btn">View details</a>
+                        </div>
+                    </div>
+                    <!-- //End Left Panel -->
+                    
+                    <!-- Begin Right Panel -->
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="summary-inner summary-inner-sm">
+                            
+                            <div class="summary--content">
+                                <div class="summary--content__scroll">
+                                
+                                    <h1 itemprop="product-name" class="product_title product_title-sm"  [innerHtml]="quickProductData.Product_Name | safeHtml"></h1>
+                                    <div class="price-box">
+                                        <div class="price-box--wrap">
+                                            <del
+                                                *ngIf="quickProductData && (quickProductData.DiscountType=='amount' || quickProductData.DiscountType=='percent')">${{(quickProductData && quickProductData.Product_Price )?quickProductData.Product_Price :''}}</del>
+                                            <ins
+                                                *ngIf="quickProductData && (quickProductData.DiscountType=='amount' || quickProductData.DiscountType=='percent')">${{(quickProductData && quickProductData.Discount_Price )? quickProductData.Discount_Price : ''}}</ins>
+                                            <ins
+                                                *ngIf="!(quickProductData && (quickProductData.DiscountType=='amount' || quickProductData.DiscountType=='percent'))">${{(quickProductData && quickProductData.Product_Price )?quickProductData.Product_Price :''}}</ins>
+                                        </div>
+
+                                        <div class="has-info">
+                                            <div class="has-info--time">{{'ESTIMATED_LOAD_TIME'| translate}} <span>({{(quickProductData && quickProductData.Estimated_Leed_Count )?quickProductData.Estimated_Leed_Count :''}} {{(quickProductData && quickProductData.Estimated_Leed_Type )?quickProductData.Estimated_Leed_Type :''}})</span>
+                                            </div>
+                                            <div class="has-info--shipping"
+                                                *ngIf="quickProductData  && quickProductData.Product_Shipping_Free == 'yes'">
+                                                <div class="order-shipping">
+                                                    <label class="badge">{{'FREE_SHIPPING'| translate}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="short-description">
+                                        <p [innerHtml]="quickProductData.Product_Short_Description | safeHtml"></p>
+                                    </div>
+                                    
+
+                                    <div class="single_variation_wrap">
+                                        <div class="quantity">
+                                            <input type="button" value="-" class="minus"
+                                                (click)="manageProductQuantity(quickProductData.Product_Stock,false)">
+                                            <input type="text" id="qty" name="quantity" value="{{productQuantity}}" min="1"
+                                                class="input-text qty text" size="4" readonly="readonly">
+                                            <input type="button" value="+" class="plus"
+                                                (click)="manageProductQuantity(quickProductData.Product_Stock, true)">
+                                        </div>
+
+                                        <a href="javascript:;" name="add"
+                                            (click)="productAddToCart(quickProductData,quickProductData.CID,1,false, quickProductData.Shipping_API)" class="button button--red button-md button--cart">{{'ADD_TO_CART' | translate}}</a>
+                                    </div>
+
+                                    <div class="product_button-groups">
+                                        <a href="javascript:;"
+                                            (click)="AddtoWishlist(quickProductData.ID,quickProductData.Product_Slug); "
+                                            class="link-wishlist add_to_wishlist">{{'ADD_TO_WISH_LIST' | translate}}</a>
+
+                                        <a *ngIf="quickProductData && quickProductData.SizeGuide" href="javascript:;" (click)="openModalPopup(SizingGuideModal)"
+                                            class="link-guide size_guide">{{'SIZE_GUIDE' | translate}}</a>
+                                        
+                                       
+                                        <a  *ngIf="userData" href="javascript:void(0);" (click)="openModalOne('financing')" class="link-wishlist finance" (click)="hideQuickProductModal()">{{'FINANCING_AVAILABEL' | translate}}</a>
+                                        
+                                        <a *ngIf="!userData" href="javascript:void(0);" data-placement="top" tooltip="{{'LOGIN_SIGNUP_TO_USE_FINANCING_OPTIONS' | translate}}" class="link-wishlist finance" (click)="hideQuickProductModal()">{{'FINANCING_AVAILABEL' | translate}}</a>
+
+                                        <!--<a href="javascript:;" class="link-wishlist add_to_wishlist loading">Add to Wish List</a>-->
+                                    </div>
+
+                                    <ul class="product_meta" *ngIf="quickProductData">
+                                        <li class="sku_wrapper" *ngIf="quickProductData.Product_Model_Number != ''">
+                                            <strong>Model #:</strong><span class="sku">{{quickProductData.Product_Model_Number}}</span>
+                                        </li>
+
+                                       <!-- <li class="posted_in">
+                                            <strong>{{'CATEGORIES'| translate}}: </strong>
+                                            <a *ngFor="let Product_Cate of quickProductData.Product_Categories let i=index"  class="breadcrumb-link" (click)="hideQuickProductModal()"
+                                                    routerLink="{{'/shop/'+((Product_Cate && Product_Cate.Category_Slug)? Product_Cate.Category_Slug : '')}}"
+                                                    [innerHtml]="((Product_Cate && Product_Cate.Category_Name)? Product_Cate.Category_Name+((quickProductData.Product_Categories.length > i+1)?', ':'') : '') | safeHtml"></a>
+                                        </li>-->
+                                        <li class="product-share">
+                                            <strong>Share: </strong> <a href="javascript:;" data-placement="top"
+                                                tooltip="{{'SHARE_ON_FACEBOOK' | translate}}"><i class="fab fa-facebook-f icon"></i></a>
+                                            <a href="javascript:;" data-placement="top" tooltip="{{'SHARE_ON_TWITTER' | translate}}"><i
+                                                    class="fab fa-twitter icon"></i></a> <a href="javascript:;" data-placement="top"
+                                                tooltip="{{'SHARE_ON_GOOGLE' | translate}}"><i
+                                                    class="fab fa-google-plus-g icon"></i></a> <a href="javascript:;"
+                                                data-placement="top" tooltip="{{'SHARE_ON_EMAIL' | translate}}"><i
+                                                    class="fas fa-envelope-open icon"></i></a> <a href="javascript:;"
+                                                data-placement="top" tooltip="{{'SHARE_ON_PINTEREST' | translate}}"><i
+                                                    class="fab fa-pinterest icon"></i></a>
+                                        </li>
+                                    </ul>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //End Right Panel -->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //End Quick View Modal -->
+
+<!-- Begin Sizing Guide Modal -->
+<ng-template #SizingGuideModal>
+    <div class="modal-dialog-exlarge modal-dialog-exlarge-md">
+        <div class="modal-header modal-header-sm">
+            <h3>{{'SIZE_GUIDE' | translate}}</h3>
+            <button type="button" class="modal-close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body modal-body-sm">
+            <img src="{{(productInfo && productInfo.SizeGuide) ? PORTAL_URL + 'files/store/products/' + productInfo.CID + '/'+ productInfo.ID + '/' + productInfo.SizeGuide : './assets/images/sizing-guide/01.png'}}"
+                alt="" class="img-fluid">
+        </div>
+    </div>
+</ng-template>
+<!-- //End Sizing Guide Modal -->

@@ -1,0 +1,1165 @@
+/* Begin footer style */
+
+.animation-all {
+  @include transition(all 0.5s ease-in-out);
+}
+
+.tip--blog-btn,
+.tip--cta-btn {
+  color: $white;
+  font-size: 15px;
+  border-radius: 60px;
+  @include inline-flex;
+  @include padding(16 25);
+  background-color: $green;
+  font-weight: $weightBold;
+  text-transform: uppercase;
+  @include align-items(center);
+  @include justify-content(center);
+  @extend .animation-all;
+
+  .arrow {
+    margin-right: 0;
+    margin-left: 5px;
+    @include flexbox;
+    position: relative;
+    @include size(16px);
+    @include align-items(center);
+    @include justify-content(center);
+    @include transition(all 0.2s ease-out);
+
+    svg {
+      fill: $white;
+      display: block;
+      @include size(16px);
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white;
+    background-color: lighten($green, 10%);
+
+    .arrow {
+      margin-left: 15px;
+
+      svg {
+        fill: $white;
+      }
+    }
+  }
+}
+
+.tip--highlight {
+  display: none !important;
+  @include padding-top(40);
+  @include padding-bottom(40);
+
+  @include breakpoint(767) {
+    @include padding-top(20);
+    @include padding-bottom(20);
+  }
+
+  &__content {
+    z-index: 2;
+    @include flexbox;
+    position: relative;
+    @include margin-top(40);
+    @include margin-bottom(40);
+    background-color: $white;
+    @include box-shadow(0 0 10px 0 rgba($border, 0.75));
+
+    @include breakpoint(767) {
+      display: block;
+      @include margin-top(20);
+      @include margin-bottom(20);
+    }
+  }
+
+  &__left {
+    width: 100%;
+    max-width: 35%;
+    @include flexbox;
+    @include flex(0 0 35%);
+    @include padding(65 40);
+    background-color: $blue_sh6;
+    @include align-items(center);
+
+    @include breakpoint(767) {
+      width: 100%;
+      max-width: 100%;
+      @include flexbox;
+      @include flex(0 0 100%);
+      @include padding(30 20);
+    }
+
+    h2 {
+      color: $white;
+      @include font-size(38);
+      line-height: 1.1;
+      font-weight: $weightBold;
+
+      @include breakpoint(767.99) {
+        @include font-size(26);
+        line-height: 1.25;
+      }
+      @media (min-width: 768px) and (max-width: 991.99px) {
+        @include font-size(30);
+        line-height: 1.35;
+      }
+      @media (min-width: 992px) and (max-width: 1023.99px) {
+        @include font-size(34);
+        line-height: 1.35;
+      }
+    }
+  }
+  &__right {
+    width: 100%;
+    max-width: 65%;
+    @include flex(0 0 65%);
+    @include padding(60 30);
+
+    @include breakpoint(767) {
+      width: 100%;
+      max-width: 100%;
+      @include flexbox;
+      @include flex(0 0 100%);
+      @include padding(30 20 40);
+    }
+  }
+
+  &__description {
+    position: relative;
+    @include padding-left(30);
+
+    @include responsive(sm) {
+      @include padding-left(30);
+
+      @include respond-to(md) {
+        @include padding-left(50);
+
+        @include respond-to(lg) {
+          @include padding-left(60);
+        }
+      }
+    }
+
+    h4 {
+      color: $blue_sh6;
+      @include font-size(30);
+      line-height: 1.25;
+      font-weight: $weightBold;
+      @include margin-bottom(20);
+      text-transform: uppercase;
+
+      @include breakpoint(767) {
+        @include font-size(24);
+        line-height: 1.25;
+      }
+    }
+
+    p {
+      color: $black_sh2;
+      @include font-size(18);
+      line-height: 1.5;
+      @include margin-bottom(25);
+
+      @include breakpoint(767) {
+        @include font-size(16);
+        line-height: 1.5;
+      }
+    }
+
+    &::before,
+    &::after {
+      pointer-events: none;
+      @include transition(all 0.2s ease);
+    }
+
+    &::before {
+      top: 0px;
+      left: 15px;
+      content: "";
+      width: 2px;
+      height: 100%;
+      position: absolute;
+      background-color: $green;
+
+      @include breakpoint(767) {
+        left: 5px;
+      }
+    }
+
+    &::after {
+      top: 50px;
+      left: 9px;
+      content: " ";
+      position: absolute;
+      @include size(14px);
+      border: 2px solid $green;
+      background-color: $white;
+      border-top: 0px none;
+      border-left: 0px none;
+      @include transform(rotate(-45deg));
+
+      @include breakpoint(767) {
+        left: -1px;
+      }
+    }
+  }
+}
+
+.tip--box {
+  $tipBoxSelf: &;
+
+  &__image {
+    font-size: 0px;
+    position: relative;
+    @include transition(all 0.2s ease);
+
+    &::before {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: " ";
+      position: absolute;
+      @include opacity(0.7);
+      background: $blue_sh8;
+    }
+  }
+
+  &__hover {
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    @include padding(10 10 20);
+
+    @media (max-width: 767px) {
+      @include padding-bottom(30);
+    }
+
+    h2 {
+      width: 100%;
+      color: $white;
+      font-size: 28px;
+      text-align: center;
+      font-weight: $weightBold;
+      text-transform: uppercase;
+
+      @media (max-width: 768px) {
+        font-size: 24px;
+      }
+
+      @media (min-width: 768px) and (max-width: 1023px) {
+        font-size: 20px;
+      }
+    }
+  }
+
+  &__content {
+    color: $grey_sh4;
+    position: relative;
+    text-align: center;
+    @include font-size(16);
+    line-height: 1.5;
+    @include padding(30 15 10);
+
+    @include breakpoint(767) {
+      @include font-size(15);
+      line-height: 1.5;
+    }
+
+    &::before,
+    &::after {
+      visibility: hidden;
+      @include opacity(0);
+      pointer-events: none;
+      @include transition(all 0.2s ease);
+    }
+
+    &::before {
+      left: 0;
+      top: 15px;
+      content: "";
+      width: 100%;
+      height: 2px;
+      position: absolute;
+      background-color: $green;
+    }
+
+    &::after {
+      top: 9px;
+      right: 60px;
+      content: " ";
+      position: absolute;
+      @include size(14px);
+      border: 2px solid $green;
+      background-color: $white;
+      border-top: 0px none;
+      border-left: 0px none;
+      @include transform(rotate(45deg));
+    }
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    #{$tipBoxSelf}__image {
+      @include box-shadow(0 0 10px 0 rgba($black, 0.5));
+    }
+
+    #{$tipBoxSelf}__content {
+      &::before,
+      &::after {
+        @include opacity(1);
+        visibility: visible;
+      }
+    }
+  }
+}
+
+.tip--whyus-v2 {
+  @include padding(50 0);
+  background-image: url("../images/fun-facts-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  @include breakpoint(767) {
+    background-attachment: scroll !important;
+  }
+
+  @include responsive(sm) {
+    @include padding(60 0);
+
+    @include respond-to(md) {
+      @include padding(80 0);
+
+      @include respond-to(lg) {
+        @include padding(100 0);
+      }
+    }
+  }
+
+  h5,
+  p {
+    color: #ddd;
+  }
+
+  h5 {
+    color: $white;
+    @include font-size(36);
+    font-weight: $weightBold;
+    text-transform: uppercase;
+    @include margin-bottom(20);
+
+    span {
+      color: $success;
+    }
+  }
+
+  p {
+    color: $white;
+    font-size: 1.125rem;
+    @include margin-bottom(40);
+
+    &:last-child {
+      @include margin-bottom(40);
+    }
+  }
+
+  .tip--whyus--Image {
+    position: relative;
+    border-radius: 6px;
+    background-color: $white;
+    @include margin-bottom(0);
+
+    .link-success {
+      color: $green;
+      @extend .animation-all;
+      border-bottom: 1px solid $green;
+
+      &:hover {
+        border-bottom-color: transparent;
+      }
+    }
+
+    &::after {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      content: " ";
+      position: absolute;
+      @include size(100%);
+      @include opacity(0.3);
+      background-color: $blue_sh8;
+      display: none;
+    }
+
+    @include breakpoint(767) {
+      @include margin-top(35);
+      @include margin-bottom(0);
+    }
+  }
+
+  .tip--cta-btn {
+    color: $white;
+    font-weight: $weightBold;
+    text-transform: uppercase;
+    background-color: $primary_sh1;
+  }
+}
+
+.tip--blog {
+  background-color: $white;
+  @include padding(40 0 20);
+
+  @include responsive(sm) {
+    @include padding(50 0 60);
+
+    @include respond-to(md) {
+      @include padding(60 0 75);
+
+      @include respond-to(md) {
+        @include padding(60 0 90);
+      }
+    }
+  }
+
+  > .container {
+    > .row {
+      margin-bottom: 25px !important;
+    }
+  }
+
+  .page-head {
+    .u-heading--small,
+    .u-heading--medium {
+      color: $primary;
+      font-size: 30px !important;
+
+      > span {
+        color: $green;
+      }
+
+      @include breakpoint(767) {
+        font-size: 26px !important;
+      }
+    }
+  }
+
+  .video--image--wrapper {
+    padding-bottom: 65% !important;
+  }
+
+  .video--image {
+    border-bottom: 0px none !important;
+  }
+
+  &__lists {
+    position: relative;
+    @include box-shadow(0px 0px 14px rgba($black, 0.1));
+
+    @include breakpoint(767) {
+      @include margin-bottom(35);
+    }
+  }
+
+  &__content {
+    z-index: 1;
+    margin-top: 0px;
+    @include padding(0);
+  }
+
+  &__description {
+    z-index: 2;
+    position: relative;
+    @include padding(25);
+    background-color: $white;
+    @include padding-bottom(35);
+
+    h2 {
+      font-size: 16px;
+      line-height: 1.4;
+      color: $black_sh2;
+      font-weight: $weightBold;
+      @include margin(10 0 15);
+
+      overflow: hidden;
+      position: relative;
+      min-height: 2.25rem;
+      white-space: normal;
+      display: -webkit-box;
+      @include line-clamp(2);
+      text-overflow: ellipsis;
+      max-height: 3.5rem !important;
+      @include flex-direction(column, vertical);
+      cursor: pointer;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: $primary;
+      }
+    }
+
+    p {
+      font-size: 15px;
+      color: $black_sh2;
+      line-height: 1.5;
+      margin-bottom: 20px;
+
+      overflow: hidden;
+      min-height: 3.75rem;
+      position: relative;
+      white-space: normal;
+      display: -webkit-box;
+      @include line-clamp(3);
+      text-overflow: ellipsis;
+      max-height: 3.75rem !important;
+      @include flex-direction(column, vertical);
+    }
+
+    .tip--blog-btn {
+      padding: 0;
+      color: $primary;
+      @extend .animation-all;
+      background-color: transparent;
+
+      .arrow {
+        svg {
+          fill: $primary;
+        }
+      }
+    }
+  }
+
+  &__category {
+    color: $white;
+    margin-left: -35px;
+    @include inline-flex;
+    @include padding(10 20);
+    font-weight: $weightBold;
+    text-transform: uppercase;
+    background-color: $grey_sh2;
+  }
+}
+
+.video--image--wrapper {
+  &--inner {
+    overflow: hidden;
+    img {
+      @extend .animation-all;
+    }
+  }
+
+  &:hover {
+    .video--image--wrapper--inner {
+      img {
+        @include transform(scale(1.15));
+      }
+    }
+  }
+}
+.tip--blog__lists {
+  &:hover {
+    .video--image--wrapper--inner {
+      img {
+        @include transform(scale(1.15));
+      }
+    }
+  }
+}
+
+.tip--whyus,
+.tip--community {
+  @include padding(30 0);
+  background-color: $white;
+  @include padding-bottom(40);
+
+  @include responsive(sm) {
+    @include padding(30 0);
+    @include padding-bottom(50);
+
+    @include respond-to(md) {
+      @include padding(40 0);
+      @include padding-bottom(60);
+
+      @include respond-to(lg) {
+        @include padding(40 0);
+        @include padding-bottom(70);
+      }
+    }
+  }
+}
+
+.tip--community {
+  @include font-size(16);
+  line-height: 1.5;
+  background-color: $white;
+
+  @include responsive(sm) {
+    @include font-size(18);
+    line-height: 1.5;
+
+    @include respond-to(md) {
+      @include font-size(20);
+      line-height: 1.4;
+
+      @include respond-to(lg) {
+        @include font-size(24);
+        line-height: 1.35;
+      }
+    }
+  }
+  .btn-cta {
+    font-size: 18px;
+    color: $blue_sh6;
+    border-radius: 40px;
+    @include padding(12 40);
+    background-color: $green;
+    font-weight: $weightSemibold;
+    @include transition(all 0.4s ease);
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $white;
+      background-color: darken($green, 10%);
+    }
+    @include breakpoint(767) {
+      font-size: 16px;
+      @include padding(10 24);
+    }
+  }
+}
+
+.tip--cta {
+  text-align: center;
+  @include padding(20 0);
+  @include font-size(18);
+  background-color: $green;
+
+  @include responsive(sm) {
+    @include font-size(22);
+    @include padding(20 0);
+
+    @include respond-to(md) {
+      @include font-size(26);
+      @include padding(25 0);
+
+      @include respond-to(lg) {
+        @include font-size(30);
+        @include padding(25 0);
+      }
+    }
+  }
+
+  &__social {
+    list-style: none;
+    text-align: left;
+    @include margin(0);
+    @include padding(0);
+    @include margin-left(10);
+    @include flex-flow(row nowrap);
+    @include justify-content(flex-start);
+    @include flex-direction(row, horizontal);
+
+    @include breakpoint(767) {
+      @include margin-top(20);
+    }
+
+    &--items {
+      @include margin(0);
+      @include padding(0);
+      @include inline-flex;
+      @include margin-left(5);
+      @include align-items(center);
+      @include justify-content(center);
+
+      > a {
+        color: $white;
+        font-size: 1.125rem;
+        border-radius: 100%;
+        @include size(45px);
+        @include inline-flex;
+        border: 4px solid $white;
+        @include align-items(center);
+        @include justify-content(center);
+        background-color: transparent;
+
+        &:hover,
+        &:focus,
+        &:active {
+          color: $black;
+          border-color: $white;
+          background-color: $white;
+        }
+      }
+
+      &.facebook {
+        > a {
+          background-color: $facebook;
+
+          &:hover,
+          &:focus,
+          &:active {
+            color: $facebook;
+            background-color: $white;
+            border: 4px solid $facebook;
+          }
+        }
+      }
+
+      &.twitter {
+        > a {
+          background-color: $twitter;
+
+          &:hover,
+          &:focus,
+          &:active {
+            color: $twitter;
+            background-color: $white;
+            border: 4px solid $twitter;
+          }
+        }
+      }
+
+      &.linkedin {
+        > a {
+          background-color: $linkedin;
+
+          &:hover,
+          &:focus,
+          &:active {
+            color: $linkedin;
+            background-color: $white;
+            border: 4px solid $linkedin;
+          }
+        }
+      }
+
+      &.instagram {
+        > a {
+          background-color: $instagram2;
+
+          &:hover,
+          &:focus,
+          &:active {
+            color: $instagram2;
+            background-color: $white;
+            border: 4px solid $instagram2;
+          }
+        }
+      }
+    }
+
+    .svg-inline--fa.fa-fw {
+      width: 1.4rem;
+      height: 1.4rem;
+      font-size: inherit;
+      display: inline-block;
+    }
+  }
+}
+
+.footer {
+  $self: &;
+
+  color: $white;
+  @include flexbox;
+  @include padding(30 0);
+  background-color: $footer;
+  @include justify-content(space-between);
+  @include flex-direction(row, horizontal);
+
+  @include responsive(sm) {
+    @include padding(30 0);
+
+    @include respond-to(md) {
+      @include padding(40 0);
+
+      @include respond-to(lg) {
+        @include padding(50 0);
+      }
+    }
+  }
+
+  h4 {
+    width: 100%;
+    color: $white;
+    display: block;
+    text-align: left;
+    @include font-size(25);
+    font-weight: $weightBold;
+    @include padding-left(40);
+
+    @include breakpoint(500) {
+      @include padding-left(0);
+    }
+    @media screen and (min-width: 501px) and (max-width: 767px) {
+      @include padding-left(0);
+    }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      @include padding-left(20);
+    }
+  }
+
+  &--copyright {
+    color: $white;
+    text-align: left;
+    @include font-size(14);
+    line-height: 1.35;
+    font-weight: $weightRegular;
+
+    a {
+      color: $white;
+      @include transition(all 0.4s ease);
+      border-bottom: 1px solid transparent;
+
+      &:hover,
+      &:focus,
+      &:active {
+        border-bottom: 1px solid $white;
+      }
+    }
+
+    .spacer {
+      @include margin(0 8);
+    }
+
+    @include breakpoint(767) {
+      text-align: center;
+    }
+  }
+
+  &__navigation {
+    @include margin-bottom(10);
+    /*@include padding-left(40);
+
+    @include breakpoint(500) {
+      @include padding-left(0);
+    }
+    @media screen and (min-width: 501px) and (max-width: 767px) {
+      @include padding-left(0);
+    }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      @include padding-left(20);
+    }*/
+
+    &--items {
+      @include flexbox;
+      @include align-items(flex-start);
+      @include flex-direction(row, horizontal);
+
+      li {
+        color: $white;
+        text-align: left;
+        position: relative;
+        @include margin(0);
+        white-space: nowrap;
+
+        &::before {
+          content: "|";
+          text-align: center;
+          @include margin(0 10);
+        }
+
+        &:first-child {
+          @include margin-left(0);
+
+          &::before {
+            display: none;
+          }
+        }
+        &:last-child {
+          @include margin-right(0);
+        }
+
+        a {
+          color: $white;
+          display: inline;
+          white-space: nowrap;
+          @include font-size(14);
+          font-weight: $weightMedium;
+          border-bottom: 1px solid transparent;
+
+          &:hover,
+          &:focus,
+          &:active {
+            color: $white_sh4;
+            border-bottom: 1px solid $white_sh4;
+          }
+        }
+      }
+    }
+
+    @include breakpoint(767) {
+      .footer__navigation--items {
+        text-align: center;
+        @include align-items(flex-start);
+        @include justify-content(center);
+      }
+    }
+  }
+
+  .powered--by {
+    width: 100%;
+    @include inline-flex;
+    @include font-size(14);
+    @include align-items(center);
+    @include justify-content(flex-end);
+
+    .logo--missio {
+      width: 80px;
+      max-width: 80px;
+
+      @include breakpoint(600) {
+        width: 60px;
+        max-width: 60px;
+      }
+    }
+    @include breakpoint(767) {
+      @include margin-top(25);
+      @include justify-content(center);
+    }
+  }
+
+  .desktop--social {
+    @include inline-flex;
+    @include padding-left(40);
+    @include align-items(center);
+    @include justify-content(flex-start);
+
+    @include breakpoint(500) {
+      @include padding-left(0);
+      @include margin-bottom(30);
+    }
+    @media screen and (min-width: 501px) and (max-width: 767px) {
+      @include padding-left(0);
+      @include margin-bottom(30);
+    }
+    @media screen and (min-width: 768px) and (max-width: 991px) {
+      @include padding-left(20);
+    }
+  }
+
+  &--logo {
+    display: block;
+    overflow: hidden;
+    max-width: 300px;
+    @include margin(0);
+    margin-left: auto;
+    margin-right: auto;
+    @include padding(5);
+    background-color: $white;
+    @include margin-bottom(25);
+
+    @include breakpoint(767) {
+      @include margin-left(0);
+      @include margin-right(0);
+    }
+
+    img {
+      max-width: 290px;
+    }
+  }
+
+  &__news {
+    @include padding-right(0);
+    @include responsive(sm) {
+      @include padding-right(0);
+
+      @include respond-to(md) {
+        @include padding-right(25);
+      }
+    }
+
+    &--items {
+      &__lists {
+        @include flexbox;
+        @include margin-bottom(14);
+        @include padding-bottom(10);
+        @include align-items(flex-start);
+        @include flex-direction(row, horizontal);
+        border-bottom: 1px solid rgba($white, 0.2);
+
+        &:last-child {
+          @include margin-bottom(0);
+          @include padding-bottom(0);
+          border-bottom: 0px solid rgba($white, 0);
+        }
+      }
+    }
+
+    .news-item {
+      &--image {
+        max-width: 65px;
+        overflow: hidden;
+        @include size(65px);
+        @include flex(65px 0 0);
+
+        img {
+          overflow: hidden;
+          @include size(65px);
+          @include object-fit(cover);
+        }
+      }
+      &--info {
+        @include padding-left(15);
+      }
+      &--title {
+        color: $white;
+        @include font-size(15);
+        @include margin-top(0);
+        font-family: $primaryFont;
+        @include margin-bottom(4);
+        font-weight: $weightSemibold;
+
+        @include responsive(sm) {
+          @include margin-top(-2);
+        }
+
+        a {
+          color: $white;
+
+          &:hover,
+          &:focus,
+          &:active {
+            color: $blue_sh3;
+          }
+        }
+      }
+      &--author,
+      &--options {
+        @include font-size(14);
+        color: rgba($white, 0.75);
+
+        > a {
+          color: rgba($white, 0.75);
+
+          &:hover,
+          &:focus,
+          &:active {
+            color: $blue_sh3;
+          }
+        }
+      }
+      &--author {
+        @include margin-bottom(4);
+      }
+      &--options {
+        > a {
+          @include margin-left(10);
+
+          &:first-child {
+            @include margin-left(0);
+          }
+        }
+      }
+    }
+  }
+}
+
+.footer--bottom {
+  color: $white;
+  @include font-size(16);
+  @include padding(15 0);
+  background-color: $green;
+
+  a {
+    color: $white;
+    @extend .animation-all;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  .poweredby {
+    width: 100%;
+    color: $white;
+    text-align: center;
+    @include font-size(16);
+  }
+
+  @include breakpoint(767) {
+    .row {
+      [class^="col-"] {
+        text-align: left !important;
+        margin-bottom: 10px !important;
+
+        & * {
+          text-align: left !important;
+        }
+      }
+    }
+  }
+}
+
+.footer-bottom {
+  width: 100%;
+  padding: 20px 0;
+  background-color: $footer_sh1;
+
+  &-area {
+    width: 100%;
+    text-align: center;
+  }
+
+  .copy-right {
+    color: $white;
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 0;
+
+    a {
+      color: $white;
+      font-weight: 600;
+      @extend .animation-all;
+
+      &:hover, &:focus, &:active {
+        color: $white_sh4;
+      }
+
+      &.mx-1 {
+        &:first-child {
+          margin-left: 0 !important;
+        }
+      }
+    }
+  }
+}
+
+@include breakpoint(767) {
+  .sm\:pr-0 {
+    padding-right: 0px !important;
+  }
+  .sm\:mmt-3 {
+    margin-top: 30px !important;
+  }
+  .sm\:pr-4 {
+    padding-right: 0px !important;
+  }
+  .sm\:d-block {
+    display: block !important;
+  }
+  .sm\:d-inlineblock {
+    width: auto !important;
+    display: inline-block !important;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 767px) {
+  .mobile--half {
+    max-width: 50%;
+    @include flex(1 1 50%);
+  }
+}
+
+/* End footer style(s) */

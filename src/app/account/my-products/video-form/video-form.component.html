@@ -1,0 +1,232 @@
+<style type="text/css">
+.content__wrap{background-color:#f2f3f8!important;margin-bottom:-30px!important}.fs-30{color:#98a6ad;font-size:30px}.fs-24{color:#000;font-size:26px}.vdoPreviewTxt{padding:6px 16px;margin:0 auto 15px;background-color:#98a6ad;border-radius:4px;display:inline-flex;font-size:13px}@media (max-width:767px){.fs-24{font-size:22px}}
+</style>
+
+<div class="content__wrap content__wrap-sm">
+    <div class="Shop__Listings Shop__Listings-xs memberResource">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="page-head">
+                        <h3 class="u-heading--medium u-heading--medium-sm no-upper">{{(recId > 0 ? "VIDEO_UPDATE" : "VIDEO_ADD") | translate}}</h3>
+                    </div>
+                    <form name="Video_Post_Form" id="Video_Post_Form" [formGroup]="videoForm" (ngSubmit)="onSubmit(videoForm.value)">
+                        <input type="hidden" formControlName="id" name="id" />
+                        <input type="hidden" formControlName="Video_Type" name="Video_Type" />
+                        <input type="hidden" formControlName="Video_Source" name="Video_Source" />
+                        <input type="hidden" formControlName="Video_Unique_Id" name="Video_Unique_Id" />
+                        <input type="hidden" formControlName="Video_Time" name="Video_Time" />
+                        <input type="hidden" formControlName="Video_Thumbnail_Large" name="Video_Thumbnail_Large" />
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-8 col-md-8 mb-5">
+                                <div class="card-panel">
+                                    <div class="card-panel-body">
+                                        <div class="form-horizontal">
+                                            
+                                            <div class="row form-group mb-3" *ngIf="videoURL && videoSingle && videoSingle.Video_Source == 'Uploaded'">
+                                                <div class="col-12">
+                                                    <label class="mb-1" for="videoURL">Video<span class="mandatory_asterisk">*</span></label>
+                                                    <div class="profilepic--preview w-100 d-flex align-items-center justify-content-center flex-column mb-3" style="max-width: 100%;">
+                                                        <button (click)="RemoveVdo()" type="button" class="btn--deleteProfile d-none">
+                                                            <i class="fe-x icon"></i>
+                                                        </button>
+                                                        
+                                                        <div *ngIf="!videoURL" class="p-4 w-100 d-flex align-items-center justify-content-center flex-column" >
+                                                            <i class="fe-upload fs-30"></i>
+                                                            <h3 class="h3 mt-2 mb-0 fs-24"><strong>Click to upload.</strong></h3>
+                                                        </div>
+                                                        
+                                                        <img width="200px" [src]="videoURL" height="200" *ngIf="videoURL" class="thumbnail mb-0" />
+                                                        
+                                                        <div class="vdoPreviewTxt" *ngIf="videoData.filename">{{videoData.filename}}</div>
+
+
+                                                        <div class="vdoPreviewTxt" *ngIf="!videoData.filename && videoSingle.Video_Url">{{videoSingle.Video_Url}}</div>
+
+                                                    </div>
+                                                    
+                                                    <div class="w-100" [ngClass]="submitted && videoForm.controls.videoupload.errors ? 'form-group--has-error' : ''">
+                                                        <div class="button-wrap mb-2">
+                                                            <label *ngIf="VideoExist" class="upload--button" for="upload"><i class="fe-upload mr-2"></i>{{"VIDEO_UPDATE" | translate}}
+                                                                <input type="file" #file type="file" accept="video/*" (change)="processFileVideo(file.files)" class="solid rounded" id="profile_video" name="profile_video" placeholder="{{ 'VIDEO_CHOOSE' | translate }}" formControlName="videoupload" />
+                                                            </label>
+                                                            <label *ngIf="!VideoExist" class="upload--button" for="upload">
+                                                                <i class="fe-upload mr-2"></i>{{"VIDEO_CHOOSE" | translate}}
+                                                                <input type="file" #file type="file" accept="video/*" (change)="processFileVideo(file.files)" class="solid rounded" id="profile_video" name="profile_video" placeholder="{{ 'VIDEO_CHOOSE' | translate }}" formControlName="videoupload" />
+                                                            </label>
+                                                        </div>
+
+                                                        <div *ngIf="
+                                                        submitted && videoForm.controls.videoupload.errors">
+                                                            <div *ngIf="videoForm.controls.videoupload.errors.required">
+                                                                <div class="help-block" style="display: block">
+                                                                    {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="videoSingle && videoSingle.Video_Source != 'Uploaded'" class="control-group mb-3">
+                                                <div [ngClass]="submitted && videoForm.controls.Video_Url.errors ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <label class="mb-1" for="Video_Url">{{"VIDEO_URL" | translate}} <span class="mandatory_asterisk">*</span></label>
+                                                    <input (input)="SetVideoURL($event.target.value);" type="text" class="form-control solid rounded" formControlName="Video_Url" id="Video_Url" name="Video_Url" placeholder="{{ 'VIDEO_URL' | translate }}" />
+                                                    <div *ngIf="submitted && videoForm.controls.Video_Url.errors">
+                                                        <div *ngIf="videoForm.controls.Video_Url.errors.required">
+                                                            <div class="help-block" style="display: block">
+                                                                {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button (click)='GetVideoMeta()'  class="button button--green button-md d-inline-block button-radius ml-2" type="button"><i class="fe-code mr-1"></i> Get Video</button>
+                                            </div>
+                                            <div class="control-group mb-3">
+                                                <div [ngClass]="submitted && videoForm.controls.title.errors ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <label class="mb-1" for="title">{{"VIDEO_TITLE" | translate}} <span class="mandatory_asterisk">*</span></label>
+                                                    <input type="text" class="form-control solid rounded" formControlName="title" id="title" name="title" placeholder="{{ 'VIDEO_TITLE' | translate }}" />
+                                                    <div *ngIf="submitted && videoForm.controls.title.errors">
+                                                        <div *ngIf="videoForm.controls.title.errors.required">
+                                                            <div class="help-block" style="display: block">
+                                                                {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="control-group mb-3">
+                                                <div [ngClass]="submitted && videoForm.controls.desc.errors ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <label class="mb-1" for="desc">{{"VIDEO_DESC" | translate}} <span class="mandatory_asterisk">*</span></label>
+                                                    <textarea class="form-control solid rounded" formControlName="desc" id="desc" name="desc" rows="4" placeholder="{{ 'VIDEO_DESC' | translate }}"></textarea>
+                                                    <div *ngIf="submitted && videoForm.controls.desc.errors">
+                                                        <div *ngIf="videoForm.controls.desc.errors.required">
+                                                            <div class="help-block" style="display: block">
+                                                                {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="control-group mb-3">
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="mb-1" for="CategoryID">{{"CATEGORY" | translate}} <span class="mandatory_asterisk">*</span></label>
+                                                            <div [ngClass]="submitted && videoForm.controls.category.errors ? 'form-group--has-error' : ''">
+                                                                <div class="selectdropdown">
+                                                                    <select class="form-control solid rounded CategoryID" name="categories[]" id="CategoryID" formControlName="category" size="">
+                                                                        <option class="placeholder" selected value="">
+                                                                            {{ "SELECT" | translate }}
+                                                                        </option>
+                                                                        <option *ngFor="let resItem of categoryList let i=index" value={{resItem.ID}}>{{resItem.name}}</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="submitted && videoForm.controls.category.errors">
+                                                                    <div *ngIf="videoForm.controls.category.errors.required">
+                                                                        <div class="help-block" style="display: block">
+                                                                            {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                                        <div class="form-group">
+                                                            <label class="mb-1" for="ChannelID">{{"VIDEO_CHANNEL" | translate}}</label>
+                                                            <div class="selectdropdown">
+                                                                <select class="form-control solid rounded ChannelID" name="channel[]" id="ChannelID" formControlName="channel" size="">
+                                                                    <option class="placeholder" selected value="">
+                                                                        {{ "SELECT" | translate }}
+                                                                    </option>
+                                                                    <option *ngFor="let resItem of channelList let i=index" value={{resItem.ID}}>{{resItem.name}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                                    <div class="form-group">
+                                                        <label class="mb-1">{{"TAGS" | translate}}</label>
+                                                        <tag-input formControlName="tags" (onAdd)="onAdd($event)" [addOnBlur]="true" [modelAsStrings]="true"></tag-input>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 d-none">
+                                                    <div [ngClass]="submitted && videoForm.controls.duration.errors ? 'form-group--has-error' : ''">
+                                                        <label class="mb-1" for="duration">{{"VIDEO_DURATION" | translate}} <span class="mandatory_asterisk">*</span></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon2">In SEC</span>
+                                                            </div>
+                                                            <input type="text" class="form-control solid rounded" formControlName="duration" id="duration" name="duration" placeholder="{{ 'VIDEO_DURATION' | translate }}" />
+                                                            <div *ngIf="submitted && videoForm.controls.duration.errors">
+                                                                <div *ngIf="videoForm.controls.duration.errors.required">
+                                                                    <div class="help-block" style="display: block">
+                                                                        {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-12 col-md-12">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <button type="button" class="button button--grey button-md d-inline-block button-radius mr-2" (click)="memberPage()"><i class="fe-x mr-1"></i> {{ "CANCEL" | translate }}</button>
+
+                                            <button id="save_btn" type="submit" class="button button--green button-md d-inline-block button-radius ml-2" id="save_publish_button"><i class="fe-check mr-1"></i> {{ "SAVE" | translate }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="col-lg-4 col-md-4 col-sm-12" style="">
+                                <div class="card-panel">
+                                    <div class="card-panel-body">
+                                        <h3 class="form-section">{{"VIDEO_FEAIMG" | translate}}</h3>
+                                        <div class="row d-flex align-items-center form-group mb-3" *ngIf="imageURL">
+                                            <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="profilepic--preview" style="max-width: 100%;">
+                                                    <button (click)="RemovePic()" type="button" class="btn--deleteProfile d-none">
+                                                        <i class="fe-x icon"></i>
+                                                    </button>
+                                                    <img [src]="imageURL" height="200" *ngIf="imageURL" class="thumbnail mb-0" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row d-flex align-items-center form-group mb-3">
+                                            <div class="col-12 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="button-wrap mb-2">
+                                                    <label *ngIf="PictureExist" class="upload--button" for="upload"><i class="fe-upload mr-2"></i>{{"VIDEO_ADDING" | translate}}
+                                                        <input type="file" #file type="file" accept="image/*" (change)="processFile(file.files)" class="solid rounded" id="profile_picture" name="profile_picture" placeholder="{{ 'PROFILE_PIC' | translate }}" />
+                                                    </label>
+                                                    <label *ngIf="!PictureExist" class="upload--button" for="upload">
+                                                        <i class="fe-upload mr-2"></i>{{"VIDEO_ADDING" | translate}}
+                                                        <input type="file" #file type="file" accept="image/*" (change)="processFile(file.files)" class="solid rounded" id="profile_picture" name="profile_picture" placeholder="{{ 'PROFILE_PIC' | translate }}" />
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>

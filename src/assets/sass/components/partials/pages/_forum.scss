@@ -1,0 +1,801 @@
+/* Forum Page
+------------------------------------*/
+.section--forum {
+  .right-box {
+    height: auto;
+  }
+}
+
+.section--forum {
+  @include padding(40 15);
+
+  @include responsive(sm) {
+    @include padding(40 20);
+
+    @include respond-to(md) {
+      @include padding(50 25);
+
+      @include respond-to(lg) {
+        @include padding(60 35);
+      }
+    }
+  }
+
+  .page-head {
+    @include padding-right(20);
+  }
+
+  .container-fluid {
+    @include padding(0 15);
+
+    @include responsive(sm) {
+      @include padding(0 15);
+
+      @include respond-to(md) {
+        @include padding(0 50);
+
+        @include respond-to(lg) {
+          @include padding(0 70);
+        }
+      }
+    }
+  }
+
+  .page--withSidebar {
+    @include margin-top(30);
+    @include padding-right(0);
+
+    @include responsive(sm) {
+      @include margin-top(0);
+      @include padding-right(20);
+
+      @include respond-to(md) {
+        @include margin-top(0);
+        @include padding-right(30);
+
+        @include respond-to(lg) {
+          @include margin-top(0);
+          @include padding-right(40);
+        }
+      }
+    }
+  }
+
+  .forum--post {
+    @include flexbox;
+    border-radius: 2px;
+    border: 1px solid $border;
+    @include margin-bottom(30);
+    @include align-items(center);
+    @include flex-direction(column, vertical);
+    @include box-shadow(0 0 10px 3px rgba($black, 0.1));
+
+    @include responsive(sm) {
+      @include flex-direction(column, vertical);
+
+      @include respond-to(md) {
+        @include flex-direction(row, horizontal);
+
+        @include respond-to(lg) {
+          @include flex-direction(row, horizontal);
+        }
+      }
+    }
+
+    &:last-child,
+    &:only-child {
+      @include margin-bottom(0);
+    }
+
+    &__details {
+      @include flexbox;
+      @include padding(15);
+      max-width: calc(100% - 0px);
+      @include flex(0 0 calc(100% - 0px));
+
+      @include responsive(sm) {
+        max-width: calc(100% - 0px);
+        @include flex(0 0 calc(100% - 0px));
+
+        @include respond-to(md) {
+          max-width: calc(100% - 100px);
+          @include flex(0 0 calc(100% - 100px));
+
+          @include respond-to(lg) {
+            max-width: calc(100% - 120px);
+            @include flex(0 0 calc(100% - 120px));
+          }
+        }
+      }
+    }
+
+    .teacherinfo {
+      width: 65px;
+      max-width: 65px;
+      text-align: center;
+
+      @include responsive(sm) {
+        width: 65px;
+        max-width: 65px;
+
+        @include respond-to(md) {
+          width: 80px;
+          max-width: 80px;
+
+          @include respond-to(lg) {
+            width: 100px;
+            max-width: 100px;
+          }
+        }
+      }
+
+      .user--name {
+        @include padding-top(10);
+      }
+
+      .avatar {
+        display: block;
+        border-radius: 0;
+        position: relative;
+        @include size(50px);
+        max-width: 50px;
+        flex: 0 0 50px;
+
+        @include responsive(sm) {
+          @include size(50px);
+          max-width: 50px;
+          flex: 0 0 50px;
+
+          @include respond-to(md) {
+            @include size(60px);
+            max-width: 60px;
+            flex: 0 0 60px;
+
+            @include respond-to(lg) {
+              @include size(70px);
+              max-width: 70px;
+              flex: 0 0 70px;
+            }
+          }
+        }
+
+        img {
+          overflow: hidden;
+          @include size(100%);
+          @include object-fit(cover);
+          @include border-radius(4px);
+          @include object-position(top center);
+        }
+
+        .status {
+          top: 0;
+          right: 0;
+          line-height: 12px;
+          border-radius: 50%;
+          position: absolute;
+          @include size(12px);
+          border: solid 2px $white;
+          display: none !important;
+
+          &.green {
+            background-color: $green;
+          }
+        }
+
+        .user--name {
+          font-size: 12px;
+        }
+      }
+    }
+
+    &__desc {
+      @include padding(0 20);
+
+      @include breakpoint(991) {
+        @include padding-right(0);
+        @include padding-bottom(10);
+      }
+
+      h2,
+      p {
+        color: $grey;
+      }
+
+      h2 {
+        @include font-size(20);
+        line-height: 1.5;
+        font-weight: $weightBold;
+        @include margin-bottom(5);
+
+        @include breakpoint(600) {
+          @include font-size(18);
+          line-height: 1.5;
+        }
+
+        > a {
+          color: $primary;
+          @include transition(all 0.3s ease);
+
+          &:hover,
+          &:focus,
+          &:active {
+            color: $green;
+          }
+        }
+      }
+
+      p {
+        @include font-size(16);
+        line-height: 1.4;
+        font-weight: $weightLight;
+        @include margin-bottom(0);
+
+        overflow: hidden;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        -moz-line-clamp: 4;
+        -ms-line-clamp: 4;
+        -o-line-clamp: 4;
+        line-clamp: 4;
+      }
+    }
+
+    &__info {
+      width: 100%;
+      max-width: 100%;
+      position: relative;
+      @include padding(0 15);
+      @include flex(0 0 100%);
+      @include flexbox;
+      @include justify-content(space-around);
+      @include flex-direction(row, horizontal);
+
+      @include responsive(sm) {
+        max-width: 100%;
+        @include padding(0);
+        @include flex(0 0 100%);
+        @include justify-content(space-around);
+        @include flex-direction(row, horizontal);
+
+        @include respond-to(md) {
+          max-width: 100px;
+          @include padding(0);
+          @include flex(0 0 100px);
+          @include justify-content(center);
+          @include flex-direction(column, horizontal);
+
+          @include respond-to(lg) {
+            max-width: 120px;
+            @include padding(0);
+            @include flex(0 0 120px);
+            @include justify-content(center);
+            @include flex-direction(column, horizontal);
+          }
+        }
+      }
+
+      &:before {
+        top: 0;
+        bottom: 0;
+        left: -1px;
+        content: "";
+        width: 1px;
+        height: 100%;
+        position: absolute;
+        background-color: $border;
+
+        @include breakpoint(991) {
+          left: 0;
+          top: auto;
+          width: 100%;
+          height: 1px;
+          bottom: 100%;
+        }
+      }
+
+      .comments {
+        text-align: center;
+        @include padding(10 0 20 0);
+        border-bottom: 1px solid $border;
+
+        @include breakpoint(991) {
+          width: 33.3333%;
+          max-width: 33.3333%;
+          border-bottom: 0px none;
+        }
+
+        &--bg {
+          color: $white;
+          font-size: 14px;
+          position: relative;
+          border-radius: 2px;
+          display: inline-block;
+          @include padding(12 15);
+          background-color: #bdc3c7;
+        }
+
+        .mark {
+          left: 43%;
+          bottom: 0;
+          position: absolute;
+          @include size(11px);
+          background-color: #bdc3c7;
+          @include margin-bottom(-5);
+          @include transform(rotate(45deg));
+        }
+      }
+
+      .views,
+      .time {
+        font-size: 14px;
+        @include flexbox;
+        text-align: center;
+        @include padding(15 10);
+        @include align-items(center);
+        @include justify-content(center);
+
+        [class^="fe-"] {
+          @include padding-right(5);
+        }
+
+        @include breakpoint(991) {
+          width: 33.3333%;
+          max-width: 33.3333%;
+          border-left: 1px solid $border;
+        }
+      }
+      .views {
+        border-bottom: 1px solid $border;
+
+        @include breakpoint(991) {
+          border-bottom: 0px none;
+        }
+      }
+    }
+  }
+}
+
+.sidebarblock {
+  border-radius: 2px;
+  background-color: $white;
+  border: 1px solid $border;
+  @include margin-bottom(30);
+  @include box-shadow(0 0 10px 3px rgba($black, 0.1));
+
+  h3 {
+    color: $grey;
+    @include margin(0);
+    @include padding(15);
+    @include font-size(20);
+    font-weight: $weightBold;
+    background-color: $white_sh3;
+    border-bottom: 1px solid $border;
+  }
+
+  .cats {
+    list-style: none;
+    @include margin(0);
+    @include padding(0);
+
+    li {
+      display: block;
+      list-style: none;
+      position: relative;
+      @include margin(0);
+      @include padding(0);
+      border-bottom: 1px solid $border;
+
+      &:last-child {
+        border-bottom: 0px none;
+      }
+
+      a {
+        color: #363838;
+        display: block;
+        position: relative;
+        @include font-size(16);
+        line-height: 1.5;
+        @include padding(10 15);
+        @include padding-right(40);
+        @include transition(all 0.3s ease);
+
+        &:hover,
+        &:focus,
+        &:active {
+          color: $primary;
+        }
+      }
+
+      .badge {
+        top: 14px;
+        right: 10px;
+        color: $grey;
+        margin-left: auto;
+        position: absolute;
+        background-color: $offwhite;
+      }
+    }
+  }
+}
+
+.new--topic {
+  @include padding(45 0);
+
+  @include responsive(sm) {
+    @include padding(50 0);
+
+    @include respond-to(md) {
+      @include padding(55 0);
+
+      @include respond-to(lg) {
+        @include padding(65 0);
+      }
+    }
+  }
+}
+
+.forum--group {
+  list-style: none;
+  @include margin(0);
+  @include padding(0);
+  @include margin-bottom(35);
+  @include flexbox;
+  @include flex-wrap(wrap);
+
+  &--items {
+    list-style: none;
+    position: relative;
+    @include padding-left(30);
+    @include margin-bottom(15);
+    @include font-size(17);
+    line-height: 1.5;
+    width: 50%;
+    max-width: 50%;
+    flex: 0 0 50%;
+    @include padding-right(20);
+
+    @include breakpoint(767) {
+      width: 100%;
+      max-width: 100%;
+      flex: 0 0 100%;
+      @include padding-right(0);
+    }
+
+    &::last-child,
+    &::last-of-type {
+      @include margin-bottom(0);
+    }
+
+    &::before {
+      left: 0;
+      top: 4px;
+      width: 24px;
+      height: 24px;
+      content: " ";
+      position: absolute;
+      background-image: url("../images/bullet.png");
+      background-size: 24px auto;
+      background-repeat: no-repeat;
+      background-position: left center;
+    }
+  }
+
+  a {
+    color: $primary;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $green;
+    }
+  }
+}
+
+.post--cont {
+  img {
+    &.emoji {
+      height: auto;
+      width: 22px !important;
+      vertical-align: text-top;
+      max-width: 22px !important;
+      margin-top: 2px !important;
+      margin-bottom: 0px !important;
+    }
+  }
+
+  dl {
+    @include margin-bottom(20);
+
+    dt {
+      font-weight: 700;
+      font-size: 1.25rem;
+      @include margin-bottom(6);
+    }
+    dd {
+      @include margin-left(25);
+      @include margin-bottom(20);
+
+      p {
+        @include margin-bottom(20);
+        font-weight: 400 !important;
+
+        &::only-child,
+        &::last-child,
+        &::last-of-type {
+          @include margin-bottom(20);
+        }
+      }
+    }
+  }
+  caption {
+    width: 100%;
+    margin-bottom: 0.25em;
+  }
+  table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+    }
+    th {
+      font-weight: 700;
+    }
+    th,
+    td {
+      text-align: left;
+      padding: 0.75em 10px;
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+    }
+  }
+  p {
+    &:last-child,
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.blogs {
+  &.forum--details {
+    @include padding-top(15);
+    border: 1px solid $border;
+    @include border-radius(2px);
+
+    .post {
+      &__content {
+        .post-meta {
+          text-align: left;
+          @include flexbox;
+          @include padding-left(15);
+          @include padding-right(15);
+          border-bottom: 1px solid $border;
+
+          .post-title {
+            margin: 0px;
+            text-align: left;
+
+            h2,
+            .h2 {
+              padding-left: 0 !important;
+              padding-right: 0 !important;
+            }
+          }
+
+          .avatar {
+            display: block;
+            border-radius: 50%;
+            position: relative;
+            @include size(50px);
+            max-width: 50px;
+            flex: 0 0 50px;
+
+            @include responsive(sm) {
+              @include size(50px);
+              max-width: 50px;
+              flex: 0 0 50px;
+
+              @include respond-to(md) {
+                @include size(60px);
+                max-width: 60px;
+                flex: 0 0 60px;
+
+                @include respond-to(lg) {
+                  @include size(70px);
+                  max-width: 70px;
+                  flex: 0 0 70px;
+                }
+              }
+            }
+          }
+        }
+
+        .post--cont {
+          @include padding(20);
+        }
+      }
+    }
+  }
+}
+
+.block_box {
+  background: $white;
+  border: 1px solid $border;
+  @include border-radius(2px);
+}
+.list-single-main-item {
+  @include margin-bottom(20);
+
+  &-title {
+    position: relative;
+    @include padding(15 20);
+    @include margin-bottom(20);
+    border-bottom: 1px solid $border;
+  }
+
+  &_content {
+    @include padding(10 20 25);
+  }
+
+  .reviews-comments {
+    &-wrap {
+      width: 100%;
+      display: inline-table;
+      @include margin-top(20);
+    }
+    &-item {
+      width: 100%;
+      position: relative;
+      @include margin-bottom(20);
+      @include padding(0 0 20 90);
+      border-bottom: 1px solid $border;
+
+      @include breakpoint(600) {
+        @include padding-left(70);
+      }
+
+      &:last-child,
+      &:last-of-type {
+        border-bottom: 0px none;
+        @include margin-bottom(0);
+        @include padding-bottom(0);
+      }
+    }
+    &-avatar {
+      top: 0;
+      left: 10px;
+      width: 60px;
+      z-index: 20;
+      height: 60px;
+      position: absolute;
+
+      @include breakpoint(600) {
+        left: 0;
+      }
+
+      &:before {
+        top: 50%;
+        width: 0;
+        height: 0;
+        z-index: -1;
+        content: "";
+        right: -20px;
+        position: absolute;
+        border: solid transparent;
+        border-top-color: transparent;
+        border-top-width: medium;
+        border-right-color: transparent;
+        border-right-width: medium;
+        border-bottom-color: transparent;
+        border-bottom-width: medium;
+        border-left-color: transparent;
+        border-left-width: medium;
+        border-color: #fff;
+        border-right-color: rgb(255, 255, 255);
+        border-right-color: #f5f6fa;
+        border-width: 10px;
+        margin-top: -10px;
+        pointer-events: none;
+
+        @include breakpoint(600) {
+          right: -10px;
+        }
+      }
+    }
+
+    &-header {
+      @include margin-bottom(10);
+      @include padding-bottom(10);
+
+      h4 {
+        text-align: left;
+        font-weight: 600;
+        color: #566985;
+        @include font-size(15);
+        line-height: 1.5;
+
+        > a {
+          color: #566985;
+        }
+      }
+    }
+
+    &-item-text {
+      border-radius: 6px;
+      background: #f5f6fa;
+      @include padding(20 20 15);
+
+      p {
+        text-align: left;
+        color: $black_sh1;
+        @include font-size(14);
+        line-height: 1.5;
+        @include padding-bottom(10);
+      }
+    }
+
+    &-item-footer {
+      @include flexbox;
+      @include margin-top(15);
+      @include padding(15 0 0);
+      @include align-items(center);
+      border-top: 1px solid $border;
+    }
+
+    &-item-date {
+      color: #8c868f;
+      position: relative;
+
+      i {
+        color: $primary;
+      }
+    }
+  }
+}
+
+.reply-item {
+  color: $white;
+  border-radius: 30px;
+  @include padding(5 10);
+  @include font-size(12);
+  line-height: 1.25;
+  background-color: $green;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $white;
+    background-color: $primary;
+  }
+}
+
+.tip-topic-freshness-author {
+  margin-right: 0px;
+}
+
+@include breakpoint(767) {
+  .content-with-sidebar {
+    margin-top: 40px !important;
+  }
+}
+
+.tip--topic-lastpost {
+  .tip-topic-meta {
+    @include justify-content(center);
+  }
+}
+.tip-topic-started-in {
+  display: none !important;
+}
+
+.new-resources--uploads .right-box .blogs .post__content .post--cont {
+  padding-bottom: 25px !important;
+}
+.new-resources--uploads .blogs .post__content .post--cont p {
+  &:last-child,
+  &:last-of-type {
+    margin-bottom: 0px !important;
+  }
+}

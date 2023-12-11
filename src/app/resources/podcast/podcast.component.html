@@ -1,0 +1,46 @@
+<section class="my-podcast my-podcast-sm">
+    <div class="container p-0">
+        <div class="episode-wrapper">
+            <div class="w-full d-flex w-full episode-container episode-container-sm mb-4 noStyle">
+                <div class="episode-image" title="{{newsdetail.title}}"><img class="w-100 img-fluid" alt="]" loading="lazy" src="{{newsdetail && newsdetail.image
+                    ? PORTAL_URL +
+                      'files/blog/' +
+                      newsdetail.CID +
+                      '/' +
+                      newsdetail.image
+                    : './assets/images/news/detail.jpg'
+                    
+                }}"
+                onerror="this.onerror=null; this.src='./assets/images/media/no--image.jpg'"
+                 width="235" height="235"></div>
+                
+                <div class="episode-content d-flex flex-column justify-contentbetween">
+                    <div class="episode-content-container">
+                        <div class="episode-meta mb-3">
+                            <span class="meta-date mr-3" title="Author"><i class="fe-mic mr-1"></i>{{newsdetail.Creater_name}}</span>
+                            <span class="meta-date mr-3" title="Date"><i class="fe-calendar mr-1"></i>{{newsdetail.created_at}}</span>
+                            <!-- <span class="meta-numbers mr-3" title="Season/Episode Number"><i class="fe-list mr-1"></i>47</span> -->
+                            <!-- <span class="meta-duration mr-3" title="Episode Duration"><i class="fe-clock mr-1"></i>{{newsdetail.created_time}}</span> -->
+                            <!-- <span class="meta-size" title="Episode Weight"><i class="fe-music mr-1"></i>5.15 MB</span> -->
+                        </div>
+                        <h1 class="episode-title-big fw-bold mb-3" [innerHtml]="newsdetail.title | safeHtml"></h1>
+
+                        <div class="w-100 w-full mb-4">
+                            <audio class="w-100" id="audio" preload="auto" controls>
+                                <source src="horse.ogghttps://dl.dropboxusercontent.com/s/9v0psowra7ekhxo/A%20Himitsu%20-%20In%20Love%20%28feat.%20Nori%29.flac?dl=0" type="audio/ogg">
+                                <source src="{{bucketURL+'files/videos/'+newsdetail?.CID+'/'+newsdetail?.video_file}}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                        
+                        <!-- <div class="episode-desc text-base mb-3">
+                            <p class="excerpt line-height line-height-3">In this episode, we look into producing new podcasts and recording multiple episodes at the same time. One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. <strong class="text-lblue">[00:00:28]</strong></p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="full-episode-description" [innerHtml]="newsdetail.description | safeHtml"></div>
+    </div>
+</section>

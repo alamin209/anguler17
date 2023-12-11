@@ -1,0 +1,108 @@
+/* CSS Document */
+
+.Missio--Thankyou {
+    color: $white;
+    min-height: 250px;
+    position: relative;
+    @include padding(50 0);
+    background-color: $white;
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    @include flexbox;
+    @include flex-wrap(wrap);
+    @include align-items(center);
+    @include align-content(center);
+    @include justify-content(center);
+    @include margin-bottom(50);
+    
+    @include responsive(xs) {
+        min-height: 250px;
+        @include padding(65 0);
+        
+        @include respond-to(sm) {
+            min-height: 300px;
+            @include padding(75 0);
+            
+            @include respond-to(md) {
+                min-height: 350;
+                @include padding(85 0 100);
+            }
+        }
+    }
+    
+    &__Logo {
+        display: block;
+        max-width: 300px;
+        text-align: center;
+        margin: 0px auto 25px;
+        
+        @include responsive(sm) {
+            max-width: 450px;
+            margin: 0px auto 35px;
+            
+            @include respond-to(md) {
+                max-width: 600px;
+                margin: 0px auto 40px;
+            }
+        }
+        
+        img {
+            display: block;
+            max-width: 100%;
+        }
+    }
+    
+    .section-separator {
+        z-index: 1;
+        width: 100%;
+        bottom: 0px;
+        overflow: hidden;
+        position: absolute;
+        
+        svg {
+            display: block;
+        }
+        
+        &.wave-1 > .ss-content svg {
+            width: 100%;
+            @include margin-bottom(-1);
+        }
+    }
+    
+    .Thankyou--heading {
+        color: $black;
+        @include font-size(35);
+        line-height: 1.2;
+        @include margin-bottom(20);
+        font-family: $secondaryFont;
+        font-weight: $weightUltabold;
+        
+        @include responsive(xs) {
+            @include font-size(45);
+            line-height: 1.2;
+            
+            @include respond-to(sm) {
+                @include font-size(55);
+                line-height: 1.2;
+
+                @include respond-to(md) {
+                    @include font-size(70);
+                    line-height: 1.2;
+                }
+            }
+        }
+    }
+    .Thankyou--description {
+        color: $primary_sh1;
+        @include font-size(20);
+        line-height: 1.5;
+        @include margin-bottom(0);
+        font-family: $secondaryFont;
+        font-weight: $weightUltabold;
+        
+        @include responsive(xs) {
+            @include font-size(25);
+        }
+    }
+}

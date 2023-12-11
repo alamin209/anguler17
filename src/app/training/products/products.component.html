@@ -1,0 +1,296 @@
+<!--<app-resources-banner></app-resources-banner>-->
+<div *ngIf="ProductSlug == 'podcasts';else other_content">
+    <div class="hero__inner small small-xs overlay u-image--covered" style="background-color: #0a0a0a;">
+        <div class="container p-0">
+            <div class="hero__inner--content hero__inner--content-xs text-center">
+                <div class="subhead subhead-xs text-white">
+                    <h1>Episodes</h1>
+                </div>
+                <div class="text text-xs text-white"></div>
+            </div>
+        </div>
+    </div>
+    
+    <section class="my-podcast my-podcast-sm">
+        <div class="container p-0">
+            <div class="episode-wrapper">
+                <div class="w-full d-flex w-full episode-container episode-container-sm mb-4" *ngFor="let item of AllResources; let i = index">
+                    <div class="episode-image" title="{{item.title}}">
+                        <a href="{{ '/cp/'+item?.product_identifier+'/'+ item?.slug }}">
+                            
+                            <img  src="{{item && item.image
+                                ? PORTAL_URL +
+                                  'files/blog/' +
+                                  item.CID +
+                                  '/' +
+                                  item.image
+                                : './assets/images/news/detail.jpg'
+                            }}" onerror="this.onerror=null; this.src='./assets/images/media/no--image.jpg'" alt="" width="235" height="235">
+                        </a>
+                    </div>
+                    
+                    <div class="episode-content d-flex flex-column justify-contentbetween">
+                        <div class="episode-content-container">
+                            <div class="episode-meta mb-3">
+                                <span class="meta-date mr-3" title="Author"><i class="fe-mic mr-1"></i>{{item.Creater_name}}</span>
+                                <span class="meta-date mr-3" title="Date"><i class="fe-calendar mr-1"></i>{{item.created_at}}</span>
+                                <!-- <span class="meta-numbers mr-3" title="Season/Episode Number"><i class="fe-list mr-1"></i>47</span> -->
+                                <!-- <span class="meta-duration mr-3" title="Episode Duration"><i class="fe-clock mr-1"></i>{{item.created_time}}</span> -->
+                                <!-- <span class="meta-size" title="Episode Weight"><i class="fe-music mr-1"></i>5.15 MB</span> -->
+                            </div>
+                            <h3 class="episode-title fw-bold mb-3"><a routerLink="{{ '/cp/'+item?.product_identifier+'/'+ item?.slug }}" [innerHtml]="((item && item?.title)? item?.title : '') | safeHtml"></a></h3>
+                            
+                            <div class="episode-desc text-base line-clamp line-clamp-5 mb-3">
+                                <div class="excerpt line-clamp line-clamp-5" [innerHtml]="item.description | safeHtml"></div>
+                            </div>
+    
+                            <audio id="audio" preload="auto" controls>
+                                <source src="horse.ogghttps://dl.dropboxusercontent.com/s/9v0psowra7ekhxo/A%20Himitsu%20-%20In%20Love%20%28feat.%20Nori%29.flac?dl=0" type="audio/ogg">
+                                <source src="{{AWSBUCKETURL+'files/videos/'+item?.CID+'/'+item?.video_file}}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<ng-template #other_content>
+    <section class="my--resources my--resources-sm">
+    <!--<app-left-side-bar></app-left-side-bar>-->
+    
+    <div class="my--rightsidebar my--rightsidebar-sm p-0">
+        <div class="video--carousel video--carousel-sm pt-5">
+            
+            <div class="filter-panel filter-panel-sm bg-white mb-4">
+                <div class="w-100 d-flex align-items-center mb-0 sm:flex-col sm:justify-start sm:align-start">
+                    <div class="w-50 sm:mw-100">
+                        <div class="my-products-search d-flex align-items-center form-group mb-md-0">
+                            <form class="my-products-search-form form-horizontal">
+                                <div class="my-products-search-form-wrapper top-1">
+                                    <input class="form-control" id="search" (keyup)="SearchByKeywordEnter($event,$event.target.value)"
+                                    value="{{ Keyword }}" name="search" placeholder="{{'SEARCH_WHITEPAPERS' | translate}}" type="text">
+                                    <button class="my-products-search-button" type="button"><span class="fe-search"></span></button>
+                                </div>
+                            </form>
+                            
+                            <div class="selectdropdown ml-2 ml-md-3">
+                                <select class="form-control" 
+                                
+                                [(ngModel)]="selectedCategoryFilter"
+                                (change)='onChangeCategorySelected($event.target.value)'
+                                >
+                                    <option value="">All Categories</option>
+                                    <option *ngFor="let category of ResourcesCategories; let i = index" [value]="category.ID" >{{category.name}}</option>
+                                </select>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="ml-auto profile-filter sm:mw-100">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-secondary" tooltip="Clear Filter" (click)="clearFilter()"><i class="fe-filter" ></i> Clear Filter</button>
+
+                            <button type="button" class="btn btn-secondary ml-2" tooltip="{{'INFO' | translate}}"><i class="fe-info"></i></button>
+
+                            <div class="user-profile-menu js-profileContainer ml-2" [ngClass]="{open: classPFlag}">
+                                <div class="w-100">
+                                    <button type="button" class="btn btn-secondary js-profile u-capitalize mt-0" (click)="togglePMenu()" role="presentation" ><i class="fe-layers mr-1"></i> Name</button>
+                                </div>
+                                <div class="dropdown-menu pull-right" >
+                                    <label class="label">Order</label>
+                                    <ul>
+                                        <li><button type="button" class="is-selected">Name</button></li>
+                                        <li><button type="button">Date</button></li>
+                                        <li><button type="button">Satus</button></li>
+                                        <li><button type="button">Last accessed</button></li>
+                                        <li class="dropdown-divider"></li>
+                                        <li>
+                                            <div class="w-100 d-flex align-items-center p-2">
+                                                <div class="checkbox checkbox-primary mb-0">
+                                                <input checked="" id="Categories" type="checkbox" class="ng-untouched ng-pristine ng-invalid"><label for="Categories"> Categories</label><div></div></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="btn-group d-flex align-items-center ml-2" role="group">
+                                <button type="button" class="btn btn-secondary" [ngClass]="{'active': setTab=='List'}" data-toggle="tab" (click)="setTab='List'" role="tab" tooltip="List View"><i class="fe-menu"></i></button>
+                                <button type="button" class="btn btn-secondary" [ngClass]="{'active': setTab=='Grid'}" data-toggle="tab" (click)="setTab='Grid'" role="tab" tooltip="Grid View"><i class="fe-grid"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tags Filter -->
+                <nav class="t--tags t--tags-md d-flex mb-0">
+                    <strong class="tags-label">Tags:</strong>
+                    <ul class="t--tags-lists t--tags-lists-sm">
+                        <li *ngFor="let tag of resourcestagsList; let i = index" (click)="onClickTagSelected(tag.ID)" [ngClass]="selectedTag == tag.ID ? 'is--selected' : ''"  >
+                            <a href="javascript:void(0);">{{tag.name}}</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <h2 [innerHtml]="((TIPProduct && TIPProduct.name)? TIPProduct.name : '') | safeHtml"></h2>
+            
+            <div class="tab-content tab-content-xs no-padding mb-0" id="myTabContent">
+                <div *ngIf="setTab=='List'; then List"></div>
+                <div *ngIf="setTab=='Grid'; then Grid"></div>
+                
+                <ng-template #List>
+                    <div class="tab-pane show active">
+                        <div class="course-table">
+                            <ul class="course-table-list">
+                                <li class="course-table-item" *ngFor="let item of AllResources; let i = index">
+                                    <div class="w-250 d-inline-flex align-items-center sm:mw-100 sm:mmb-10">
+                                        <a class="w-100 h-100 d-block" routerLink="{{ '/cp/'+item?.product_identifier+'/'+ item?.slug }}">
+                                            <div class="video--image">
+                                                <figure class="video--image--wrapper">
+                                                    <span [ngClass]="(item && (item.video_url || item.video_file)) ? 'video--image--wrapper--inner' : 'video--image--wrapper--inner'">
+                                                        <img *ngIf="item.URLImage && item.image" src="{{item.image }}" onerror="this.onerror=null; this.src='./assets/images/media/no--image.jpg'" alt="" width="160" height="110">
+                                                        <img *ngIf="!item.URLImage && item.image" src="{{ PORTAL_URL + 'files/blog/' + item.CID + '/' + item.image }}" onerror="this.onerror=null; this.src='./assets/images/media/no--image.jpg'" alt="" width="160" height="110">
+                                                        
+                                                        <img *ngIf="!item.image" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+                                                    </span>
+                                                </figure>
+                                                <div class="play--btn" *ngIf="(item && (item.video_url || item.video_file))">
+                                                    <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                                                        <path class="stroke-solid" fill="none" stroke="none" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5" />
+                                                        <path class="icon" fill="none" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z" />
+                                                    </svg>
+                                                </div>
+                                                <!-- <div *ngIf="item.media_type==='video'" class="media--length" >{{item.Video_Time}}</div> -->
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="course-details d-inline-flex align-items-center sm:mw-100 sm:justify-start sm:mw-100 sm:justify-start">
+                                        <div class="post--data post--data-sm p-0">
+                                            <!--<div class="post--channel mb-2"><time class="duration">{{ item.created_at | date: 'mediumDate' }}</time></div>-->
+
+                                            <div class="w-100 resource-type mb-2"><span class="fe-file-text mr-1"></span>{{item?.product_identifier}}</div>
+
+                                            <h3 class="post-name post-name-sm line-clamp line-clamp-5 mb-0"><a routerLink="{{'/resource/'+item.slug}}" [innerHtml]="((item && item?.title)? item?.title : '') | safeHtml" class="line-clamp line-clamp-2"></a></h3>
+                                            <!--
+                                            <p class="author" *ngIf="item && item.author">
+                                                <i class="fe-user"></i> by <a href="javascript;">{{item.author}}</a>
+                                            </p>
+
+                                            <time class="date"><i class="fe-clock"></i> {{ item.created_at | date: 'mediumDate' }}</time>
+                                            -->
+
+                                            <!--<div class="post--categories d-flex align-items-center" *ngIf="item && item._categories && item._categories.length">
+                                                <div *ngFor="let cat of item._categories;" class="post--category d-flex align-items-center mr-2">
+                                                    <div class="post--category--hierarchies d-flex align-items-center flex-wrap">
+                                                        <div *ngFor="let _cat of cat.hierarchies; let icat = index;" >
+                                                            <span class="text" [innerHtml]="((_cat && _cat?.name)? _cat?.name : '') | safeHtml"></span>
+                                                            <span class="ml-2 mr-2" *ngIf="icat+1 < cat.hierarchies.length"> → </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </ng-template>
+                
+                <ng-template #Grid>
+                    <div class="tab-pane show active">
+                        <div class="recent--uploads recent--uploads-sm p-0">
+                            <div class="recent--uploads recent--uploads-sm p-0 mt-4 sm:mt-0" *ngIf="AllResources && AllResources.length">
+                                <div class="container-fluid p-0">
+                                    <div class="card--option per-row4 p-0">
+                                        <div class="card-100 card-100-sm" *ngFor="let item of AllResources; let i = index">   
+                                            <article class="video--post postType3 p-0">
+                                                <div class="inner">
+                                                    <a routerLink="{{ '/cp/'+item?.product_identifier+'/'+ item?.slug }}">
+                                                        <div class="video--image">
+                                                            <figure class="video--image--wrapper">
+                                                                <span [ngClass]="(item && (item.video_url || item.video_file)) ? 'video--image--wrapper--inner' : 'video--image--wrapper--inner'">
+                                                                    <img *ngIf="item.URLImage && item.image" src="{{item.image }}" onerror="this.onerror=null; this.src='./assets/images/media/no--image.jpg'" alt="" width="160" height="110">
+                                                                    <img *ngIf="!item.URLImage && item.image" src="{{ PORTAL_URL + 'files/blog/' + item.CID + '/' + item.image }}" onerror="this.onerror=null; this.src='./assets/images/media/no--image.jpg'" alt="" width="160" height="110">
+                                                                        
+                                                                    <img *ngIf="!item.image" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+                                                                </span>
+                                                            </figure>
+                                                            <div class="play--btn" *ngIf="(item && (item.video_url || item.video_file))">
+                                                                <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                                                                    <path class="stroke-solid" fill="none" stroke="none" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5" />
+                                                                    <path class="icon" fill="none" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z" />
+                                                                </svg>
+                                                            </div>
+                                                            <!-- <div *ngIf="item.media_type==='video'" class="media--length" >{{item.Video_Time}}</div> -->
+                                                        </div>
+                                                    </a>
+                                                    <div class="post--data post--data-sm p-3">
+                                                        <!--<div class="post--channel mb-2"><time class="duration">{{ item.created_at | date: 'mediumDate' }}</time></div>-->
+
+                                                        <div class="w-100 resource-type mb-1"><span class="fe-file-text mr-1"></span>{{item?.product_identifier}}</div>
+
+                                                        <h3 class="post-name post-name-sm line-clamp line-clamp-2"><a routerLink="{{'/resource/'+item.slug}}" [innerHtml]="((item && item?.title)? item?.title : '') | safeHtml" class="line-clamp line-clamp-2"></a></h3>
+                                                        <!--
+                                                        <p class="author" *ngIf="item && item.author">
+                                                            <i class="fe-user"></i> by <a href="javascript;">{{item.author}}</a>
+                                                        </p>
+
+                                                        <time class="date"><i class="fe-clock"></i> {{ item.created_at | date: 'mediumDate' }}</time>
+                                                        -->
+
+                                                        <!--<div class="post--categories d-flex align-items-center" *ngIf="item && item._categories && item._categories.length">
+                                                            <div *ngFor="let cat of item._categories;" class="post--category d-flex align-items-center mr-2">
+                                                                <div class="post--category--hierarchies d-flex align-items-center flex-wrap">
+                                                                    <div *ngFor="let _cat of cat.hierarchies; let icat = index;" >
+                                                                        <span class="text" [innerHtml]="((_cat && _cat?.name)? _cat?.name : '') | safeHtml"></span>
+                                                                        <span class="ml-2 mr-2" *ngIf="icat+1 < cat.hierarchies.length"> → </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>-->
+                                                    </div>
+
+                                                    <!--<div class="post--footer post--footer-sm">
+                                                        <div class="post--category"><a routerLink="{{'/resource/'+item.slug}}"><i class="fe-grid mr-1"></i> <span [innerHtml]="((item && item?.categories)? item?.categories : '') | safeHtml"></span></a></div>
+                                                        <div class="post--views">
+                                                            <a routerLink="{{'/detials/'+item.slug}}}"><i class="fe-eye"></i> {{item.total_hits || 0}}</a>
+                                                        </div>
+                                                    </div>-->
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center product-not-found product-not-found-sm u-mt--40" *ngIf="AllResourcesNotFound"> 
+                                {{'NEWS_NOT_FOUND' | translate}} 
+                            </div>
+
+                            <div class="products-footer u-mt--40" *ngIf="(AllResources && totalItems > AllResources.length)">
+                                <div class="pagination--list">
+                                    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="get_all_resources($event)" [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="limit"></pagination>
+                                </div>
+                            </div>
+
+                            <div class="search-results"
+                              infiniteScroll
+                              [infiniteScrollDistance]="2"
+                              [infiniteScrollUpDistance]="1.5"
+                              [infiniteScrollThrottle]="50"
+                              (scrolled)="onLoadMore()"></div>
+
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</section></ng-template>
+

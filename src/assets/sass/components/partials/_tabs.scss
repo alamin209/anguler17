@@ -1,0 +1,523 @@
+/* Detail Page
+------------------------------------*/
+.nav {
+  &.nav-tabs {
+    border: 0px none;
+    @include margin-bottom(30);
+    border-bottom: 2px solid rgba($black, 0.2);
+
+    li {
+      border: 0px none;
+      @include margin(0);
+
+      > a {
+        border: 0px none;
+        color: $black_sh1;
+        text-align: center;
+        position: relative;
+        @include padding(20);
+        @include font-size(16);
+        text-transform: uppercase;
+        font-weight: $weightRegular;
+        @include transition(all 0.2s ease);
+
+        @media (max-width: 767px) {
+          white-space: nowrap;
+          text-overflow: inherit;
+          @include font-size(14);
+          @include padding(15 10);
+        }
+
+        &:after {
+          left: 0;
+          width: 0;
+          height: 4px;
+          content: "";
+          bottom: 0px;
+          position: absolute;
+          margin-bottom: -3px;
+          background-color: $primary;
+          @include transition(
+            width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15)
+          );
+        }
+
+        &.active {
+          color: $primary;
+
+          &:after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.tab-content {
+  @include margin-bottom(30);
+  @include responsive(xs) {
+    @include margin-bottom(50);
+  }
+
+  &--inner {
+    .text-link {
+      color: $red;
+      border-bottom: 1px solid $red;
+      @include animation(all 0.5s ease-in);
+
+      &:hover {
+        color: $blue_sh1;
+        border-bottom: 0px none;
+      }
+    }
+    p,
+    li {
+      color: $black_sh1;
+      @include font-size(16);
+      line-height: 1.65;
+      font-weight: $weightRegular;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $black_sh1;
+      margin-bottom: 15px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-weight: $weightUltabold;
+    }
+
+    h4,
+    h5,
+    h6 {
+      font-weight: $weightBold;
+    }
+
+    h1 {
+      @include font-size(24);
+      line-height: 1.35;
+    }
+
+    h2 {
+      @include font-size(22);
+      line-height: 1.35;
+    }
+
+    h3 {
+      @include font-size(20);
+      line-height: 1.35;
+    }
+
+    h4 {
+      @include font-size(18);
+      line-height: 1.35;
+    }
+
+    h5 {
+      @include font-size(16);
+      line-height: 1.35;
+    }
+
+    ul.styled-lists {
+      list-style: none;
+
+      li {
+        list-style: none;
+        padding-left: 25px;
+        position: relative;
+        margin-bottom: 10px;
+
+        &:before {
+          top: 2px;
+          left: 0px;
+          color: $red;
+          content: "\f109";
+          position: absolute;
+          margin-right: 12px;
+          font-family: $woodmart;
+        }
+      }
+    }
+
+    figure {
+      width: auto;
+      display: table;
+      margin: 0px auto;
+      position: relative;
+      @include padding(9);
+      background-color: #eff1f3;
+      border: 1px solid $border;
+      @include margin-bottom(20);
+
+      img {
+        width: 100%;
+        display: block;
+        max-width: 100%;
+        margin: 0px auto;
+        text-align: center;
+        border: 1px solid $border;
+        @include margin-bottom(0);
+      }
+    }
+
+    .custom-table {
+      width: 100%;
+      display: block;
+      @include padding(9);
+      background-color: #eff1f3;
+      border: 1px solid $border;
+      -webkit-overflow-scrolling: touch;
+
+      .table-responsive {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+        background-color: $white;
+        border: 1px solid $border;
+        -webkit-overflow-scrolling: touch;
+
+        .table {
+          @include margin-bottom(0);
+
+          thead th {
+            vertical-align: middle;
+            border-bottom: 2px solid $border;
+          }
+
+          .btn-cart {
+            color: $red;
+            border: 0px none;
+            min-width: inherit;
+            @include padding(0);
+            @include border-radius(4px);
+          }
+
+          th: last-child {
+            text-align: center;
+          }
+
+          td: last-child {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+.tab-pane {
+  &.active {
+    @include animation(fadeIn 0.5s ease-in);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    @include opacity(0);
+  }
+  to {
+    @include opacity(1);
+  }
+}
+@-webkit-keyframes fadeIn {
+  from {
+    @include opacity(0);
+  }
+  to {
+    @include opacity(1);
+  }
+}
+
+/* FAQ(s) Page
+------------------------------------*/
+.faqs {
+  position: relative;
+
+  &:before {
+    top: 0;
+    left: 50%;
+    width: 1px;
+    content: "";
+    height: 100%;
+    display: none;
+    position: absolute;
+    background-color: $border;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  &--inner {
+    z-index: 1;
+    @include flexbox;
+    @include flex-grow(1);
+    @include margin-top(0);
+    @include margin-bottom(0);
+    @include padding(0 50 0 0);
+    @include flex-direction(column, vertical);
+
+    @media (max-width: 767px) {
+      border-right: 0px none;
+      @include padding-right(0);
+      @include margin-bottom(40);
+      @include padding-bottom(30);
+      border-bottom: 1px solid $border;
+    }
+
+    &.last {
+      border-right: 0px none;
+      @include padding(0 0 0 35);
+
+      @media (max-width: 767px) {
+        @include padding-left(0);
+        @include margin-bottom(40);
+        @include padding-bottom(0);
+      }
+    }
+
+    h4,
+    .h4 {
+      @extend .u-upper;
+      @include font-size(22);
+      font-weight: $weightBold;
+      @include margin-bottom(30);
+
+      @media (max-width: 767px) {
+        @include font-size(22);
+      }
+
+      @include responsive(sm) {
+        @include font-size(24);
+
+        @include respond-to(md) {
+          @include font-size(26);
+        }
+      }
+    }
+
+    .c-accordion {
+      .card {
+        &:last-child {
+          @include margin-bottom(0);
+        }
+      }
+    }
+  }
+}
+
+/* Accordion style(s) */
+.missio {
+  &__tab {
+    width: 100%;
+    overflow: hidden;
+    color: $black_sh1;
+    @include margin-bottom(25);
+
+    &-label {
+      cursor: pointer;
+      @include flexbox;
+      color: $black_sh1;
+      background: $white;
+      position: relative;
+      @include font-size(20);
+      line-height: 1.25;
+      @include padding(10 0);
+      font-weight: $weightBold;
+      @include justify-content(space-between);
+
+      @media (max-width: 767px) {
+        @include font-size(18);
+        @include padding-right(30);
+      }
+
+      /* Icon */
+      &:hover {
+        color: $primary;
+      }
+
+      .icons {
+        right: 10px;
+        position: absolute;
+        @include margin-top(9);
+        @include transform(translate(0, 0));
+        @include transition(all 0.25s ease-in-out);
+
+        &:before,
+        &:after {
+          width: 3px;
+          height: 9px;
+          content: "";
+          position: absolute;
+          background-color: $black_sh1;
+          @include transition(all 0.25s ease-in-out);
+        }
+
+        &:before {
+          -webkit-transform: translate(2px, 0) rotate(45deg);
+          -khtml-transform: translate(2px, 0) rotate(45deg);
+          -moz-transform: translate(2px, 0) rotate(45deg);
+          -ms-transform: translate(2px, 0) rotate(45deg);
+          -o-transform: translate(2px, 0) rotate(45deg);
+          transform: translate(2px, 0) rotate(45deg);
+        }
+        &:after {
+          -webkit-transform: translate(-6px, 0) rotate(-45deg);
+          -khtml-transform: translate(-6px, 0) rotate(-45deg);
+          -moz-transform: translate(-6px, 0) rotate(-45deg);
+          -ms-transform: translate(-6px, 0) rotate(-45deg);
+          -o-transform: translate(-6px, 0) rotate(-45deg);
+          transform: translate(-6px, 0) rotate(-45deg);
+        }
+      }
+    }
+
+    &-content {
+      max-height: 0;
+      color: $black_sh1;
+      background: $white;
+      @include padding(0);
+      @include margin-bottom(0);
+      @include transition(all 0.35s);
+
+      p {
+        color: $black_sh1;
+        @include font-size(16);
+        line-height: 1.5;
+      }
+
+      a {
+        font-family: $primaryFont;
+        color: $primary !important;
+        border-bottom: 1px solid $primary;
+        @include transition(all 0.3s ease);
+
+        &:hover,
+        &:focus {
+          border-color: $transparent;
+        }
+      }
+    }
+  }
+
+  &__tabs {
+    width: 100%;
+    overflow: hidden;
+
+    input {
+      z-index: -1;
+      position: absolute;
+      @include opacity(0);
+
+      // :checked
+      &:checked {
+        + .missio__tab-label {
+          color: $primary;
+
+          .icons {
+            &:before,
+            &:after {
+              background-color: $primary;
+            }
+
+            &:before {
+              -webkit-transform: translate(-1px, 0) rotate(45deg);
+              -khtml-transform: translate(-1px, 0) rotate(45deg);
+              -moz-transform: translate(-1px, 0) rotate(45deg);
+              -ms-transform: translate(-1px, 0) rotate(45deg);
+              -o-transform: translate(-1px, 0) rotate(45deg);
+              transform: translate(-1px, 0) rotate(45deg);
+            }
+            &:after {
+              -webkit-transform: translate(0px, 0) rotate(-45deg);
+              -khtml-transform: translate(0px, 0) rotate(-45deg);
+              -moz-transform: translate(0px, 0) rotate(-45deg);
+              -ms-transform: translate(0px, 0) rotate(-45deg);
+              -o-transform: translate(0px, 0) rotate(-45deg);
+              transform: translate(0px, 0) rotate(-45deg);
+            }
+          }
+        }
+        ~ .missio__tab-content {
+          max-height: 100vh;
+          @include padding(0);
+        }
+      }
+    }
+
+    input[type="checkbox"] {
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      overflow: hidden;
+      max-height: 50px;
+      position: absolute;
+      @include opacity(0);
+      background-color: #f00;
+
+      &:checked ~ .ag__tab-content {
+        max-height: 100vh;
+        @include padding(0);
+      }
+    }
+  }
+
+  @keyframes flipdown {
+    0% {
+      @include opacity(0);
+      transform-origin: top center;
+      @include transform(rotateX(-90deg));
+    }
+    5% {
+      @include opacity(1);
+    }
+    80% {
+      @include transform(rotateX(8deg));
+    }
+    83% {
+      @include transform(rotateX(6deg));
+    }
+    92% {
+      @include transform(rotateX(-3deg));
+    }
+    100% {
+      transform-origin: top center;
+      @include transform(rotateX(0deg));
+    }
+  }
+}
+
+.faq {
+  &--inner {
+    .missio__tabs {
+      .missio__tab {
+        @include margin-bottom(0);
+      }
+    }
+  }
+}
+
+img#fullResImage,
+img#partsIds {
+  max-width: 100%;
+  height: auto !important;
+}
+img#partsIds {
+  height: auto !important;
+  max-height: 310px !important;
+}
+.product--specifications {
+  .preview {
+    height: auto !important;
+    max-height: 310px !important;
+  }
+}

@@ -1,0 +1,66 @@
+<div class="profile--box profile--box-sm">
+    <div class="profile--box--user symbol">
+        
+        <picture class="profile--box--user__avatar" *ngIf="userData  && userData?.profile_picture && userData?.profile_picture != ''">
+            <img alt="profile-image" class="lazy profile-image" data-src="{{AWSBUCKETURL }}files/avatar/{{userData?.CID}}/{{userData?.profile_picture}}">
+        </picture>
+        
+        <div class="profile--box--user__details">
+            <h3 class="username">
+                <span>Hello,</span>
+                {{(userData && userData.first_name)? userData?.first_name : ''}}
+                {{(userData && userData.last_name)? userData?.last_name : ''}}
+            </h3>
+        </div>
+    </div>
+
+    <ul class="profile--actions">
+        
+        <li class="profile--actions__items ">
+            <a routerLink="/member/profile" ><span class="fe-airplay ag--icons"></span>{{'MY_PROFILE' | translate}}</a>
+        </li>
+        
+        <li class="profile--actions__items " [ngClass]="(ActivePage == 'profile' || ActivePage == 'edit-profile')?'is-selected':''">
+            <a routerLink="/member/edit-profile" ><span class="fe-user-check ag--icons"></span>{{'MY_ACCOUNT' | translate}}</a>
+        </li>
+        <li class="profile--actions__items " [ngClass]="(ActivePage == 'categories' || ActivePage == 'categories')?'is-selected':''">
+            <a routerLink="/member/categories" ><span class="fe-briefcase ag--icons"></span>{{'MY_CATEGORIES' | translate}}</a>
+        </li>
+        
+        <!--
+        <li class="profile--actions__items " [ngClass]="(ActivePage == 'subscription' || ActivePage == 'subscription')?'is-selected':''">
+            <a routerLink="/member/subscription" ><span class="fe-toggle-left ag--icons"></span>{{'MY_SUBSCRIPTION' | translate}}</a>
+        </li>
+        -->
+        <li class="profile--actions__items " [ngClass]="(ActivePage == 'payment-options' || ActivePage == 'add-payment-option' || ActivePage == 'edit-payment-option')?'is-selected':''" *ngIf="IS_STORE">
+            <a routerLink="/member/payment-options"><span class="fe-credit-card ag--icons"></span>{{'PAYMENT_OPTIONS' | translate}}</a>
+        </li>
+        <li *ngIf="userData && userData.role_id == 2" class="profile--actions__items" [ngClass]="(ActivePage == 'leads' || ActivePage == 'lead-form')?'is-selected':''" >
+            <a routerLink="/member/leads" ><span class="fe-truck ag--icons"></span>{{'MY_LEADS' | translate}}</a>
+        </li>
+        
+        <li class="profile--actions__items" [ngClass]="(ActivePage == 'shipping-addresses' || ActivePage == 'edit-address')?'is-selected':''" *ngIf="IS_STORE">
+            <a routerLink="/member/shipping-addresses" ><span class="fe-truck ag--icons"></span>{{'SHIPPING_ADDRESSES' | translate}}</a>
+        </li>
+        <!--<li class="profile--actions__items" [ngClass]="ActivePage == 'wish-list'?'is-selected':''" *ngIf="IS_STORE">
+            <a routerLink="/member/wish-list" ><span class="fe-layers ag--icons"></span>{{'WISH_LIST' | translate}}</a>
+        </li>-->
+        <li class="profile--actions__items" [ngClass]="ActivePage == 'order-history'?'is-selected':''" *ngIf="IS_STORE">
+            <a routerLink="/member/order-history" ><span class="fe-package ag--icons"></span>{{'ORDERS' | translate }} </a>
+        </li>
+        
+        <li class="profile--actions__items" [ngClass]="ActivePage == 'change-password'?'is-selected':''">
+            <a routerLink="/member/change-password" ><span class="fe-lock ag--icons"></span>{{'CHANGE_PASSWORD' | translate }}</a>
+        </li>
+        <li class="profile--actions__items" *ngIf="TAX_EMEMPT" [ngClass]="ActivePage == 'tax-exemption'?'is-selected':''">
+            <a routerLink="/member/tax-exemption" ><span class="fe-activity  ag--icons"></span>{{'TAX_EXEMPTION3' | translate }}</a>
+        </li>
+        <li class="profile--actions__items d-none" *ngIf="FINANCING" [ngClass]="ActivePage == 'financing'?'is-selected':''">
+            <a routerLink="/member/financing"><span class="fe-dollar-sign ag--icons"></span>{{'FINANCING_OPTIONS' | translate}}</a>
+        </li>
+        <li class="profile--actions__items">
+            <a href="javascript:void(0)" (click)="signOut();"><span class="fe-log-out ag--icons"></span>{{'LOGOUT' | translate}}</a>
+        </li>
+    </ul>
+</div>
+<!-- end card-box -->

@@ -1,0 +1,257 @@
+/* Begin utility view style */
+.u-heading {
+  &--large {
+    @include font-size(20);
+    font-weight: $weightBold;
+    color: $black;
+    z-index: 11;
+
+    @include responsive(xs) {
+      @include font-size(28);
+    }
+  }
+}
+
+.u-bg {
+  &-white {
+    background-color: $white;
+  }
+  &-offwhite {
+    background-color: $offwhite;
+  }
+}
+.u-page-info {
+  $self: &;
+  &__title {
+    @include font-size(20);
+    font-weight: $weightBold;
+    color: $black;
+    z-index: 11;
+    margin-bottom: 19px;
+    @include responsive(xs) {
+      @include font-size(28);
+    }
+  }
+  &__discription {
+    p {
+      @include font-size(13);
+      color: $greyish;
+      line-height: 1.54;
+      margin-bottom: 18px;
+    }
+  }
+}
+
+.u-title {
+  &--heading {
+    color: $info;
+    @include font-size(24);
+    line-height: 1.15;
+    font-weight: $weightBold;
+    @include margin-bottom(5);
+
+    @include responsive(xs) {
+      @include font-size(40);
+    }
+  }
+
+  &--subheading {
+    color: $black;
+    @include font-size(18);
+    font-weight: $weightLight;
+
+    @include responsive(xs) {
+      @include font-size(32);
+    }
+  }
+}
+
+.sectionhead {
+  overflow: hidden;
+  max-height: 250px;
+  position: relative;
+  @include flexbox();
+  width: $viewportSize;
+  @include justify-content(space-between);
+  @include align-items(center);
+  @include margin-bottom(20);
+  border-bottom: 1px rgba($greyish, 0.5) solid;
+
+  @include responsive(xs) {
+    max-height: 300px;
+    @include margin-bottom(30);
+
+    @include respond-to(md) {
+      max-height: 350px;
+
+      @include respond-to(lg) {
+        max-height: 400px;
+      }
+    }
+  }
+
+  picture {
+    width: 100%;
+    font-size: 0px;
+
+    img {
+      width: 100%;
+      font-size: 0px;
+      @include object-fit(cover);
+      @include object-position(center);
+
+      @include breakpoint(540) {
+        min-height: 180px;
+      }
+    }
+  }
+
+  &--inner {
+    width: 100%;
+    position: absolute;
+  }
+
+  .container {
+    z-index: 1;
+  }
+
+  &:before {
+    top: 0;
+    left: 0;
+    content: "";
+    position: absolute;
+    @include size(100%);
+    background-color: rgba($black, 0.25);
+  }
+
+  &__name {
+    text-align: center;
+
+    h1 {
+      color: $white;
+      @include font-size(50);
+      line-height: 1;
+      font-weight: $weightBold;
+      font-family: $tertiaryFont;
+      @include padding-bottom(10);
+      text-shadow: 0px 2px 0px rgba($black, 0.25);
+
+      @include breakpoint(500) {
+        @include font-size(30);
+        line-height: 1;
+      }
+      @media screen and (min-width: 501px) and (max-width: 767px) {
+        @include font-size(35);
+        line-height: 1;
+      }
+      @media screen and (min-width: 768px) and (max-width: 991px) {
+        @include font-size(40);
+        line-height: 1;
+      }
+    }
+
+    p {
+      @include font-size(22);
+      line-height: 1.5;
+      font-weight: $weightMedium;
+      text-shadow: 0px 2px 0px rgba($black, 0.1);
+
+      @include breakpoint(500) {
+        @include font-size(17);
+        line-height: 1.5;
+      }
+      @media screen and (min-width: 501px) and (max-width: 767px) {
+        @include font-size(18);
+        line-height: 1.5;
+      }
+      @media screen and (min-width: 768px) and (max-width: 991px) {
+        @include font-size(20);
+        line-height: 1.5;
+      }
+    }
+  }
+
+  &.has-bg-green {
+    background-color: $black_sh1;
+  }
+
+  .breadcrumbs {
+    @include font-size(0);
+    @include margin-top(10);
+
+    > a,
+    > span {
+      color: $white;
+      @include font-size(16);
+
+      &:after {
+        content: "/";
+        display: inline-block;
+        @include padding(0 8);
+      }
+
+      &:last-child {
+        &:after {
+          content: none;
+        }
+      }
+    }
+  }
+}
+
+.sectionhead {
+  &-image {
+    height: 375px !important;
+    min-height: 375px !important;
+    max-height: 375px !important;
+
+    @media (max-width: 767px) {
+      height: 250px !important;
+      min-height: 250px !important;
+      max-height: 250px !important;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      height: 275px !important;
+      min-height: 275px !important;
+      max-height: 275px !important;
+    }
+    @media screen and (min-width: 1025px) and (max-width: 1199px) {
+      height: 300px !important;
+      min-height: 300px !important;
+      max-height: 300px !important;
+    }
+
+    .hero__inner--content {
+      max-width: 85%;
+      margin: 0 auto;
+
+      .resource-type,
+      .short-decription {
+        display: none !important;
+      }
+    }
+  }
+  @media (max-width: 767px) {
+    > picture > img {
+      height: 250px !important;
+      min-height: 250px !important;
+      max-height: 250px !important;
+    }
+  }
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    > picture > img {
+      height: 275px !important;
+      min-height: 275px !important;
+      max-height: 275px !important;
+    }
+  }
+  @media screen and (min-width: 1025px) and (max-width: 1199px) {
+    > picture > img {
+      height: 300px !important;
+      min-height: 300px !important;
+      max-height: 300px !important;
+    }
+  }
+}
+
+/* Begin utility view style */

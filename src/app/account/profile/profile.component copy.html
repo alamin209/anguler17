@@ -1,0 +1,341 @@
+<style type="text/css">@media (min-width:1199px){.h-300{min-height: 300px}}</style>
+
+<section class="my--dashboard my--dashboard-sm">
+    <!--<app-left-side-bar></app-left-side-bar>-->
+    
+    <div class="my--rightsidebar my--rightsidebar-sm version2" style="background-color: #f4f5f7 !important;">
+        
+        <div class="container-fluid p-0">
+            <div class="row justify-content-between">
+                <div class="col-12 col-lg-3 col-md-5 col-sm-12">
+                    <div class="page-head page-head-sm w-100 mb-3">
+                        <h3 class="u-heading--small u-heading--small-sm">{{ "USER_PROFILE" | translate }}</h3>
+                    </div>
+                    <div class="card blog-card p-3 border-0 h-355">
+                        <div class="card-body p-0">
+                            <div class="d-flex justify-content-center flex-column">
+                                <div class="symbol">
+                                    <button routerLink="/member/edit-profile" type="button" class="btn--editProfile d-none"><i class="fe-edit-1 icon"></i></button>
+                                    <img *ngIf="currentUser && currentUser?.profile_picture" src="{{ AWSBUCKETURL }}files/avatar/{{currentUser?.CID}}/{{currentUser?.profile_picture}}" alt="{{currentUser && currentUser && currentUser?.screen_name
+                                    ? currentUser?.screen_name : ''}}" />
+                                    <img *ngIf="currentUser && !currentUser?.profile_picture" src="./assets/images/300_1.jpg"
+                                    alt="{{currentUser && currentUser && currentUser?.screen_name ? currentUser?.screen_name : ''}}" />
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center mb-2"><a href="#" class="text-green text-hover-primary font-size-h5 font-weight-bolder mr-3">{{currentUser && currentUser && currentUser?.screen_name ? currentUser?.screen_name : ""}}</a>
+                                <span class="svg--20"><img src="./assets/images/icons/verified.svg" alt="Verified" /></span></div>
+                            
+                                <div class="d-flex align-items-center justify-content-center mb-2">
+                                    <button class="button button--gold button-xs button-rounded" (click)="openModalPopup(FollowingModal)"><i class="fe-user-check mr-1"></i>Following</button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between flex-wrap mt-1">
+                                    <div class="my-lg-0 my-3 start--rating d-none">
+                                        <div class="rating">
+                                            <i class="fe-star-on"></i> <i class="fe-star-on"></i>
+                                            <i class="fe-star-on"></i> <i class="fe-star-on"></i>
+                                            <i class="fe-star"></i>
+                                        </div>
+                                        <button routerLink="/member/edit-profile" type="button" class="btn--editProfile d-none"><i class="fe-edit-1 icon"></i> Edit Info</button>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-wrap justify-content-between mt-1">
+                                    <div class="d-flex flex-column flex-grow-1 pr-8 lh_15 fs--14">
+                                        <span class="font-weight-bold text-dark-100"
+                                        >Member since
+                                        {{ currentUser?.created_at | date: "mediumDate" }}</span
+                                        >
+                                        <span class="font-weight-bold text-dark-100">{{
+                                        currentUser && currentUser && currentUser?.occupation
+                                        ? currentUser?.occupation
+                                        : ""
+                                        }}</span>
+                                        <span class="font-weight-bold text-dark-100"
+                                        ><span class="font-weight-bolder text-green mr-2">Email:</span>
+                                        {{
+                                        currentUser && currentUser && currentUser?.email
+                                        ? currentUser?.email
+                                        : ""
+                                        }}</span
+                                        >
+                                        <!--<span class="font-weight-bold text-dark-100"
+                                        ><span class="font-weight-bolder text-green mr-2">Phone:</span>
+                                        <span *ngIf="PHONE_NUMBER_MASK && currentUser">{{
+                                        currentUser && currentUser && currentUser?.phone
+                                        | mask: "(000) 000-0000"
+                                        }}</span>
+                                        <span *ngIf="!PHONE_NUMBER_MASK && currentUser">{{
+                                        currentUser && currentUser && currentUser?.phone
+                                        }}</span>
+                                        </span>
+                                        <span class="font-weight-bold text-dark-100 d-none" *ngIf="currentUser && currentUser?.address"><span class="font-weight-bolder text-green mr-2">Address:</span>
+                                        {{ currentUser?.address }}<br />
+                                        <span
+                                        [innerHtml]="
+                                        currentUser && currentUser?.address2
+                                        ? (currentUser?.address2 + '<br>' | safeHtml)
+                                        : ''
+                                        "
+                                        ></span>
+                                        {{ currentUser?.city + "," }} {{ currentUser?.state }}
+                                        {{ currentUser?.zip }}<br />
+                                        {{ currentUser?.country | translate }}</span
+                                        >-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-lg-9 col-md-7 col-sm-12 sm:m-t35" *ngIf="user_pinned_posts && user_pinned_posts.length">
+                    <div class="page-head page-head-sm w-100 mb-3">
+                        <h3 class="u-heading--small u-heading--small-sm">{{ "LATEST_PIN" | translate }}</h3>
+                    </div>
+                    <div class="w-100 PinnedPost">
+                        <ngx-slick-carousel class="carousel" 
+                        #slickModal="slick-carousel" 
+                        [config]="slideConfig" 
+                        >
+                            <div ngxSlickItem *ngFor="let Post of user_pinned_posts" class="slide item">
+                              	<div class="c-card pinned">
+	                                <div class="c-card-body p-3 position-relative h-300">
+	                                    <button class="tip--unpinit" title="{{'UNPIN_IT' | translate}}" (click)="PinPost(Post?.ID,Post?.Pinned,Post?.post_type);"></button>
+	                                    
+	                                    <div class="c-card-image" *ngIf="Post?.post_type == 'POST' " routerLink="{{ '/cp/'+Post?.product_identifier+'/'+ Post?.slug }}" >
+	                                        <picture  class=""><a routerLink="{{ '/cp/'+Post?.product_identifier+'/'+ Post?.slug }}">
+	                                        <!--[if IE 9]><video style="display: none;"><![endif]-->
+	                                        <source srcset="{{(Post && Post?.image) ? PORTAL_URL + 'files/blog/' + Post?.CID + '/' + Post?.image : './assets/images/no-image.png'}}" media="(min-width: 800px)" type="image/webp"/>
+	                                        <source srcset="{{(Post && Post?.image) ? PORTAL_URL + 'files/blog/' + Post?.CID + '/' + Post?.image : './assets/images/no-image.png'}}" media="(min-width: 800px)" />
+	                                        <source srcset="{{(Post && Post?.image) ? PORTAL_URL + 'files/blog/' + Post?.CID + '/' + Post?.image : './assets/images/no-image.png'}}" media="(min-width: 400px)" />
+	                                        <!--[if IE 9]></video><![endif]-->
+	                                        <img class="img-fluid " alt="{{ Post?.title }}" src="{{Post && Post?.image
+	                                        ? PORTAL_URL + 'files/blog/' + Post?.CID + '/' + Post?.image
+	                                        : './assets/images/media/no--image.jpg'}}"/>
+	                                            <div class="blur d-none"><img src="{{Post && Post?.image
+	                                        ? PORTAL_URL + 'files/blog/' + Post?.CID + '/' + Post?.image
+	                                        : './assets/images/no-image.png'}}"></div>
+	                                        </a></picture>
+	                                    </div>
+
+	                                    <div class="c-card-image" *ngIf="Post?.post_type == 'VIDEO'" routerLink="{{'/academy/video/'+Post?.Video_slug+'-'+Post?.ID}}">
+	                                        <picture class="thumb--image">
+	                                        <img *ngIf="(Post?.Video_Source == 'youtube' || Post?.Video_Source == 'vimeo') && Post?.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="https://{{Post?.Video_Thumbnail_Small}}" />
+
+	                                        <img *ngIf="Post?.Video_UploadedOn == 'S3' && Post?.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="{{Post?.Video_Thumbnail_Small}}" />
+
+	                                        <img *ngIf="!Post?.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+	                                        </picture>
+	                                        <div class="play--btn">
+	                                        <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+	                                        <path class="stroke-solid" fill="none" stroke="none" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5" />
+	                                        <path class="icon" fill="none" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z" />
+	                                        </svg>
+	                                        </div>
+
+	                                    </div>
+	                                    <h3 class="c-card-title line-clamp line-clamp-1 mb-1" [innerHtml]="Post?.Title | safeHtml"></h3>
+	                                    <p class="c-card-description line-clamp line-clamp-2" [innerHtml]="Post?.short_description | safeHtml"></p>
+	                                    <a *ngIf="Post?.post_type == 'VIDEO'" routerLink="{{'/academy/video/'+Post?.Video_slug+'-'+Post?.ID}}"  class="button button--green button-radius button-sm button-block">{{ "LEARN_MORE" | translate }}</a>
+	                                    <a *ngIf="Post?.post_type == 'POST' && Post?.image != ''" routerLink="{{ '/cp/'+Post?.product_identifier+'/'+ Post?.slug }}" class="button button--black button-radius button-sm button-inline" style="text-transform: capitalize;">{{ "LEARN_MORE" | translate }}</a>
+	                                </div>
+	                            </div>
+	                        </div>
+                        </ngx-slick-carousel>
+                    </div>
+                </div>
+            </div>
+        </div>    
+            
+        <div class="resources--uploads resources--uploads-sm new-resources--uploads pt-0 pb-5 mt-5">
+            <div class="w-100">
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="page-head page-head-sm w-100 pb-0 mb-4">
+                            <h3 class="u-heading--small u-heading--small-sm">{{ "MY_FEED" | translate }}</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-12 col-lg-9 col-md-8 col-sm-12">
+                        
+                        <div class="row">
+                            <div class="col-xl-4 col-md-6 mb-25" *ngFor="let post of videoList; let i = index" [ngClass]="(post && post?.post_type == 'POST') ? 'mb-4 pinned' : 'video--post postType3 mb-4 pinned'">
+                                
+                                <!-- Begin Blog Posts -->
+                                <article class="blog-card" *ngIf="post.post_type == 'POST'" [ngClass]="(post && post?.Pinned) ? 'pinned' : ''" style="cursor: pointer;">
+                                    <div class="blog-card__thumbnail">
+                                        <button *ngIf="post && !post?.Pinned" class="tip--pinit" title="{{'PIN_IT' | translate}}" (click)="PinPost(post?.ID,post?.Pinned,post?.post_type);"></button>
+
+                                        <button *ngIf="post && post?.Pinned" class="tip--unpinit" title="{{'UNPIN_IT' | translate}}" (click)="PinPost(post?.ID,post?.Pinned,post?.post_type);"></button>
+                                        
+                                        <a href="{{ '/cp/'+post?.product_identifier+'/'+ post?.slug }}" routerLink="{{ '/cp/'+post?.product_identifier+'/'+ post?.slug }}"><img src="{{post && post.image
+                                            ? PORTAL_URL + 'files/blog/' + post.CID + '/' + post.image
+                                            : './assets/images/no-image.png'}}" alt="{{ post.title }}" class="img-fluid"></a>
+                                    </div>
+                                    <div class="blog-card__details">
+                                        <div class="blog-card__content">
+                                            <div class="blog-card__title--top"><time><i class="fe-calendar mr-1"></i>{{ post.created_at }}</time></div>
+                                            
+                                            <h4 class="blog-card__title line-clamp line-clamp-2"><a routerLink="{{ '/resource/' + post.slug }}" [innerHtml]="post.Title | safeHtml" class="entry-title" rel="bookmark"></a></h4>
+                                            
+                                            <p class="line-clamp line-clamp-3 clearfix" [innerHtml]="post.short_description | safeHtml"></p>
+                                        </div>
+                                        <div class="blog-card__meta">
+                                            <div class="blog-card__meta-profile">
+                                                <a routerLink="{{ '/resource/' + post.slug }}" class="button button--black button-radius button-sm button-inline" style="text-transform: capitalize;">Continue Reading</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <!-- //End(s) Blog Posts -->
+                                
+                                <!-- Begin Video Posts -->
+                                <article *ngIf="post.post_type == 'VIDEO'" class="blog-card" style="cursor: pointer;" [ngClass]="(post && post?.Pinned) ? 'pinned' : ''">
+                                    <div routerLink="{{'/academy/video/'+post.Video_slug+'-'+post.ID}}" class="screencast">
+                                        <picture class="thumb--image">
+                                        <img *ngIf="(post.Video_Source == 'youtube' || post.Video_Source == 'vimeo') && post.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="https://{{post.Video_Thumbnail_Small}}" />
+
+                                        <img *ngIf="post.Video_UploadedOn == 'S3' && post.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="{{post.Video_Thumbnail_Small}}" />
+
+                                        <img *ngIf="!post.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+                                        </picture>
+                                        <div class="play--btn">
+                                        <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                                        <path class="stroke-solid" fill="none" stroke="none" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5" />
+                                        <path class="icon" fill="none" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z" />
+                                        </svg>
+                                        </div>
+                                        <div class="media--length">{{post.Video_Time}}</div>
+                                    </div>
+
+                                    <div class="dashboard--post--details dashboard--post--details-sm">
+                                        <button *ngIf="post && !post?.Pinned" class="tip--pinit" title="{{'PIN_IT' | translate}}" (click)="PinPost(post?.ID,post?.Pinned,post?.post_type);"></button>
+
+                                        <button *ngIf="post && post?.Pinned" class="tip--unpinit" title="{{'UNPIN_IT' | translate}}" (click)="PinPost(post?.ID,post?.Pinned,post?.post_type);"></button>
+
+                                        <div class="meta fs--12 d-flex pb-0 mb-3">
+                                            <time class="published mb-0"><i class="fe-clock"></i> {{ post.created_at | date: 'mediumDate' }}</time>
+
+                                            <div class="author ml-2 mb-0" *ngIf="post && post?.Added_From == 'frontend'">
+                                                <span class="name mb-0"><i class="fe-user"></i> by <a href="javascript;">{{'TITLE' | translate}}</a></span>
+                                            </div>
+
+                                            <div class="author ml-2 mb-0" *ngIf="post && (post?.Added_From == 'backend' || post?.Added_From == 'Scrapper')">
+                                                <i class="fe-user"></i> by <a href="javascript;">{{'TITLE' | translate}}</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="tip--seminar__heading mb-2">
+                                            <h3 class="post--title post--title-sm js-EnabledHeading mb-0"><a routerLink="{{'/academy/video/'+post.Video_slug+'-'+post.ID}}" [innerHtml]="((post && post?.Title)? post?.Title : '') | safeHtml"></a></h3>
+                                        </div>
+
+                                        <div class="post--footer post--footer-sm">
+                                            <div class="post--category mr-2"><a routerLink="{{'/academy/video/'+post.Video_slug+'-'+post.ID}}"><i class="fe-grid mr-1"></i> <span [innerHtml]="((post && post?.Category_Name)? post?.Category_Name : '') | safeHtml"></span></a></div>
+                                            <div class="post--views"><a routerLink="{{'/academy/video/'+post.Video_slug+'-'+post.ID}}"><i class="fe-eye"></i> {{post.Video_Views || 0}}</a></div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <!-- //End(s) Video Posts -->
+                            </div>
+                        </div>
+                        
+                        <div class="search-results"
+                          infiniteScroll
+                          [infiniteScrollDistance]="2"
+                          [infiniteScrollUpDistance]="1.5"
+                          [infiniteScrollThrottle]="50"
+                          (scrolled)="onLoadMore()"></div>
+                    </div>
+                    
+                    <div class="col-12 col-lg-3 col-md-4 col-sm-12">
+                        <div class="right-box flex-column">
+                            <app-tip></app-tip>
+                            <div class="pt-1 pb-4 align-items-center justify-content-center d-flex w-100" style="background-color: #fff; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px">
+                                <a routerLink="/tips" class="button button--green button-radius button-sm button-inline" style="min-width: 200px;">View All Tips</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Begin Following Modal -->
+<ng-template #FollowingModal>
+    <div class="modal-dialog-exlarge modal-dialog-exlarge-md">
+        <div class="modal-header modal-header-sm">
+            <h3>{{'FOLLWERS' | translate}}</h3>
+            <button type="button" class="modal-close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body modal-body-sm">
+            <div class="followers-list followers-list-sm">
+                <div class="followers-list-item followers-list-item-sm">
+                    <div class="followers-wrap">
+                        <div class="followers-avatar followers-avatar-sm">
+                            <img src="/assets/images/300_1.jpg" alt="Avatar" class="img-fluid" />
+                        </div>
+                        <div class="followers-detail followers-detail-sm">
+                            <div class="followers-detail-inner">
+                                <h4 class="followers-name">Barbara Smith</h4>
+                                <p class="followers-count">2 mutual friends</p>
+                            </div>
+                            <button type="button" class="btn-add-friend">View Page</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="followers-list-item followers-list-item-sm">
+                    <div class="followers-wrap">
+                        <div class="followers-avatar followers-avatar-sm">
+                            <img src="/assets/images/300_1.jpg" alt="Avatar" class="img-fluid" />
+                        </div>
+                        <div class="followers-detail followers-detail-sm">
+                            <div class="followers-detail-inner">
+                                <h4 class="followers-name">John Doe</h4>
+                                <p class="followers-count">2 mutual friends</p>
+                            </div>
+                            <button type="button" class="btn-add-friend">View Page</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="followers-list-item followers-list-item-sm">
+                    <div class="followers-wrap">
+                        <div class="followers-avatar followers-avatar-sm">
+                            <img src="/assets/images/300_1.jpg" alt="Avatar" class="img-fluid" />
+                        </div>
+                        <div class="followers-detail followers-detail-sm">
+                            <div class="followers-detail-inner">
+                                <h4 class="followers-name">Barbara Smith Barbara Smith Barbara Smith</h4>
+                                <p class="followers-count">2 mutual friends</p>
+                            </div>
+                            <button type="button" class="btn-add-friend">View Page</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="followers-list-item followers-list-item-sm">
+                    <div class="followers-wrap">
+                        <div class="followers-avatar followers-avatar-sm">
+                            <img src="/assets/images/300_1.jpg" alt="Avatar" class="img-fluid" />
+                        </div>
+                        <div class="followers-detail followers-detail-sm">
+                            <div class="followers-detail-inner">
+                                <h4 class="followers-name">John Doe</h4>
+                                <p class="followers-count">2 mutual friends</p>
+                            </div>
+                            <button type="button" class="btn-add-friend">View Page</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- //End Following Modal -->

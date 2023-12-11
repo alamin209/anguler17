@@ -1,0 +1,123 @@
+<app-resources-banner></app-resources-banner>
+
+<!-- Begin Blog Page Content Area -->
+<section class="seminar--section seminar--section-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-9 col-md-8 col-sm-12" *ngIf="newsList">
+                <div class="page--withSidebar page--withSidebar-sm" *ngIf="newsList && newsList.length">
+                    <div *ngFor="let news of newsList; let i = index" class="tip--seminar__lists">
+                        <div *ngIf="news.asPType == 'POST'">
+                            <div class="tip--seminar__heading">
+                                <h3 class="post--title post--title-sm js-EnabledHeading">
+                                    <a routerLink="{{ '/details/' + news.slug }}" [innerHtml]="news.title | safeHtml"></a>
+                                </h3>
+                                <div class="meta fs--12 d-flex pb-4 mb-2">
+                                    <time class="published mb-0"><i class="fe-calendar mr-1"></i>{{ news.created_at }}</time>
+                                    <div class="author ml-2 mb-0">
+                                        <span class="name mb-0"><i class="fe-user mr-1"></i>{{ news.Creater_name }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="post--categories d-flex pt-0" *ngIf="news && news.tags && news.tags.length">
+                                    <span class=""><a *ngFor="let ntag of news.tags; let i = index" class="tag level-top" routerLink="{{ '/blog/tag/' + ntag.slug }}" (click)="checkKeyParam()" [innerHtml]="ntag.name | safeHtml"></a></span>
+                                </div>
+                            </div>
+                            <picture *ngIf="news && news.image"><a routerLink="{{ '/details/' + news.slug }}">
+                            <!--[if IE 9]><video style="display: none;"><![endif]-->
+                            <source srcset="{{(news && news.image) ? PORTAL_URL + 'files/blog/' + news.CID + '/' + news.image : './assets/images/no-image.png'}}" media="(min-width: 800px)" type="image/webp" />
+                            <source srcset="{{(news && news.image) ? PORTAL_URL + 'files/blog/' + news.CID + '/' + news.image : './assets/images/no-image.png'}}" media="(min-width: 800px)" />
+                            <source srcset="{{(news && news.image) ? PORTAL_URL + 'files/blog/' + news.CID + '/' + news.image : './assets/images/no-image.png'}}" media="(min-width: 400px)" />
+                            <!--[if IE 9]></video><![endif]-->
+                            <img class="img-fluid" alt="{{ news.title }}" src="{{news && news.image ? PORTAL_URL + 'files/blog/' + news.CID + '/' + news.image : './assets/images/no-image.png'}}" /> </a></picture>
+                            <div class="tip--seminar__desc clearfix">
+                                <div class="excerpt js-EnabledExcerpt mb-4 clearfix" [innerHtml]="news.short_description | safeHtml"></div>
+                                <div class="post__controls clearfix">
+                                    <a routerLink="{{ '/details/' + news.slug }}" class="button button-inline button--main"><span>Continue Reading</span></a>
+                                </div>
+                            </div>
+                            <div class="hr mt-5 mb-3"><hr /></div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="page--withSidebar page--withSidebar-sm">
+                    <div class="recent--uploads p-0">
+                        <div class="row" *ngIf="newsList && newsList.length">
+                            <div class="col-12 col-lg-4 col-md-4 col-sm-6" *ngFor="let news of newsList; let i = index">
+                                <div class="w-100 mb-4" *ngIf="news.asPType == 'VIDEO'">
+                                    <article class="video--post postType3 p-0">
+                                        <div class="inner">
+                                            <a routerLink="{{'/academy/video/'+news.Video_slug+'-'+news.ID}}">
+                                                <div class="screencast">
+                                                    <picture class="thumb--image">
+                                                        <img *ngIf="(news.Video_Source == 'youtube' || news.Video_Source == 'vimeo') && news.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="https://{{news.Video_Thumbnail_Small}}" />
+
+                                                        <img *ngIf="news.Video_UploadedOn == 'S3' && news.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="{{news.Video_Thumbnail_Small}}" />
+
+                                                        <img *ngIf="!news.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+                                                    </picture>
+                                                    <div class="play--btn">
+                                                        <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                                                            <path class="stroke-solid" fill="none" stroke="none" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5" />
+                                                            <path class="icon" fill="none" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div class="media--length">{{news.Video_Time}}</div>
+                                                </div>
+                                            </a>
+                                            <div class="post--data post--data-sm">
+                                                <h3 class="post--title post--title-sm">
+                                                    <a routerLink="{{'/academy/video/'+news.Video_slug+'-'+news.ID}}" [innerHtml]="((news && news?.Video_Title)? news?.Video_Title : '') | safeHtml"></a>
+                                                </h3>
+                                                <p class="author" *ngIf="news && news?.Added_From == 'frontend'">
+                                                    <i class="fe-user"></i> by <a href="javascript;">{{news.first_name}} {{news.last_name}}</a>
+                                                </p>
+                                                <p class="author" *ngIf="news && (news?.Added_From == 'backend' || news?.Added_From == 'Scrapper')">
+                                                    <i class="fe-user"></i> by <a href="javascript;">{{'TITLE' | translate}}</a>
+                                                </p>
+                                                <time class="date"><i class="fe-clock"></i> {{ news.Video_Upload_Date | date: 'mediumDate' }}</time>
+                                            </div>
+                                            <div class="post--footer post--footer-sm">
+                                                <div class="post--category"><a routerLink="{{'/academy/video/'+news.Video_slug+'-'+news.ID}}"><i class="fe-grid mr-1"></i> <span [innerHtml]="((news && news?.Category_Name)? news?.Category_Name : '') | safeHtml"></span></a></div>
+                                                <div class="post--views">
+                                                    <a routerLink="{{'/academy/video/'+news.Video_slug+'-'+news.ID}}"><i class="fe-eye"></i> {{news.Video_Views || 0}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page--withSidebar page--withSidebar-sm" *ngIf="NewsNotFound">
+                    Not any posts under this category yet.
+                </div>
+            </div>
+
+            <aside class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 content-with-sidebar content-with-sidebar-xs order2">
+                <div class="rightSidebar sidebar" id="sidebar">
+                    <div class="sidebar__inner">
+                        <div class="blog__sidebar theiaStickySidebar">
+                            <div class="sidebar--widget sidebar--widget-xs">
+                                <h2 class="sidebar--widget__subtitle" style="cursor: pointer;" routerLink="/resources">Resources</h2>
+                                <div class="sidebar--widget__content">
+                                    <ul class="sidebar--widget__categories">
+                                        <li *ngFor="let newscategory of newscategoryList; let i = index" class="sidebar--widget__categories--items">
+                                            <a [ngClass]="{'is-active': newscategory.slug==CateGorySearch}" routerLink="/resources/posts/{{newscategory.slug}}" class="level-top" [innerHtml]="newscategory.name | safeHtml"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+<!-- //End Blog Page Content Area -->
+<div class="clearfix"></div>

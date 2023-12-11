@@ -1,0 +1,228 @@
+<style type="text/css">
+.star-rating{height:42px}
+</style>
+
+<div class="w-100 py-4 py-md-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-11 col-md-12 col-sm-12">
+                <div class="row">
+                    
+                    <aside class="col-12 col-lg-3 col-xl-3">
+                        <app-left-nav></app-left-nav>
+                    </aside>
+                    
+                    <div class="col-12 col-lg-9 col-xl-9 pl-md-5">
+                        <div class="c-breadcrumb d-flex align-items-center justify-content-between mb-5">
+                            <nav class="missio-breadcrumb mb-0">
+                                <a class="breadcrumb-link" routerLink="/">Home</a>
+                                <a class="breadcrumb-link" routerLink="/member/profile">My Dashboard</a>
+                                <span class="breadcrumb-last">Tickets</span>
+                            </nav>
+                        </div>
+                        
+                        <div class="page-head page-head-sm">
+                            <h3 class="u-heading--small u-heading--small-sm mb-3">Create a new ticket</h3>
+                            <div class="welcome-msg">
+                                <p class="fs-15 text-dark-50">Our SLA for customers with Pro plans or higher is 15 minutes. This means we guarantee that within 15 minutes of opening a ticket, one of our technicians will begin working on a resolution for you. SLA for Starter plans is 1 hour.</p>
+                            </div>
+                        </div>
+                        <form class="w-100" [formGroup]="ticketForm" (ngSubmit)="onSubmit(ticketForm.value)">
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group" [ngClass]="ticketForm.controls['Product'].dirty && ticketForm.controls['Product'].errors ? ' form-group--has-error' : ''">
+                                        <label class="mb-1" for="Product">Product Name</label>
+                                        <div class="selectdropdown">
+                                            <select class="form-control solid rounded" formControlName="Product" name="Product"  >
+                                                <option value="">Please Select</option>
+                                                <option value="Accounting">Accounting</option>
+                                                <option value="Audit">Audit</option>
+                                                <option value="Calculation">Calculation</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="ticketForm.controls['Product'].dirty && ticketForm.controls['Product'].errors">
+                                            <div *ngIf="ticketForm.controls['Product'].errors.required">
+                                                <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group" [ngClass]="ticketForm.controls['SubProduct'].dirty && ticketForm.controls['SubProduct'].errors ? ' form-group--has-error' : ''">
+                                        <label class="mb-1" for="SubProduct">Sub Product</label>
+                                        <div class="selectdropdown">
+                                            <select class="form-control solid rounded" formControlName="SubProduct" name="SubProduct" >
+                                                <option value="">Please Select</option>
+                                                <option value="Sage">Sage</option>
+                                                <option value="Mas90">Mas90</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="ticketForm.controls['SubProduct'].dirty && ticketForm.controls['SubProduct'].errors">
+                                            <div *ngIf="ticketForm.controls['SubProduct'].errors.required">
+                                                <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group" [ngClass]="ticketForm.controls['Request'].dirty && ticketForm.controls['Request'].errors ? ' form-group--has-error' : ''">
+                                        <label class="mb-1" for="Request">Issue Request</label>
+                                        <input class="form-control solid rounded" id="Request" formControlName="Request" name="Request" type="text" placeholder="">
+                                        <div *ngIf="ticketForm.controls['Request'].dirty && ticketForm.controls['Request'].errors">
+                                            <div *ngIf="ticketForm.controls['Request'].errors.required">
+                                                <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group" [ngClass]="ticketForm.controls['Status'].dirty && ticketForm.controls['Status'].errors ? ' form-group--has-error' : ''">
+                                        <label class="mb-1" for="Status">Status</label>
+                                        <div class="selectdropdown">
+                                            <select class="form-control solid rounded" id="Status" formControlName="Status" name="Status" >
+                                                <option value="">Please Select</option>
+                                                <option value="Open">Open</option>
+                                                <option value="In Progress">In Progress</option>
+                                                <option value="Resolved">Resolved</option>
+                                                <option value="On Hold">On Hold</option>
+                                                <option value="Closed">Closed</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="ticketForm.controls['Status'].dirty && ticketForm.controls['Status'].errors">
+                                            <div *ngIf="ticketForm.controls['Status'].errors.required">
+                                                <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group" [ngClass]="ticketForm.controls['Details'].dirty && ticketForm.controls['Details'].errors ? ' form-group--has-error' : ''">
+                                        <label class="mb-1" for="Details">Details</label>
+                                        <textarea class="form-control solid rounded" id="Details" formControlName="Details" name="Details" placeholder=""></textarea>
+                                        <div *ngIf="ticketForm.controls['Details'].dirty && ticketForm.controls['Details'].errors">
+                                        <div *ngIf="ticketForm.controls['Details'].errors.required">
+                                            <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="HowResolved">How Resolved</label>
+                                        <textarea class="form-control solid rounded" id="HowResolved" formControlName="HowResolved" name="HowResolved" placeholder=""></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group" [ngClass]="ticketForm.controls['ContactName'].dirty && ticketForm.controls['ContactName'].errors ? ' form-group--has-error' : ''">
+                                        <label class="mb-1" for="ContactName">Contact Name</label>
+                                        <input class="form-control solid rounded" id="ContactName" formControlName="ContactName" name="ContactName" type="text" placeholder="">
+                                        <div *ngIf="ticketForm.controls['ContactName'].dirty && ticketForm.controls['ContactName'].errors">
+                                            <div *ngIf="ticketForm.controls['ContactName'].errors.required">
+                                                <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="AssociatedItem">Associated Configuration Item</label>
+                                        <input class="form-control solid rounded" id="AssociatedItem" formControlName="AssociatedItem" name="AssociatedItem" type="text" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-0">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="AssociatedCategory">Associated Category</label>
+                                        <div class="selectdropdown">
+                                            <select class="form-control solid rounded" id="AssociatedCategory" formControlName="AssociatedCategory" name="AssociatedCategory" >
+                                                <option value="">Please Select</option>
+                                                <option value="Personal Account">Personal Account</option>
+                                                <option value="Natural Personal Account">Natural Personal Account</option>
+                                                <option value="Artificial Personal Account">Artificial Personal Account</option>
+                                                <option value="Representative Personal Account">Representative Personal Account</option>
+                                                <option value="Real Account">Real Account</option>
+                                                <option value="Tangible Real Account">Tangible Real Account</option>
+                                                <option value="Intangible Real Account">Intangible Real Account</option>
+                                                <option value="Nominal Account">Nominal Account</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="AssociatedSubCategory">Associated Sub Category</label>
+                                        <div class="selectdropdown">
+                                            <select class="form-control solid rounded" id="AssociatedSubCategory" formControlName="AssociatedSubCategory" name="AssociatedSubCategory" >
+                                                <option value="">Please Select</option>
+                                                <option value="" selected>Please Select</option>
+                                                <option value="Checking">Checking</option>
+                                                <option value="Savings">Savings</option>
+                                                <option value="Savings">Accounts Receivable</option>
+                                                <option value="Inventory">Inventory</option>
+                                                <option value="Prepaid Expenses">Prepaid Expenses</option>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="SatisfactoryRating">Satisfactory Rating</label>
+                                        <div class="d-flex align-items-center star-rating">
+                                            <span class="star-badge"><span class="star-badge-wrap"><i class="far fa-star mr-1"></i><i class="far fa-star mr-1"></i><i class="far fa-star mr-1"></i><i class="far fa-star mr-1"></i><i class="far fa-star mr-1"></i></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="form-group mb-5">
+                                <div class="bucket">
+                                    <div class="attach-field">
+                                        <div class="with-dpx">
+                                            <div class="dp-react-widget as-dpui"><div class="new-ticket-attachments"><div><span class="attach-file button"><span class="text">Drag a file in here or</span><span class="fake-button">Choose a file</span><input type="file" formControlName="ProductName" name="file[blob]"></span></div></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+                            <div class="row justify-content-start u-align-center">
+                                <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group u-flexed u-align-center">
+                                        <button class="button button--green button-md button-radius2 mr-3" type="submit"><i class="fe-check mr-2"></i>Save </button>
+                                        <button class="button button--grey button-md button-radius2" type="cancel"><i class="fe-x mr-2"></i>Cancel </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

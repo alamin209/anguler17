@@ -1,0 +1,14 @@
+<!-- Left Side bar menu -->
+<aside class="my--leftsidebar my--leftsidebar-sm">
+    <nav class="my--leftsidebar-navigation my--leftsidebar-navigation-sm">
+        <ul class="my--leftsidebar-navigation-items">
+            <li class="is-selected">
+                <a (click)="changeRouter('member/profile')"><span class="fe-airplay mr-2"></span>{{"DASHBOARD" | translate}}</a></li>
+            <li><a (click)="changeRouter('academy')"><span class="fe-youtube mr-2"></span>{{"VIDEO_PORTAL" | translate}}</a></li>
+            <li><a (click)="changeRouter('resources')" ><span class="fe-briefcase mr-2"></span>{{"RESOURCES" | translate}}</a></li>
+            <li><a (click)="changeRouter('forum')"><span class="fe-book-open mr-2"></span>{{"TEACHERS_FORUM" | translate}}</a></li>
+            <li><a (click)="changeRouter('blog')"><span class="fe-hard-drive mr-2"></span>{{"EVENTS_SEMINARS" | translate}}</a>
+            </li>
+        </ul>
+    </nav>
+</aside>

@@ -1,0 +1,43 @@
+<div class="hero__inner medium medium-sm overlay u-image--cover" style="background-color: #094779;">
+    <div class="container">
+        <header class="hero__inner--content hero__inner--content-xs">
+            <div class="subhead subhead-xs text-white">
+                <picture class="Missio--Thankyou__Logo Missio--Thankyou__Logo-sm"><img src="./assets/images/ThankYou.svg" class="image-fluid" alt="{{'TITLE' | translate}}" /></picture>
+            </div>
+        </header>
+    </div>
+</div>
+
+<div class="Missio--Thankyou Missio--Thankyou-xs">
+    <div class="container">
+        <!-- Begin Manufacture Page Thank You Message -->
+        <div class="row justify-content-center" *ngIf="(page=='manufacturer')">
+            <div class="col-12 col-md-12 col-sm-12 col-xs-12 text-center" >
+                <h1 class="Thankyou--heading Thankyou--heading-xs">{{'MANUFACTURER_SIGN_UP_THANKYOU' | translate}}</h1>
+                <h3 class="Thankyou--description Thankyou--description-xs">{{'MANUFACTURER_SIGN_UP_THANKYOU2' | translate}}</h3>
+            </div>
+        </div>
+        <!-- //End Manufacture Page Thank You Message -->
+        
+        <!-- Begin Customer Page Thank You Message -->
+        <div class="row justify-content-center"  *ngIf="page=='customer'">
+            <div class="col-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <h1 class="Thankyou--heading Thankyou--heading-xs">{{'CUSTOMER_SIGN_UP_THANKYOU' | translate}}</h1>
+                <h3 *ngIf="EMAIL_CONFIRMATION" class="Thankyou--description Thankyou--description-xs">{{'CUSTOMER_SIGN_UP_THANKYOU_CONFIRM_EMAIL' | translate}}</h3>
+                <h3 *ngIf="!EMAIL_CONFIRMATION" class="Thankyou--description Thankyou--description-xs">{{'CUSTOMER_SIGN_UP_WELCOME_MSG' | translate}}</h3>
+            </div>
+        </div>
+        <!-- //End Customer Page Thank You Message -->
+        
+        <!-- Begin Contact us Page Thank You Message -->
+        <div class="row justify-content-center" *ngIf="(page=='contact-us')">
+            <div class="col-12 col-md-12 col-sm-12 col-xs-12 text-center" >
+                <h1 class="Thankyou--heading Thankyou--heading-xs">{{'CONTACTUS_THANKYOU' | translate}}</h1>
+                <h3 class="Thankyou--description Thankyou--description-xs">{{'CONTACTUS_THANKYOU2' | translate}}</h3>
+            </div>
+        </div>
+        <!-- //End Contact us Page Thank You Message -->
+        
+    </div>    
+</div>
+<div class="clearfix"></div>

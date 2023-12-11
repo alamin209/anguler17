@@ -1,0 +1,158 @@
+<div class="hero__inner large large-xs overlay u-image--cover" style="background: rgba(0, 0, 0, 0) url('./assets/images/Parallax/Parallax_04.jpg') no-repeat center right;">
+    <div class="container">
+        <header class="hero__inner--content hero__inner--content-xs">
+            <div class="subhead subhead-xs text-white">
+                <h1 class="subhead subhead-xs u-upper" style="color:#FFFFFF;">Contact Us</h1>
+            </div>
+        </header>
+    </div>
+</div>
+
+<!--<section class="content--wrap content--wrap-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-xl-10 col-lg-10 col-md-11 col-sm-12 col-centered">
+                <div class="u-pr--40 u-pr--40-sm">
+                    <div class="page-head page-head-xs noborder center u-mb--30">
+                        <h2 class="u-heading--large u-heading--large-sm">Contact Us</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-4 col-sm-6">
+                            <div class="address--block">
+                                <div class="address--Icons address--Icons-sm"><span class="fe-phone-call"></span></div>
+                                <header class="address--title">
+                                    <h3 class="">{{'PHONE' | translate}}</h3>
+                                </header>
+                                <div class="address--details">
+                                    <p>{{'GIVE_US_A_CALL' | translate}}</p>
+                                    <p>{{'PHONE_NUMBER' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-4 col-sm-6">
+                            <div class="address--block">
+                                <div class="address--Icons address--Icons-sm"><span class="fe-mail"></span></div>
+                                <header class="address--title">
+                                    <h3 class="">{{'EMAIL' | translate}}</h3>
+                                </header>
+                                <div class="address--details">
+                                    <p>{{'FEEL_FREE' | translate}}</p>
+                                    <p>{{'EMAIL_ADDRESS' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-xl-4 col-lg-4 col-md-4 col-sm-6">
+                            <div class="address--block">
+                                <div class="address--Icons address--Icons-sm"><span class="fe-map-pin"></span></div>
+                                <header class="address--title">
+                                    <h3 class="">{{'LOCATION' | translate}}</h3>
+                                </header>
+                                <div class="address--details">
+                                    <p>{{'LOCATION_ADDRESS' | translate}}<br>
+                                    {{'LOCATION_SUITE' | translate}}</p>
+                                    <p>{{'GOOGLE_MAP' | translate}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+        
+<section class="content--wrap content--wrap-sm py-4 py-md-5" style="background-color: #f8f8f8;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-xl-10 col-lg-10 col-md-11 col-sm-12 col-centered">
+                <div class="u-pl--20 u-pl--20-sm">
+                    <div class="page-head page-head-xs noborder center flex-column u-mb--40">
+                        <h2 class="u-heading--large u-heading--large-sm mb-2" style="letter-spacing: 0 !important;">{{'CONTACT_HEADING' | translate}}</h2>
+                        <p class="text-dark-50">{{'CONTACT_SUBHEADING' | translate}}</p>
+                    </div>
+                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactForm.value)" class="form-horizontal form-horizontal-sm formContact">
+                        <div class="row ">
+                            <div [ngClass]="contactForm.controls['name'].dirty && contactForm.controls['name'].errors ? 'col-md-6 form-group form-group--has-error' : 'col-md-6 form-group'">
+                                <label for="name">Your Name</label>
+                                <input type="text" class="form-control solid rounded" formControlName="name" id="name" name="name" placeholder="Your Name">
+                                <div *ngIf="contactForm.controls['name'].dirty && contactForm.controls['name'].errors">
+                                    <div *ngIf="contactForm.controls['name'].errors.required">
+                                        <div class="help-block" style="display: block">Your Name</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div [ngClass]="contactForm.controls['email'].dirty && contactForm.controls['email'].errors ? 'col-md-6 form-group form-group--has-error' : 'col-md-6 form-group'">
+                                <label for="email">Your Email</label>
+                                <input type="text" class="form-control email solid rounded" formControlName="email" id="email" name="email" placeholder="Your Email">
+                                <div *ngIf="contactForm.controls['email'].dirty && contactForm.controls['email'].errors">
+                                    <div *ngIf="contactForm.controls['email'].errors.required">
+                                        <div class="help-block" style="display: block">Your Email</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row ">
+                            <div [ngClass]="contactForm.controls['phone'].dirty && contactForm.controls['phone'].errors ? 'col-md-6 form-group form-group--has-error' : 'col-md-6 form-group'">
+                                <label for="phone">Phone Number</label>
+                                <input type="text" class="form-control solid rounded" formControlName="phone" id="phone" name="phone" placeholder="Phone Number" mask='(000) 000-0000'>
+                                <div *ngIf="contactForm.controls['phone'].dirty && contactForm.controls['phone'].errors">
+                                    <div *ngIf="contactForm.controls['phone'].errors.required">
+                                        <div class="help-block" style="display: block">Phone Number</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div [ngClass]="contactForm.controls['company'].dirty && contactForm.controls['company'].errors ? 'col-md-6 form-group form-group--has-error' : 'col-md-6 form-group'">
+                                <label for="company">Company</label>
+                                <input type="text" class="form-control solid rounded" formControlName="company" id="company" name="company" placeholder="Company">
+                                <div *ngIf="contactForm.controls['company'].dirty && contactForm.controls['company'].errors">
+                                    <div *ngIf="contactForm.controls['company'].errors.required">
+                                        <div class="help-block" style="display: block">Company</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row u-mb--0">
+                            <div [ngClass]="contactForm.controls['message'].dirty && contactForm.controls['message'].errors ? 'col-md-12 form-group form-group--has-error' : 'col-md-12 form-group'">
+                                <label for="message">Message</label>
+                                <textarea type="text" class="form-control solid rounded" formControlName="message" id="message" name="message" placeholder="Your Message" rows="6"></textarea>
+                                <div *ngIf="contactForm.controls['message'].dirty && contactForm.controls['message'].errors">
+                                    <div *ngIf="contactForm.controls['message'].errors.required">
+                                        <div class="help-block" style="message: block">Your Message</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row u-mb--15">
+                            <div [ngClass]="contactForm.controls['recaptcha'].dirty && contactForm.controls['recaptcha'].errors ? 'col-md-12 form-group form-group--has-error' : 'col-md-12 form-group'">
+                                <label for="recaptcha-anchor-label">Human Verfication</label>
+                                <ngx-recaptcha2 #captchaElem
+                                    siteKey="6Le9j3kUAAAAALLPdHVlGr_Js49-aPR3pne3OdbX"
+                                    (reset)="handleReset()"
+                                    (expire)="handleExpire()"
+                                    (load)="handleLoad()"
+                                    (success)="handleSuccess($event)"
+                                    [useGlobalDomain]="false"
+                                    [size]="size"
+                                    [hl]="lang"
+                                    [theme]="theme"
+                                    [type]="type"
+                                    formControlName="recaptcha">
+                                  </ngx-recaptcha2>
+                            </div>
+                        </div>
+                        
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <button type="submit" class="button button--green button-lg button-radius">REQUEST A CALL BACK</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

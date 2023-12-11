@@ -1,0 +1,542 @@
+<div class="auth--body auth--body-md My--Profile Order--History">
+  <div class="auth--body__inner auth--body__inner-md">
+    <div class="container">
+      <div class="row">
+          
+          <aside class="col-12 col-lg-3 col-md-3 col-sm-12">
+                <div class="row u-mb--30 u-mb--30-sm">
+                    <div class="col-12 col-lg-12 col-xl-12">
+                        <h3 class="section--title section--title-sm"><a routerLink="/member">{{'MY_ACCOUNT' | translate}}</a></h3>
+                    </div>
+                </div>
+
+                <!--Add side bar-->
+                <app-side-bar></app-side-bar>
+            </aside>
+          
+        <div class="col-12 col-lg-9 col-xl-9 has--leftsidebar has--leftsidebar-md form-vertical form-vertical-sm">
+            <div class="c-breadcrumb">
+                <nav class="missio-breadcrumb">
+                    <a class="breadcrumb-link"routerLink="/">Home</a> <a class="breadcrumb-link " routerLink="/member/profile">{{'MY_DASHBOARD' | translate}}</a> <span class="breadcrumb-last">{{'ORDERS' | translate}}</span>
+                </nav>
+            </div>
+            
+          <div class="u-flexed u-align-center u-mb--20">
+            <h2 class="no-margin">{{'ORDERS' | translate}}</h2>
+            <div class="ml-auto">
+              <div class="input-group">
+                <span class="search"></span>
+                <input type="text" class="form-control" placeholder="Search all orders">
+                <div class="input-group-append"><button class="btn input-btn" type="button">Search Orders</button></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 poduct-tabs-inner">
+              <div class="product--specifications">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{'active': setTab=='All_Orders'}" data-toggle="tab"
+                      href="#All_Orders" role="tab" href="javascript:;" (click)="setTab='All_Orders';  getUserOrders('all');">All Orders</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{'active': setTab=='OpenOrders'}" data-toggle="tab"
+                      href="#OpenOrders" role="tab" href="javascript:;" (click)="setTab='OpenOrders'; getUserOrders('1');">Open Orders</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [ngClass]="{'active': setTab=='CancelledOrders'}" data-toggle="tab" href="#CancelledOrders" role="tab" href="javascript:;" 
+                    (click)="setTab='CancelledOrders';  getUserOrders('4');">Canceled Orders</a>
+                  </li>
+                </ul>
+
+                <div class="tab-content tab-content-xs no-padding no-margin" id="myTabContent">
+
+                  <div *ngIf="setTab=='All_Orders'; then All_Orders"></div>
+                  <div *ngIf="setTab=='OpenOrders'; then OpenOrders;"></div>
+                  <div *ngIf="setTab=='CancelledOrders'; then CancelledOrders;"></div>
+
+                  <ng-template #All_Orders>
+                    <div class="tab-pane fade show active" id="All_Orders">
+                      <div class="tab-content no-margin" *ngIf="OrdersData && OrdersData.length">
+                        <div style="display: none;" class="Order--History--Filter u-flexed u-align-center u-mb--25">
+                          <label for="orderFilter" class="form-label"><span class="order--count">8 orders</span> placed
+                            in</label>
+                          <div class="dropdown order-panel">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                              <span id="order_concept">past 6 months</span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                              <li><a href="#">last 30 days</a></li>
+                              <li><a href="#">past 6 months</a></li>
+                              <li><a href="#">2019</a></li>
+                              <li><a href="#">2018</a></li>
+                              <li><a href="#">2017</a></li>
+                              <li><a href="#">2016</a></li>
+                              <li><a href="#">2015</a></li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div class="Order--History--Cards">
+
+                          <!-- First Panel -->
+                          <div class="Order--History--Cards__Items" *ngFor="let Order of OrdersData; let i = index">
+                            <div class="Order--History--Cards__Head">
+                              <div class="Order--History--Cards__Head--GridLeft">
+                                <div class="row">
+                                  <div class="col-sm-4">
+                                    <div class="blocks">
+                                      <span class="label">Order placed</span>
+                                      <span class="value">{{Order.Order_Date}}</span>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-3">
+                                    <div class="blocks">
+                                      <span class="label">Total</span>
+                                      <span class="value">$ {{Order.Payment_Grandtotal}}</span>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-5">
+                                    <div class="blocks">
+                                      <span class="label">Ship to</span>
+                                      <span class="value">
+                                        <ng-template #popTemplate>
+                                          <ul>
+                                            <li>{{Order.Shipping_First_Name}} {{Order.Shipping_Last_Name}}</li>
+                                            <li>{{Order.Shipping_Address}} {{Order.Shipping_Address2}}</li>
+                                            <li>{{Order.Shipping_State}} {{Order.Shipping_Zip}},
+                                              {{Order.Shipping_Country}}</li>
+                                            <li>Phone: {{Order.Shipping_Phone}}</li>
+                                          </ul>
+                                        </ng-template>
+                                        <a href="javascript:;" [popover]="popTemplate">{{Order.Shipping_First_Name}}
+                                          {{Order.Shipping_Last_Name}} <i class="far fa-angle-down"></i></a>
+                                      </span>
+                                    </div> 
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="Order--History--Cards__Head--GridRight">
+                                <div class="blocks">
+                                  <span class="label">Order # {{Order.OrderID}}</span>
+                                  <span class="value">
+                                    <ul class="inline-nav">
+                                      <li><a routerLink="{{'/member/order-detail/'+Order.OrderID}}" >Order Details</a></li>
+                                         
+                                        <!--<a href="javascript:;" (click)="cancelOrder(product)" class="button button-radius button-sm button--black u-mb--10" role="button">Cancel Order</a>-->
+                                    </ul>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = iindex">
+                              <div class="Order--History--Cards__Body--GridLeft Order--History--Cards__Body--GridLeft-xs">
+                                <div class="Details__Top">
+                                    <h3 [ngSwitch]="product.Shipping_Status">
+                                      <p *ngSwitchCase="1">
+                                        Order Status : In Processing
+                                      </p>
+                                      <p *ngSwitchCase="2">
+                                        Order Status : In Processing
+                                      </p>
+                                      <p *ngSwitchCase="3">
+                                        Order Status : Order Shipped
+                                      </p>
+                                      <p *ngSwitchCase="4">
+                                        Order Status : Order Canceled
+                                      </p>
+                                      <p *ngSwitchCase="5">
+                                        Order Status : Order Delivered
+                                      </p>
+                                    </h3>
+                                </div>
+
+                                <div class="Order__Prdt__Excerpt">
+                                  <div class="Order__Prdt__Thumbnail">
+                                      <a class=""routerLink="{{'/shop/product/p/'+product.Product_Slug}}">
+                                        <img *ngIf="product && product.Image && product.Image_Source != 'url'" alt=""
+                                        src="{{awsCloudfrontURL}}files/store/products/{{product.CID}}/{{product.Product_ID}}/thumb_{{product.Image}}" alt="{{product.Product_Name}}"
+                                        class="img-fluid">
+                                        <img *ngIf="product && product.Image && product.Image_Source == 'url'" alt=""
+                                        src="{{product.Image}}" alt="{{product.Product_Name}}"
+                                        class="img-fluid">
+                                        <img *ngIf="!product.Image"
+                                        src="./assets/images/no-image.png" alt="{{product.Product_Name}}"
+                                        class="img-fluid">
+                                      </a>
+                                    </div>
+
+                                  <div class="Order__Prdt__Details">
+                                    <div class="prdt__name prdt__name-xs">
+                                        <a routerLink="{{'/shop/product/p/'+product.Product_Slug}}" [innerHtml]="((product && product.Product_Name)? product.Product_Name : '') | safeHtml"></a>
+                                    </div>
+                                    <p class="prdt__text">Sold by: <strong class="u-capitalize">{{(product.Added_By != null)? product.Added_By : 'TeachitPro'}}</strong></p>
+                                    <p class="prdt__text price">$ {{product.TotalAmount}}</p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="Order--History--Cards__Body--GridRight">
+                                <div class="Order__Buttons__Group">
+                                  <!-- <a routerLink="{{'/member/track-my-order/'+Order.OrderID+'/'+Order.products[0].Product_ID}}" 
+                                    class="button button-radius button-sm button--green u-mb--15" role="button">{{'TRACK_MY_ORDER' | translate}}</a>-->
+                                  <!--<a href="javascript:;" *ngIf="product.Shipping_Status == '1' || product.Shipping_Status == '2'" class="button button-radius button-sm button--black u-mb--15"
+                                    role="button">Return or replace item</a>-->
+                                  <a *ngIf="product.ProductType == 'Digital'" href="{{PORTAL_URL}}modules/store_orders/download_order_files.php?UID={{Order.MemberID}}&OID={{Order.ID}}&PID={{product.Product_ID}}" class="button button-radius button-sm button--green u-mb--10"
+                                    role="button">Download Files</a>
+
+                                  <a href="javascript:;" (click)="openModal(WriteReviewModal,product.Product_ID)"  class="button button-radius button-sm button--black u-mb--10"
+                                    role="button">Write a product review</a>
+                                    <!--<a href="javascript:;" (click)="cancelOrder(product)" class="button button-radius button-sm button--black u-mb--10" role="button">Cancel Order</a>-->
+                                </div>
+                              </div>
+                            </div>
+
+                            
+                          </div>
+
+
+                        </div>
+
+                      </div>
+
+                      <div class="tab-content no-margin" *ngIf="OrdersData && OrdersData.length == 0">
+                        <div class="error--box">
+                          <div class="error--box__Graphic error--box__Graphic-sm"><img alt="Order" class="image-fluid" src="./assets/images/icons/order.svg"></div>
+                          <p><strong>You Have No Orders Yet!</strong></p>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template #OpenOrders>
+                    <div class="tab-pane fade show active" id="OpenOrders">
+                      <div class="tab-content no-margin" *ngIf="OrdersData && OrdersData.length">
+                        
+
+                        <div class="Order--History--Cards">
+                          <ng-container *ngFor="let Order of OrdersData; let i = index">
+                            <div class="Order--History--Cards__Items">
+                              <div  class="Order--History--Cards__Head">
+                                <div class="Order--History--Cards__Head--GridLeft">
+                                  <div class="row">
+                                    <div class="col-sm-3">
+                                      <div class="blocks">
+                                        <span class="label">Order placed</span>
+                                        <span class="value">{{Order.Order_Date}}</span>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                      <div class="blocks">
+                                        <span class="label">Total</span>
+                                        <span class="value">$ {{Order.Payment_Grandtotal}}</span>
+                                      </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                      <div class="blocks">
+                                        <span class="label">Ship to</span>
+                                        <span class="value">
+                                          <ng-template #popTemplate>
+                                            <ul>
+                                              <li class="u-capitalize">{{Order.Shipping_First_Name}} {{Order.Shipping_Last_Name}}</li>
+                                              <li>{{Order.Shipping_Address}} {{Order.Shipping_Address2}}</li>
+                                              <li>{{Order.Shipping_State}} {{Order.Shipping_Zip}},
+                                                {{Order.Shipping_Country}}</li>
+                                              <li>Phone: {{Order.Shipping_Phone}}</li>
+                                            </ul>
+                                          </ng-template>
+                                          <a href="javascript:;" [popover]="popTemplate" class="u-capitalize">{{Order.Shipping_First_Name}}
+                                            {{Order.Shipping_Last_Name}} <i class="far fa-angle-down"></i></a>
+                                        </span>
+                                      </div> 
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="Order--History--Cards__Head--GridRight">
+                                  <div class="blocks">
+                                    <span class="label">Order # {{Order.OrderID}}</span>
+                                    <span class="value">
+                                      <ul class="inline-nav">
+                                        <li><a routerLink="{{'/member/order-detail/'+Order.OrderID}}">Order Details</a></li>
+                                          
+                                      </ul>
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = iindex">
+                                <div
+                                  class="Order--History--Cards__Body--GridLeft Order--History--Cards__Body--GridLeft-xs">
+                                  <div class="Details__Top">
+                                      <h3 [ngSwitch]="product.Shipping_Status">
+                                          <p *ngSwitchCase="1">
+                                            Order Status : New Order
+                                          </p>
+                                          <p *ngSwitchCase="2">
+                                            Order Status : In Processing
+                                          </p>
+                                          <p *ngSwitchCase="3">
+                                            Order Status : Order Shipped
+                                          </p>
+                                          <p *ngSwitchCase="4">
+                                            Order Status : Order Canceled
+                                          </p>
+                                          <p *ngSwitchCase="5">
+                                            Order Status : Delivered
+                                          </p>
+                                        </h3>
+
+                                  </div>
+
+                                  <div class="Order__Prdt__Excerpt">
+                                    <div class="Order__Prdt__Thumbnail">
+                                        <a class="" routerLink="{{'/shop/product/p/'+product.Product_Slug}}" >
+                                        <img *ngIf="product && product.Image && product.Image_Source != 'url'" alt=""
+                                        src="{{PORTAL_URL}}files/store/products/{{product.CID}}/{{product.Product_ID}}/thumb_{{product.Image}}" alt="{{product.Product_Name}}"
+                                        class="img-fluid">
+                                        <img *ngIf="product && product.Image && product.Image_Source == 'url'" alt=""
+                                        src="{{product.Image}}" alt="{{product.Product_Name}}"
+                                        class="img-fluid">
+                                        <img *ngIf="!product.Image"
+                                        src="./assets/images/no-image.png" alt="{{product.Product_Name}}"
+                                        class="img-fluid">
+                                      </a>
+                                      </div>
+
+                                    <div class="Order__Prdt__Details">
+                                      <div class="prdt__name prdt__name-xs"><a routerLink="{{'/shop/product/p/'+product.Product_Slug}}">{{product.Product_Name}}</a></div>
+                                      <p class="prdt__text">Sold by: <strong>{{(product.Added_By != null)? product.Added_By : 'TeachitPro'}}</strong></p>
+                                      <p class="prdt__text price">$ {{product.TotalAmount}}</p>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="Order--History--Cards__Body--GridRight">
+                                  <div class="Order__Buttons__Group">
+                                    <!--<a href="track-package.html"
+                                      class="button button-radius button-sm button--green u-mb--15" role="button">Track
+                                      package</a>-->
+                                    <a href="#" *ngIf="product.Shipping_Status == '1' || product.Shipping_Status == '2'" class="button button-radius button-sm button--green u-mb--15"
+                                      role="button">Return or replace item</a>
+                                    <!--<a href="#"  class="button button-radius button-sm button--black u-mb--10"
+                                      role="button">Leave seller feedback</a>-->
+                                    <a href="javascript:;" (click)="openModal(WriteReviewModal,product.Product_ID)"  class="button button-radius button-sm button--black u-mb--10"
+                                      role="button">Write a product review</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+
+                      </div>
+                      <div class="tab-content no-margin" *ngIf="OrdersData && OrdersData.length == 0">
+                        <div class="error--box">
+                          <div class="error--box__Graphic error--box__Graphic-sm"><img alt="Order" class="image-fluid" src="./assets/images/icons/order.svg"></div>
+                          <p><strong>You Have No Open Orders!</strong></p>
+                          <a href="javascript:;" (click)="setTab='All_Orders'" class="text-link text-green">View All Orders</a>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template #CancelledOrders>
+                    <div class="tab-pane fade show active" id="CancelledOrders">
+                      <div class="tab-content no-margin" *ngIf="OrdersData && OrdersData.length">
+                        <div class="Order--History--Cards">
+                          <ng-container *ngFor="let Order of OrdersData; let i = index">
+                            
+                              <div class="Order--History--Cards__Items" >
+                                
+                                  <div  class="Order--History--Cards__Head">
+                                    <div class="Order--History--Cards__Head--GridLeft">
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <div class="blocks">
+                                            <span class="label">Order placed</span>
+                                            <span class="value">{{Order.Order_Date}}</span>
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                          <div class="blocks">
+                                            <span class="label">Total</span>
+                                            <span class="value">$ {{Order.Payment_Grandtotal}}</span>
+                                          </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                          <div class="blocks">
+                                            <span class="label">Ship to</span>
+                                            <span class="value">
+                                              <ng-template #popTemplate>
+                                                <ul>
+                                                  <li>{{Order.Shipping_First_Name}} {{Order.Shipping_Last_Name}}</li>
+                                                  <li>{{Order.Shipping_Address}} {{Order.Shipping_Address2}}</li>
+                                                  <li>{{Order.Shipping_State}} {{Order.Shipping_Zip}},
+                                                    {{Order.Shipping_Country}}</li>
+                                                  <li>Phone: {{Order.Shipping_Phone}}</li>
+                                                </ul>
+                                              </ng-template>
+                                              <a href="javascript:;" [popover]="popTemplate">{{Order.Shipping_First_Name}}
+                                                {{Order.Shipping_Last_Name}} <i class="far fa-angle-down"></i></a>
+                                            </span>
+                                          </div> 
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="Order--History--Cards__Head--GridRight">
+                                      <div class="blocks">
+                                        <span class="label">Order # {{Order.OrderID}}</span>
+                                        <span class="value">
+                                          <ul class="inline-nav">
+                                            <li><a routerLink="{{'/member/order-detail/'+Order.OrderID}}">Order Details</a></li>
+                                              
+                                          </ul>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="Order--History--Cards__Body" *ngFor="let product of Order.products; let ii = iindex">
+                                    <div
+                                      class="Order--History--Cards__Body--GridLeft Order--History--Cards__Body--GridLeft-xs">
+                                      <div class="Details__Top">
+                                          <h3 [ngSwitch]="product.Shipping_Status">
+                                              <p *ngSwitchCase="1">
+                                                Order Status : New Order
+                                              </p>
+                                              <p *ngSwitchCase="2">
+                                                Order Status : In Processing
+                                              </p>
+                                              <p *ngSwitchCase="3">
+                                                Order Status : Order Shipped
+                                              </p>
+                                              <p *ngSwitchCase="4">
+                                                Order Status : Order Canceled
+                                              </p>
+                                              <p *ngSwitchCase="5">
+                                                Order Status : Delivered
+                                              </p>
+                                            </h3>
+
+                                          <p>Signed by: {{Order.Shipping_First_Name}} {{Order.Shipping_Last_Name}}</p>
+                                      </div>
+
+                                      <div class="Order__Prdt__Excerpt">
+                                        <div class="Order__Prdt__Thumbnail">
+                                            <a class="" routerLink="{{'/shop/product/p/'+product.Product_Slug}}">
+                                              <img *ngIf="product && product.Image && product.Image_Source != 'url'" alt=""
+                                              src="{{PORTAL_URL}}files/store/products/{{product.CID}}/{{product.Product_ID}}/thumb_{{product.Image}}" alt="{{product.Product_Name}}"
+                                              class="img-fluid">
+                                              <img *ngIf="product && product.Image && product.Image_Source == 'url'" alt=""
+                                              src="{{product.Image}}" alt="{{product.Product_Name}}"
+                                              class="img-fluid">
+                                              <img *ngIf="!product.Image"
+                                              src="./assets/images/no-image.png" alt="{{product.Product_Name}}"
+                                              class="img-fluid">
+                                            </a>
+                                          </div>
+
+                                        <div class="Order__Prdt__Details">
+                                          <div class="prdt__name prdt__name-xs"><a routerLink="{{'/shop/product/p/'+product.Product_Slug}}">{{product.Product_Name | safeHtml}}</a></div>
+                                          <p class="prdt__text">Sold by: <strong>{{(product.Added_By != null)? product.Added_By : 'TeachitPro'}}</strong></p>
+                                          <p class="prdt__text price">$ {{product.TotalAmount}}</p>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="Order--History--Cards__Body--GridRight">
+                                      <div class="Order__Buttons__Group">
+                                        <a href="javascript:;" (click)="openModal(WriteReviewModal,product.Product_ID)"  class="button button-radius button-sm button--black u-mb--10"
+                                          role="button">Change Status</a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="tab-content no-margin" *ngIf="OrdersData && OrdersData.length == 0">
+                        <div class="error--box">
+                          <div class="error--box__Graphic error--box__Graphic-sm"><img alt="Order" class="image-fluid" src="./assets/images/icons/order.svg"></div>
+                          <p><strong>You Have No Canceled Orders!</strong></p>
+                          <a href="javascript:;" (click)="setTab='All_Orders'; getUserOrders('all');" class="text-link text-green">View All Orders</a>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Write a review Modal -->
+<ng-template #WriteReviewModal>
+  <div class="modal-dialog-medium modal-dialog-medium-md">
+      <div class="modal-header modal-header-sm">
+          <h3>{{'WRITE_A_REVIEW' | translate}} </h3>
+          <button type="button" class="modal-close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body modal-body-sm">
+          <form [formGroup]="reviewForm" (ngSubmit)="onSubmit(reviewForm.value)">
+              <div class="row justify-content-center u-mb--15">
+                  <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                      <div [ngClass]="reviewForm.controls['Rating'].dirty && reviewForm.controls['Rating'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                          <rating id="Rating" name="Rating" formControlName="Rating" [max]="max" [readonly]="isReadonly" ></rating>
+                          <div *ngIf="reviewForm.controls['Rating'].dirty && reviewForm.controls['Rating'].errors">
+                              <div *ngIf="reviewForm.controls['Rating'].errors.required">
+                                  <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="row justify-content-center u-mb--15">
+                  <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                      <div [ngClass]="reviewForm.controls['Title'].dirty && reviewForm.controls['Title'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                          <input type="text" class="form-control solid rounded" formControlName="Title" id="Title" name="Title" placeholder="{{'REVIEW_TITLE' | translate}}">
+                          <div *ngIf="reviewForm.controls['Title'].dirty && reviewForm.controls['Title'].errors">
+                              <div *ngIf="reviewForm.controls['Title'].errors.required">
+                                  <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  
+              </div>
+              <div class="row justify-content-center u-mb--15">
+                  <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                      <div [ngClass]="reviewForm.controls['Message'].dirty && reviewForm.controls['Message'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                          <textarea type="text" class="form-control solid rounded" formControlName="Message" id="Message" name="Message" required placeholder="{{'REVIEW_MESSAGE' | translate}}" rows="5"></textarea>
+                          <div *ngIf="reviewForm.controls['Message'].dirty && reviewForm.controls['Message'].errors">
+                              <div *ngIf="reviewForm.controls['Message'].errors.required">
+                                  <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row justify-content-start u-align-center">
+                  <div class="col-12 col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                          <button type="submit" class="button button--green button-md">{{'SAVE' | translate}}</button>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</ng-template>
+<!-- //End Write a review Modal -->

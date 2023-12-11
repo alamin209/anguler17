@@ -1,0 +1,164 @@
+<div class="sectionhead sectionhead-xs mb-0 d-none">
+  <picture>
+    <img
+      alt="Resources"
+      class="lazy img-fluid"
+      src="../assets/images/Parallax/Parallax_05.jpg"
+    />
+  </picture>
+  <div class="sectionhead--inner">
+    <div class="container">
+      <header class="sectionhead__name sectionhead__name-xs">
+        <h1 class="entry-title">Events and Seminars</h1>
+        <p class="text-white">
+          Attend live streaming events, online workshops, pre-recorded content
+          and listen to other teacher’s as they share their experiences and
+          learning opportunities.
+        </p>
+      </header>
+    </div>
+  </div>
+</div>
+
+<!-- Begin Blog Page Content Area -->
+<section class="seminar--page search--page">
+    <div class="seminar--section seminar--section-sm">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-12 col-md-12 col-sm-12 recent--uploads recent--uploads-sm pt-0">
+            <div class="page--withSidebar page--withSidebar-sm columns-4">
+              <div *ngFor="let post of searchList; let i = index" class="" [ngClass]="(post && post?.post_type == 'POST') ? 'tip--seminar__lists' : 'tip--seminar__lists video--post postType3'">
+                  <div *ngIf="post.post_type == 'POST'" class="tip--seminar__lists--inner" style="cursor: pointer;" routerLink="{{ '/details/' + post.slug }}">
+                    <picture
+                      ><a routerLink="{{ '/details/' + post.slug }}">
+                        <!--[if IE 9]><video style="display: none;"><![endif]-->
+                        <source
+                          srcset="{{(post && post.image) ? PORTAL_URL + 'files/blog/' + post.CID + '/' + post.image : './assets/images/no-image.png'}}"
+                          media="(min-width: 800px)"
+                          type="image/webp"
+                        />
+                        <source
+                          srcset="{{(post && post.image) ? PORTAL_URL + 'files/blog/' + post.CID + '/' + post.image : './assets/images/no-image.png'}}"
+                          media="(min-width: 800px)"
+                        />
+                        <source
+                          srcset="{{(post && post.image) ? PORTAL_URL + 'files/blog/' + post.CID + '/' + post.image : './assets/images/no-image.png'}}"
+                          media="(min-width: 400px)"
+                        />
+                        <!--[if IE 9]></video><![endif]-->
+                        <img
+                          class="img-fluid"
+                          alt="{{ post.title }}"
+                          src="{{
+                            post && post.image
+                              ? PORTAL_URL + 'files/blog/' + post.CID + '/' + post.image
+                              : './assets/images/no-image.png'
+                          }}"
+                        /> </a
+                    ></picture>
+
+                    <div class="tip--seminar__heading">
+                      <h3 class="post--title post--title-sm js-EnabledHeading">
+                        <a
+                          routerLink="{{ '/details/' + post.slug }}"
+                          [innerHtml]="post.Title | safeHtml"
+                        ></a>
+                      </h3>
+                      <div class="meta fs--12 d-flex pb-2 mb-2">
+                          <time class="published mb-0"
+                            ><i class="fe-calendar mr-1"></i>
+                            {{ post.created_at }}</time
+                          >
+                          <div class="author ml-2 mb-0">
+                            <span class="name mb-0"
+                              ><i class="fe-user mr-1"></i>
+                              {{ post.Creater_name }}</span
+                            >
+                          </div>
+                        </div>
+                      <div class="post--categories d-flex pt-0">
+                        <span class="" *ngIf="post && post.tags && post.tags.length">
+                          <a
+                            *ngFor="let ntag of post.tags; let i = index"
+                            class="tag level-top"
+                            routerLink="{{ '/blog/tag/' + ntag.slug }}"
+                            (click)="checkKeyParam()"
+                            [innerHtml]="ntag.name | safeHtml"
+                          ></a>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="tip--seminar__desc clearfix">
+                      <div
+                        class="excerpt js-EnabledExcerpt mb-4 clearfix"
+                        [innerHtml]="post.short_description | safeHtml"
+                      ></div>
+                      <div class="post__controls clearfix">
+                        <a routerLink="{{ '/details/' + post.slug }}" class="link--blue">Continue Reading<span>...</span></a>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div *ngIf="post.post_type == 'VIDEO'" class="inner">
+                    <a routerLink="{{'/academy/video/'+post.Video_slug+'-'+post.ID}}">
+                        <div class="screencast">
+                            <picture class="thumb--image">
+                                <img *ngIf="(post.Video_Source == 'youtube' || post.Video_Source == 'vimeo') && post.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="https://{{post.Video_Thumbnail_Small}}" />
+                                
+                                <img *ngIf="post.Video_UploadedOn == 'S3' && post.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="{{post.Video_Thumbnail_Small}}" />
+                                
+                                <img *ngIf="!post.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+                            </picture>
+                            <div class="play--btn">
+                                <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                                    <path class="stroke-solid" fill="none" stroke="none" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5" />
+                                    <path class="icon" fill="none" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z" />
+                                </svg>
+                            </div>
+                            <div class="media--length">{{post.Video_Time}}</div>
+                        </div>
+                    </a>
+                    <div class="post--data post--data-sm">
+                        <h3 class="post--title post--title-sm">
+                            <a routerLink="{{'/academy/video/'+post.Video_slug+'-'+post.ID}}" [innerHtml]="((post && post?.Title)? post?.Title : '') | safeHtml"></a>
+                        </h3>
+                        <p class="author" *ngIf="post && post?.Added_From == 'frontend'">
+                            <i class="fe-user"></i> by <a href="javascript;">{{post.first_name}} {{post.last_name}}</a>
+                        </p>
+                        <p class="author" *ngIf="post && post?.Added_From == 'backend'">
+                            <i class="fe-user"></i> by <a href="javascript;">{{'TITLE' | translate}}</a>
+                        </p>
+                        <time class="date"><i class="fe-clock"></i> {{ post.created_at | date: 'mediumDate' }}</time>
+                    </div>
+                    <div class="post--footer post--footer-sm">
+                        <div class="post--category"><a routerLink="{{'/academy/video/'+post.Video_slug+'-'+post.ID}}"><i class="fe-grid mr-1"></i> <span [innerHtml]="((post && post?.Category_Name)? post?.Category_Name : '') | safeHtml"></span></a></div>
+                        <div class="post--views">
+                            <a routerLink="{{'/academy/video/'+post.Video_slug+'-'+post.ID}}"><i class="fe-eye"></i> {{post.Video_Views || 0}}</a>
+                        </div>
+                    </div>
+                  </div>
+                  
+                  
+              </div>
+            </div>
+
+          <!-- Start Pagination -->
+            <div class="text-center product-not-found product-not-found-sm u-mt--40" *ngIf="NewsNotFound"> 
+                    {{'NO_DATA_FOUND' | translate}} 
+            </div>
+
+            <div class="products-footer u-mt--40" *ngIf="(searchList && totalItems > searchList.length)">
+                <div class="pagination--list">
+                    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="get_search_list($event)" [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="limit"></pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+          </div>
+
+        
+        </div>
+      </div>
+    </div>
+</section>
+<!-- //End Blog Page Content Area -->
+<div class="clearfix"></div>

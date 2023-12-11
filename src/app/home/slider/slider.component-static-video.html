@@ -1,0 +1,101 @@
+<div id="HeroSlider" class="slideshow-background slideshow-section" *ngIf="
+    ISHomePage || (slidesStore && slidesStore.length && slidesStore.length > 1)
+  " [ngClass]="{
+    'Single--Image':
+      (slidesStore && slidesStore.length && slidesStore.length == 1) == true
+  }" style="height: auto !important; min-height: inherit !important; max-height: inherit !important;">
+    <owl-carousel-o [options]="mainSliderOptions" [items]="images" [carouselClasses]="['owl-theme', 'sliding']">
+        <div class="item" *ngFor="let slide of slidesStore; let i = index"> <img *ngIf="slide && slide.is_video == '0'" src="{{ PORTAL_URL }}newcms/files/slider/{{ CID }}/{{
+          slide.slider_image
+        }}" class="bg-transparent" />
+            <div *ngIf="slide && slide.is_video == '0'" class="content_slideshow content_slideshow-xs" [ngClass]="{
+          'has--content':
+            (slide && slide.slider_title && slide.slider_title != '') == true
+        }">
+                <div class="container" style="position: relative">
+                    <div class="banner--wrapper">
+                        <div class="row u-flexed u-align-center">
+                            <div class="col-12 col-lg-8 col-md-8 col-sm-12 col-centered">
+                                <div [innerHtml]="slide.slider_title | safeHtml"></div>
+                                <div [innerHtml]="slide.slider_desc | safeHtml"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a *ngIf="slide && slide.is_video == '0'" href="{{ slide.slider_link }}" target="{{ slide.link_target }}" class="banner--link"></a>
+            
+            <div id="banner--video" class="banner--video-v" style="height: auto; min-height: inherit;" *ngIf="slide && slide.is_video == '1'">
+                <div class="container">
+                    <div class="row no-gutters">
+                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 d-pr-0">
+                            <div class="video-responsive video-responsive-sm position-relative ng-star-inserted">
+                                <video playsinline autoplay controls loop>
+                                    <source src="{{'HOME_VIDEO_URL' | translate}}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                                    <source src="{{'HOME_VIDEO_URL' | translate}}" type='video/webm; codecs="vp8, vorbis"'>
+                                    <source src="{{'HOME_VIDEO_URL' | translate}}" type='video/ogg; codecs="theora, vorbis"'>
+                                </video>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 d-pl-0">
+                            <div class="video--content video--content-sm h-100 p-0" style="">
+                                <div class="p-4">
+                                    <h1 class="title title-sm mb-3">{{'HOME_VIDEO_TITLE' | translate}}</h1>
+                                    <div class="video--desc">
+                                        <p>{{'HOME_VIDEO_DESC' | translate}}</p>
+                                        <p>{{'HOME_VIDEO_DESC2' | translate}}</p>
+                                    </div>
+                                    <div class="user--block">
+                                        <div class="user user-sm mb-0 mr-2"><img src="./assets/images/300_1.jpg" alt="Teach It Pro" class="ng-star-inserted"></div>
+                                        <div class="user--name ng-star-inserted">{{'TITLE' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </owl-carousel-o>
+</div>
+<div class="clearfix"></div>
+<!-- Inner Page Slider(s) -->
+
+<div *ngIf="
+    !ISHomePage && slidesStore && slidesStore.length && slidesStore.length == 1
+  ">
+    <div class="hero__inner large large-xs overlay u-image--covered" *ngIf="slidesStore && slidesStore[0] && slidesStore[0].is_video == '0'" [ngStyle]="{
+      background:
+        'url(' +
+        PORTAL_URL +
+        'newcms/files/slider/' +
+        CID +
+        '/' +
+        slidesStore[0].slider_image +
+        ')'
+    }">
+        <div class="container">
+            <header class="hero__inner--content hero__inner--content-xs">
+                <div class="subhead subhead-xs text-white" [innerHtml]="slidesStore[0].slider_title | safeHtml"></div>
+                <div class="text text-xs text-white" [innerHtml]="slidesStore[0].slider_desc | safeHtml"></div>
+            </header>
+        </div>
+    </div>
+    <div class="hero__inner medium medium-xs overlay u-image--cover" *ngIf="slidesStore && slidesStore[0] && slidesStore[0].is_video == '1'" [ngClass]="{
+      'has--video':
+        (slidesStore && slidesStore[0] && slidesStore[0].is_video == 1) == true
+    }">
+        <div class="video__wrapper video__wrapper-sm jarallax" attr.data-jarallax-video="{{ slidesStore[0].slider_image }}">
+            <div class="video__wrapper--inner video__wrapper--inner-sm">
+                <div class="video__wrapper--content">
+                    <div class="container">
+                        <h1 [innerHtml]="slidesStore[0].slider_title | safeHtml"></h1>
+                        <h2 [innerHtml]="slidesStore[0].slider_desc | safeHtml"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>

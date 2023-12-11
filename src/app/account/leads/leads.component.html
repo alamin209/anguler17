@@ -1,0 +1,70 @@
+<div class="auth--body auth--body-md My--Profile">
+    <div class="auth--body__inner auth--body__inner-md">
+        <div class="container">
+            <div class="row">
+                <aside class="col-12 col-lg-3 col-xl-3">
+                    <div class="row u-mb--30 u-mb--30-sm">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <h3 class="section--title section--title-sm"><a routerLink="/member">{{'MY_ACCOUNT' | translate}}</a></h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Begin Side bar-->
+                    <app-side-bar></app-side-bar>
+                    <!-- //Ends Sidebar-->
+                </aside>
+                <div class="col-12 col-lg-9 col-xl-9 has--leftsidebar has--leftsidebar-md">
+                    <div class="c-breadcrumb">
+                        <nav class="missio-breadcrumb">
+                            <a class="breadcrumb-link" routerLink="/">Home</a> <a class="breadcrumb-link " routerLink="/member/profile">{{'MY_DASHBOARD' | translate}}</a> <span class="breadcrumb-last">{{'MY_LEADS' | translate}}</span>
+                        </nav>
+                    </div>
+                    
+                    <div class="page-head page-head-sm pb-0 mb-0">
+                        <div class="w-100 d-flex align-items-center justify-content-between mb-40">
+                            <h3 class="u-heading--small u-heading--small-sm">{{'MY_LEADS' | translate}}</h3>
+                            
+                            <a routerLink="/member/leads/add" class="add-lead flex-shrink-0"><i class="fe-plus mr-1"></i>{{'CREATE_LEADS' | translate}}</a>
+                        </div>
+                    </div>
+                    
+                    <div class="profile--box">
+                        <div class="w-100 leads-table mb-2">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let lead of LeadsList; let i =index">
+                                        <td>
+                                            <strong class="u-capitalize">{{lead?.First_Name+' '+lead?.Last_Name}}</strong>
+                                        </td>
+                                        <td>
+                                            <div style="line-height: 1.4">{{lead?.Address}}
+                                            <span [innerHtml]="(lead && lead?.Address2) ? ((lead?.Address2 + '<br>') | safeHtml) : ''"></span>
+                                            {{lead?.City+','}} {{(lead?.State) ? lead?.State : ''}} {{(lead?.ZipCode) ? lead?.ZipCode : ''}}<br>
+                                            {{lead?.Country | translate}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="lead">
+                                                <a routerLink="{{'/member/leads/edit/'+lead.ID}}" class="btn btn-primary btn-sm" tooltip="{{'EDIT' | translate}}"><i class="fe-edit-1"></i></a>
+                                                <a href="javascript:void(0);" (click)="removeLead(lead.ID,lead.Default_Address)" class="btn btn-danger btn-sm ml-2" tooltip="{{'REMOVE' | translate}}"><i class="fe-trash-2"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Newsletter component here -->
+<app-newsletter></app-newsletter>

@@ -1,0 +1,129 @@
+<div class="auth--body auth--body-md My--Profile">
+    <div class="auth--body__inner auth--body__inner-md">
+        <div class="container">
+            <div class="row">
+                <aside class="col-12 col-lg-3 col-xl-3">
+                    <div class="row u-mb--30 u-mb--30-sm">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <h3 class="section--title section--title-sm"><a routerLink="/member" >{{'MY_ACCOUNT' | translate}}</a></h3>
+                        </div>
+                    </div>
+                    
+                    <!--Add side bar-->
+                    <app-side-bar></app-side-bar>
+                </aside>
+                <div class="col-12 col-lg-9 col-xl-9 has--leftsidebar has--leftsidebar-md">
+                    <div class="c-breadcrumb">
+                        <nav class="missio-breadcrumb">
+                            <a class="breadcrumb-link" routerLink="/">Home</a> <a class="breadcrumb-link " routerLink="/member" >My Account</a> <span class="breadcrumb-last">{{'PAYMENT_OPTIONS' | translate}}</span>
+                        </nav>
+                    </div>
+                    
+                    <div class="page-head page-head-sm">
+                        <h3 class="u-heading--small u-heading--small-sm">{{'PAYMENT_OPTIONS' | translate}}</h3>
+                    </div>
+                    
+                    <div class="profile--box">
+                        <div class="portlet light">
+                            <div class="portlet--body">
+                                <div class="portlet--body--inner portlet--body--inner-sm">
+                                    
+                                    
+                                    <div class="row u-mb--20" *ngFor="let Card of Cards; let i=index ">
+                                        <div class="col-12 col-md-12">
+                                            <div class="saved--billing">
+                                                <div class="row" >
+                                                    <button [ngClass]="{'green': Card?.Default_Address}" *ngIf="Card?.Default_Address" type="button" class="button--badge green">Default</button>
+                                                    
+                                                    <button type="button" class="button--badge blue" [ngClass]="{'blue': Card?.Default_Address==0}" *ngIf="Card?.Default_Address==0" (click)="setDefaultCard(Card.ID);">Make Default</button>
+                                                    
+                                                    <label class="control-label col-md-3">Name on Card:</label>
+                                                    <div class="control-details col-md-8">
+                                                        <div class="form-control-static ">
+                                                            <div class="u-flexed u-align-center u-justify-btw">
+                                                                <div class="u-mr--25">{{(Card && Card.First_Name)? Card?.First_Name : ''}}
+                                                                {{(Card && Card.Last_Name)? Card?.Last_Name : ''}}</div>
+                                                                <div class="ml-auto"> 
+                                                                    <a routerLink="{{'/member/edit-payment-option/'+Card.ID}}" class="link-green">Edit</a>
+                                                                    <a href="javascript:void(0);" (click)="RemoveCard(Card.CRID,Card.Default_Address)" class="link-red">Remove</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" >
+                                                    <label class="control-label col-md-3">Card:</label>
+                                                    <div class="control-details col-md-8">
+                                                        <p *ngIf="Card.CRID" class="form-control-static">
+                                                            {{Card.brand}} - Ending in {{Card.last4}}, EXP {{Card.exp_month}}/{{Card.exp_year}}
+                                                        </p>
+                                                        <p *ngIf="!Card.CRID" class="form-control-static">
+                                                            Card Not added yet!
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row" *ngIf="Card?.Default_Address" [ngClass]="ASK_COMPANY_NAME ? '' : 'd-none'">
+                                                    <label class="control-label col-md-3">Company/Business:</label>
+                                                    <div class="control-details col-md-8">
+                                                        <p class="form-control-static">
+                                                            {{(Card && Card.Company_Name)? Card?.Company_Name : ''}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                                <div class="row" *ngIf="Card?.Default_Address" >
+                                                    <label class="control-label col-md-3">{{'ADDRESS' | translate}}:</label>
+                                                    <div class="control-details col-md-8">
+                                                       
+                                                        <p class="form-control-static" *ngIf="currentUser">
+                                                            {{Card?.Address}}<br>
+                                                            <span [innerHtml]="(Card && Card?.Address2) ? ((Card?.Address2 + '<br>') | safeHtml) : ''"></span>
+                                                            {{Card?.City+','}} {{(Card?.State) ? Card?.State : ''}} {{(Card?.ZipCode) ? Card?.ZipCode : ''}}<br>
+                                                            {{Card?.Country | translate}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row" *ngIf="Card?.Default_Address">
+                                                    <label class="control-label col-md-3">{{'PHONE' | translate}}:</label>
+                                                    <div class="control-details col-md-8">
+                                                        <p class="form-control-static phoneString" *ngIf="currentUser">
+                                                            <span>{{(Card && Card.Phone_Number) | mask: '(000) 000-0000'}}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row u-mb--30">
+                                        <div class="col-12 col-md-12">
+                                            <a routerLink="/member/add-payment-option" class="button--add-payment">
+                                                Add New Card
+                                            </a>
+                                        </div>
+                                    
+                                    </div>
+                                    <div class="row" *ngIf="Cards && Cards.length == 0">
+                                        <div class="col-12 col-md-12">
+                                            <div class="error--box">
+                                                <div class="error--box__Graphic error--box__Graphic-sm"><img alt="Order" class="image-fluid" src="./assets/images/icons/credit_card.svg"></div>
+                                                <p><strong>You Have No Payment Options Yet!</strong></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Newsletter component here -->
+<app-newsletter></app-newsletter>

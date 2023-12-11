@@ -1,0 +1,86 @@
+<style type="text/css">
+@media (min-width:1025px){.packages-4 .join-packages-item{flex:0 0 25%;max-width:25%;flex-shrink:0;margin-bottom:40px}.packages-5 .join-packages-item,.packages-6 .join-packages-item{margin-bottom:40px}.packages-4 .plan-header,.packages-5 .plan-header,.packages-6 .plan-header{padding-left:45px}.packages-4 .plan-header h4,.packages-4 .plan-header h5,.packages-6 .plan-header h5{font-size:1.35rem!important}}.plan{border-radius:12px}
+</style>
+
+<!-- Include Breadcrumbs component here -->
+<div class="w-100 py-5" style="border-top: 1px solid rgba(0,0,0,0.15);">
+    <div class="auth--body__inner auth--body__inner-md">
+        <div class="manufacturer--signup w-100">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-10 col-md-11 col-sm-12 col-xs-12">
+                        <div class="page-head page-head-xs column">
+                            <h1 class="u-heading--small u-heading--small-sm upper mb-2">{{'JOIN_COMMUNITY' | translate }}</h1>
+                            <!--<h4 class="u-heading--exsmall u-heading--exsmall-sm" style="letter-spacing: 0 !important; text-transform: capitalize !important">{{'JOIN_SUPPORTS' | translate }}</h4>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pricing-table">
+                    <div class="row justify-content-center mb-5">
+                        <div class="col-12 col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                            <div *ngIf="PackagesList && PackagesList.length" class="row align-items-start justify-content-center packages-{{PackagesList.length}}">
+                                <div *ngFor="let Package of PackagesList; let i = index" class="col-12  col-sm-12 join-{{i+1}}" [ngClass]="(PackagesList && PackagesList?.length == 1) ? 'col-lg-5 col-md-5' : 'col-lg-4 col-md-4 join-packages-item'">
+                                    <div class="plan {{ Package.Package_Slug }} mb-0">
+                                        <div class="plan-content">
+                                            <div class="plan-header">
+                                                <label class="label"></label>
+                                                <h4 class="upper" [innerHtml]="Package?.Package_Name | safeHtml"></h4>
+                                            </div>
+                                            <div  class="plan-list" [innerHtml]="Package?.Package_Description | safeHtml">
+                                            </div>
+                                        </div>
+                                        <div class="plan-footer text-center mt-2">
+                                            <div class="page-head page-head-xs pb-0 mb-2">
+                                                <h3 class="u-heading--small u-heading--small-sm mb-0" style="letter-spacing: 0 !important; text-transform: capitalize !important; color: #323232;">{{'INTRODUCTORY_OFFER' | translate }}</h3>
+                                            </div>
+                                            <p *ngIf="Package && Package?.DiscountType == 'percent'" class="plan-subprice d-none">Get {{Package?.Discount}}% Off Now!</p>
+                                            <p *ngIf="Package && Package?.DiscountType == 'amount'" class="plan-subprice d-none">Get ${{Package?.Discount}} Off Now!</p>
+
+                                            <div class="plan-price" *ngIf="Package && Package?.DiscountType == ''">
+                                                <div class="text-basic ml-2">
+                                                    <sup>$</sup>{{ Package.Package_Price }}
+                                                    <span *ngIf="Package && Package?.Package_Days == '7'">/Week</span>
+                                                    <span *ngIf="Package && Package?.Package_Days == '30'">/Month</span>
+                                                    <span *ngIf="Package && Package?.Package_Days == '182'">/Semi Annual</span>
+                                                    <span *ngIf="Package && Package?.Package_Days == '365'">/Year</span>
+                                                </div>
+                                            </div>
+                                            <div class="plan-price" *ngIf="Package && Package?.DiscountType != ''">
+                                                <div class="plan-price-was mr-2">
+                                                    <sup>$</sup>{{ Package.Package_Price }}
+                                                    <span *ngIf="Package && Package?.Package_Days == '7'">/Week</span>
+                                                    <span *ngIf="Package && Package?.Package_Days == '30'">/Mo</span>
+                                                    <span *ngIf="Package && Package?.Package_Days == '182'">/Semi Annual</span>
+                                                    <span *ngIf="Package && Package?.Package_Days == '365'">/Year</span>
+                                                </div> = 
+                                                <div class="text-basic ml-2">
+                                                    <sup>$</sup>{{ Package.Discount_Price }}
+                                                    <span *ngIf="Package && Package?.Package_Days == '7'">/Week</span>
+                                                    <span *ngIf="Package && Package?.Package_Days == '30'">/Mo</span>
+                                                    <span *ngIf="Package && Package?.Package_Days == '182'">/Semi Annual</span>
+                                                    <span *ngIf="Package && Package?.Package_Days == '365'">/Year</span>
+                                                </div>
+                                            </div>
+                                            <div class="plan-button">
+                                                <a href="javascript:;" routerLink="{{'/sign-up/'+Package?.Package_Slug}}" class="btn btn-light">JOIN NOW</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div *ngIf="PackagesList && PackagesList.length == 1" class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <figure class="w-100 img-thumbnail p-2"><img src="{{'JOIN_URL' | translate }}" alt="{{'JOIN_COMMUNITY' | translate }}" class="img-fluid"></figure>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Newsletter component here
+<app-newsletter></app-newsletter> -->

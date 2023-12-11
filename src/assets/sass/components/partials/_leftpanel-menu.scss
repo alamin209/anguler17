@@ -1,0 +1,198 @@
+/* Begin Left Panel Menu style */
+
+.leftpanel-menu {
+  h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    @include padding-bottom(10);
+    border-bottom: 1px solid $border;
+  }
+
+  .leftpanel-submenu {
+    top: 150%;
+    margin: 0;
+    padding: 0;
+    left: 100%;
+    z-index: 201;
+    display: none;
+    min-width: 250px;
+    max-width: 250px;
+    list-style: none;
+    position: absolute;
+    visibility: hidden;
+    @include opacity(0);
+    @include padding(15 20);
+    background-color: $white;
+    @include border-radius(6px);
+    @include box-shadow(0 3px 10px rgba($black, 0.2));
+
+    @media (max-width: 767px) {
+      left: 0;
+      right: 0;
+      position: relative;
+      @include padding(5 20);
+      @include box-shadow(none);
+    }
+
+    .resources--categories {
+      @include padding-bottom(20);
+
+      &--lists {
+        border-bottom: 0 none;
+
+        &-items {
+          @include margin-bottom(10);
+
+          &:last-child, &:only-child {
+            @include margin-bottom(0);
+          }
+        }
+      }
+      .checkbox {
+        label {
+          color: $black;
+          font-size: 15px;
+          @include padding-left(30);
+          font-weight: $weightMedium;
+        }
+        input[type="checkbox"] {
+          &:checked + label::after {
+            left: 0.475rem;
+          }
+        }
+      }
+    }
+
+    > ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      > li {
+        @include margin-bottom(0);
+
+        > a {
+          width: 100%;
+          color: $black;
+          display: block;
+          font-size: 15px;
+          line-height: 1.4;
+          @include padding(9 0);
+          font-weight: $weightMedium;
+
+          &:hover, &:focus, &:active {
+            color: $primary;
+          }
+        }
+      }
+    }
+  }
+
+  &-list {
+    margin: 0;
+    padding: 0;
+    z-index: 4;
+    width: 100%;
+    list-style: none;
+    position: relative;
+
+    > li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      position: relative;
+
+      a {
+        width: 100%;
+        color: $black;
+        font-size: 16px;
+        line-height: 1.4;
+        @include flexbox;
+        position: relative;
+        @include padding(9 15);
+        font-weight: $weightMedium;
+        @include padding-left(0);
+        font-weight: $weightMedium;
+        @include align-items(center);
+        @include justify-content(flex-start);
+
+        &.has-child::before {
+          top: 13px;
+          right: 0px;
+          color: $black;
+          content: "\e844";
+          position: absolute;
+          font-family: $feather;
+        }
+
+        &:hover, &:focus, &:active {
+          color: $primary;
+
+          &::before {
+            color: $primary;
+          }
+        }
+      }
+
+      &:hover {
+        > a {
+          color: $primary;
+          &::before {
+            color: $primary;
+          }
+        }
+
+        > .leftpanel-submenu {
+          top: 0;
+          display: block;
+          visibility: visible;
+          @include opacity(1);
+        }
+      }
+
+      li {
+        &:hover {
+          > .leftpanel-submenu {
+            top: 0;
+            display: block;
+            visibility: visible;
+            @include opacity(1);
+          }
+        }
+      }
+    }
+  }
+
+  .form-group {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+
+    .selectdropdown {
+      height: 40px;
+      max-height: 40px;
+
+      select {
+        height: 40px;
+        max-height: 40px;
+      }
+
+      &:after {
+        top: 50%;
+        right: 10px;
+        color: $black;
+        font-size: 10px;
+        border-left: 0 none;
+        @include size(auto);
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    @include margin-bottom(35);
+  }
+}
+
+
+/* End header style */

@@ -1,0 +1,113 @@
+<app-forum-banner></app-forum-banner>
+<!-- Begin Home Page Content Area -->
+<section class="Blog--Section Blog--Section-sm System-Single-Page Right--Sidebar--Enabled">
+    <div class="sidebar--enabled"></div>
+    <div class="container">
+        <div class="row" *ngIf="forumdetail && forumdetail.title">
+            <div class="col-12 col-lg-9 col-md-9 col-sm-12 col-xs-12 padding-30px-right xs-padding-15px-right">
+                
+                <div class="c-breadcrumb"><nav class="missio-breadcrumb"><a class="breadcrumb-link" routerlink="" ng-reflect-router-link="" href="">Home</a><a class="breadcrumb-link " routerlink="/forum/all" ng-reflect-router-link="/forum/all" href="/forum/all">Forum</a><span class="breadcrumb-last"  [innerHtml]="forumdetail.title | safeHtml"></span></nav></div>
+                
+                <div class="blogs forum--details js-enabledBlog">
+                    <div class="posts">
+                        <div class="post">
+                            <div class="post__content">
+                                <div class="post-meta">
+                                    <div class="avatar avatar-sm">
+                                    
+                                        <img *ngIf="forumdetail && forumdetail?.profile_picture && forumdetail?.posted_from == 'frontend'"
+                                            src="{{ AWSBUCKETURL }}files/avatar/{{
+                                              forumdetail?.CID
+                                            }}/{{
+                                              forumdetail?.profile_picture
+                                            }}"
+                                            alt="{{
+                                              forumdetail && forumdetail && forumdetail?.screen_name
+                                                ? forumdetail?.screen_name
+                                                : ''
+                                            }}"
+                                          />
+                                          <img *ngIf="forumdetail && !forumdetail?.profile_picture  && forumdetail?.posted_from == 'frontend'"
+                                            src="./assets/images/300_1.jpg"
+                                            alt="{{
+                                              forumdetail && forumdetail && forumdetail?.screen_name
+                                                ? forumdetail?.screen_name
+                                                : ''
+                                            }}"
+                                          />
+                                          <img *ngIf="forumdetail && forumdetail?.posted_from == 'backend'"
+                                            src="./assets/images/300_1.jpg"
+                                            alt="{{
+                                              forumdetail && forumdetail && forumdetail?.Creater_name
+                                                ? forumdetail?.Creater_name
+                                                : ''
+                                            }}"
+                                          />
+
+                                    </div>
+                                    <div class="d-flex flex-column ml-3">
+                                        <div class="post-title">
+                                            <h2 class="h2 h2-sm" [innerHtml]="forumdetail.title | safeHtml"></h2>
+                                        </div>
+                                        <ul class="meta">
+                                            <li> <span><i class="fe-user" aria-hidden="true"></i></span>&nbsp;<span rel="author"> {{ forumdetail.author }}</span> </li>
+                                            <li> <span><i class="fe-calendar" aria-hidden="true"></i></span>&nbsp;<time class="updated" datetime="2018-04-20T08:43:04+00:00">{{ forumdetail.created_at }}</time>
+                                            </li>
+
+                                            <li>
+                                              <span><i class="fe-message-square" aria-hidden="true"></i> 0
+                                                Comments</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="post--cont" [innerHtml]="forumdetail.description | safeHtml" ></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Product reviews sectons start here -->
+                <div *ngIf="forumdetail && forumdetail.ID">
+                    <app-forum-comments [ForumID]="forumdetail.ID" [ForumComments]="ForumComments"></app-forum-comments>
+                </div>
+                <!--Product reviews sectons start end -->
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 content-with-sidebar content-with-sidebar-xs">
+                <div class="sidebar--widget sidebar--widget-xs">
+                    <h2 class="sidebar--widget__subtitle">{{'CHALKCHAT' | translate}}</h2>
+                    <div class="sidebar--widget__content">
+                        <ul class="sidebar--widget__categories">
+                            <li *ngFor="let forumcategory of forumcategoryList let i=index" class="sidebar--widget__categories--items"><a [ngClass]="{'is-active': forumcategory.slug ==CateGorySearch}" routerLink="/forum/all" [queryParams]="{category: forumcategory.slug}" class="level-top" [innerHtml]="forumcategory.name | safeHtml"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sidebar--widget sidebar--widget-xs">
+                    <h2 class="sidebar--widget__subtitle">Recent Topics</h2>
+                    <div class="sidebar--widget__content">
+                        <ul class="sidebar--widget__blogLists">
+                            <li *ngFor="let recentforum of recentforumList; let i = index" class="sidebar--widget__blogLists--items">
+
+                                <div class="widget-item-info">
+                                    <h3 class="product-title">
+                                    <a routerLink="{{ '/forum/details/' + recentforum.slug }}" [innerHtml]="recentforum.title | safeHtml"
+                                    ></a></h3>
+                                    <div class="star-rating widget-rating">
+                                        <span class="star-badge">
+                                        <span class="star-badge-wrap">{{recentforum.created_at}}</span> </span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+<!-- //End Home Page Content Area -->
+<div class="clearfix"></div>

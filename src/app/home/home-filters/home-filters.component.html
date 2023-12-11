@@ -1,0 +1,94 @@
+<div class="leftpanel-menu w-100" >
+    <div class="form-group w-100 mb-3">
+        <div class="selectdropdown w-100">
+            <select class="form-control" (change)="SetProductType($event.target.value)">
+                <option value="Products">Products</option>
+                <option value="Resources">Resources</option>
+                <option value="Videos">Videos</option>
+            </select>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <h4 class="mb-3">Categories</h4>
+
+    <ul *ngIf="categoryList && categoryList.length && qProductType == 'Products'" class="leftpanel-menu-list">
+        <li *ngFor="let category of categoryList let i=index">
+            <a [ngClass]="{'has-child':(category && category?.childrenMenu && category?.childrenMenu.length>0)}" href="{{'shop/'+category?.Category_Slug}}" [innerHtml]="(category?.Category_Name | safeHtml)"></a>
+            <div  *ngIf="category && category?.childrenMenu && category?.childrenMenu.length" class="leftpanel-submenu">
+                <ul>
+                    <li *ngFor="let scategory of category?.childrenMenu let j =index">
+                        <a [ngClass]="{'has-child':(scategory && scategory?.childrenMenu && scategory?.childrenMenu.length>0)}" href="{{'shop/'+scategory?.Category_Slug}}" [innerHtml]="(scategory?.Category_Name | safeHtml)"></a>
+                        <div *ngIf="scategory && scategory?.childrenMenu && scategory?.childrenMenu.length" class="leftpanel-submenu">
+                            <ul>
+                                <li *ngFor="let _scategory of scategory?.childrenMenu let k =index">
+                                    <a [ngClass]="{'has-child':(_scategory && _scategory?.childrenMenu && _scategory?.childrenMenu.length>0)}" href="{{'shop/'+_scategory?.Category_Slug}}" [innerHtml]="(_scategory?.Category_Name | safeHtml)"></a>
+                                    <div *ngIf="_scategory && _scategory?.childrenMenu && _scategory?.childrenMenu.length" class="leftpanel-submenu">
+                                        <ul>
+                                            <li *ngFor="let _scategory_ of _scategory?.childrenMenu let k =index">
+                                                <a href="{{'shop/'+_scategory_.Category_Slug}}" [innerHtml]="(_scategory_.Category_Name | safeHtml)"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+
+    <ul *ngIf="categoryList && categoryList.length && qProductType == 'Resources'" class="leftpanel-menu-list">
+        <li *ngFor="let category of categoryList let i=index">
+            <a [ngClass]="{'has-child':(category && category?.Subcategories && category?.Subcategories.length>0)}" href="{{'resources?category='+category?.slug+'-'+category?.ID}}" [innerHtml]="(category?.name | safeHtml)"></a>
+            <div  *ngIf="category && category?.Subcategories && category?.Subcategories.length" class="leftpanel-submenu">
+                <ul>
+                    <li *ngFor="let scategory of category?.Subcategories let j =index">
+                        <a [ngClass]="{'has-child':(scategory && scategory?.Subcategories && scategory?.Subcategories.length>0)}" href="{{'resources?category='+scategory?.slug+'-'+scategory?.ID}}" [innerHtml]="(scategory?.name | safeHtml)"></a>
+                        <div *ngIf="scategory && scategory?.Subcategories && scategory?.Subcategories.length" class="leftpanel-submenu">
+                            <ul>
+                                <li *ngFor="let _scategory of scategory?.Subcategories let k =index">
+                                    <a [ngClass]="{'has-child':(_scategory && _scategory?.Subcategories && _scategory?.Subcategories.length>0)}" href="{{'resources?category='+_scategory?.slug+'-'+_scategory?.ID}}" [innerHtml]="(_scategory?.name | safeHtml)"></a>
+                                    <div *ngIf="_scategory && _scategory?.Subcategories && _scategory?.Subcategories.length" class="leftpanel-submenu">
+                                        <ul>
+                                            <li *ngFor="let _scategory_ of _scategory?.Subcategories let k =index">
+                                                <a href="{{'resources?category='+_scategory_.slug+'-'+_scategory_.ID}}" [innerHtml]="(_scategory_.name | safeHtml)"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+
+    <ul *ngIf="categoryList && categoryList.length && qProductType == 'Videos'" class="leftpanel-menu-list">
+        <li *ngFor="let category of categoryList let i=index">
+            <a [ngClass]="{'has-child':(category && category?.childrenMenu && category?.childrenMenu.length>0)}" href="{{'academy?category='+category?.Category_Slug+'-'+category?.ID}}" [innerHtml]="(category?.Category_Name | safeHtml)"></a>
+            <div  *ngIf="category && category?.childrenMenu && category?.childrenMenu.length" class="leftpanel-submenu">
+                <ul>
+                    <li *ngFor="let scategory of category?.childrenMenu let j =index">
+                        <a [ngClass]="{'has-child':(scategory && scategory?.childrenMenu && scategory?.childrenMenu.length>0)}" href="{{'academy?category='+scategory?.Category_Slug+'-'+scategory?.ID}}" [innerHtml]="(scategory?.Category_Name | safeHtml)"></a>
+                        <div *ngIf="scategory && scategory?.childrenMenu && scategory?.childrenMenu.length" class="leftpanel-submenu">
+                            <ul>
+                                <li *ngFor="let _scategory of scategory?.childrenMenu let k =index">
+                                    <a [ngClass]="{'has-child':(_scategory && _scategory?.childrenMenu && _scategory?.childrenMenu.length>0)}" href="{{'academy?category='+_scategory?.Category_Slug+'-'+_scategory?.ID}}" [innerHtml]="(_scategory?.Category_Name | safeHtml)"></a>
+                                    <div *ngIf="_scategory && _scategory?.childrenMenu && _scategory?.childrenMenu.length" class="leftpanel-submenu">
+                                        <ul>
+                                            <li *ngFor="let _scategory_ of _scategory?.childrenMenu let k =index">
+                                                <a href="{{'academy?category='+_scategory_.Category_Slug+'-'+_scategory_.ID}}" [innerHtml]="(_scategory_.Category_Name | safeHtml)"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>

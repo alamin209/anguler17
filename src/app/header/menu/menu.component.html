@@ -1,0 +1,574 @@
+<nav class="navigation navigation-md d-none d-lg-block">
+    <div class="container" *ngIf="userData && userData.email && userData.guest_user != 1">
+        <div class="navigation__inner">
+            <div *ngIf="IS_STORE" class="vertical-navigation">
+                <span class="menu-opener color-scheme-light has-bg js-menu-opener">
+                    <span class="menu-open-label">
+                        <span class="burger-icon"></span>
+                        {{'BROWSE_CATEGORIES'| translate}}
+                    </span>
+                    <span class="arrow-opener"></span>
+                </span>
+                <!-- Print Category section here-->
+                <div class="categories-menu-dropdown" *ngIf="categoryList && categoryList.length">
+                    <div class="menu-categories-container">
+                        <ul class="menu">
+                            
+                            <!--Print menu -->
+                            <li class="menu-items" [ngClass]="{'menu-item-has-children':(category && category.childrenMenu && category.childrenMenu.length>0)}" *ngFor="let category of categoryList let i =index">
+                                <a href="javascript:;" routerLink="{{'shop/'+category.Category_Slug}}">
+                                    <div class="category-icon">
+                                        <img *ngIf="(category.Category_Icon)"  src="{{PORTAL_URL}}files/store/categories/{{CID}}/{{category.Category_Icon}}" alt="{{category.Category_Name}}" class="missio_svg">
+                                    </div>
+                                    <span [innerHTML]="category.Category_Name"></span>
+                                </a>
+                                <!-- sub category design for all layout 1 categories -->
+                                <div class="sub-menu-dropdown" *ngIf="category && category.childrenMenu && category.Category_Layout == 1  && category.childrenMenu.length">
+                                    <div class="container">
+                                        <div class="main-content">
+                                            <div class="row">
+                                                <div class="custom-col custom-col-sm" *ngFor="let subCategory of category.childrenMenu let j =index">
+                                                    <ul class="megaMenu megaMenu-sm">
+                                                        <li class="megaMenu--list">
+                                                            <a href="javascript:;"  routerLink="{{'shop/'+subCategory.Category_Slug}}" [innerHTML]="subCategory.Category_Name"></a>
+                                                            <!--Print sub menu -->
+                                                            <ul class="megaMenu--sublist has-megalist" >
+                                                                
+                                                                <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                    <div class="u-flexed">
+                                                                        <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" href="javascript:;"   [innerHTML]="subCategory.Category_Name"></a>
+                                                                        
+                                                                        <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                    </div>
+                                                                    
+                                                                    
+                                                                    <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                        <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                        <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                            <div class="u-flexed">
+                                                                                <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" href="javascript:;"   [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                            </div>
+                                                                            <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                    <div class="u-flexed">
+                                                                                        <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" href="javascript:;"   [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                        <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                    </div>
+                                                                                    <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                        <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                        <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                            <div class="u-flexed">
+                                                                                                <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" href="javascript:;"   [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                                <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                            </div>
+                                                                                            <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                                <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                                <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                                    <div class="u-flexed">
+                                                                                                        <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" href="javascript:;"   [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                                        <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                                    </div>
+                                                                                                    <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                                        <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                                        <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                                            <div class="u-flexed">
+                                                                                                                <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" href="javascript:;"   [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                                                <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                                            </div>
+                                                                                                            <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                                                <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                                                <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                                                    <div class="u-flexed">
+                                                                                                                        <a routerLink="{{'shop/'+subCategory.Category_Slug}}" [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" href="javascript:;"   [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                                                        <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                                                    </div>
+                                                                                                                    <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                                                        <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                                                        <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                                                            <div class="u-flexed">
+                                                                                                                                <a routerLink="{{'shop/'+subCategory.Category_Slug}}" [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" href="javascript:;"   [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                                                                <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                                                            </div>
+                                                                                                                        </li>
+                                                                                                                    </ul>
+                                                                                                                </li>
+                                                                                                            </ul>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- sub category design for all layout 2 category which is attachment & accessories -->
+                                <div class="sub-menu-dropdown design2" *ngIf="category && category.childrenMenu && category.Category_Layout == 2  && category.childrenMenu.length">
+                                    <div class="container">
+                                        <div class="main-content">
+                                            <div class="row">
+                                                <div class="custom-col custom-col-sm" *ngFor="let subCategory of category.childrenMenu let j =index">
+                                                    <div class="sub-menu-categories__icons">
+                                                        <img *ngIf="(subCategory.Category_Icon)" src="{{PORTAL_URL}}files/store/categories/{{CID}}/{{subCategory.Category_Icon}}" alt="{{subCategory.Category_Name}}" class="img-fluid">
+                                                    </div>
+                                                    <ul class="megaMenu megaMenu-sm">
+                                                        <li class="megaMenu--list">
+                                                            <a routerLink="{{'shop/'+subCategory.Category_Slug}}" [innerHTML]="subCategory.Category_Name"></a>
+                                                            <!--Print sub menu -->
+                                                            <ul class="megaMenu--sublist has-megalist" >
+                                                                
+                                                                <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                    <div class="u-flexed">
+                                                                        <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}"    [innerHTML]="subCategory.Category_Name"></a>
+                                                                        
+                                                                        <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                    </div>
+                                                                    
+                                                                    
+                                                                    <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                        <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                        <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                            <div class="u-flexed">
+                                                                                <a routerLink="{{'shop/'+subCategory.Category_Slug}}"   [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}"   [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                            </div>
+                                                                            <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                    <div class="u-flexed">
+                                                                                        <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}"    [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                        <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                    </div>
+                                                                                    <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                        <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                        <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                            <div class="u-flexed">
+                                                                                                <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}"    [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                                <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                            </div>
+                                                                                            <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                                <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                                <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                                    <div class="u-flexed">
+                                                                                                        <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                                        <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                                    </div>
+                                                                                                    <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                                        <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                                        <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                                            <div class="u-flexed">
+                                                                                                                <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                                                <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                                            </div>
+                                                                                                            <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                                                <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                                                <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                                                    <div class="u-flexed">
+                                                                                                                        <a routerLink="{{'shop/'+subCategory.Category_Slug}}"  [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}"  [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                                                        <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                                                    </div>
+                                                                                                                    <ul class="megaMenu--sublist has-megalist is-hidden" >
+                                                                                                                        <li class="go-back"><a class="js-goBack" href="javascript:;">Back</a></li>
+                                                                                                                        <li [ngClass]="{'has-children':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}" *ngFor="let subCategory of subCategory.childrenMenu let k =index">
+                                                                                                                            <div class="u-flexed">
+                                                                                                                                <a routerLink="{{'shop/'+subCategory.Category_Slug}}" [ngClass]="{'has-child':(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)}"   [innerHTML]="subCategory.Category_Name"></a>
+
+                                                                                                                                <a href="javascript:;" class="go-next" *ngIf="(subCategory && subCategory.childrenMenu && subCategory.childrenMenu.length>0)"><i class="fa fa-chevron-right"></i></a>
+                                                                                                                            </div>
+                                                                                                                        </li>
+                                                                                                                    </ul>
+                                                                                                                </li>
+                                                                                                            </ul>
+                                                                                                        </li>
+                                                                                                    </ul>
+                                                                                                </li>
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                            <!--This section for attachments and accessories-->
+                            <li *ngIf="IS_STORE" class="menu-items menu-item-has-children">
+                                <a href="javascript:;" routerLink="store" [queryParams]="{accessories: 'yes' }">
+                                    <div class="category-icon">
+                                        <img src="assets/images/icons/accessories.png" alt="Attachments & Accessories" class="missio_svg">
+                                    </div>
+                                    <span> Attachments & Accessories </span>
+                                </a>
+                                <!-- attachments & accessories sub category -->
+                                <div class="sub-menu-dropdown design2" *ngIf="aAttachmentList && aAttachmentList.length">
+                                    <div class="container">
+                                        <div class="main-content">
+                                            <div class="row" [ngClass]="aAClass">
+                                                <div class="total--items" *ngFor="let itemData of manageAAttachment  let i =index">
+                                                    <div class="custom-col custom-col-sm" *ngFor="let subCategory of itemData.item let j =index">
+                                                        <div class="sub-menu-categories__icons">
+                                                            <a href="javascript:;" routerLink="store" [queryParams]="{accessories: 'yes', types : subCategory.Slug}" >
+                                                             <img *ngIf="(subCategory.Icon)" src="{{PORTAL_URL}}files/store/types/{{CID}}/{{subCategory.Icon}}" alt="{{subCategory.Name}}" class="img-fluid">
+                                                            </a>
+                                                        </div>
+                                                        <ul class="megaMenu megaMenu-sm">
+                                                            <li class="megaMenu--list">
+                                                                <a href="javascript:;" routerLink="store" [queryParams]="{accessories: 'yes', types : subCategory.Slug}" [innerHTML]="subCategory.Name"></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Print menu section here-->
+            <ul class="navigation--list" *ngIf="membershipMenuList && membershipMenuList.length">
+                <li [ngClass]="{'menu-item-has-children': (item && item.childrenMenu && item.childrenMenu.length>0)}" *ngFor="let item of membershipMenuList let i = index">
+                   <a *ngIf="!rItem?.ExternalLink" routerLink="{{item.url}}" [ngClass]="{'active':activeMenu==item.url}" [ngClass]="{'has-child': (item && item.childrenMenu && item.childrenMenu.length>0)}">{{item.title}}</a>
+                   
+                   <a *ngIf="rItem?.ExternalLink" href="{{rItem.url}}" [ngClass]="{'active':activeMenu==item.url}" [ngClass]="{'has-child': (item && item.childrenMenu && item.childrenMenu.length>0)}">{{item.title}}</a>
+                   
+                    <ul class="sub-menu" *ngIf="item && item.childrenMenu && item.childrenMenu.length">
+                        <li *ngFor="let subMenu of item.childrenMenu let j = index">
+                            <a *ngIf="!subMenu?.ExternalLink" routerLink="{{subMenu.url}}" [ngClass]="{'active':activeMenu==subMenu.url}"  class="">{{subMenu.title}}</a>
+                            <a *ngIf="subMenu?.ExternalLink" target="{{subMenu.target}}" href="{{subMenu.url}}" [ngClass]="{'active':activeMenu==subMenu.url}"  class="">{{subMenu.title}}</a>
+                            
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="clearfix"></div>
+
+
+<!-- Begin Sticky Nav -->
+<div id="page-menu" #pageMenu class="page-menu page-menu-sm" [ngClass]="{'sticky-page-menu': stickyNavMenu}">
+    <div id="page-menu-wrap" class="page-menu-wrap page-menu-wrap-sm">
+        <button class="sticky-hamMenu sticky-hamMenu-lg js-mobile-nav" [ngClass]="{'active': rMenu}"
+            (click)="mobileRMenu();" type="button">
+            <span class="transition-med"></span>
+        </button>
+
+        <div class="page-menu--logo page-menu--logo-md">
+            
+            <!--<a *ngIf="userData && userData.email && userData.guest_user != 1" routerLink="/member/profile" ><img src="./assets/images/logo.svg" class="image-fluid" alt="{{'TITLE' | translate}}" /></a>
+                        
+            <a *ngIf="!userData" routerLink="/" ><img src="./assets/images/logo.svg" class="image-fluid" alt="{{'TITLE' | translate}}" /></a>
+            -->
+            <a *ngIf="userData && userData.email && userData.guest_user != 1" routerLink="/"><img src="{{ComapnyLogo}}" class="image-fluid" alt="{{'TITLE' | translate}}" /></a>
+
+            <a *ngIf="!userData" routerLink="/"><img src="{{ComapnyLogo}}" class="image-fluid" alt="{{'TITLE' | translate}}" /></a>
+        </div>
+
+        <nav class="navigation navigation-md d-none d-lg-block">
+            <ul class="navigation--list" *ngIf="userData && userData.email && userData.guest_user != 1 && membershipMenuList && membershipMenuList.length">
+                <li *ngFor="let item of membershipMenuList let i = index" [ngClass]="{'menu-item-has-children': (item && item.childrenMenu && item.childrenMenu.length>0)}">
+                    <a *ngIf="!item?.ExternalLink" routerLink="{{item.url}}" [ngClass]="{'active':activeMenu==item.url}" [ngClass]="{'has-child': (item && item.childrenMenu && item.childrenMenu.length>0)}">{{item.title}}</a>
+                   
+                    <a *ngIf="item?.ExternalLink" href="{{item.url}}" [ngClass]="{'active':activeMenu==item.url}" [ngClass]="{'has-child': (item && item.childrenMenu && item.childrenMenu.length>0)}">{{item.title}}</a>
+
+                    <ul class="sub-menu" *ngIf="item && item.childrenMenu && item.childrenMenu.length">
+                        <li *ngFor="let subMenu of item.childrenMenu let j = index">
+                            <a *ngIf="!subMenu?.ExternalLink" routerLink="{{subMenu.url}}" [ngClass]="{'active':activeMenu==subMenu.url}"  class="">{{subMenu.title}}</a>
+                            <a *ngIf="subMenu?.ExternalLink" target="{{subMenu.target}}" href="{{subMenu.url}}" [ngClass]="{'active':activeMenu==subMenu.url}"  class="">{{subMenu.title}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="ml-auto d-flex align-items-center">
+
+            <div class="header--search" *ngIf="userData && userData.email && userData.guest_user != 1">
+                <button (click)="OpenSearchBox();" type="button" class="header--search--btn"><i class="fe-search"></i></button>
+            </div>
+
+            <form class="search-popup" id="header-search-form">
+                <div class="input--with-icon input--icon-right">
+                    <div class="input-group">
+                        <input id="search" class="input--squared" name="search" placeholder="What are you looking for?" type="text" autofocus="autofocus">
+                        <div class="input-group-append">
+                            <button type="button" class="btn--search" role="button" tabindex="0"><i class="fe-search"></i> Search</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn--transparent" role="button" tabindex="0" (click)="OpenSearchBox();"><i class="missio--icon fe-x"></i></button>
+                </div>
+            </form>
+            
+            <div class="u-flexed u-align-center">
+                <a routerLink="blog" class="btn--blog d-none">{{'BLOG_MENU' | translate }}</a>
+                <!-- Begin Notification Badge -->
+                <button *ngIf="userData && userData.email && userData.guest_user != 1" class="header__notify header__notify-sm mr-1">
+                    <div class="header__notify-count">9+</div>
+                    <i class="teachicon-notification"></i>
+                </button>
+                <!-- //Ends Notification Badge -->
+                
+                <div class="">
+                    <!-- Print menu section here-->
+                    
+                    <div class="header__right--links" *ngIf="!UserToken || (userData && userData.guest_user == 1)">
+                        <ul class="header__right--links__lists" *ngIf="menuList && menuList.length">
+                            <li class="responsive-navigation__item" *ngFor="let rItem of menuList let i = index">
+
+                                <a *ngIf="!rItem?.ExternalLink" routerLink="{{rItem.url}}" [ngClass]="{'active':activeMenu==rItem.url}" [ngClass]="{'has-child': (rItem && rItem.childrenMenu && rItem.childrenMenu.length>0)}">{{rItem.title}}</a>
+                   
+                                <a *ngIf="rItem?.ExternalLink" href="{{rItem.url}}" [ngClass]="{'active':activeMenu==rItem.url}" [ngClass]="{'has-child': (rItem && rItem.childrenMenu && rItem.childrenMenu.length>0)}">{{rItem.title}}</a>
+
+                                <ul class="sub-menu" *ngIf="rItem && rItem.childrenMenu && rItem.childrenMenu.length">
+                                    <li *ngFor="let subMenu of rItem.childrenMenu let j = index">
+                                        <a *ngIf="!subMenu?.ExternalLink" routerLink="{{subMenu.url}}" [ngClass]="{'active':activeMenu==subMenu.url}"  class="">{{subMenu.title}}</a>
+                                        <a *ngIf="subMenu?.ExternalLink" target="{{subMenu.target}}" href="{{subMenu.url}}" [ngClass]="{'active':activeMenu==subMenu.url}"  class="">{{subMenu.title}}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                    </div>
+                    <div *ngIf="userData && userData.email && userData.guest_user != 1" class="user-profile-menu js-profileContainer" [ngClass]="{open: classPFlag}">
+                        <div class="user-profile-menu-item">
+                            <button type="button" class="user-profile-button js-profile u-capitalize" (click)="togglePMenu()" role="presentation" >
+                                <span class="user-profile--avatar">
+                                    <img *ngIf="userData && userData?.profile_picture" src="{{ AWSBUCKETURL }}files/avatar/{{userData?.CID}}/{{userData?.profile_picture}}" alt="{{userData && userData && userData?.screen_name
+                                    ? userData?.screen_name : ''}}" />
+                                    <img *ngIf="userData && !userData?.profile_picture" src="./assets/images/300_1.jpg"
+                                    alt="{{userData && userData && userData?.screen_name ? userData?.screen_name : ''}}" />
+                                </span>
+                                <span class="user-profile--name">
+                                    {{(userData)? userData?.screen_name: ''}}
+                                </span>
+                                <span class="user-profile--drop fas fa-angle-down" role="presentation"></span>
+                            </button>
+                        </div>
+                        
+                        <!-- Begin Seller Profile Menu -->
+
+                        <div class="dropdown-menu w-400 pull-right" >
+                            <div class="two-column-grid">
+                                <div class="grid-column w-50">
+                                    <h4 class="w-100 pb-0 mb-1">{{(userData.SellerPackage && userData.SellerPackage == 'Yes')? 'Sell' : 'Dashboard'}}</h4>
+                                    <ul>
+                                        <li *ngIf="!userData.SellerPackage  || (userData.SellerPackage == null || userData.SellerPackage != 'Yes')">
+                                            <a routerLink="/member/products" ><i class="fe-grid mr-2"></i>{{'MEMBERS_PAGE' | translate}}</a>
+                                        </li>
+                                        <li  *ngIf="userData.SellerPackage && userData.SellerPackage == 'Yes'">
+                                            <a routerLink="/member/products" ><i class="fe-grid mr-2"></i>{{'SELLERS_PAGE' | translate}}</a>
+                                        </li>
+                                        <li *ngIf="userData.SellerPackage && userData.SellerPackage == 'Yes'"><a routerLink="/member/sales" ><i class="fe-trending-up mr-2"></i>{{'SALES_REPORTS' | translate }}</a></li>
+
+
+                                    </ul>
+                                </div>
+                                <div class="grid-column w-50">
+                                    <h4 class="w-100 pb-0 mb-1">Account</h4>
+                                    <ul>
+                                        <li><a routerLink="member/profile"><i class="fe-layers mr-2"></i>{{'MY_PROFILE' | translate }}</a></li>
+                                        
+                                        <li><a routerLink="member/edit-profile"><i class="fe-user-check mr-2"></i>{{'MY_ACCOUNT' | translate }}</a></li>
+                                        
+                                        <li><a routerLink="member/categories"><i class="fe-briefcase mr-2"></i>{{'MY_CATEGORIES' | translate }}</a></li>
+                                        <li *ngIf="userData && userData.role_id == 2"><a routerLink="member/leads"><i class="fe-truck mr-2"></i>{{'MY_LEADS' | translate }}</a></li>
+                                        
+                                        <li *ngIf="IS_STORE"><a routerLink="member/wish-list"><i class="fe-star mr-2"></i>{{'WISH_LIST' | translate }}</a></li>
+                                        <li><a routerLink="member/change-password"><i class="fe-lock mr-2"></i>{{'CHANGE_PASSWORD' | translate }}</a></li>
+                                        <li><a href="javascript:;" (click)="signOut();"><i class="fe-log-out mr-2"></i>{{'SIGN_OUT' | translate }}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- //Ends Seller Profile Menu -->
+                        
+                        
+                        
+                    </div>
+                </div>
+                
+                <div *ngIf="IS_STORE" class="d-flex align-items-center header-controls pl-1 ml-3" style="border-left: 1px solid #ddd;">
+                    <!--<div class="header--search">
+                        <button (click)="OpenSearchBox();" type="button" class="header--search--btn"><i class="fe-search"></i></button>
+                    </div>-->
+                    
+                    <div class="header__right--cart js-cartOpener d-flex ml-2" (click)="cartSiderBarOpen();">
+                        <a href="javascript:void(0);"><span class="count">{{(productCount && productCount>0)? productCount : 0}}</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //End Sticky Nav -->
+
+
+<!-- Begin Responsive Mobile Menu -->
+<aside class="responsive-standalone" [ngClass]="{'navigation-active': rMenu}">
+    <div class="responsive-standalone--Close jsClose" (click)="CloseMobileMenu()"><span class="icon_close"></span></div>
+    <!--
+    <div *ngIf="IS_STORE" class="widget--search">
+        <form role="search" method="get" class="searchform" action="/search">
+            <div>
+                <input (keyup)="setSearchValue($event.target.value)" type="text" class="s" placeholder="Search for products" value="{{Keyword}}" name="q" autocomplete="off">
+                <button (click)="SearchProducts()" type="button" class="searchsubmit">Search</button>
+            </div>
+        </form>
+    </div>
+    -->
+    <div *ngIf="IS_STORE" class="mobile-nav-tabs">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" [ngClass]="{active: menuTab=='Menu'}" data-toggle="tab" (click)="menuTab='Menu'"
+                    href="javascript:" role="tab">Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [ngClass]="{active: menuTab=='Categories'}" data-toggle="tab"
+                    (click)="menuTab='Categories'" href="javascript:" role="tab">Categories</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="widget__menuArea">
+        <div class="widget__menuArea__content">
+            <div class="widget__menuArea__content--body widget-scroll has-scrollbar">
+                <div class="widget__Header">
+                    <div class="page--logo"><a [routerLink]="['']"><img src="./assets/images/logo.png" class="image-fluid" alt="{{'TITLE' | translate}}" /></a></div>
+                </div>
+                
+                <div class="widget-scroll-content listVerticalScrollBar">
+                    <div class="mobile-pages-menu tab-content tab-content-xs" id="myTabContentNew">
+                        <div class="tab-pane show" [ngClass]="{'active show': menuTab=='Menu'}" [@fadeInOut]="menuTab=='Menu'? 'state2' : 'state1'">
+                            <!--Print main menu -->
+                            <div class="responsive-navigation--userInfo" *ngIf="IS_STORE && !UserToken || (userData && userData.guest_user == 1)">
+                                <ul class="responsive-navigation--userInfo__lists">
+                                    <li class="my-account-with-text "> <a routerLink="login" >{{'LOGIN' | translate}}</a> </li>
+                                    <li class="my-account-with-text "> <a routerLink="sign-up">{{'SIGNUP' | translate}}</a> </li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Begin When user not loggedin -->
+                            <div *ngIf="!UserToken || (userData && userData.guest_user == 1)">
+                                <ul class="responsive-navigation__list" *ngIf="menuList && menuList.length">
+                                    <li class="responsive-navigation__item" *ngFor="let rItem of menuList let i = index">
+                                        <a *ngIf="!rItem?.ExternalLink" class="btn--login" routerLink="{{rItem.url}}"  [ngClass]="{'active':activeMenu==rItem.url}" [innerHtml]="rItem?.title | safeHtml" (click)="mobileRMenu();"></a>
+                                        <a *ngIf="rItem?.ExternalLink" target="{{rItem.target}}" href="{{rItem.url}}" class="btn--login" [ngClass]="{'active':activeMenu==rItem.url}" [innerHtml]="rItem?.title | safeHtml" (click)="mobileRMenu();"></a>
+                                        
+                                        <span *ngIf="rItem && rItem.childrenMenu && rItem.childrenMenu.length"  (click)="childMenu(rItem.childrenMenu, membershipMenuList);" class="next-item"><i class="fa fa-angle-right"></i></span>
+                                        <!--Print sub menu -->
+                                        <ul class="sub-menu animate__animated animate__slideInRight animate__faster" [ngClass]="{'navigation-active': childMList && childMList.length>0}" *ngIf="childMList && childMList.length">
+                                            <li class="back"><a (click)="mobileRMenu();" href="javascript:;" (click)="childMenuUp(childMList);"><i class="fa fa-chevron-left"></i>Back</a></li>
+                                            <li *ngFor="let rSubMenu of childMList let j = index">
+                                                <a *ngIf="!rSubMenu?.ExternalLink" routerLink="{{rSubMenu.url}}"  [ngClass]="{'active':activeMenu==rSubMenu.url}"  (click)="mobileRMenu();">{{rSubMenu.title}}</a>
+                                                <a *ngIf="rSubMenu?.ExternalLink" target="{{rSubMenu.target}}" href="{{rSubMenu.url}}"  [ngClass]="{'active':activeMenu==rSubMenu.url}"  (click)="mobileRMenu();">{{rSubMenu.title}}</a>
+
+                                               <span *ngIf="rSubMenu && rSubMenu.childrenMenu && rSubMenu.childrenMenu.length" (click)="childMenu(rSubMenu.childrenMenu, childMList);" class="next-item"><i class="fa fa-angle-right"></i></span>
+
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- //End When user not loggedin -->
+                            
+                            <!-- Begin When user loggedin -->
+                            <ul class="responsive-navigation__list" *ngIf="userData && userData.email && userData.guest_user != 1 && membershipMenuList && membershipMenuList.length">
+                                <li class="responsive-navigation__item" *ngFor="let rItem of membershipMenuList let i = index">
+                                    <a *ngIf="!rItem?.ExternalLink" href="javascript:" routerLink="{{rItem.url}}"  [ngClass]="{'active':activeMenu==rItem.url}"  (click)="mobileRMenu();">{{rItem.title}}</a>
+                                    <a *ngIf="rItem?.ExternalLink" target="{{rItem.target}}" href="{{rItem.url}}"  [ngClass]="{'active':activeMenu==rItem.url}"  (click)="mobileRMenu();">{{rItem.title}}</a>
+                                    
+                                    <span *ngIf="rItem && rItem.childrenMenu && rItem.childrenMenu.length"  (click)="childMenu(rItem.childrenMenu, membershipMenuList);" class="next-item"><i class="fa fa-angle-right"></i></span>
+                                    <!--Print sub menu -->
+                                    <ul class="sub-menu animate__animated animate__slideInRight animate__faster" [ngClass]="{'navigation-active': childMList && childMList.length>0}" *ngIf="childMList && childMList.length">
+                                        <li class="back"><a href="javascript:;" (click)="childMenuUp(childMList);"><i class="fa fa-chevron-left"></i>Back</a></li>
+                                        <li *ngFor="let rSubMenu of childMList let j = index">
+                                            <a href="javascript:"routerLink="{{rSubMenu.url}}"  [ngClass]="{'active':activeMenu==rSubMenu.url}"  (click)="mobileRMenu();">{{rSubMenu.title}}</a>
+
+                                           <span *ngIf="rSubMenu && rSubMenu.childrenMenu && rSubMenu.childrenMenu.length" (click)="childMenu(rSubMenu.childrenMenu, childMList);" class="next-item"><i class="fa fa-angle-right"></i></span>
+
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!-- //End When user loggedin -->
+                        </div>
+
+                        <div class="tab-pane " [ngClass]="{'active show': menuTab=='Categories'}" [@fadeInOut]="menuTab=='Categories'?'state2' : 'state1'">
+                            <ul class="responsive-navigation__list" *ngIf="categoryList && categoryList.length">
+                                <li class="responsive-navigation__item" *ngFor="let mCategory of categoryList let i =index">
+                                    <a href="javascript:" routerLink="{{'shop/'+mCategory.Category_Slug}}" (click)="mobileRMenu();"  [innerHTML]="mCategory.Category_Name"></a>
+                                    <span *ngIf="mCategory && mCategory.childrenMenu && mCategory.childrenMenu.length" (click)="childCategory(mCategory.childrenMenu, categoryList);" class="next-item"><i class="fa fa-angle-right"></i></span>
+                                    <!--Print sub category -->
+                                    <ul class="sub-menu animate__animated animate__slideInRight animate__faster" [ngClass]="{'navigation-active': childCList && childCList.length>0}" *ngIf="childCList && childCList.length" [@fadeInOut]="'state2'">
+                                        <li class="back"><a href="javascript:;" (click)="childCategoryUp(childCList);"><i class="fa fa-chevron-left" ></i>Back</a></li>
+                                        <li *ngFor="let childCat of childCList let k = index">
+                                            <a href="javascript:" routerLink="{{'shop/'+ childCat.Category_Slug}}" (click)="mobileRMenu();">{{childCat.Category_Name}}</a>
+                                            <span *ngIf="childCat && childCat.childrenMenu && childCat.childrenMenu.length" (click)="childCategory(childCat.childrenMenu, childCList);" class="next-item"><i class="fa fa-angle-right"></i></span>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            <ul class="responsive-navigation__list" *ngIf="IS_STORE && aAttachmentList && aAttachmentList.length">
+                                <li class="responsive-navigation__item">
+                                    <a href="javascript:"  routerLink="store" [queryParams]="{accessories: 'yes'}"> Attachments & Accessories </a>
+                                    <span class="next-item"><i class="fa fa-angle-right" (click)="openMenu=true;"></i></span>
+                                    <!--Print sub category -->
+                                    <ul class="sub-menu animate__animated animate__slideInRight animate__faster" [ngClass]="{'navigation-active': openMenu}">
+                                        <li class="back"><a href="javascript:;"><i class="fa fa-chevron-left" (click)="openMenu=false;"></i>Back</a></li>
+                                        <li *ngFor="let childCat of aAttachmentList let k = index">
+                                            <a href="javascript:" routerLink="store" [queryParams]="{accessories: 'yes', types : childCat.Slug}">{{childCat.Name}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+<div class="responsive-standalone--Overlay" (click)="mobileRMenu()" [style.display]="rMenu ? 'block' :'none'"></div>
+<!-- //End Responsive Mobile Menu -->

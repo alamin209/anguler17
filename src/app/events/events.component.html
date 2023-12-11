@@ -1,0 +1,58 @@
+<section class="upcoming--events upcoming--events-sm featured-products">
+    <div class="container-fluid p-0 w-100">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="event-page-title">
+                    <div class="page-head page-head-xs start flex-column">
+                        <h3 class="u-heading--small u-heading--small-sm upper">Events and Tickets</h3>
+                    </div>
+                </div>
+                
+                <div class="marketplace-page-title d-none">
+                    <div class="sectionTitle-wrapper sectionTitle-wrapper-xs mb-4">
+                        <h2 class="heading--title--medium heading--title--medium-xs ls0"><span>Events and Tickets</span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let item of AllEvents; let i = index">
+                <div class="event--items">
+                    <a class="event--image d-block" target="_blank" href="{{EVENTS_HOST+item?.event_permalink}}">
+                        <figure class="event--image--wrapper">
+                            <span class="event--image--wrapper--inner">
+                                <img *ngIf="item && item?.event_banner_image" alt="Thumbnail" class="lazy cast img-fluid" src="{{ PORTAL_MAIN + 'files/events/organization/' + item.CID + '/' + item.event_banner_image }}" />
+
+                                <img *ngIf="item && !item?.event_banner_image" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+                            </span>
+                        </figure>
+                    </a>
+
+                    <div class="event--items--wrap pt-3">
+                        <!--<img src="https://teachitpro.s3.amazonaws.com/avatar/RG-V2.jpg" alt="Author Avatar" class="author--img">-->
+                        <div class="meta d-none">
+                            <ul>
+                                <li><span><i class="fe-clock mr-1"></i>{{item.event_start_date}}</span></li>
+                                <li><span><i class="fe-map-pin mr-1"></i>{{item.event_location_name}}</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="event-page-details">
+                            <h3 class="event--name" [innerHtml]="((item && item?.event_title)? item?.event_title : '') | safeHtml"></h3>
+                            <p [innerHtml]="((item && item?.event_short_desc)? item?.event_short_desc : '') | safeHtml"></p>
+                            <a class="read-more" target="_blank" href="{{EVENTS_HOST+item?.event_permalink}}">read more</a>
+                        </div>
+                        
+                        <div class="marketplace-page-details d-none">
+                            <h3 class="event--name"><a target="_blank" href="{{EVENTS_HOST+item?.event_permalink}}" [innerHtml]="((item && item?.event_title)? item?.event_title : '') | safeHtml"></a></h3>
+                            <p class="event--description" [innerHtml]="((item && item?.event_short_desc)? item?.event_short_desc : '') | safeHtml"></p>
+                            <div class="event-card-action">
+                                <a class="tip--cta-btn" target="_blank" href="{{EVENTS_HOST+item?.event_permalink}}">Read More <i class="fe-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

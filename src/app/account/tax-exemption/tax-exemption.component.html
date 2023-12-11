@@ -1,0 +1,92 @@
+<div class="auth--body auth--body-md My--Profile">
+    <div class="auth--body__inner auth--body__inner-md">
+        <div class="container">
+            <div class="row">
+                <aside class="col-12 col-lg-3 col-xl-3">
+                    <div class="row u-mb--30 u-mb--30-sm">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <h3 class="section--title section--title-sm"><a routerLink="/member">{{'MY_ACCOUNT' | translate}}</a></h3>
+                        </div>
+                    </div>
+                    
+                    <!--Add side bar-->
+                    <app-side-bar></app-side-bar>
+                </aside>
+                <div class="col-12 col-lg-9 col-xl-9 has--leftsidebar has--leftsidebar-md">
+                    <div class="c-breadcrumb">
+                        <nav class="missio-breadcrumb">
+                            <a class="breadcrumb-link"routerLink="/">Home</a> <a class="breadcrumb-link " routerLink="/member/profile">{{'MY_DASHBOARD' | translate}}</a> <span class="breadcrumb-last">{{'TAX_EXEMPTION3' | translate}}</span>
+                        </nav>
+                    </div>
+                    
+                    <div class="page-head page-head-sm" [ngClass]="UploadCertNow ? '' : 'd-none'">
+                        <h3 class="u-heading--small u-heading--small-sm">{{'TAX_EXEMPTION3' | translate}}</h3>
+                    </div>
+                    
+                    <div class="profile--box" [ngClass]="UploadCertNow ? '' : 'd-none'">
+                        <div class="portlet light">
+                            <div class="portlet--body">
+                                <div class="portlet--body--inner portlet--body--inner-sm">
+                                    
+                                    <div id="form_tax_exempt"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="page-head page-head-sm" *ngIf="!UploadCertNow">
+                        <h3 class="u-heading--small u-heading--small-sm">{{'TAX_EXEMPTION3' | translate}}</h3>
+                    </div>
+                    
+                    <div class="table-responsive" *ngIf="!UploadCertNow">
+                                    
+                        <div *ngIf="CustomerCerticates && CustomerCerticates.length > 0" class="cart-table-section cart-table-section-xs wishlist--table">
+                            <table class="shop_table shop_table_responsive cart u-mb--0" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th class="product-thumbnail" >#</th>
+                                        <th class="product-thumbnail" >Certicate Type</th>
+                                        <th class="product-price">Signed Date</th>
+                                        <th class="product-quantity">Expiration Date</th>
+                                        <th class="product-quantity">Verified</th>
+                                        <th class="product-quantity">Exempt<br>Percent</th>
+                                        <th class="product-quantity">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="cart_item" *ngFor="let Certicate of CustomerCerticates let i=index" >
+                                        <td class="wishlist-product-price">{{i+1}}</td>
+                                        <td class="wishlist-product-price">{{Certicate.expected_tax_code.name}}</td>
+                                        <td class="wishlist-product-price">{{Certicate.signed_date}}</td>
+                                        <td class="wishlist-product-price">{{Certicate.expiration_date}}</td>
+                                        <td class="wishlist-product-price">{{(Certicate.verified == true ? 'Yes':'No')}}</td>
+                                        <td class="wishlist-product-price">{{Certicate.exmpt_percent}}%</td>
+                                        <td class="wishlist-product-price">
+                                            <button class="btn--default" (click)="getCustomerCertificate_Link(Certicate.id)" >Download</button>
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div  class="row u-mb--30" *ngIf="CustomerCerticates  && CustomerCerticates.success == false" >
+                            <div class="col-12 col-md-12">
+                                <a href="javascript:;" (click)="SubmitCertificate()" class="button--add-payment">
+                                    Add Exemption for Submit Your Certificate
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Newsletter component here -->
+<app-newsletter></app-newsletter>

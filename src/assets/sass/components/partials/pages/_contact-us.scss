@@ -1,0 +1,92 @@
+/* About Us Page
+------------------------------------*/
+
+.address {
+    $addressSelf: &;
+    
+    &--block {
+        width: 100%;
+        @include flexbox;
+        text-align: center;
+        @include flex-wrap(wrap);
+        @include align-items(center);
+        @include justify-content(center);
+        @include flex-direction(column, vertical);
+        
+        @include breakpoint(767) {
+            @include margin-bottom(30);
+        }
+    }
+    
+    &--Icons {
+        color: $green;
+        @include font-size(60);
+        @include margin-bottom(20);
+        
+        @include responsive(sm) {
+            @include font-size(70);
+
+            @include respond-to(md) {
+                @include font-size(80);
+
+                @include respond-to(lg) {
+                    @include font-size(90);
+                }
+            }
+        }
+    }
+    
+    &--title {
+        width: 100%;
+        h3 {
+            @extend .u-upper;
+            @include font-size(26);
+            font-weight: $weightBold;
+            font-family: $secondaryFont;
+            @include margin-bottom(20);
+        }
+        
+        @include responsive(sm) {
+            h3 {
+                @include font-size(30);
+            }
+
+            @include respond-to(md) {
+                h3 {
+                    @include font-size(35);
+                }
+
+                @include respond-to(lg) {
+                    h3 {
+                        @include font-size(40);
+                    }
+                }
+            }
+        }
+    }
+    
+    &--details {
+        p {
+            color: $black_sh1;
+            @include font-size(18);
+            font-weight: $weightLight;
+            
+            &:first-child {
+                color: $greyish;
+            }
+        }
+    }
+}
+
+.formContact {
+    .form-control {
+        &:not(textarea) {
+            min-height: 55px;
+            
+            @include breakpoint(767) {
+                min-height: 50px;
+            }
+        }
+    }
+}
+

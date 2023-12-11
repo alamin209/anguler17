@@ -1,0 +1,76 @@
+/* Track package Page
+------------------------------------*/
+.wishlist--table {
+    .prdt--image {
+        max-width: 62px;
+        @include flex(0 0 62px);
+    }
+    .prdt--name {
+        max-width: 250px;
+        @include flex(0 0 250px);
+        @include padding-right(10);
+    }
+    
+    @media (max-width:767px) {
+        .prdt--image {
+            max-width: 52px;
+            @include flex(0 0 52px);
+            
+            img {
+                @include size(50px);
+                @include object-fit(cover);
+            }
+        }
+        .prdt--name {
+            max-width: 120px;
+            @include flex(0 0 120px);
+            @include padding-right(10);
+            
+            display: block;
+            overflow: hidden;
+            line-height: 1.35;
+            min-height: 2.5rem;
+            position: relative;
+            max-height: 1rem * 1.5 * 2;
+            white-space: normal;
+            display: -webkit-box;
+            @include line-clamp(3);
+            text-overflow: ellipsis;
+            @include margin-bottom(5);
+            @include flex-direction(column,vertical);
+            
+            &:after {
+                right: 0;
+                width: 25%;
+                bottom: 0px;
+                height: 15px;
+                content: " ";
+                display: block;
+                text-align: right;
+                position: absolute;
+                background: linear-gradient(to right, rgba($white, 0), rgba($white, 0.5) 75%);
+            }
+        }
+    }
+    
+    @media (max-width:480px) {
+        .prdt--name {
+            max-width: 110px;
+            @include flex(0 0 110px);
+        }
+    }
+    @media (min-width: 481px) and (min-width: 580px) {
+        .prdt--name {
+            max-width: 130px;
+            @include flex(0 0 130px);
+        }
+    }
+    @media (min-width: 581px) and (min-width: 767px) {
+        .prdt--name {
+            max-width: 170px;
+            @include flex(0 0 170px);
+        }
+    }
+}
+
+

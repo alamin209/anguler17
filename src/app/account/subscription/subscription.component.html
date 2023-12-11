@@ -1,0 +1,167 @@
+<div class="auth--body auth--body-md My--Profile">
+  <div class="auth--body__inner auth--body__inner-md">
+    <div class="container">
+      <div class="row">
+        <aside class="col-12 col-lg-3 col-xl-3">
+          <div class="row u-mb--30 u-mb--30-sm">
+            <div class="col-12 col-lg-12 col-xl-12">
+              <h3 class="section--title section--title-sm">
+                <a routerLink="/member/profile">{{
+                  "MY_SUBSCRIPTION" | translate
+                }}</a>
+              </h3>
+            </div>
+          </div>
+
+          <!--Add side bar-->
+          <app-side-bar></app-side-bar>
+        </aside>
+        <div
+          class="col-12 col-lg-9 col-xl-9 has--leftsidebar has--leftsidebar-md"
+        >
+          <div class="c-breadcrumb">
+            <nav class="missio-breadcrumb">
+              <a class="breadcrumb-link" routerLink="/">Home</a>
+              <a class="breadcrumb-link" routerLink="/member/profile">{{
+                "MY_DASHBOARD" | translate
+              }}</a>
+              <span class="breadcrumb-last">{{ upgradeAction == '1' ? ("UPGRADE_SUBSCRIPTION" | translate) : ("MY_SUBSCRIPTION" | translate)}}</span>
+            </nav>
+          </div>
+          <div class="pricing-table">
+            <h2 *ngIf="upgradeAction == '1'" class="mb-3">{{"UPGRADE_SUBSCRIPTION" | translate}}</h2>
+            <div class="row justify-content-center">
+              <div
+                *ngFor="let Package of PackagesList; let i = index"
+                class="col-12 col-lg-4 col-md-6 col-sm-12"
+                [ngClass]="
+                  {'selected': Package && user_package && Package?.ID == user_package.ID, 'hide': Package && user_package && Package?.ID == user_package.ID && upgradeAction && upgradeAction == '1'}">
+                <div class="plan {{ Package.Package_Slug }}">
+                  <div class="plan-content">
+                    <div class="plan-header">
+                      <label class="label"></label>
+                      <h4
+                        class="upper"
+                        [innerHtml]="Package?.Package_Name | safeHtml"
+                      ></h4>
+                    </div>
+                    <div
+                      class="plan-list"
+                      [innerHtml]="Package?.Package_Description | safeHtml"
+                    ></div>
+                  </div>
+                  <div class="plan-footer">
+                    <p
+                      *ngIf="Package && Package?.DiscountType == 'percent'"
+                      class="plan-subprice"
+                    >
+                      Get {{ Package?.Discount }}% Off Now!
+                    </p>
+                    <p
+                      *ngIf="Package && Package?.DiscountType == 'amount'"
+                      class="plan-subprice"
+                    >
+                      Get ${{ Package?.Discount }} Off Now!
+                    </p>
+
+                    <div
+                      class="plan-price"
+                      *ngIf="Package && Package?.DiscountType == ''"
+                    >
+                      <div class="text-basic ml-2">
+                        <sup>$</sup>{{ Package.Package_Price }}
+                        <span *ngIf="Package && Package?.Package_Days == '7'"
+                          >/Week</span
+                        >
+                        <span *ngIf="Package && Package?.Package_Days == '30'"
+                          >/Month</span
+                        >
+                        <span *ngIf="Package && Package?.Package_Days == '182'"
+                          >/Semi Annual</span
+                        >
+                        <span *ngIf="Package && Package?.Package_Days == '365'"
+                          >/Year</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="plan-price"
+                      *ngIf="Package && Package?.DiscountType != ''"
+                    >
+                      <div class="plan-price-was mr-2">
+                        <sup>$</sup>{{ Package.Package_Price }}
+                        <span *ngIf="Package && Package?.Package_Days == '7'"
+                          >/Week</span
+                        >
+                        <span *ngIf="Package && Package?.Package_Days == '30'"
+                          >/Mo</span
+                        >
+                        <span *ngIf="Package && Package?.Package_Days == '182'"
+                          >/Semi Annual</span
+                        >
+                        <span *ngIf="Package && Package?.Package_Days == '365'"
+                          >/Year</span
+                        >
+                      </div>
+                      =
+                      <div class="text-basic ml-2">
+                        <sup>$</sup>{{ Package.Discount_Price }}
+                        <span *ngIf="Package && Package?.Package_Days == '7'"
+                          >/Week</span
+                        >
+                        <span *ngIf="Package && Package?.Package_Days == '30'"
+                          >/Mo</span
+                        >
+                        <span *ngIf="Package && Package?.Package_Days == '182'"
+                          >/Semi Annual</span
+                        >
+                        <span *ngIf="Package && Package?.Package_Days == '365'"
+                          >/Year</span
+                        >
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="
+                        Package &&
+                        user_package &&
+                        Package?.ID == user_package.ID
+                      "
+                      class="plan-button text-center"
+                    >
+                      <button class="btn btn-light btn-current"
+                        >Current Plan</button
+                      >
+                      <div *ngIf="Package && user_package && Package?.ID == user_package?.ID" class="text-center mt-3 mb-2">
+                        <a
+                          href="javascript:;"
+                          class="text-red font-weight-bold"
+                          (click)="CancelSubscription()"
+                          >Cancel Subscription</a
+                        >
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="
+                        Package &&
+                        user_package &&
+                        Package?.ID != user_package.ID
+                      "
+                      class="plan-button text-center"
+                    >
+                      <a
+                        href="javascript:;"
+                        class="btn btn-light"
+                        (click)="upgradeSubscription(Package)"
+                        >{{"UPGRADE" | translate}}</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

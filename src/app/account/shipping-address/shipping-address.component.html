@@ -1,0 +1,85 @@
+<div class="auth--body auth--body-md My--Profile">
+    <div class="auth--body__inner auth--body__inner-md">
+        <div class="container">
+            <div class="row">
+                <aside class="col-12 col-lg-3 col-xl-3">
+                    <div class="row u-mb--30 u-mb--30-sm">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <h3 class="section--title section--title-sm"><a routerLink="/member">{{'MY_ACCOUNT' | translate}}</a></h3>
+                        </div>
+                    </div>
+                    
+                    <!--Add side bar-->
+                    <app-side-bar></app-side-bar>
+                </aside>
+                <div class="col-12 col-lg-9 col-xl-9 has--leftsidebar has--leftsidebar-md">
+                    <div class="c-breadcrumb">
+                        <nav class="missio-breadcrumb">
+                            <a class="breadcrumb-link" routerLink="/">Home</a> <a class="breadcrumb-link " routerLink="/member/profile">{{'MY_DASHBOARD' | translate}}</a> <span class="breadcrumb-last">{{'SHIPPING_ADDRESSES' | translate}}</span>
+                        </nav>
+                    </div>
+                    
+                    <div class="page-head page-head-sm">
+                        <h3 class="u-heading--small u-heading--small-sm">{{'SHIPPING_ADDRESSES' | translate}}</h3>
+                    </div>
+                    
+                    <div class="profile--box">
+                        <div class="portlet light">
+                            <div class="portlet--body">
+                                <div class="portlet--body--inner portlet--body--inner-sm">
+                                    <!--<div class="page-head page-head-sm">
+                                        <h4 class="u-heading--exsmall u-heading--exsmall-sm">Your Addresses</h4>
+                                    </div>-->
+                                    
+                                    <div class="row u-mb--20 Shipping--Address" >
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                            <a routerLink="/member/edit-address" class="button--add-payment u-flex-direction-column">
+                                                {{'ADD_NEW_ADDRESS' | translate}}
+                                            </a>
+                                        </div>
+                                        
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12" *ngIf="addressList && addressList.length == 0">
+                                            <div class="box--inner">
+                                                <div class="AG--Shipping AG--Shipping-sm"><img alt="{{'SHIPPING_ADDRESSES' | translate}}" class="image-fluid" src="./assets/images/icons/Shipping-Truck.svg"></div>
+                                                <p><strong>Your {{'SHIPPING_ADDRESSES' | translate}} is Empty!</strong></p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12" *ngFor="let address of addressList; let i =index">
+                                            <div class="box" *ngIf="address && address.AddressType && address.AddressType == 'shipping'" >
+                                                <div class="box--header" [ngClass]="{'green': address?.Default_Address}" *ngIf=" address?.Default_Address">Default</div>
+                                                <button type="button" class="box--header" [ngClass]="{'blue': address?.Default_Address==0}" *ngIf=" address?.Default_Address==0" (click)="setDefaultAddress(address.ID);">Set as Default</button>
+                                                <div class="">
+                                                    <p class="u-mb--5"><strong class="u-capitalize">{{address?.First_Name+' '+address?.Last_Name}}</strong></p>
+                                                    <p class="u-mb--5" *ngIf="ASK_COMPANY_NAME && address?.Company_Name"><strong class="u-capitalize"><span style="color:#999;">{{address?.Company_Name}}</span></strong></p>
+                                                    <p class="u-mb--5" style="line-height: 1.25;">
+                                                        {{address?.Address}}<br>
+                                                        <span [innerHtml]="(address && address?.Address2) ? ((address?.Address2 + '<br>') | safeHtml) : ''"></span>
+                                                        {{address?.City+','}} {{(address?.State) ? address?.State : ''}} {{(address?.ZipCode) ? address?.ZipCode : ''}}<br>
+                                                        {{address?.Country | translate}}
+                                                    </p>
+                                                    <p *ngIf="PHONE_NUMBER_MASK" class="u-mb--5"><span>{{address?.Phone_Number | mask: '(000) 000-0000'}}</span></p>
+                                                    <p *ngIf="!PHONE_NUMBER_MASK" class="u-mb--5"><span>{{address?.Phone_Number}}</span></p>
+                                                    
+                                                </div>
+                                                <div class="address">
+                                                    <a routerLink="{{'/member/edit-address/'+address.ID}}" class="link-green">{{'EDIT' | translate}}</a> <span>|</span> 
+                                                    <a href="javascript:void(0);" (click)="removeAddress(address.ID,address.Default_Address)" class="link-red">{{'REMOVE' | translate}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Newsletter component here -->
+<app-newsletter></app-newsletter>

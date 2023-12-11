@@ -1,0 +1,102 @@
+<div class="product--specifications">
+    <div class="list-single-main-item fl-wrap block_box mt-4" *ngIf="NewsComments && NewsComments.length">
+        <div class="list-single-main-item-title">
+            <h3>Post Comments</h3>
+        </div>
+        <div class="list-single-main-item_content fl-wrap">
+            <div class="reviews-comments-wrap">
+                <!-- reviews-comments-item -->  
+                <div class="reviews-comments-item only-comments" *ngFor="let Comment of NewsComments let pi=index" [hidden]="pi+1 > ShowCommentsCount">
+                    <div class="reviews-comments-avatar">
+                        <img src="./assets/images/avataaars.svg" alt="Avatar"> 
+                    </div>
+                    <div class="reviews-comments-item-text fl-wrap">
+                        <div class="reviews-comments-header fl-wrap">
+                            <h4>{{Comment.name}}</h4>
+                        </div>
+                        <p [innerHtml]="((Comment && Comment.comment)? Comment.comment : '') | safeHtml"></p>
+
+                        <div class="reviews-comments-item-footer fl-wrap">
+                            <div class="reviews-comments-item-date"><span><i class="fe-calendar mr-2"></i>{{Comment.created_at}}</span></div>
+                            <a href="#" class="reply-item ml-auto d-none">Reply</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <a *ngIf="(HideViewCommentsMore && NewsComments.length > 1)" class="moreless-button text-red" (click)="ViewMoreComments(NewsComments.length)" href="javascript:;">View all {{NewsComments.length}} comments</a>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    
+    
+    <div class="reviews--summary u-flexed u-align-center">
+        <a href="javascript:;" (click)="openModal(PostCommentModal)" class="button button--main button-md">{{'POST_COMMENT' | translate}}</a>
+    </div>
+    <div class="clearfix"></div>
+
+</div>
+
+<!-- Write a review Modal -->
+<ng-template #PostCommentModal>
+    <div class="modal-dialog-medium modal-dialog-medium-md">
+        <div class="modal-header modal-header-sm position-relative">
+            <h3>{{'POST_COMMENT' | translate}} </h3>
+            <button type="button" class="modal-close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body modal-body-sm">
+            <form [formGroup]="commentForm" (ngSubmit)="onSubmit(commentForm.value)">
+                
+
+                <div class="row justify-content-center u-mb--15" [ngClass]="userData && userData.screen_name ? 'd-none' : ''">
+                    <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                        <div [ngClass]="commentForm.controls['Name'].dirty && commentForm.controls['Name'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                            <input type="text" class="form-control solid rounded" formControlName="Name" id="Name" name="Name" placeholder="Name">
+                            <div *ngIf="commentForm.controls['Name'].dirty && commentForm.controls['Name'].errors">
+                                <div *ngIf="commentForm.controls['Name'].errors.required">
+                                    <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row justify-content-center u-mb--15" [ngClass]="userData && userData.email ? 'd-none' : ''">
+                    <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                        <div [ngClass]="commentForm.controls['Email'].dirty && commentForm.controls['Email'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                            <input type="email" class="form-control solid rounded" formControlName="Email" id="Email" name="Email" placeholder="Email Address">
+                            <div *ngIf="commentForm.controls['Email'].dirty && commentForm.controls['Email'].errors">
+                                <div *ngIf="commentForm.controls['Email'].errors.required">
+                                    <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row justify-content-center u-mb--15">
+                    <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                        <div [ngClass]="commentForm.controls['Comment'].dirty && commentForm.controls['Comment'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                            <textarea type="text" class="form-control solid rounded" formControlName="Comment" id="Comment" name="Comment" required placeholder="Enter your Comment here" rows="5"></textarea>
+                            <div *ngIf="commentForm.controls['Comment'].dirty && commentForm.controls['Comment'].errors">
+                                <div *ngIf="commentForm.controls['Comment'].errors.required">
+                                    <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-start u-align-center">
+                    <div class="col-12 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <button type="submit" class="button button--main button-md">{{'POST' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+<!-- //End Write a review Modal -->

@@ -1,0 +1,166 @@
+ /* Categories Page
+------------------------------------*/
+.section-Accessories {
+    @include margin-top(10);
+    @include padding(25 0 15);
+    /*border-top: 1px solid $success;
+    border-bottom: 1px solid $success;*/
+    
+    @include responsive(xs) {
+        @include padding(30 0 15);
+    }
+    
+    .item {
+        color: $white;
+        text-align: center;
+        @include margin(0);
+        @include padding(0);
+        
+        img {
+            cursor: pointer;
+            @include opacity(.5);
+            @include padding(10 20);
+            @include filter(grayscale(100%));
+            -webkit-transition: opacity .3s ease,-webkit-filter .3s ease;
+            transition: opacity .3s ease,-webkit-filter .3s ease;
+            transition: filter .3s ease,opacity .3s ease;
+            transition: filter .3s ease,opacity .3s ease,-webkit-filter .3s ease;
+            -webkit-transition: -webkit-filter .3s ease,opacity .3s ease;
+        }
+        
+        &:hover {
+            img {
+                @include opacity(1);
+                @include filter(grayscale(0));
+            }
+        }
+    }
+}
+
+.AgfolksAccessories, .FeaturedProducts {
+    position: relative;
+}
+.FeaturedProducts {
+    .slick-list {
+        @include margin(0 -12);
+        width: calc(100% + 24px);
+        overflow: visible !important;
+        
+        .slick-slide {
+            @include padding(0 12);
+        }
+    }
+    
+    .wrap-quickview-button {
+        .quick-view {
+            .tooltip {
+                &-inner {
+                    @media (min-width: 992px) {
+                        white-space: nowrap;
+                        min-width: 85px !important;
+                    }
+                }
+            }
+        }
+    }
+    
+    .slick-prev, .slick-next {
+        top: -40px;
+        z-index: 99 !important;
+        position: absolute;
+        pointer-events: all;
+        @include margin(0);
+        @include padding(0);
+        box-sizing: border-box;
+        font-size: 0px!important;
+        @include size(24px);
+        @include border-radius(3px);
+        background: $primary !important;
+        @include transition(all 0.3s);
+        visibility: visible;
+        @include opacity(1);
+        @include box-shadow(0 0 10px rgba($black, 0.15));
+        
+        &:hover, &:focus, &:active {
+            background-color: $primary !important;
+        }
+        
+        &:before {
+            @include font-size(12);
+            line-height: 24px;
+            @include border-radius(2px);
+        }
+    }
+    
+    .slick-prev {
+        left: auto;
+        right: 30px !important;
+        
+        &:before {
+            content: "\f111";
+            font-family: $woodmart;
+        }
+    }
+    .slick-next {
+        left: auto;
+        right: 0px !important;
+        
+        &:before {
+            content: "\f110";
+            font-family: $woodmart;
+        }
+    }
+    
+    &:hover, &:focus, &:active {
+        .slick-prev, .slick-next {
+            visibility: visible;
+            @include opacity(1);
+            @include transition(all 0.5s);
+        
+            &:hover, &:focus, &:active {
+                background-color: $primary !important;
+            }
+        }
+        .slick-prev {
+            left: auto;
+            right: 30px !important;
+        }
+        .slick-next {
+            left: auto;
+            right: 0px !important;
+        }
+    }
+}
+
+.FeaturedProducts {
+    .owl-stage-outer, .slick-list {
+        z-index: 2;
+        position: relative;
+
+        &:before,
+        &:after {
+            top: -15px;
+            content: ' ';
+            width: 100vw;
+            position: absolute;
+            height: calc(100% + 15px);
+        }
+        &:before {
+            z-index: 3;
+            right: auto;
+            /*left: calc(-100vw - 13px);*/
+            left: calc(-100vw - 3px);
+            @include linear-gradient(to right, rgba($white, 1), rgba($white, 1));
+        }
+        &:after {
+            z-index: 1;
+            left: auto;
+            /*right: calc(-100vw - 13px);*/
+            right: calc(-100vw - 6px);
+            @include linear-gradient(to left, rgba($white, 1), rgba($white, 1));
+        }
+    }
+}
+
+/* Categories */
+

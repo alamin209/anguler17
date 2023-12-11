@@ -1,0 +1,366 @@
+<style type="text/css">
+.resources--inner > .checkbox-primary input[type="checkbox"]:checked + label {
+    color: #fff !important;
+}
+</style>
+<div class="auth--body auth--body-md My--Profile">
+    <div class="auth--body__inner auth--body__inner-md">
+        <div class="container">
+            <div class="row">
+                <aside class="col-12 col-lg-3 col-xl-3">
+                    <div class="row u-mb--30 u-mb--30-sm">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <h3 class="section--title section--title-sm"><a routerLink="/member/profile">{{'MY_ACCOUNT' | translate}}</a></h3>
+                        </div>
+                    </div>
+                    
+                    <!--Add side bar-->
+                    <app-side-bar></app-side-bar>
+                    
+                    <div class="floating--button">
+                        <button routerLink="/member/profile" type="button" class="button button--orange button-radius button-md button-block"><i class="fe-check mr-2"></i>Save</button>
+                    </div>
+                    
+                </aside>
+                <div class="col-12 col-lg-9 col-xl-9 has--leftsidebar has--leftsidebar-md">
+                    <div class="c-breadcrumb">
+                        <nav class="missio-breadcrumb">
+                            <a class="breadcrumb-link" routerLink="/">Home</a> 
+                            <a class="breadcrumb-link " routerLink="/member/profile">{{'MY_DASHBOARD' | translate}}</a> 
+                            <span class="breadcrumb-last">{{'CHOOSE_CATEGORIES' | translate}}</span>
+                        </nav>
+                    </div> 
+                    <!--
+                    <div class="page-head page-head-sm d-flex w-100 flex-row align-items-center justify-content-between">
+                        <h3 class="u-heading--small u-heading--small-sm">{{'CHOOSE_CATEGORIES' | translate}}</h3>
+                        <div class="auto">
+                            <div class="checkbox checkbox-primary mb-0">
+                                <input (change)="SetAllMyInterest()"
+                                    id="SelectAllInterest"
+                                    type="checkbox"
+                                    name="SelectAllInterest"
+                                    value="SelectAllInterest"
+                                    [checked]="SelectAllInterestAction ? true : false"
+                                  />
+                                  <label for="SelectAllInterest">Select All</label
+                                  >
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="profile--box">
+                        <div class="portlet light">
+                            <div class="portlet--body">
+                                <div class="portlet--body--inner portlet--body--inner-sm">
+                                    <ul class="TeachItPro--Category" *ngIf="categories && categories.length">
+                                        
+                                        <li class="TeachItPro--Category-Items" *ngFor="let cat of categories">
+                                            <div class="TeachItPro--Category-Holder">
+                                                <button [ngClass]="{'is--selected': cat?.selected == true}" class="TeachItPro--Category-Button " role="option" aria-selected="false" style="" (click)="SetMyInterest(cat,cat.ID,VIDEO_CATEGORIES_TABLE);">
+                                                    <div class="interestCardWrapper">
+                                                        <div class="Cate__Name"><span [innerHtml]="cat?.name | safeHtml"></span></div>
+                                                        <div>
+                                                            <div class="hoverText"><span [innerHtml]="cat?.name | safeHtml"></span></div>
+                                                            <div class="hoverMask"></div>
+                                                        </div>
+                                                        <div class="selectedWrapper">
+                                                            <div class="TeachItPro__Checked"><svg class="TeachItPro__Svg" height="28" width="28" viewBox="0 0 24 24" aria-label="selected" role="img"><title>selected</title><path d="M18.88,9.88 L10.22,18.55 L5.10,13.42 C4.61,12.93 4.61,12.14 5.10,11.65 C5.58,11.16 6.38,11.16 6.86,11.65 L10.22,15.01 L17.12,8.12 C17.61,7.63 18.40,7.63 18.88,8.12 C19.37,8.61 19.37,9.40 18.88,9.88 M12.00,0.00 C5.37,0.00 0.00,5.37 0.00,12.00 C0.00,18.63 5.37,24.00 12.00,24.00 C18.63,24.00 24.00,18.63 24.00,12.00 C24.00,5.37 18.63,0.00 12.00,0.00"></path></svg></div>
+                                                            <div class="selectedOverlay"></div>
+                                                        </div>
+                                                    </div>
+                                                    <img class="TeachItPro__Thumbnail" role="img" src="{{
+                                                        cat && cat.Category_Icon && cat.Category_Icon != ''
+                                                          ? PORTAL_URL + 'files/missiotv/categories/' + cat.CID + '/' + cat.Category_Icon
+                                                          : './assets/images/media/no--categ-image.png'
+                                                      }}" >
+                                                </button>
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile--box">
+                        <div class="portlet light">
+                            <div class="portlet--body">
+                                <div class="portlet--body--inner portlet--body--inner-sm">
+                                    
+                                    <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
+                                        
+                                        <div class="row justify-content-center" [ngClass]="ASK_CATEGORIES_ON_SIGNUP ? '' : 'd-none'">
+                                            <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div [ngClass]="_cats_validated ? 'form-group form-group--has-error' : 'form-group'">
+                                                    <div class="selectdropdown">
+                                                        <select class="form-control solid rounded" formArrayName="categories" id="categories" name="categories" placeholder="Categories" multiple>
+                                                            <option *ngFor="let opt of categories" value="{{ opt.ID }}" [selected]="opt.selected" [innerHtml]="opt?.name | safeHtml" > </option>
+                                                        </select>
+                                                        <div *ngIf="_cats_validated">
+                                                            <div *ngIf="_cats_validated">
+                                                                <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row justify-content-start u-align-center">
+                                            <div class="col-12 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="form-group u-flexed u-align-center">
+                                                    <button type="submit" class="button button--green button-md">{{'SAVE' | translate}}</button>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                    
+                    <div class="w-100">
+                        
+                        <div class="radio-btn--group mb-4">
+                            <div class="button-set mr-4">
+                                <label for="ProductCategories"><input (change)="CategoriesFrom('products')" id="ProductCategories" type="radio" name="ProductCategories" value="1" [checked]="ProductCategories ? true : false" /><span></span>{{'RESOURCES' | translate}}</label>
+                            </div>
+
+                            <div class="button-set">
+                                <label for="VideoCategories"><input (change)="CategoriesFrom('video')" id="VideoCategories" type="radio" name="VideoCategories" value="1" [checked]="VideoCategories ? true : false" /><span></span> {{'VIDEO' | translate}}</label>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <section class="resources--uploads resources--uploads-sm pt-1">
+                        
+                        <div class="w-100">
+                            <ul class="resources resources-sm" *ngIf="ProductCategories && pcategories && pcategories.length">
+                                <li class="resources-items is--Expanded" *ngFor="let cat of pcategories; let i = index">
+                                    <div class="resources--inner">
+                                        <!--<a  href="javascript:;" >
+                                            <h4 [innerHtml]="cat?.name | safeHtml"></h4>
+                                        </a>-->
+                                        
+                                        <div class="checkbox checkbox-primary mb-0 ml-2">
+                                            <input (click)="SetMyInterest(cat,cat.ID,PRODUCT_CATEGORIES_TABLE);"
+                                                id="catName_{{cat.ID}}"
+                                                type="checkbox"
+                                                name="catName_{{cat.ID}}"
+                                                value="catName_{{cat.ID}}"
+                                                [checked]="cat.selected ? true : false"
+                                              />
+                                              <label for="catName_{{cat.ID}}"  [innerHtml]="cat?.name | safeHtml"></label>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="resources--collapse" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                        <ul class="resources--group">
+                                            <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                    <input (click)="SetMyInterest(cat,cat.ID,PRODUCT_CATEGORIES_TABLE);"
+                                                        id="catName_{{cat.ID}}"
+                                                        type="checkbox"
+                                                        name="catName_{{cat.ID}}"
+                                                        value="catName_{{cat.ID}}"
+                                                        [checked]="cat.selected ? true : false"
+                                                      />
+                                                      <label  for="catName_{{cat.ID}}"  [innerHtml]="cat?.name | safeHtml"></label>
+                                                </div>
+                                                <ul class="resources--group" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                    <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                        <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                            <input (click)="SetMyInterest(cat,cat.ID,PRODUCT_CATEGORIES_TABLE);"
+                                                                id="catName_{{cat.ID}}"
+                                                                type="checkbox"
+                                                                name="catName_{{cat.ID}}"
+                                                                value="catName_{{cat.ID}}"
+                                                                [checked]="cat.selected ? true : false"
+                                                              />
+                                                              <label  for="catName_{{cat.ID}}"   [innerHtml]="cat?.name | safeHtml"></label>
+                                                        </div>
+                                                        <ul class="resources--group" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                            <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                                <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                                    <input (click)="SetMyInterest(cat,cat.ID,PRODUCT_CATEGORIES_TABLE);"
+                                                                        id="catName_{{cat.ID}}"
+                                                                        type="checkbox"
+                                                                        name="catName_{{cat.ID}}"
+                                                                        value="catName_{{cat.ID}}"
+                                                                        [checked]="cat.selected ? true : false"
+                                                                      />
+                                                                      <label  for="catName_{{cat.ID}}"   [innerHtml]="cat?.name | safeHtml"></label>
+                                                                </div>
+                                                                <ul class="resources--group" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                                    <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                                        <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                                            <input (click)="SetMyInterest(cat,cat.ID,PRODUCT_CATEGORIES_TABLE);"
+                                                                                id="catName_{{cat.ID}}"
+                                                                                type="checkbox"
+                                                                                name="catName_{{cat.ID}}"
+                                                                                value="catName_{{cat.ID}}"
+                                                                                [checked]="cat.selected ? true : false"
+                                                                              />
+                                                                              <label for="catName_{{cat.ID}}"  [innerHtml]="cat?.name | safeHtml"></label>
+                                                                        </div>
+                                                                        <ul class="resources--group" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                                            <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                                                <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                                                    <input (click)="SetMyInterest(cat,cat.ID,PRODUCT_CATEGORIES_TABLE);"
+                                                                                        id="catName_{{cat.ID}}"
+                                                                                        type="checkbox"
+                                                                                        name="catName_{{cat.ID}}"
+                                                                                        value="catName_{{cat.ID}}"
+                                                                                        [checked]="cat.selected ? true : false"
+                                                                                      />
+                                                                                      <label  for="catName_{{cat.ID}}"   [innerHtml]="cat?.name | safeHtml"></label>
+                                                                                </div>
+                                                                                <ul class="resources--group" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                                                    <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                                                        <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                                                            <input (click)="SetMyInterest(cat,cat.ID,PRODUCT_CATEGORIES_TABLE);"
+                                                                                                id="catName_{{cat.ID}}"
+                                                                                                type="checkbox"
+                                                                                                name="catName_{{cat.ID}}"
+                                                                                                value="catName_{{cat.ID}}"
+                                                                                                [checked]="cat.selected ? true : false"
+                                                                                              />
+                                                                                              <label  for="catName_{{cat.ID}}"   [innerHtml]="cat?.name | safeHtml"></label>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                            
+                            <ul class="resources resources-sm" *ngIf="VideoCategories && vcategories && vcategories.length">
+                                <li class="resources-items is--Expanded" *ngFor="let cat of vcategories; let i = index">
+                                    <div class="resources--inner">
+                                        <!--<a  href="javascript:;" >
+                                            <h4 [innerHtml]="cat?.name | safeHtml"></h4>
+                                        </a>-->
+                                        
+                                        <div class="checkbox checkbox-primary mb-0 ml-2">
+                                            <input (click)="SetMyInterest(cat,cat.ID,VIDEO_CATEGORIES_TABLE);"
+                                                id="catName_{{cat.ID}}"
+                                                type="checkbox"
+                                                name="catName_{{cat.ID}}"
+                                                value="catName_{{cat.ID}}"
+                                                [checked]="cat.selected ? true : false"
+                                              />
+                                              <label for="catName_{{cat.ID}}"  [innerHtml]="cat?.name | safeHtml"></label>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="resources--collapse" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                        <ul class="resources--group">
+                                            <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                    <input (click)="SetMyInterest(cat,cat.ID,VIDEO_CATEGORIES_TABLE);"
+                                                        id="catName_{{cat.ID}}"
+                                                        type="checkbox"
+                                                        name="catName_{{cat.ID}}"
+                                                        value="catName_{{cat.ID}}"
+                                                        [checked]="cat.selected ? true : false"
+                                                      />
+                                                      <label  for="catName_{{cat.ID}}"  [innerHtml]="cat?.name | safeHtml"></label>
+                                                </div>
+                                                <ul class="resources--group" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                    <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                        <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                            <input (click)="SetMyInterest(cat,cat.ID,VIDEO_CATEGORIES_TABLE);"
+                                                                id="catName_{{cat.ID}}"
+                                                                type="checkbox"
+                                                                name="catName_{{cat.ID}}"
+                                                                value="catName_{{cat.ID}}"
+                                                                [checked]="cat.selected ? true : false"
+                                                              />
+                                                              <label  for="catName_{{cat.ID}}"   [innerHtml]="cat?.name | safeHtml"></label>
+                                                        </div>
+                                                        <ul class="resources--group" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                            <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                                <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                                    <input (click)="SetMyInterest(cat,cat.ID,VIDEO_CATEGORIES_TABLE);"
+                                                                        id="catName_{{cat.ID}}"
+                                                                        type="checkbox"
+                                                                        name="catName_{{cat.ID}}"
+                                                                        value="catName_{{cat.ID}}"
+                                                                        [checked]="cat.selected ? true : false"
+                                                                      />
+                                                                      <label  for="catName_{{cat.ID}}"   [innerHtml]="cat?.name | safeHtml"></label>
+                                                                </div>
+                                                                <ul class="resources--group" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                                    <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                                        <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                                            <input (click)="SetMyInterest(cat,cat.ID,VIDEO_CATEGORIES_TABLE);"
+                                                                                id="catName_{{cat.ID}}"
+                                                                                type="checkbox"
+                                                                                name="catName_{{cat.ID}}"
+                                                                                value="catName_{{cat.ID}}"
+                                                                                [checked]="cat.selected ? true : false"
+                                                                              />
+                                                                              <label for="catName_{{cat.ID}}"  [innerHtml]="cat?.name | safeHtml"></label>
+                                                                        </div>
+                                                                        <ul class="resources--group" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                                            <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                                                <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                                                    <input (click)="SetMyInterest(cat,cat.ID,VIDEO_CATEGORIES_TABLE);"
+                                                                                        id="catName_{{cat.ID}}"
+                                                                                        type="checkbox"
+                                                                                        name="catName_{{cat.ID}}"
+                                                                                        value="catName_{{cat.ID}}"
+                                                                                        [checked]="cat.selected ? true : false"
+                                                                                      />
+                                                                                      <label  for="catName_{{cat.ID}}"   [innerHtml]="cat?.name | safeHtml"></label>
+                                                                                </div>
+                                                                                <ul class="resources--group" *ngIf="cat && cat.Subcategories && cat.Subcategories.length">
+                                                                                    <li class="resources--group-items" *ngFor="let cat of cat.Subcategories; let i = index">
+                                                                                        <div class="checkbox checkbox-primary mb-0 ml-2">
+                                                                                            <input (click)="SetMyInterest(cat,cat.ID,VIDEO_CATEGORIES_TABLE);"
+                                                                                                id="catName_{{cat.ID}}"
+                                                                                                type="checkbox"
+                                                                                                name="catName_{{cat.ID}}"
+                                                                                                value="catName_{{cat.ID}}"
+                                                                                                [checked]="cat.selected ? true : false"
+                                                                                              />
+                                                                                              <label  for="catName_{{cat.ID}}"   [innerHtml]="cat?.name | safeHtml"></label>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Newsletter component here -->
+<app-newsletter></app-newsletter>

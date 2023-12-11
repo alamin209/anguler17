@@ -1,0 +1,22 @@
+<div class="section-Accessories section-Accessories-xs d-none" *ngIf="aAttachmentList && aAttachmentList.length">
+    <div class="container">
+        <div class="sectionTitle-wrapper sectionTitle-wrapper-xs no-margin text-center">
+            <h2 class="heading--title--medium heading--title--medium-xs">{{'ATTACHMENTS_ACCESSORIES' | translate}}</h2>
+        </div>
+    </div>
+    <div class="container" *ngIf="aAttachmentList && aAttachmentList.length">
+        <div id="AgfolksAccessories" class="AgfolksAccessories">
+            <owl-carousel-o [options]="attachmentASOptions" [items]="images"
+                [carouselClasses]="['owl-theme', 'sliding']">
+                <div class="" *ngFor="let aATypes of aAttachmentList let i = index">
+                    <div class="item">
+                        <div class="item">
+                            <img routerLink="store" [queryParams]="{accessories: 'yes', types : aATypes?.Slug}" 
+                                src="{{aATypes?.ImagePath}}" alt="{{aATypes?.Name}}" class="img-fluid" width="450" height="450">
+                        </div>
+                    </div>
+                </div>
+            </owl-carousel-o>
+        </div>
+    </div>
+</div>

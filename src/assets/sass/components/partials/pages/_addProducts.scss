@@ -1,0 +1,289 @@
+/* Add Product Page
+------------------------------------*/
+
+$border1:     #eee;
+$border2:     #c4c4c4;
+$titleColor:  #1C2260;
+
+// html,body{height:100% !important}
+// body{overflow:inherit!important;overflow-x:hidden!important}
+// html {
+//   overflow-y: inherit !important;
+// }
+
+.font-weight-md {
+  font-weight: 500 !important;
+}
+.font-weight-bold {
+  font-weight: 600 !important;
+}
+
+.position-sticky {
+  position: sticky !important;
+}
+.top-120 {
+  top: 105px;
+}
+
+.card-panel {
+  background: $white;
+  @include margin-bottom(30);
+  @include border-radius(0.5rem);
+  @include box-shadow(0px 3px 15px rgba($black, 0.05));
+
+  &-body {
+    @include padding(30);
+  }
+
+  &-title {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $titleColor;
+    @include margin-bottom(25);
+    @include padding-bottom(10);
+    border-bottom: 1px solid $border1;
+  }
+
+  .form-group {
+    label {
+      @extend .font-weight-bold;
+    }
+    .form-control {
+      @extend .font-weight-md;
+      border-color: $border2;
+      font-size: 14px !important;
+
+      &:focus {
+        border-color: $blue !important;
+        @include box-shadow(0 0 0 0.15rem rgba($blue, 0.25) !important);
+      }
+    }
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .input-group-text {
+    @extend .font-weight-bold;
+  }
+
+  .helper-text {
+    color: #697887;
+    font-size: 12px;
+    font-weight: 401;
+    @include margin-top(-4);
+    @include margin-bottom(10);
+  }
+
+  .button {
+    min-width: inherit;
+  }
+
+  .selectdropdown {
+    select {
+      height: 44px;
+      min-height: 44px;
+      border-color: $border2;
+      font-size: 14px !important;
+
+      &:focus {
+        border-color: $blue !important;
+        @include box-shadow(0 0 0 0.15rem rgba($blue, 0.25) !important);
+      }
+
+      &.form-control {
+        border-color: $border2;
+
+        &:focus {
+          border-color: $blue !important;
+          @include box-shadow(0 0 0 0.15rem rgba($blue, 0.25) !important);
+        }
+      }
+    }
+    &::after {
+      top: 17px;
+      color: $black;
+      border-left: 0 none;
+      @include font-size(12);
+      @include transform(translateY(0));
+    }
+  }
+}
+
+.button-upload-wrap {
+  @include flexbox;
+  min-height: 125px;
+  @include padding(15);
+  @include flex-wrap(wrap);
+  @include align-items(center);
+  @include justify-content(center);
+  border-radius: 6px !important;
+  border: 2px dashed $border2 !important;
+
+  .upload--button {
+    margin: 1em 0;
+    cursor: pointer;
+    text-align: center;
+    @include flexbox;
+    @include flex-direction(column, vertical);
+
+    .fe-upload {
+      color: #98a6ad;
+      font-size: 2.25rem;
+      margin-bottom: 10px;
+    }
+    h3 {
+      color: $blue;
+      padding: 0 30px;
+      font-weight: 800;
+      max-width: 275px;
+      font-size: 1.25rem;
+    }
+  }
+
+  input[type="file"] {
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    color: #999;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    font-size: 15px;
+    position: absolute;
+    @include opacity(0);
+  }
+}
+
+.text-req {
+  top: 0.5rem;
+  color: $red;
+  font-size: 24px;
+  position: relative;
+  line-height: 14px;
+  max-height: 14px;
+  display: inline-flex;
+}
+
+.form-section {
+  color: $black;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  @include margin-top(0);
+  @include margin-bottom(20);
+  @include padding-bottom(5);
+  border-bottom: 1px solid $border1;
+}
+
+.ck.ck-editor__main > .ck-editor__editable {
+    min-height: 150px;
+    box-shadow: none !important;
+}
+.ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable {
+  p {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+  }
+}
+.ck-placeholder,
+.ck .ck-placeholder {
+  opacity: 0.75 !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+
+
+// 
+
+.cuppa-dropdown {
+  font-size: 15px;
+  font-weight: 500;
+  min-height: 44px;
+  padding: 0 !important;
+  border-radius: 0.25rem;
+  border: 1px solid $border2;
+  @include box-shadow(2px 2px 4px rgba(214,218,225,0.2));
+
+  .selected-list {
+    height: 42px;
+
+    .c-btn {
+      font-size: 15px;
+      font-weight: 500;
+      @extend .selected-list;
+      padding: 0 .625rem !important;
+    }
+    .c-angle-down,
+    .c-angle-up {
+      right: 14px !important;
+      margin-top: -2px !important;
+    }
+    .clear-all {
+      right: 38px;
+      margin-top: -1px !important;
+
+      &:hover {
+        svg {
+          fill: $red !important;
+        }
+      }
+    }
+
+    .c-list {
+      .c-token {
+        border-radius: 0.25rem;
+        border: 1px solid $border2;
+        background-color: $border1;
+        padding: 3px 20px 3px 6px !important;
+
+        .c-label {
+          color: $black;
+          font-size: 12px;
+        }
+        .c-remove {
+          right: 6px;
+          margin-top: -1px !important;
+
+          svg {
+            fill: $black;
+          }
+          &:hover {
+            svg {
+              fill: $red !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .dropdown-list {
+    padding-top: 1px !important;
+
+    .list-area {
+      padding-top: 10px;
+      max-height: 215px;
+      overflow-y: auto;
+
+      ul > li {
+        font-size: 15px !important;
+        font-weight: 500 !important;
+      }
+    }
+
+    [class^="arrow-"] {
+      display: none !important;
+    }
+  }
+}
+
+
+@include breakpoint(767) {
+
+}
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+
+}

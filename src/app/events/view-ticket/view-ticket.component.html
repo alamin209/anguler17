@@ -1,0 +1,181 @@
+<style type="text/css">
+.star-rating{height:42px}
+</style>
+
+<div class="w-100 py-4 py-md-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-11 col-md-12 col-sm-12">
+                <div class="row">
+                    
+                    <aside class="col-12 col-lg-3 col-xl-3">
+                        <app-left-nav></app-left-nav>
+                    </aside>
+                    
+                    <div class="col-12 col-lg-9 col-xl-9 pl-md-5">
+                        <div class="c-breadcrumb d-flex align-items-center justify-content-between mb-5">
+                            <nav class="missio-breadcrumb mb-0">
+                                <a class="breadcrumb-link" routerLink="/">Home</a>
+                                <a class="breadcrumb-link" routerLink="/member/profile">My Dashboard</a>
+                                <a class="breadcrumb-link" routerLink="/tickets">Tickets</a>
+                                <span class="breadcrumb-last">View Ticket</span>
+                            </nav>
+                        </div>
+                        
+                        <div class="page-head page-head-sm">
+                            <h3 class="u-heading--small u-heading--small-sm mb-3">View Ticket</h3>
+                        </div>
+                        
+                        <div class="w-100">
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="info-box">
+                                        <h4 class="d-flex align-items-center box-title">Product Name</h4>
+                                        <p class="box-content fs-15 text-dark-50" [innerHtml]="((Ticket) ? Ticket.Product : '') | safeHtml"></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="info-box">
+                                        <h4 class="d-flex align-items-center box-title">Sub Product</h4>
+                                        <p class="box-content fs-15 text-dark-50" [innerHtml]="((Ticket) ? Ticket.SubProduct : '') | safeHtml"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="info-box">
+                                        <h4 class="d-flex align-items-center box-title">Issue Request</h4>
+                                        <p class="box-content fs-15 text-dark-50" [innerHtml]="((Ticket) ? Ticket.Request : '') | safeHtml"></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="info-box">
+                                        <h4 class="d-flex align-items-center box-title">Status</h4>
+                                        <p class="box-content fs-15 text-dark-50" [innerHtml]="((Ticket) ? Ticket.Status : '') | safeHtml"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="info-box">
+                                        <h4 class="d-flex align-items-center box-title">Details</h4>
+                                        <p class="box-content fs-15 text-dark-50" [innerHtml]="((Ticket) ? Ticket.Details : '') | safeHtml"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="info-box">
+                                        <h4 class="d-flex align-items-center box-title">How Resolved</h4>
+                                        <p class="box-content fs-15 text-dark-50" [innerHtml]="((Ticket) ? Ticket.HowResolved : '') | safeHtml"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="info-box">
+                                        <h4 class="d-flex align-items-center box-title">Contact Name</h4>
+                                        <p class="box-content fs-15 text-dark-50" [innerHtml]="((Ticket) ? Ticket.ContactName : '') | safeHtml"></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="info-box">
+                                        <h4 class="d-flex align-items-center box-title">Associated Configuration Item</h4>
+                                        <p class="box-content fs-15 text-dark-50" [innerHtml]="((Ticket) ? Ticket.AssociatedItem : '') | safeHtml"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="info-box">
+                                        <h4 class="d-flex align-items-center box-title">Associated Category</h4>
+                                        <p class="box-content fs-15 text-dark-50" [innerHtml]="((Ticket) ? Ticket.AssociatedCategory : '') | safeHtml"></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="info-box">
+                                        <h4 class="d-flex align-items-center box-title">Associated Sub Category</h4>
+                                        <p class="box-content fs-15 text-dark-50" [innerHtml]="((Ticket) ? Ticket.AssociatedSubCategory : '') | safeHtml"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--
+                            <div class="row">
+                                <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="info-box">
+                                        <h4 class="d-flex align-items-center box-title">Satisfactory Rating</h4>
+                                        <div class="d-flex align-items-center star-rating text-dark-50">
+                                            <span class="star-badge"><span class="star-badge-wrap"><i class="far fa-star mr-1"></i><i class="far fa-star mr-1"></i><i class="far fa-star mr-1"></i><i class="far fa-star mr-1"></i><i class="far fa-star mr-1"></i></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+
+                        </div>
+                        
+                        <div class="hr mt-4 mb-4"><hr /></div>
+                        
+                        
+                        <div class="page-head page-head-sm">
+                            <h3 class="u-heading--small u-heading--small-sm mb-0">All Replies ({{TicketReplies?.length}})</h3>
+                        </div>
+                        <div *ngIf="TicketReplies && TicketReplies.length" class="w-full topics-body flex-column">
+                            <div *ngFor="let TicketReply of TicketReplies; let i = index" class="topic topic-comment ml-0">
+                                <div class="topic-items topic-items-sm">
+                                    <header class="w-full d-flex position-relative topic-header topic-header-sm pb-0 mb-2">
+                                        <div class="topic-avatar vc" style="background-color: #65748A;">
+                                            <span class="avatar vc"><span>{{TicketReply.AddedByinitials}}</span></span>
+                                        </div>
+                                        <div class="w-full d-flex justify-content-between topic-details">
+                                            <div class="topic-name vc fw-bold">{{TicketReply.AddedBy}}</div>
+                                            <div class="ml-auto topic-date vc fs-14 text-dark-50">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock missio-svg size-xs mr-1"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {{TicketReply.RepliedDate}}
+                                            </div>
+                                        </div>
+                                    </header>
+                                    <div class="topic-content">
+                                        <div class="topic-content-body">
+                                            <p class="text-dark-50">{{TicketReply.Reply}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="hr"><hr></div>
+                        <form class="row form-group mt-4" [formGroup]="ticketcommentForm" (ngSubmit)="onSubmit(ticketcommentForm.value)">
+                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" [ngClass]="ticketcommentForm.controls['reply'].dirty && ticketcommentForm.controls['reply'].errors ? ' form-group--has-error' : ''">
+                                
+                                <label for="reply">Your Reply</label>
+                                <textarea formControlName="reply" id="reply" class="form-control" name="reply" placeholder="Enter your comment" required="" cols="45" rows="8"></textarea>
+
+                                <div *ngIf="ticketcommentForm.controls['reply'].dirty && ticketcommentForm.controls['reply'].errors">
+                                    <div *ngIf="ticketcommentForm.controls['reply'].errors.required">
+                                        <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                    </div>
+                                </div>
+                                <div class="form-submit comment-button mt-4">
+                                    <button type="submit" id="submit" class="button button--green button-inline button-md button-radius vc"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send missio-svg size-sm mr-2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>Post
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

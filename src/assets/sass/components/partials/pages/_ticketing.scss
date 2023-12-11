@@ -1,0 +1,114 @@
+/* Ticketing Page
+------------------------------------*/
+
+.ticketing-sidebar {
+    top: 110px;
+    position: sticky;
+    -webkit-position: sticky;
+}
+
+.search-ticket {
+    right: 0;
+    top: 12px;
+    height: 36px;
+    max-height: 36px;
+    position: absolute;
+
+    &.form-group {
+        label {
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        .form-control {
+            height: 36px;
+            font-size: 14px;
+            font-weight: 500;
+            min-height: 36px;
+            max-height: 36px;
+        }
+    }
+}
+
+.ticket-table {
+    thead {
+        background-color: $white_sh5;
+    }
+    thead,
+    tbody {
+        th, td {
+            font-size: 15px;
+        }
+        th {
+            font-weight: 700;
+        }
+        td {
+            font-weight: 500;
+        }
+    }
+    .avatar {
+        margin-right: 6px;
+        @include size(24px);
+        @include border-radius(50%);
+    }
+    .person {
+        font-size: 13px;
+        font-weight: 500;
+    }
+}
+
+.panel-title {
+    font-size: 26px;
+    border-bottom: 1px solid $border;
+}
+
+.link-primary {
+    color: $primary_sh1;
+}
+
+.link-blue {
+    border-bottom: 1px solid $primary_sh1;
+    @extend .animation-all;
+
+    &:hover {
+        border-bottom: 1px solid transparent;
+    }
+}
+
+.form-group {
+    .bucket {
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 18px;
+    }
+
+    .attach-field {
+        overflow: hidden;
+        @include padding(10 20);
+        border: 1px solid $border;
+        @include border-radius(60px);
+        @include box-shadow(2px 2px 4px rgba($border, 0.2));
+
+        span {
+            color: #7a7a7a;
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            text-transform: none !important;
+        }
+        .fake-button {
+          margin-left: 5px;
+          color: $primary_sh1;
+        }
+
+        input[type="file"] {
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          cursor: default;
+          position: absolute;
+          @include opacity(0);
+        }
+    }
+}

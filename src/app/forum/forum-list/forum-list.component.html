@@ -1,0 +1,175 @@
+<app-forum-banner></app-forum-banner>
+
+<section class="section--forum section--forum-sm">
+    <div class="container p-0 w-100">
+        <div class="row mb-3">
+            <div class="col-12 col-lg-9 col-md-8 col-sm-12 d-none">
+                <div class="page-head page-head-xs column start">
+                    <h2 class="u-heading--large u-heading--large-sm mb-2">Welcome to the Teacher’s {{'CHALKCHAT' | translate}}</h2>
+                    <p class="fs20 fs20-sm">{{'CHALKCHAT_DESC' | translate}}</p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-10 col-md-10 col-sm-12 col-centered">
+                <div class="d-flex w-100 justify-content-end">
+                    <a routerLink="{{'/forum/new'}}" class="button button--green button-inline button-md button--has-icon-before"><i class="fe-plus"></i> {{'START_A_NEW_TOPIC' | translate}}</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12 col-lg-10 col-md-10 col-sm-12 col-centered">
+                <div class="page--withSidebar page--withSidebar-sm pr-0">
+                    <div class="page-head page-head-xs align-items-center start mb-1 pr-0">
+                        <h3 class="u-heading--small u-heading--small-sm">{{'LATEST_FORUM' | translate}}</h3>
+                        <a routerLink="/forum/all" class="ml-auto link--green">View All Toipcs</a>
+                    </div>
+                    
+                    <div class="tip--forum">
+                        
+                        <!--
+                        <ul class="tip--forum-topics">
+                            <li class="tip--forum-header">
+                                <ul class="forum-titles">
+                                    <li class="tip--topic-title">Categories</li>
+                                    <li class="tip--topic-vcount">Topics</li>
+                                    <li class="tip--topic-reply">Replies</li>
+                                    <li class="tip--topic-lastpost">Freshness</li>
+                                </ul>
+                            </li>
+                            
+                            <li class="tip--forum-body" *ngFor="let forum of forumList; let i = index">
+                                <ul class="topic">
+                                    <li class="tip--topic-title">
+                                        <a class="tip-topic-permalink" routerLink="{{ '/forum/details/' + forum.slug }}" [innerHtml]="forum.title | safeHtml"></a>
+                                        
+                                        <p class="tip-topic-meta">
+                                            <span class="tip-topic-started-by">Started By: <a href="javascript:;" class="tip-author-link"><span class="tip-author-avatar"><img alt="" src="./assets/images/avataaars.svg" class="avatar avatar-18 photo" width="18" height="18"></span><span class="tip-author-name">{{forum?.Creater_name}}</span></a></span>
+                                            
+                                            <span class="tip-topic-started-in">in: <a href="javascript:;">Troubleshooting</a></span>
+                                        </p>
+                                    </li>
+                                    
+                                    <li class="tip--topic-vcount">2</li>
+                                    
+                                    <li class="tip--topic-reply">{{forum?.total_comments}}</li>
+                                    
+                                    <li class="tip--topic-lastpost">
+                                        <a routerLink="{{ '/forum/details/' + forum.slug }}"><i class="fe-clock mr-1"></i>2 hours, 13 minutes ago</a>
+		
+                                        <p class="tip-topic-meta">
+                                            <span class="tip-topic-freshness-author"><a href="javascript:;" class="tip-author-link"><span class="tip-author-avatar"><img alt="" src="./assets/images/avataaars.svg" class="avatar avatar-18 photo" width="18" height="18"></span><span class="tip-author-name">Mark Smith</span></a></span>
+                                        </p>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            
+                            <li class="tip--forum-body" *ngIf="ForumNotFound">
+                                <div class="forum--post__details forum--post__details-sm">
+                                    <div class="forum--post__desc">
+                                        <p>Not any Articles yet. </p>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                        -->
+                        
+                        
+                        <ul class="tip--forum-topics">
+                            <li class="tip--forum-header">
+                                <ul class="forum-titles">
+                                    <li class="tip--topic-title">{{'FORUM_TOPICS' | translate}}</li>
+                                    <li class="tip--topic-vcount">{{'FORUM_TOPICS' | translate}}</li>
+                                    <li class="tip--topic-reply">{{'REPLIES' | translate}}</li>
+                                    <li class="tip--topic-lastpost">{{'FRESHNESS' | translate}}</li>
+                                </ul>
+                            </li>
+                            <li *ngFor="let forum of forumcategoryList; let i = index" class="tip--forum-body ng-star-inserted">
+                                <ul class="topic">
+                                    <li class="tip--topic-title">
+                                        <a class="tip-topic-permalink" routerLink="/forum/all" [queryParams]="{category: forum.slug}"  [innerHtml]="forum.name | safeHtml"></a>
+                                        <p class="tip-topic-meta">
+                                            <span class="tip-topic-started-by">Started By: 
+                                                <a class="tip-author-link" href="javascript:;">
+                                                    <span  class="tip-author-avatar">
+                                                        
+                                                      <img class="avatar avatar-18 photo" 
+                                                        src="./assets/images/300_1.jpg"
+                                                        alt="{{'TITLE' | translate}}" width="18" height="18"
+                                                      />
+                                                      
+                                                    </span>
+                                                    <span span="tip-author-name" >{{'TITLE' | translate}}</span>
+                                                    
+                                                </a>
+                                            </span>
+                                            <span class="tip-topic-started-in">in: <a href="javascript:;">Troubleshooting</a></span>
+                                        </p>
+                                    </li>
+                                    <li class="tip--topic-vcount">{{forum?.total_posts}}</li>
+                                    <li class="tip--topic-reply">{{forum?.total_replies}}</li>
+                                    <li class="tip--topic-lastpost" *ngIf="forum && forum.last_post">
+                                        <a href="javascript:;">
+                                            <i class="fe-clock mr-1"></i>{{forum.last_post?.created_at}}
+                                        </a>
+                                        <p class="tip-topic-meta">
+                                            <span class="tip-topic-freshness-author">
+                                                <a class="tip-author-link" href="javascript:;">
+                                                    <span  class="tip-author-avatar">
+                                                        <img class="avatar avatar-18 photo" *ngIf="forum && forum.last_post && forum.last_post?.profile_picture && forum.last_post?.posted_from == 'frontend'"
+                                                        src="{{ AWSBUCKETURL }}files/avatar/{{forum.last_post?.CID}}/{{forum.last_post?.profile_picture}}"
+                                                        alt="{{
+                                                          forum && forum.last_post && forum.last_post?.screen_name
+                                                            ? forum.last_post?.screen_name
+                                                            : ''
+                                                        }}" width="18" height="18"
+                                                      />
+                                                      <img class="avatar avatar-18 photo" *ngIf="forum && !forum.last_post?.profile_picture  && forum.last_post?.posted_from == 'frontend'"
+                                                        src="./assets/images/300_1.jpg"
+                                                        alt="{{
+                                                          forum && forum.last_post && forum.last_post?.screen_name
+                                                            ? forum.last_post?.screen_name
+                                                            : ''
+                                                        }}" width="18" height="18"
+                                                      /> 
+                                                      <img class="avatar avatar-18 photo" *ngIf="forum && forum.last_post?.posted_from == 'backend'"
+                                                        src="./assets/images/300_1.jpg"
+                                                        alt="{{
+                                                          forum && forum.last_post && forum?.Creater_name
+                                                            ? forum?.Creater_name
+                                                            : ''
+                                                        }}" width="18" height="18"
+                                                      />
+                                                      
+                                                    </span>
+                                                    
+                                                    
+                                                    <span span="tip-author-name" *ngIf="forum && forum.last_post?.posted_from == 'backend'">{{forum.last_post?.Creater_name}}</span>
+                                                    
+                                                    <span class="tip-author-name" *ngIf="forum && forum.last_post?.posted_from == 'frontend'">{{forum.last_post?.screen_name}}</span>
+                                                    
+                                                    
+                                                </a>
+                                            </span>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!--
+            <aside class="col-12 col-lg-5 col-md-5 col-sm-12">
+                <div class="right-box">
+                    <app-tip></app-tip>
+                </div>
+            </aside>
+            -->
+        </div>
+    </div>
+</section>

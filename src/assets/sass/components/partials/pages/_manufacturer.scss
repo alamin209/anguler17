@@ -1,0 +1,541 @@
+/* CSS Document */
+
+.hero__inner {
+  &--productCategories {
+    width: 100%;
+    color: $white;
+    @include flexbox;
+    vertical-align: middle;
+    @include margin-top(5);
+    @include flex-wrap(wrap);
+    @include align-items(center);
+    @include justify-content(center);
+
+    display: none !important;
+
+    @media (max-width: 767px) {
+      overflow-x: auto;
+      @include flex-wrap(nowrap);
+      @include align-items(flex-start);
+      @include justify-content(flex-start);
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    li {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+
+      .category-nav-link {
+        width: 100%;
+        @include flexbox;
+        position: relative;
+        @include padding(10 25);
+        @include align-items(center);
+
+        @media (max-width: 767px) {
+          @include padding(10 15);
+          @include margin-right(10);
+        }
+
+        .category-icon {
+          @include size(50px);
+          display: inline-block;
+          // border: 2px solid $white;
+          @include margin-right(10);
+          color: lighten($success, 20%);
+          // @include box-shadow(0 0 30px 0 rgba($white, 0.33));
+
+          .missio_svg {
+            fill: $white;
+            @include size(50px);
+            @include object-fit(cover);
+            @include transition(all 0.2s ease);
+            display: none;
+          }
+
+          &.clothing,
+          &.cosmetics,
+          &.electronics,
+          &.kitchen,
+          &.furniture {
+            &::before {
+              content: " ";
+              display: block;
+              position: absolute;
+              @include size(50px);
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 58.438 58.438'%3E%3Cg fill='%23FFF'%3E%3Cpath d='M57.9 28.425l-10.258-10.6c-.548-.568-1.519-.98-2.309-.98h-2.274c-.096 0-.198.006-.31.019l-.001-1.791c.034-.743-.453-.995-.606-1.056a.93.93 0 00-.335-.062c-.211 0-.524.073-.821.42l-.401.47-7.28-7.527c-.55-.566-1.521-.978-2.311-.978h-3.497c-.949 0-1.769.74-1.908 1.72-.39 2.765-2.307 6.868-4.153 6.868s-3.762-4.103-4.152-6.868c-.138-.981-.959-1.72-1.909-1.72h-2.274c-.789 0-1.76.412-2.308.979L.538 17.919a1.938 1.938 0 00-.064 2.609l4.266 4.865c.333.381.789.597 1.302.607.515-.017.958-.209 1.283-.554l5.074-5.34v19.646a1.84 1.84 0 001.839 1.84h12.5v5.635c0 .913.653 1.824 1.519 2.122l7.016 2.381c.045.015 1.098.368 1.621.368.547 0 1.596-.398 1.639-.415l6.029-2.31c.842-.322 1.477-1.246 1.477-2.146l.007-17.246 7.038 4.1c.287.166.633.256.996.256.621 0 1.213-.252 1.584-.678l2.301-2.625a1.938 1.938 0 00-.065-2.609zM26.736 39.933H14.235a.18.18 0 01-.181-.182V19.04c0-.885-.508-1.183-.727-1.27a1.065 1.065 0 00-.394-.075c-.243 0-.615.087-1.005.497l-5.81 6.114c-.008.009-.025.029-.133-.004l-4.267-4.865a.29.29 0 01.01-.364L11.982 8.472c.231-.239.784-.473 1.116-.473h2.274c.108 0 .243.12.268.293.491 3.478 2.778 8.295 5.794 8.295 3.017 0 5.304-4.817 5.795-8.295.025-.175.159-.292.267-.292h3.496c.334 0 .888.234 1.119.473l7.39 7.64-3.13 3.657-4.836-5.39c-.5-.589-.98-.432-1.162-.36-.15.059-.639.312-.602 1.055l.082 1.775a3.435 3.435 0 00-.142-.003H27.44c-.792 0-1.764.412-2.31.979L14.875 28.423a1.938 1.938 0 00-.063 2.609l2.351 2.682c.59.674 1.804.871 2.582.412l6.991-4.133v9.94zm29.976-9.992l-2.299 2.623c-.074.086-.371.16-.5.082l-7.416-4.318a1.583 1.583 0 00-.787-.225c-.762 0-1.334.62-1.334 1.441v17.682c0 .219-.207.521-.41.598l-6.029 2.311c-.523.199-.968.3-1.043.306-.082-.004-.545-.095-1.093-.28l-7.012-2.38c-.196-.067-.396-.347-.396-.553V29.544c0-.838-.549-1.447-1.305-1.447-.087 0-.175.008-.262.023l-.018-.037-.004.041a1.699 1.699 0 00-.532.211L18.896 32.7c-.125.074-.415.004-.488-.078l-2.351-2.683a.286.286 0 01.009-.362l10.255-10.603c.23-.239.784-.473 1.117-.473h2.272c.395 0 1.076.202 1.404.417l3.97 2.574c.694.452 1.897.455 2.599 0l3.969-2.574c.33-.214 1.013-.417 1.405-.417h2.274c.332 0 .885.234 1.115.474L56.7 29.578c.091.089.096.267.012.363z'/%3E%3Cpath d='M36.131 23.668a1.218 1.218 0 10.003 2.435 1.218 1.218 0 00-.003-2.435zm0 1.683a.466.466 0 110-.933.466.466 0 010 .933zM36.131 29.983a1.218 1.218 0 10.004 2.436 1.218 1.218 0 00-.004-2.436zm0 1.683a.467.467 0 11.001-.933.467.467 0 01-.001.933zM36.131 36.296a1.218 1.218 0 000 2.435 1.219 1.219 0 000-2.435zm0 1.685a.467.467 0 11.001-.933.467.467 0 01-.001.933zM36.131 42.613a1.218 1.218 0 000 2.434 1.218 1.218 0 000-2.434zm0 1.683a.467.467 0 11.001-.933.467.467 0 01-.001.933z'/%3E%3C/g%3E%3C/svg%3E");
+              background-size: 50px auto;
+              background-position: center;
+              background-repeat: no-repeat;
+              color: lighten($success, 20%);
+            }
+          }
+          &.clothing {
+            &::before {
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 58.438 58.438'%3E%3Cg fill='%23FFF'%3E%3Cpath d='M57.9 28.425l-10.258-10.6c-.548-.568-1.519-.98-2.309-.98h-2.274c-.096 0-.198.006-.31.019l-.001-1.791c.034-.743-.453-.995-.606-1.056a.93.93 0 00-.335-.062c-.211 0-.524.073-.821.42l-.401.47-7.28-7.527c-.55-.566-1.521-.978-2.311-.978h-3.497c-.949 0-1.769.74-1.908 1.72-.39 2.765-2.307 6.868-4.153 6.868s-3.762-4.103-4.152-6.868c-.138-.981-.959-1.72-1.909-1.72h-2.274c-.789 0-1.76.412-2.308.979L.538 17.919a1.938 1.938 0 00-.064 2.609l4.266 4.865c.333.381.789.597 1.302.607.515-.017.958-.209 1.283-.554l5.074-5.34v19.646a1.84 1.84 0 001.839 1.84h12.5v5.635c0 .913.653 1.824 1.519 2.122l7.016 2.381c.045.015 1.098.368 1.621.368.547 0 1.596-.398 1.639-.415l6.029-2.31c.842-.322 1.477-1.246 1.477-2.146l.007-17.246 7.038 4.1c.287.166.633.256.996.256.621 0 1.213-.252 1.584-.678l2.301-2.625a1.938 1.938 0 00-.065-2.609zM26.736 39.933H14.235a.18.18 0 01-.181-.182V19.04c0-.885-.508-1.183-.727-1.27a1.065 1.065 0 00-.394-.075c-.243 0-.615.087-1.005.497l-5.81 6.114c-.008.009-.025.029-.133-.004l-4.267-4.865a.29.29 0 01.01-.364L11.982 8.472c.231-.239.784-.473 1.116-.473h2.274c.108 0 .243.12.268.293.491 3.478 2.778 8.295 5.794 8.295 3.017 0 5.304-4.817 5.795-8.295.025-.175.159-.292.267-.292h3.496c.334 0 .888.234 1.119.473l7.39 7.64-3.13 3.657-4.836-5.39c-.5-.589-.98-.432-1.162-.36-.15.059-.639.312-.602 1.055l.082 1.775a3.435 3.435 0 00-.142-.003H27.44c-.792 0-1.764.412-2.31.979L14.875 28.423a1.938 1.938 0 00-.063 2.609l2.351 2.682c.59.674 1.804.871 2.582.412l6.991-4.133v9.94zm29.976-9.992l-2.299 2.623c-.074.086-.371.16-.5.082l-7.416-4.318a1.583 1.583 0 00-.787-.225c-.762 0-1.334.62-1.334 1.441v17.682c0 .219-.207.521-.41.598l-6.029 2.311c-.523.199-.968.3-1.043.306-.082-.004-.545-.095-1.093-.28l-7.012-2.38c-.196-.067-.396-.347-.396-.553V29.544c0-.838-.549-1.447-1.305-1.447-.087 0-.175.008-.262.023l-.018-.037-.004.041a1.699 1.699 0 00-.532.211L18.896 32.7c-.125.074-.415.004-.488-.078l-2.351-2.683a.286.286 0 01.009-.362l10.255-10.603c.23-.239.784-.473 1.117-.473h2.272c.395 0 1.076.202 1.404.417l3.97 2.574c.694.452 1.897.455 2.599 0l3.969-2.574c.33-.214 1.013-.417 1.405-.417h2.274c.332 0 .885.234 1.115.474L56.7 29.578c.091.089.096.267.012.363z'/%3E%3Cpath d='M36.131 23.668a1.218 1.218 0 10.003 2.435 1.218 1.218 0 00-.003-2.435zm0 1.683a.466.466 0 110-.933.466.466 0 010 .933zM36.131 29.983a1.218 1.218 0 10.004 2.436 1.218 1.218 0 00-.004-2.436zm0 1.683a.467.467 0 11.001-.933.467.467 0 01-.001.933zM36.131 36.296a1.218 1.218 0 000 2.435 1.219 1.219 0 000-2.435zm0 1.685a.467.467 0 11.001-.933.467.467 0 01-.001.933zM36.131 42.613a1.218 1.218 0 000 2.434 1.218 1.218 0 000-2.434zm0 1.683a.467.467 0 11.001-.933.467.467 0 01-.001.933z'/%3E%3C/g%3E%3C/svg%3E");
+            }
+          }
+
+          [class^="agfolks-"] {
+            color: $white;
+            @include size(50px);
+            @include font-size(50);
+            line-height: 50px;
+            @include object-fit(cover);
+
+            &:before {
+              color: $white;
+            }
+          }
+
+          @media (max-width: 767px) {
+            @include size(54px);
+            max-width: 54px;
+            @include flex(0 0 54px);
+          }
+        }
+
+        .category-summary {
+          text-align: left;
+          display: inline-block;
+          vertical-align: middle;
+          @include transition(all 0.2s ease);
+
+          .category-name {
+            @include font-size(16);
+            @include margin-bottom(6);
+            font-weight: $weightUltabold;
+            color: lighten($success, 20%);
+          }
+          .category-products-count {
+            white-space: nowrap;
+            @include font-size(14);
+            @include margin-bottom(0);
+            font-weight: $weightRegular;
+            color: lighten($success, 20%);
+          }
+        }
+
+        .category--links {
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 5;
+          position: absolute;
+        }
+
+        &:hover {
+          .category-icon {
+            .missio_svg {
+              fill: lighten($success, 20%);
+            }
+            [class^="agfolks-"] {
+              &:before {
+                color: lighten($success, 20%);
+              }
+            }
+          }
+          .category-summary {
+            .category-name {
+              color: lighten($success, 20%);
+            }
+            .category-products-count {
+              color: lighten($success, 20%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.section__110 {
+  @extend .bgCover;
+  @include padding(55 0);
+
+  @include responsive(xs) {
+    @include padding(90 0);
+  }
+}
+
+.section__60 {
+  @include padding(50 0);
+  @extend .bgCover;
+
+  @include responsive(xs) {
+    @include padding(60 0);
+  }
+  @include responsive(sm) {
+    @include padding(60 0);
+  }
+}
+
+.smalltext {
+  color: $green;
+  @include font-size(16);
+  font-weight: $weightSemibold;
+  @extend .ls25;
+
+  @include responsive(xs) {
+    @include font-size(18);
+  }
+}
+.mediumtext {
+  color: $black_sh1;
+  @include font-size(20);
+  font-weight: $weightSemibold;
+  @extend .ls15;
+
+  @include responsive(xs) {
+    @include font-size(24);
+  }
+}
+.subtext {
+  color: $black_sh1;
+  @include font-size(30);
+  font-weight: $weightUltabold;
+  @include margin-bottom(20);
+
+  @include responsive(xs) {
+    @include font-size(40);
+  }
+}
+
+.excerpt {
+  color: $black_sh1;
+  @include font-size(17);
+  line-height: 1.6;
+  @include margin-bottom(0);
+
+  @include responsive(xs) {
+    @include font-size(20);
+    line-height: 1.6;
+  }
+}
+
+.has--graphic__right,
+.has--graphic__left {
+  z-index: 2;
+  max-width: 375px;
+  position: relative;
+
+  &:after {
+    top: -40px;
+    z-index: -1;
+    width: 500px;
+    height: calc(100% + 80px);
+    content: " ";
+    display: none;
+    position: absolute;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+  }
+
+  @include responsive(xs) {
+    &:after {
+      display: block;
+    }
+  }
+
+  img {
+    /*@include box-shadow(0 0 20px 10px rgba($border,0.33));*/
+  }
+}
+
+.has--graphic__right {
+  float: none;
+  display: block;
+  margin: 0px auto;
+  max-width: 280px;
+  text-align: center;
+  @include margin-top(30);
+
+  &:after {
+    right: -400px;
+    background-image: url("../images/curve-rt.svg");
+    background-position: top right;
+  }
+
+  @include responsive(xs) {
+    float: right;
+    max-width: inherit;
+    @include margin-top(0);
+    @include margin-right(130);
+  }
+}
+.has--graphic__left {
+  float: none;
+  display: block;
+  margin: 0px auto;
+  max-width: 280px;
+  text-align: center;
+  @include margin-bottom(30);
+
+  &:after {
+    left: -400px;
+    background-image: url("../images/curve-lt.svg");
+    background-position: top left;
+  }
+
+  @include responsive(xs) {
+    float: left;
+    max-width: 375px;
+    @include margin-left(130);
+    @include margin-bottom(0);
+  }
+}
+
+.u-image--cover {
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  @include background-size(cover!important);
+}
+
+.Parallax-BG-Section,
+.Static-BG-Section {
+  @include padding(75 0);
+  @extend .u-image--cover;
+
+  @include responsive(xs) {
+    @include padding(110 0);
+  }
+
+  &.bg-overlay {
+    &:before {
+      background-color: rgba($black, 0.33);
+    }
+  }
+
+  .fs18 {
+    color: $gold;
+    @extend .ls25;
+    font-weight: $weightMedium;
+  }
+
+  .fs36 {
+    color: $white;
+    @include font-size(25);
+    line-height: 1.2;
+    @include margin-bottom(0);
+    font-weight: $weightUltabold;
+
+    @include responsive(xs) {
+      @include font-size(36);
+      line-height: 1.1;
+    }
+
+    &.gold {
+      color: $gold;
+      @include margin-bottom(30);
+    }
+  }
+
+  .fs24 {
+    color: $white;
+    @include font-size(20);
+    line-height: 1.5;
+    @include margin-bottom(30);
+    font-weight: $weightRegular;
+
+    @include responsive(xs) {
+      @include font-size(24);
+      line-height: 1.5;
+    }
+
+    &.gold {
+      color: $gold;
+      @include margin-bottom(30);
+    }
+  }
+}
+
+.Static-BG-Section {
+  @include padding(75 0);
+  @extend .bgCover;
+
+  @include responsive(xs) {
+    @include padding(130 0);
+  }
+
+  &.bg-overlay {
+    &:before {
+      background-color: rgba($black, 0.33);
+    }
+  }
+}
+
+.offering {
+  @include flexbox;
+  margin: 0px -15px;
+  @include align-items(center);
+
+  &--items {
+    text-align: center;
+    @include padding(0 15);
+    max-width: calc(100% / 5);
+    @include flex(0 0 calc(100% / 5));
+  }
+
+  &--icon {
+    display: block;
+    margin: 0px auto;
+    position: relative;
+    @include padding(3);
+    @include size(80px);
+    border: 3px solid $gold;
+    @include margin-bottom(15);
+    @include border-radius(50%);
+
+    @include responsive(xs) {
+      @include size(100px);
+    }
+
+    img {
+      width: 100%;
+      @include border-radius(50%);
+    }
+
+    [class^="agfolks-"] {
+      top: 50%;
+      left: 50%;
+      color: $gold;
+      position: absolute;
+      @include size(56px);
+      @include font-size(56);
+      line-height: 56px;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &--name {
+    color: $white;
+    @include font-size(20);
+    line-height: 1.2;
+    @include margin-bottom(0);
+    font-weight: $weightUltabold;
+  }
+}
+
+.help {
+  &--title {
+    color: $success;
+    @include font-size(20);
+    line-height: 1.2;
+    @include margin-bottom(10);
+    font-weight: $weightUltabold;
+
+    @include responsive(xs) {
+      @include font-size(24);
+    }
+  }
+
+  &--lists {
+    list-style: none;
+    @include margin-bottom(30);
+
+    &--items {
+      color: $black_sh1;
+      @include font-size(16);
+      line-height: 1.5;
+      @include margin-top(10);
+
+      &:first-child {
+        @include margin-top(0);
+      }
+
+      > a {
+        color: $black_sh1;
+        position: relative;
+
+        &:before {
+          top: 1px;
+          left: 0px;
+          content: "\f109";
+          color: $black_sh1;
+          position: relative;
+          font-family: $woodmart;
+          @include font-size(14);
+          line-height: 1;
+          @include margin-right(10);
+        }
+
+        &:hover {
+          color: $success;
+          &:before {
+            color: $success;
+          }
+        }
+      }
+    }
+  }
+}
+
+.typeahead__field {
+  width: 100%;
+  @include flexbox;
+  @include flex-wrap(wrap);
+  @include align-items(stretch);
+  box-sizing: border-box;
+
+  .typeahead__query {
+    width: 1%;
+    position: relative;
+    @include flex(1 1 auto);
+    @include margin-bottom(0);
+
+    .typeahead__cancel-button {
+      top: 50%;
+      @include transform(translateY(-50%));
+    }
+  }
+
+  .form-control,
+  .js-typeahead {
+    width: 100%;
+    height: 50px;
+    position: relative;
+    @include flex(1 1 auto);
+    @include margin-bottom(0);
+    box-sizing: border-box;
+    border: 1px solid $border;
+    border-right: 0px none;
+    @include border-radius(0px);
+
+    &:focus {
+      border-color: $success;
+    }
+  }
+
+  .typeahead__button {
+    z-index: 10;
+    height: 50px;
+    @include flexbox;
+    position: relative;
+
+    .button {
+      color: $white;
+      @include font-size(15);
+      border: 2px solid $green;
+      background-color: $green;
+      @include border-radius(0px);
+      text-transform: uppercase;
+      font-weight: $weightBold;
+      @include transition(all 0.3s ease);
+      @include flexbox();
+      @include align-items(center);
+      @include justify-content(center);
+      background-image: linear-gradient(30deg, $green 50%, transparent 50%);
+
+      &:hover {
+        color: $green;
+        border: 2px solid $green;
+        background-color: rgba($white, 0);
+      }
+    }
+  }
+}

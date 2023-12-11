@@ -1,0 +1,47 @@
+<div class="input-group">
+  <div class="search-input">
+    <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary dropdown-toggle js-BtnType" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{qProductType}}</button>
+        <div class="dropdown-menu">
+            <ul>
+                <li><a class="dropdown-item" href="javascript:;" (click)="SetProductType('Products')">Products</a></li>
+                <li><a class="dropdown-item" href="javascript:;" (click)="SetProductType('Resources')" >Resources</a></li>
+                <li><a class="dropdown-item" href="javascript:;" (click)="SetProductType('Videos')" >Videos</a></li>
+            </ul>
+        </div>
+    </div>
+    <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTxt" (click)="onSearchChange($event.target.value)" (input)="onSearchChange($event.target.value)" (keyup.enter)="SearchProducts();">
+    <div class="suggestion" [hidden]="!isSuggestionVisible">
+      <ul class="profile--actions" *ngIf="ResultsList && ResultsList.length && qProductType == 'Products'">
+        <li class="profile--actions__items" *ngFor="let product of ResultsList" routerLink="{{'/shop/product/p/'+product.Product_Slug}}" (click)="unSetProduct()">
+          <a href="javascript:void(0);" [innerHTML]="product['Product_Name'] | safeHtml"></a>
+        </li>
+      </ul>
+      <ul class="profile--actions" *ngIf="ResultsList && ResultsList.length && qProductType == 'Resources'">
+        <li class="profile--actions__items" *ngFor="let product of ResultsList" routerLink="{{'/resource/'+product.slug}}" (click)="unSetProduct()">
+          <a href="javascript:void(0);" [innerHTML]="product['title'] | safeHtml"></a>
+        </li>
+      </ul>
+      <ul class="profile--actions" *ngIf="ResultsList && ResultsList.length && qProductType == 'Videos'">
+        <li class="profile--actions__items" *ngFor="let product of ResultsList" routerLink="{{'/academy/video/'+product.Video_slug+'-'+product.ID}}" (click)="unSetProduct()">
+          <a href="javascript:void(0);" [innerHTML]="product['Video_Title'] | safeHtml"></a>
+        </li>
+      </ul>
+      
+    </div>
+  </div>
+
+  <div class="input-group-prepend search-panel d-none">
+    <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
+      <span [innerHtml]="(itemCategory )? itemCategory : 'Select Category'" > </span> <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu listVerticalScrollBar pull-right" role="menu">
+      <li *ngFor="let category of categoryList let i = index"><a href="javascript:void(0);" (click)="setCategory(category)" [innerHTML]="category.Category_Name | safeHtml"></a></li>
+      <!--<li><a href="javascript:void(0);" (click)="setCategory('')">All</a></li>-->
+    </ul>
+  </div>
+    
+    <div class="input-group-append" (click)="SearchProducts()">
+        <button class="" type="button"><i class="fe-search fs-20"></i></button>
+    </div>
+</div>

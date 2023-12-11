@@ -1,0 +1,53 @@
+<div class="hero__inner shop--hero rounded-sm overflow-hidden h-450 mb-4" data-overlay="2" [style.backgroundImage]="'url('+BannerURL+')'">
+    <div class="hero__inner--content hero__inner--content-xs h-450 d-flex w-100 align-items-center justify-content-center">
+
+        <div class="seller-content" *ngIf="sliderData">
+            <figure class="seller-brand mb-3">
+                
+                <!-- Use this when we've Avatar Image -->
+                <ngx-avatar *ngIf="ProfilePicURL" src="{{ProfilePicURL}}" size="74" [round]="true" ></ngx-avatar>
+                
+                <!-- Use this when we don't have Avatar Image -->
+                <ngx-avatar *ngIf="!ProfilePicURL" name="{{sliderData.first_name ? sliderData.first_name : ''}} {{sliderData.last_name ? sliderData.last_name : ''}}" size="74" [round]="true" bgColor="#4167b0" fgColor="#99CC67" textSizeRatio="2.5"></ngx-avatar>
+                
+            </figure>
+            <div class="w-100 d-flex align-items-center justify-content-between mb-2">
+                <h4 class="seller-title mb-0">{{sliderData.first_name ? sliderData.first_name : ''}} {{sliderData.last_name ? sliderData.last_name : ''}}</h4>
+                <!--<div class="seller-title mb-0" [innerHtml]="((findSelectedCategories)? findSelectedCategories.Category_Name : sliderTitle) | safeHtml"></div><h4 class="seller-title mb-0" [innerHtml]="((findSelectedCategories)? findSelectedCategories.Category_Name : sliderTitle) | safeHtml"></h4>-->
+            </div>
+            <ul class="seller-info-list list-style-none mb-4">
+                <li class="store-address">
+                    <i class="fe-map-pin mr-2"></i>
+                    {{sliderData.address ? sliderData.address+"," : ''}} {{sliderData.city ? sliderData.city : ''}}
+                    {{sliderData.state ? sliderData.state+"," : ''}} {{sliderData.country ? sliderData.country : ''}}
+                </li>
+                <li class="seller-phone" *ngIf="sliderData.phone">
+                    <a href="tel:{{sliderData.phone ? sliderData.phone : ''}}">
+                        <i class="fe-phone mr-2"></i>
+                        {{sliderData.phone ? sliderData.phone : ''}}
+                    </a>
+                </li>
+                <li class="seller-rating">
+                    <i class="fe-star mr-2"></i>
+                    {{sliderData.avg_review ? sliderData.avg_review : 'No'}} rating from {{sliderData.total_reviews ? sliderData.total_reviews : 'No'}} reviews
+                </li>
+                <li class="seller-open">
+                    <i class="fe-shopping-cart mr-2"></i>
+                    Store Open
+                </li>
+            </ul>
+            <div class="w-100 d-flex align-items-center justify-content-between mb-2">
+                <a href="/shop/seller/seller-name" class="button button-radius button-xs button--green d-none"><i class="fe-star mr-1"></i>Follow</a>
+                <div class="social-icons social-no-color border-thin ml-auto">
+                    <a href="{{sliderData.facebook_url ? sliderData.facebook_url : '#'}}" class="fe-facebook m-facebook ml-2"></a>
+                    <a href="{{sliderData.twitter_url ? sliderData.twitter_url : '#'}}" class="fe-twitter m-twitter ml-2"></a>
+                    <a href="{{sliderData.linkedin_url ? sliderData.linkedin_url : '#'}}" class="fe-linkedin m-linkedin ml-2"></a>
+                    <a href="{{sliderData.instagram_url ? sliderData.instagram_url : '#'}}" class="fe-instagram m-instagram ml-2"></a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+<div class="clearfix"></div>

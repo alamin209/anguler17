@@ -1,0 +1,102 @@
+<!-- Include slider component here -->
+<div class="container pt-4 pt-md-5 pb-4 pb-md-5">
+    <div class="row">
+        <div class="col-12 col-lg-3">
+            <div class="mobile-leftpanel">
+                <div class="mobile-leftpanel-ctegory mb-3">
+                    <div class="mobile-leftpanel-category pt-1 pb-1 mb-0">Choose Categories</div>
+                    <div class="mobile-leftpanel-body">
+                        <app-home-filters> </app-home-filters>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-12 col-lg-9">
+            <div *ngIf="!PageLocked" class="o-media-hero o-media-hero-sm">
+                <app-slider *ngIf="sliderData && sliderData.length" [sliderData]="sliderData" [ISHomePage]="ISHomePage" ></app-slider>
+            </div>
+
+            <!-- Include category component here -->
+            <app-category *ngIf="!PageLocked && IS_STORE"> </app-category>
+
+            <!-- Include attachments accessories component here -->
+            <app-attachments-accessories *ngIf="!PageLocked && IS_STORE"></app-attachments-accessories>
+
+            <!-- Include featured products component here -->
+            <app-featured-products  *ngIf="!PageLocked"></app-featured-products>
+
+            <!-- Include featured Resources component here -->
+            <app-featured-resources  *ngIf="!PageLocked"></app-featured-resources>
+
+            <!-- Include Recent blog posts component here -->
+            <app-latest-blog-posts  *ngIf="!PageLocked"></app-latest-blog-posts>
+
+            <!-- Include Fundraisers component here -->
+            <app-fundraisers  *ngIf="!PageLocked"></app-fundraisers>
+
+            <!-- Include home cms page content here -->
+            <app-homecms *ngIf="cmsPageData && cmsPageData.ID && !PageLocked" [cmsPageData]="cmsPageData"></app-homecms>
+
+        </div>
+    </div>
+</div>
+
+<!-- Include testimonials component here -->
+<!--<app-testimonials *ngIf="!PageLocked"></app-testimonials>-->
+
+<!-- Include Newsletter component here -->
+<!--<app-newsletter></app-newsletter>-->
+
+<div class="" *ngIf="PageLocked && IS_STORE" style="min-height: 500px; display: block;"></div>
+
+<!-- This will open when page is password protected -->
+<div bsModal #PageProtectModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name" [config]="{backdrop: true, keyboard: false, ignoreBackdropClick: true}">
+    
+    <div class="modal-dialog-medium modal-dialog-medium-md">
+        <div class="modal-header modal-header-sm">
+            <h3>{{'SECURED_PAGE' | translate}}</h3>
+            
+        </div>
+        <div class="modal-body modal-body-sm">
+            <div class="u-mb--30">
+                <p>{{'SECURED_PAGE_MESSAGE' | translate}}</p>
+            </div>
+            <form [formGroup]="secureForm" (ngSubmit)="onSubmitSecureForm(secureForm.value)">
+                <div class="row justify-content-center u-mb--15">
+                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div [ngClass]="secureForm.controls['p_username'].dirty && secureForm.controls['p_username'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                            <input type="text" class="form-control solid rounded" formControlName="p_username" id="p_username" name="p_username" placeholder="Username">
+                            <div *ngIf="secureForm.controls['p_username'].dirty && secureForm.controls['p_username'].errors">
+                                <div *ngIf="secureForm.controls['p_username'].errors.required">
+                                    <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center u-mb--15">
+                    <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                        <div [ngClass]="secureForm.controls['p_password'].dirty && secureForm.controls['p_password'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                            <input type="password" class="form-control solid rounded" formControlName="p_password" id="p_password" name="p_password" placeholder="Password">
+                            <div *ngIf="secureForm.controls['p_password'].dirty && secureForm.controls['p_password'].errors">
+                                <div *ngIf="secureForm.controls['p_password'].errors.required">
+                                    <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row justify-content-start u-align-center">
+                    <div class="col-12 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <button type="submit" class="button button--red button-md">{{'SUBMIT' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- //End This will open when page is password protected -->

@@ -1,0 +1,119 @@
+<form [formGroup]="videoForm" (ngSubmit)="onSubmit(videoForm.value)">
+    <div id="upload_media">
+        <div class="inner m-0">
+            <input name="Videofile" class="sr-only" id="media_up_btn" type="file" #file accept="video/mp4,video/x-m4v,video/*" (change)="processVideo(file.files)">
+            <label for="media_up_btn" class="button button--green button-sm button-radius button-block"><i class="fe-plus mr-1"></i> Upload Video</label>
+        </div>
+    </div>
+    <div bsModal #template="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name" [config]="{ backdrop: true, keyboard: false, ignoreBackdropClick: true }">
+        <div [ngClass]="_Uploading ? 'modal-dialog-medium modal-dialog-medium-md modal--mediaUpload uploading--inProgress' : 'modal-dialog-medium modal-dialog-medium-md modal--mediaUpload '">
+            <div class="modal-header modal-header-sm">
+                <h4 class="modal-title pull-left">Upload Video</h4>
+                <button *ngIf="!_Uploading" type="button" class="close pull-right" aria-label="Close" (click)="template.hide()"> <span aria-hidden="true">&times;</span> </button>
+            </div>
+            <div class="modal-body modal-body-sm">
+                <div *ngIf="!_Uploading">
+                    <input type="hidden" formControlName="id" id="id" name="id">
+                    <input type="hidden" formControlName="video_duration" id="video_duration" name="video_duration">
+                    <div class="row d-flex align-items-center form-group mb-3">
+                        <label class="col-12 col-md-3 col-sm-12 col-xs-12" for="title">Title <span class="required">*</span></label>
+                        <div class="col-12 col-md-9 col-sm-12 col-xs-12">
+                            <div [ngClass]="videoForm.controls['title'].dirty && videoForm.controls['title'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                                <input type="text" class="form-control solid rounded" formControlName="title" id="title" name="title" placeholder="Title">
+                                <div *ngIf="videoForm.controls['title'].dirty && videoForm.controls['title'].errors">
+                                    <div *ngIf="videoForm.controls['title'].errors.required">
+                                        <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row d-flex align-items-center form-group mb-3">
+                        <label class="col-12 col-md-3 col-sm-12 col-xs-12" for="categories">Category <span class="required">*</span></label>
+                        <div class="col-12 col-md-9 col-sm-12 col-xs-12">
+                            <div [ngClass]="videoForm.controls['categories'].dirty && videoForm.controls['categories'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                                <div class="selectdropdown">
+                                    <select class="form-control solid rounded" formControlName="categories" id="categories" name="categories" required placeholder="State">
+                                        <option class="placeholder" selected value="">Select Category</option>
+                                        <option *ngFor="let opt of categories" value="{{ opt.ID }}"> {{ opt.Category_Title }} </option>
+                                    </select>
+                                    <div *ngIf="videoForm.controls['categories'].dirty && videoForm.controls['categories'].errors">
+                                        <div *ngIf="videoForm.controls['categories'].errors.required">
+                                            <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row d-flex align-items-center form-group mb-3 d-none">
+                        <label class="col-12 col-md-3 col-sm-12 col-xs-12" for="Channel_ID">Channel</label>
+                        <div class="col-12 col-md-9 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <div class="selectdropdown">
+                                    <select class="form-control solid rounded" formControlName="Channel_ID" id="Channel_ID" name="Channel_ID" required placeholder="State">
+                                        <option class="placeholder" selected value="">Select Channel</option>
+                                        <option *ngFor="let opt of channels" value="{{ opt.ID }}"> {{ opt.Channel_Name }} </option>
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row d-flex align-items-center form-group mb-3">
+                      <label class="col-12 col-md-3 col-sm-12 col-xs-12" for="tags">Tags </label>
+                      <div class="col-12 col-md-9 col-sm-12 col-xs-12">
+                          <div class='form-group'>
+                              <tag-input formControlName="tags" (onAdd)="onAdd($event)" [addOnBlur]="true" [modelAsStrings]="true"></tag-input>
+                          </div>
+                      </div>
+                   </div>
+
+                    <div class="row d-flex align-items-center form-group mb-3">
+                        <label class="col-12 col-md-3 col-sm-12 col-xs-12" for="video_thumb">Video Thumb</label>
+                        <div class="col-12 col-md-9 col-sm-12 col-xs-12">
+                            <div class="button-wrap">
+                                <label class="upload--button" for="upload"> Upload Thumbail
+                                    <input type="file" #file type="file" accept="image/*" (change)="processFile(file.files)" class="solid rounded" id="video_thumb" name="video_thumb" placeholder="video_thumb"> 
+                                </label>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-center form-group mb-3" *ngIf="imageURL">
+                        <div class="col-12 col-md-3 col-sm-12 col-xs-12"></div>
+                        <div class="col-12 col-md-9 col-sm-12 col-xs-12">
+                            <img [src]="imageURL" height="200" *ngIf="imageURL" class="thumbnail mb-0">
+                        </div>
+                    </div>
+                    
+                    <div class="row d-flex align-items-center form-group mb-0">
+                        <label class="col-12 col-md-3 col-sm-12 col-xs-12" for="video_description">Description</label>
+                        <div class="col-12 col-md-9 col-sm-12 col-xs-12">
+                            <div [ngClass]="videoForm.controls['video_description'].dirty && videoForm.controls['video_description'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                                <textarea class="form-control solid rounded" formControlName="video_description" id="video_description" name="video_description" placeholder="Description"></textarea>
+                                <div *ngIf="videoForm.controls['video_description'].dirty && videoForm.controls['video_description'].errors">
+                                    <div *ngIf="videoForm.controls['video_description'].errors.required">
+                                        <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div *ngIf="_Uploading" class="loaders">
+                    <div class="loader" style="text-align: center;margin: 20px 0 59px 0px;"><img src="/assets/images/icons/loading.gif" width="100px">
+                        <div class="loader--message">Uploading...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer modal-footer-sm">
+                <button [ngClass]="_Uploading ? 'button button--green button-radius button-sm d-none' : 'button button--green button-radius button-sm '" type="submit" [disabled]="_Uploading"> <span class="fe-upload mr-2 d-none"></span> <span *ngIf="!_Uploading">Upload</span> <span *ngIf="_Uploading">Uploading...</span> </button>
+            </div>
+        </div>
+    </div>
+</form>

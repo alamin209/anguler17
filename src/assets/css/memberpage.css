@@ -1,0 +1,147 @@
+.memberResource .panel-body,
+.memberVideo .panel-body {
+    width: 100%;
+    border-radius: 0;
+    padding: 30px 20px;
+    position: relative;
+    padding-bottom: 25px;
+    display: inline-block;
+    background: #fafafa;
+}
+.memberResource .section--title,
+.memberResource .section__title,
+.memberVideo .section--title,
+.memberVideo .section__title {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+.vdoPreviewTxt {
+    font-size: 14px;
+    text-align: center;
+}
+#Resources .video--image .overlayIcons,
+#Videos .video--image .overlayIcons,
+.product-element-top .overlayIcons {
+    position: absolute;
+    display: none;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    background: #121111bd;
+    left: 0;
+    color: #fff;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 20000;
+}
+#Resources .video--image:hover .overlayIcons,
+#Videos .video--image:hover .overlayIcons,
+.product-element-top:hover .overlayIcons {
+    display: flex;
+}
+.mandatory_asterisk {
+    color: red;
+}
+.input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+.input-group-prepend {
+    margin-right: -1px;
+}
+.input-group-prepend,
+.input-group-append {
+    display: -ms-flexbox;
+    display: flex;
+}
+.input-group>.form-control:not(:first-child),
+.input-group>.custom-select:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.input-group>.form-control:not(:last-child),
+.input-group>.custom-select:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group>.form-control,
+.input-group>.form-control-plaintext,
+.input-group>.custom-select,
+.input-group>.custom-file {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    margin-bottom: 0;
+    border-right: 1px solid #D6DAE1;
+}
+.input-group>.input-group-prepend>.btn,
+.input-group>.input-group-prepend>.input-group-text,
+.input-group>.input-group-append:not(:last-child)>.btn,
+.input-group>.input-group-append:not(:last-child)>.input-group-text,
+.input-group>.input-group-append:last-child>.btn:not(:last-child):not(.dropdown-toggle),
+.input-group>.input-group-append:last-child>.input-group-text:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group-text {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .375rem .75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+.hide {
+    display: none;
+}
+.memberResource .ck.ck-editor__editable_inline {
+    min-height: 200px;
+}
+.selected-list .c-list .c-token {
+    background: #4167b0;
+    color: #fff;
+}
+.cuppa-dropdown {
+    display: block;
+    width: 100%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: .25rem;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+.cuppa-dropdown .selected-list .c-btn {
+    font-size: 16px;
+    padding: 2px;
+}
+.button-upload-wrap {
+    position: relative;
+}

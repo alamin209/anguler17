@@ -1,0 +1,40 @@
+<div class="custom-products custom-products-xs w-100 pt-0" *ngIf="latestNews && latestNews.length">
+    <div class="container pl-0 pr-0">
+        <div class="sectionTitle-wrapper sectionTitle-wrapper-xs">
+            <h2 class="heading--title--medium heading--title--medium-xs">{{'EXPLORE_ELEMENTARY_MIDDLE_TOPICS' | translate}}</h2>
+        </div>
+        
+        <div class="row">
+            <div class="col-12 col-lg-4 col-md-4 col-sm-12" *ngFor="let news of latestNews; let i = index">
+                <article class="tip--blog__lists" style="cursor: pointer;" routerLink="{{ '/blog/post/' + news.slug }}">
+                    <div class="video--image">
+                        <figure class="video--image--wrapper mb-0"><a class="video--image--wrapper--inner" routerLink="{{ '/blog/post/' + news.slug }}"><img srcset="{{(news && news.image) ? PORTAL_URL + 'files/blog/' + news.CID + '/medium_' + news.image : './assets/images/news/detail.jpg'}},
+                        {{(news && news.image) ? PORTAL_URL + 'files/blog/' + news.CID + '/medium_2x_' + news.image : './assets/images/news/detail.jpg'}} 1.5x,
+                        {{(news && news.image) ? PORTAL_URL + 'files/blog/' + news.CID + '/medium_2x_' + news.image : './assets/images/news/detail.jpg'}} 2x"
+                         src="{{
+                            news && news.image
+                              ? PORTAL_URL + 'files/blog/' + news.CID + '/medium_' + news.image
+                              : './assets/images/news/detail.jpg'
+                          }}"
+                         class="img-fluid b-0" alt="{{ news.title }}"></a></figure>
+                    </div>
+                    
+                    <div class="tip--blog__content">
+                        <div class="tip--blog__description">
+                            <div class="tip--seminar__heading">
+                                <div class="meta fs--12 d-flex pb-2 mb-2">
+                                    <time class="published mb-0" style="color: rgba(85,85,85,0.5);">{{ news.created_at }}</time>
+                                </div>
+                                <h2 [innerHtml]="news.title | safeHtml"></h2>
+                                <p [innerHtml]="news.short_description | safeHtml"></p>
+                            </div>
+                            <div>
+                                  <a class="tip--blog-btn" routerLink="{{ '/blog/post/' + news.slug }}">Read More<i class="arrow"><svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-serverApp-c19="" d="M506.134 241.843l-.018-.019-104.504-104c-7.829-7.791-20.492-7.762-28.285.068-7.792 7.829-7.762 20.492.067 28.284L443.558 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h423.557l-70.162 69.824c-7.829 7.792-7.859 20.455-.067 28.284 7.793 7.831 20.457 7.858 28.285.068l104.504-104 .018-.019c7.833-7.818 7.808-20.522-.001-28.314z"></path></svg></i></a>
+                            </div>
+                        </div>
+                    </div>
+              </article>
+          </div>
+      </div>
+    </div>
+</div>

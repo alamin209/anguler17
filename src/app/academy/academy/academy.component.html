@@ -1,0 +1,248 @@
+<section class="video--portal video--portal-sm pb-5">
+    <div class="container-fluid p-0 w-100">
+        <div class="row">
+            <div class="col-12 col-lg-2 col-md-3 col-sm-12">
+                <div class="w-100 pt-4">
+                    <div class="page-head page-head-xs start">
+                        <h3 class="u-heading--small u-heading--small-sm upper">{{'ACADEMY_TITLE' | translate }}</h3>
+                    </div>
+                    <nav class="videos--categories videos--categories-sm d-videos--categories">
+                        <ul class="videos--categories-items videos--categories-items-sm">
+                            <li [ngClass]="(!FilterType) ? 'is--active' : ''" ><a href="javascript:;" (click)="FilterByType('')" ><span class="teachicon-home"></span> Home</a></li>
+                            <li [ngClass]="(FilterType && FilterType == 'trending') ? 'is--active' : ''"><a href="javascript:;" (click)="FilterByType('trending')"><span class="teachicon-trending"></span> Trending</a></li>
+                            <li [ngClass]="(FilterType && FilterType == 'subscription') ? 'is--active' : ''" >
+                                <a  href="javascript:;" (click)="FilterByType('subscription')"><span class="teachicon-subscription"></span> Subscriptions</a>
+                                
+                                <ul *ngIf="Subscriptions && Subscriptions.length" class="videos--categories-subitems videos--categories-subitems-sm">
+                                    <li *ngFor="let Subscription of Subscriptions;" [ngClass]="(Subscription && Subscription.Channel_Slug == ChannelSlug) ? 'is--selected' : ''" >
+                                        <a href="javascript:;" (click)="FilterByChannel(Subscription?.Channel_Slug)" >
+                                            <img class="channelImg mr-2" *ngIf="Subscription && Subscription?.Channel_Logo != ''"
+                                            src="{{ PORTAL_URL }}/files/missiotv/channels/{{Subscription?.CID}}/{{Subscription?.Channel_Logo}}"
+                                            alt="{{
+                                              Subscription && Subscription && Subscription?.Channel_Name
+                                                ? Subscription?.Channel_Name
+                                                : ''
+                                            }}"
+                                          />  {{Subscription?.Channel_Name}}
+                                        </a>
+                                    </li>
+                                </ul>
+    
+                            </li>
+                            <li class="divider"></li>
+                            <li [ngClass]="(FilterType && FilterType == 'library') ? 'is--active' : ''"><a href="javascript:;" (click)="FilterByType('library')"><span class="teachicon-library"></span> Library</a></li>
+                            <li [ngClass]="(FilterType && FilterType == 'watch-later') ? 'is--active' : ''"><a href="javascript:;" (click)="FilterByType('watch-later')"><span class="teachicon-watch-later"></span> Watch Later</a></li>
+                            <li [ngClass]="(FilterType && FilterType == 'liked') ? 'is--active' : ''"><a href="javascript:;" (click)="FilterByType('liked')"><span class="teachicon-liked-videos"></span> Liked Videos</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            
+            <div class="col-12 col-lg-10 col-md-9 col-sm-12">
+                <div class="w-100 pt-4 pl-5 sm:mpl-0">
+                    
+                    <div class="search--filter search--filter-sm">
+                        <div class="w-100 p-0">
+                            <div class="d-flex align-items-center justify-content-between mobile-coloumn">
+                                <div class="btn-group category--filter">
+                                    <div class="selectdropdown">
+                                        <select class="form-control" id="CaTFilter" (change)="FilterByCategory($event)">
+                                            <!--<option value="">My Categories</option>-->
+                                            <option value="ALL">All Categories</option>
+                                            <option *ngFor="let opt of categories" value="{{opt.ID}}" [innerHtml]="((opt && opt.Category_Title)? opt.Category_Title : '') | safeHtml"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="category--right-panel">
+                                    <div class="search--upload">
+                                        <app-upload-media (messageEvent)="receiveMessage($event)"></app-upload-media>
+                                    </div>
+
+                                    <div class="category--search d-flex">
+                                
+                                        <div class="mobile--filter">
+                                            <button class="button button--filter" (click)="ShowMobileFilters();"><span class="fe-settings"></span></button>
+                                        </div>
+                                        
+                                        <div class="search_form fright">
+                                            <div class="input-group">
+                                                <input (input)="SaveKeyword($event);" (keyup.enter)="getVideos();" type="text" value="{{FilterKeyword}}" class="form-control vid-search" placeholder="Search Here" />
+                                                <span class="input-group-addon" (click)="getVideos();"><button class="btn" type="button"><i class="fe-search"></i></button></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <nav class="t--tags t--tags-md mb-3">
+                        <ul class="t--tags-lists t--tags-lists-sm">
+                            <li *ngFor="let tag of VideoTags;" >
+                                <a href="javascript:;" (click)="VideoByTags(tag.TagID,tag.slug);" [innerHtml]="((tag && tag?.name)? tag?.name : '') | safeHtml"></a>
+                            </li>
+                            
+                        </ul>
+                    </nav>
+                    
+                    <div class="recent--uploads recent--uploads-sm pt-0 pb-0">
+                        <div class="w-100">
+                            <div class="row">
+                                <article *ngFor="let item of AllVideos; let i = index" class="col-12 col-lg-3 col-md-4 col-sm-6 video--post postType3">
+                                    <div class="inner">
+                                        <a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}">
+                                            <div class="video--image">
+                                                <figure class="video--image--wrapper">
+                                                    <span class="video--image--wrapper--inner">
+                                                        <img *ngIf="(item.Video_Source == 'youtube' || item.Video_Source == 'vimeo') && item.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="https://{{item.Video_Thumbnail_Small}}" />
+
+                                                        <img *ngIf="item.Video_UploadedOn == 'S3' && item.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="{{item.Video_Thumbnail_Small}}" />
+
+                                                        <img *ngIf="!item.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+                                                    </span>
+                                                </figure>
+                                                <div class="play--btn">
+                                                    <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                                                        <path class="stroke-solid" fill="none" stroke="none" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5" />
+                                                        <path class="icon" fill="none" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="media--length">{{item.Video_Time}}</div>
+                                            </div>
+                                        </a>
+                                        <div class="post--data post--data-sm relative">
+                                            <!--<div class="video--like"><i class="fe-thumbs-up mr-1"></i>Like</div>-->
+                                            
+                                            <div class="video--like">
+                                                <div class="d-flex align-items-center relative ">
+                                                    <button (click)="LikeVideo(item.ID,item.Liked);" title="Like" class="btn--counter " [ngClass]="(item && item.Liked) ? 'is--selected' : ''"><span><i class="fe-thumbs-up mr-1"></i>Like</span></button>
+                                                    <div class="like--counter"><span>{{item.Video_Likes}}</span></div>
+                                                </div>
+                                                <div class="btn--hover relative">
+                                                    <button class="btn--dropdown"><i class="fe-more-vertical"></i></button>
+                                                    <div class="dropdown-menu pull-right">
+                                                        <ul>
+                                                            <li>
+                                                                <a *ngIf="FilterType !='library'" href="javascript:;" (click)="AddtoLibrary(item.ID);"><i class="teachicon-queue mr-1"></i>{{'ADD_TO_LIBRARY' | translate }}</a>
+                                                                
+                                                                <a *ngIf="FilterType =='library'" href="javascript:;" (click)="AddtoLibrary(item.ID);"><i class="teachicon-delete mr-1"></i>{{'REMOVE_FROM_LIBRARY' | translate }}</a>
+                                                            </li>
+                                                            <li>
+                                                                <a *ngIf="FilterType !='watch-later'" href="javascript:;" (click)="Watchlater(item.ID);"><i class="teachicon-watch-later mr-1"></i>{{'WATCH_LATER' | translate }}</a>
+                                                                
+                                                                <a *ngIf="FilterType =='watch-later'" href="javascript:;" (click)="Watchlater(item.ID);"><i class="teachicon-delete mr-1"></i>{{'REMOVE_FROM_WATCH_LATER' | translate }}</a>
+                                                                
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="post--channel mb-2"><time class="date">{{ item.Video_Upload_Date | date: 'mediumDate' }}</time></div>
+                                            
+                                            <h3 class="post--title post--title-sm">
+                                                <a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}" [innerHtml]="((item && item?.Video_Title)? item?.Video_Title : '') | safeHtml"></a>
+                                            </h3>
+                                            
+                                            <div class="d-none">
+                                                <p class="author" *ngIf="item && item?.Added_From == 'frontend'">
+                                                    <i class="fe-user"></i> by <a href="javascript;">{{item.screen_name}}</a>
+                                                </p>
+                                                <p class="author" *ngIf="item && item?.Added_From == 'backend'">
+                                                    <i class="fe-user"></i> by <a href="javascript;">{{'TITLE' | translate}}</a>
+                                                </p>
+                                                <time class="date"><i class="fe-clock"></i> {{ item.Video_Upload_Date | date: 'mediumDate' }}</time>
+                                            </div>
+                                            
+                                            <div class="post--category"><a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}"><i class="fe-grid mr-1"></i> <span [innerHtml]="((item && item?.Category_Name)? item?.Category_Name : '') | safeHtml"></span></a></div>
+                                        </div>
+                                        
+                                        <div class="post--footer post--footer-sm d-none">
+                                            <div class="post--category"><a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}"><i class="fe-grid mr-1"></i> <span [innerHtml]="((item && item?.Category_Name)? item?.Category_Name : '') | safeHtml"></span></a></div>
+                                            <div class="post--views">
+                                                <a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}"><i class="fe-eye"></i> {{item.Video_Views || 0}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <div *ngIf="NoVideosFound" class="d-flex w-100 p-3 flex-column align-items-center justify-content-center">
+                                    <div class="w-25 m-50 sm:m-50"><img src="./assets/images/TeachItPro--NoData.svg" alt="No Videos found." class="img-fluid" /></div>
+                                    <p class="no-videos-found mb-0" style="font-size: 20px;"><strong>No Videos found.</strong></p>
+                                </div>
+                                
+                                <!--
+                                <div class="products-footer u-mt--40" *ngIf="!NoVideosFound && (AllVideos && totalItems > AllVideos.length)">
+                                    <div class="pagination--list">
+                                        <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="getVideos($event)" [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="limit"></pagination>
+                                    </div>
+                                </div>
+                                -->
+                                
+                                <div class="search-results"
+                                  infiniteScroll
+                                  [infiniteScrollDistance]="2"
+                                  [infiniteScrollUpDistance]="1.5"
+                                  [infiniteScrollThrottle]="50"
+                                  (scrolled)="onLoadMore()"></div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Begin Responsive Mobile Menu -->
+<aside class="mobile--categoryMenu" [ngClass]="{'navigation-active': MobileFilters}">
+    <div class="mobile--categoryMenu--Close jsClose" (click)="CloseMobileFilters()"><span class="icon_close"></span></div>
+    <div class="widget__menuArea">
+        <div class="widget__menuArea__content">
+            <div class="widget__menuArea__content--body widget-scroll has-scrollbar">
+                <div class="widget__Header">
+                    <div class="page--logo"><a [routerLink]="['']"><img src="./assets/images/logo.svg" class="image-fluid" alt="{{'TITLE' | translate}}" /></a></div>
+                </div>
+                
+                <div class="widget-scroll-content listVerticalScrollBar">
+                    
+                    <nav class="videos--categories videos--categories-sm">
+                        <ul class="videos--categories-items videos--categories-items-sm mt-4">
+                            <li [ngClass]="(!FilterType) ? 'is--active' : ''" ><a href="javascript:;" (click)="FilterByType('')" ><span class="teachicon-home"></span> Home</a></li>
+                            <li [ngClass]="(FilterType && FilterType == 'trending') ? 'is--active' : ''" ><a href="javascript:;" (click)="FilterByType('trending')"><span class="teachicon-trending"></span> Trending</a></li>
+                            <li [ngClass]="(FilterType && FilterType == 'subscription') ? 'is--active' : ''" >
+                                <a  href="javascript:;" (click)="FilterByType('subscription')"><span class="teachicon-subscription"></span> Subscriptions</a>
+                                
+                                <ul *ngIf="Subscriptions && Subscriptions.length" class="videos--categories-subitems videos--categories-subitems-sm">
+                                    <li *ngFor="let Subscription of Subscriptions;" [ngClass]="(Subscription && Subscription.Channel_Slug == ChannelSlug) ? 'is--selected' : ''" >
+                                        <a href="javascript:;" (click)="FilterByChannel(Subscription?.Channel_Slug)" >
+                                            <img class="channelImg mr-2" *ngIf="Subscription && Subscription?.Channel_Logo != ''"
+                                            src="{{ PORTAL_URL }}/files/missiotv/channels/{{Subscription?.CID}}/{{Subscription?.Channel_Logo}}"
+                                            alt="{{
+                                              Subscription && Subscription && Subscription?.Channel_Name
+                                                ? Subscription?.Channel_Name
+                                                : ''
+                                            }}"
+                                          />  {{Subscription?.Channel_Name}}
+                                        </a>
+                                    </li>
+                                </ul>
+    
+                            </li>
+                            <li class="divider"></li>
+                            <li [ngClass]="(FilterType && FilterType == 'library') ? 'is--active' : ''" ><a href="javascript:;" (click)="FilterByType('library')"><span class="teachicon-library"></span> Library</a></li>
+                            <li [ngClass]="(FilterType && FilterType == 'watch-later') ? 'is--active' : ''" ><a href="javascript:;" (click)="FilterByType('watch-later')"><span class="teachicon-watch-later"></span> Watch Later</a></li>
+                            <li [ngClass]="(FilterType && FilterType == 'liked') ? 'is--active' : ''" ><a href="javascript:;" (click)="FilterByType('liked')"><span class="teachicon-liked-videos"></span> Liked Videos</a></li>
+                        </ul>
+                    </nav>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+<div class="mobile--categoryMenu--Overlay" (click)="CloseMobileFilters()" [style.display]="MobileFilters ? 'block' :'none'"></div>

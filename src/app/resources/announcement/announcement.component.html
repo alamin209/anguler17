@@ -1,0 +1,162 @@
+<div class="w-100 blogs js-enabledBlog">
+    <div class="posts">
+        <div class="post">
+            <div class="post__content">
+                <div class="post-meta">
+                    <div class="post-title">
+                        <h2 class="h2 h2-sm" [innerHtml]="newsdetail.title | safeHtml"></h2>
+                    </div>
+                    <ul class="meta d-">
+                        <li>
+                            <span><i class="fe-user" aria-hidden="true"></i></span>&nbsp;<span rel="author"> {{ newsdetail.author }}</span>
+                        </li>
+                        <li>
+                            <span><i class="fe-calendar" aria-hidden="true"></i></span>&nbsp;<time class="updated" datetime="2018-04-20T08:43:04+00:00">{{ newsdetail.created_at }}</time>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="meta-post-categories meta-post-categories-sm">
+                    <a *ngFor="let post_category of post_categories let i=index" class="level-top" [innerHtml]="post_category.name+((post_categories.length > i+1)?' ':'') | safeHtml"></a>
+                </div>
+
+                <picture *ngIf="!newsdetail?.video_file && !newsdetail?.video_url" class="post__img"><span class="imagewash"></span>
+                    <!--[if IE 9]><video style="display: none;"><![endif]-->
+                    <source srcset="{{(newsdetail && newsdetail.image) ? PORTAL_URL + 'files/blog/' + newsdetail.CID + '/' + newsdetail.image : './assets/images/news/detail.jpg'}}" media="(min-width: 800px)" type="image/webp" />
+                    <source srcset="{{(newsdetail && newsdetail.image) ? PORTAL_URL + 'files/blog/' + newsdetail.CID + '/' + newsdetail.image : './assets/images/news/detail.jpg'}}" media="(min-width: 800px)" />
+                    <source srcset="{{(newsdetail && newsdetail.image) ? PORTAL_URL + 'files/blog/' + newsdetail.CID + '/' + newsdetail.image : './assets/images/news/detail.jpg'}}" media="(min-width: 400px)" />
+                    <!--[if IE 9]></video><![endif]-->
+                    <img class="img-fluid" alt="Featured Image" src="{{newsdetail && newsdetail.image
+                        ? PORTAL_URL +
+                          'files/blog/' +
+                          newsdetail.CID +
+                          '/' +
+                          newsdetail.image
+                        : './assets/images/news/detail.jpg'
+                    }}" />
+                </picture>
+                <div class="video-responsive video-responsive-sm position-relative" *ngIf="newsdetail?.video_file">
+                    <video width="100%" height="100%" id="S3Video" plays-inline controls controls="true" poster="{{newsdetail && newsdetail.image
+                        ? PORTAL_URL +
+                          'files/blog/' +
+                          newsdetail.CID +
+                          '/' +
+                          newsdetail.image
+                        : './assets/images/news/detail.jpg'
+                    }}">
+                    <source type="video/{{newsdetail?.video_type}}" src="{{bucketURL+'files/videos/'+newsdetail?.CID+'/'+newsdetail?.video_file}}" />
+                    </video>
+                </div>
+
+                <!-- YT Video -->
+                <div class="yt--video yt--video-sm" *ngIf="newsdetail?.video_id && newsdetail?.video_file == ''">
+                    <iframe width="100%" height="100%" id="YVideo" controls=0 [src]="VideoURL"></iframe>
+                </div>
+                
+                
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12 col-lg-8 col-md-8">
+                            <div class="w-100 pr-md-5">
+                                <!--<div class="w-100 pb-3"><a href="javascript:;" class="button button--lblue button-md button-inline-flex button-radius2 button-shadow button-download"><span class="size-16px mr-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M13.8 13.9H2.2c-.4 0-.6.3-.6.6v.9c0 .4.3.6.6.6h11.5c.4 0 .6-.3.6-.6v-.9c.1-.3-.2-.6-.5-.6zm-6.2-1.2c.1.1.3.2.5.2s.3-.1.5-.2L13 8.3c.2-.2.2-.7 0-.9l-.6-.6c-.2-.2-.7-.2-.9 0L9.1 9.1V.6c0-.3-.3-.6-.7-.6h-.8c-.4 0-.7.3-.7.6v8.5L4.7 6.8c-.3-.2-.7-.2-.9 0l-.6.6c-.2.2-.2.7 0 .9l4.4 4.4z"/></svg></span>Download Now</a></div>-->
+
+                                <div class="post--cont" [innerHtml]="newsdetail.description | safeHtml"></div>
+
+                                <!--<div class="w-100 py-4"><a href="javascript:;" class="button button--lblue button-md button-inline-flex button-radius2 button-shadow button-download"><span class="size-16px mr-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M13.8 13.9H2.2c-.4 0-.6.3-.6.6v.9c0 .4.3.6.6.6h11.5c.4 0 .6-.3.6-.6v-.9c.1-.3-.2-.6-.5-.6zm-6.2-1.2c.1.1.3.2.5.2s.3-.1.5-.2L13 8.3c.2-.2.2-.7 0-.9l-.6-.6c-.2-.2-.7-.2-.9 0L9.1 9.1V.6c0-.3-.3-.6-.7-.6h-.8c-.4 0-.7.3-.7.6v8.5L4.7 6.8c-.3-.2-.7-.2-.9 0l-.6.6c-.2.2-.2.7 0 .9l4.4 4.4z"/></svg></span>Download Now</a></div>-->
+
+                                <div class="sharethis-inline-share-buttons" attr.data-url="{{ogurl}}"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-4 col-md-4">
+                            <div class="card card-download border-0 radius-lg card-shadow">
+                                <div class="card-header p-3 bg-primary">
+                                    <div class="d-flex align-items-center"><span class="size-16px mr-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M13.8 13.9H2.2c-.4 0-.6.3-.6.6v.9c0 .4.3.6.6.6h11.5c.4 0 .6-.3.6-.6v-.9c.1-.3-.2-.6-.5-.6zm-6.2-1.2c.1.1.3.2.5.2s.3-.1.5-.2L13 8.3c.2-.2.2-.7 0-.9l-.6-.6c-.2-.2-.7-.2-.9 0L9.1 9.1V.6c0-.3-.3-.6-.7-.6h-.8c-.4 0-.7.3-.7.6v8.5L4.7 6.8c-.3-.2-.7-.2-.9 0l-.6.6c-.2.2-.2.7 0 .9l4.4 4.4z"/></svg></span>Download FAQ</div>
+                                </div>
+                                <div class="card-body p-3 pt-4">
+                                    <form method="post" class="form-horizontal" action="#">
+                                        <div class="form-group">
+                                            <input name="first_name" id="first_name" type="text" value="" class="form-control" placeholder="First Name *" autocomplete="off" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <input name="last_name" id="last_name" type="text" value="" class="form-control" placeholder="Last Name *" autocomplete="off" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <div class="w-100 selectdropdown">
+                                                <select name="job_function" id="job_function" class="form-control">
+                                                    <option value="" selected="selected">Job Function *</option>
+                                                    <option value="808640025">Academics</option>
+                                                    <option value="808640000">Accounting and Finance</option>
+                                                    <option value="808640002">Administration</option>
+                                                    <option value="808640026">Business Development</option>
+                                                    <option value="808640027">Construction Engineering</option>
+                                                    <option value="808640003">Consulting</option>
+                                                    <option value="808640028">Customer Support</option>
+                                                    <option value="808640008">Human Resources</option>
+                                                    <option value="808640010">Information Technology</option>
+                                                    <option value="808640029">Investment Management</option>
+                                                    <option value="808640012">Legal</option>
+                                                    <option value="808640030">Logistics</option>
+                                                    <option value="808640014">Manufacturing</option>
+                                                    <option value="808640016">Marketing</option>
+                                                    <option value="808640031">Medical</option>
+                                                    <option value="808640018">Networking Partner</option>
+                                                    <option value="808640006">Operations</option>
+                                                    <option value="808640004">Others</option>
+                                                    <option value="808640020">Purchasing and Procurement</option>
+                                                    <option value="808640032">Quality Assurance</option>
+                                                    <option value="808640033">Research and Development</option>
+                                                    <option value="808640034">Safety and Security</option>
+                                                    <option value="808640021">Sales</option>
+                                                    <option value="808640023">Vendor</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <input name="email" id="email" type="text" value="" class="form-control" placeholder="Email *" autocomplete="off" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <input name="phone" id="phone" type="text" value="" class="form-control" placeholder="Phone *" autocomplete="off" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <input name="company" id="company" type="text" value="" class="form-control" placeholder="Company *" autocomplete="off" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <input name="what_system" id="what_system" type="text" value="" class="form-control" placeholder="What system are you currently using ?" autocomplete="off" />
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="decision">Are you researching information for a purchase decision?</label>
+                                            <div class="w-100 selectdropdown">
+                                                <select name="decision" id="decision" class="form-control" aria-invalid="false" data-conditional-logic="visible">
+                                                    <option value="" selected="selected">Please select</option>
+                                                    <option value="808640001">Yes</option>
+                                                    <option value="808640000">No</option>
+                                                </select>
+                                           </div>
+                                        </div>
+                                        
+                                        <div class="w-100">
+                                            <button type="button" class="w-100 button button--lblue button-md button-inline-flex button-radius2">Submit</button>
+                                            <p class="my-1 fs-11">* Indicates a Required Field</p>
+                                        </div>
+                                        
+                                    </form>
+                                </div>
+                                <div class="card-footer p-2 px-3">
+                                    <div class="d-flex align-items-start my-1 fs-11"><i class="size-12px mr-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M12.5 6H12V4c0-2.2-1.8-4-4-4S4 1.8 4 4v2h-.5C2.7 6 2 6.7 2 7.5v7c0 .8.7 1.5 1.5 1.5h9c.8 0 1.5-.7 1.5-1.5v-7c0-.8-.7-1.5-1.5-1.5zM5.3 4c0-1.5 1.2-2.7 2.7-2.7s2.7 1.2 2.7 2.7v2H5.3V4zm3.4 7.1v1.5c0 .4-.3.7-.7.7-.4 0-.7-.3-.7-.7v-1.5c-.4-.2-.7-.7-.7-1.1 0-.7.6-1.3 1.3-1.3s1.4.6 1.4 1.3c0 .5-.2.9-.6 1.1z"/></svg></i>Your privacy is very important to us. All the information you provide to us is securely maintained and is kept strictly confidential.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="auth--body auth--body-md My--Profile">
+    <div class="auth--body__inner auth--body__inner-md">
+        <div class="container">
+            <div class="row">
+                <aside class="col-12 col-lg-3 col-xl-3">
+                    <div class="row u-mb--30 u-mb--30-sm">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <h3 class="section--title section--title-sm"><a routerLink="/member">{{'MY_ACCOUNT' | translate}}</a></h3>
+                        </div>
+                    </div>
+                    
+                    <!--Add side bar-->
+                    <app-side-bar></app-side-bar>
+                </aside>
+                <div class="col-12 col-lg-9 col-xl-9 has--leftsidebar has--leftsidebar-md">
+                    <div class="c-breadcrumb">
+                        <nav class="missio-breadcrumb">
+                            <a class="breadcrumb-link" routerLink="/">Home</a> <a class="breadcrumb-link " routerLink="/member/profile">{{'MY_DASHBOARD' | translate}}</a> <span class="breadcrumb-last">{{'MY_LEADS' | translate}}</span>
+                        </nav>
+                    </div>
+                    
+                    <div class="page-head page-head-sm">
+                        <h3 class="u-heading--small u-heading--small-sm">{{'MY_LEADS' | translate}}</h3>
+                    </div>
+                    
+                    <div class="profile--box">
+                        <div class="portlet light">
+                            <div class="portlet--body">
+                                <div class="portlet--body--inner portlet--body--inner-sm">
+                                    <!--<div class="page-head page-head-sm">
+                                        <h4 class="u-heading--exsmall u-heading--exsmall-sm">Your Addresses</h4>
+                                    </div>-->
+                                    
+                                    <div class="row u-mb--20 Shipping--Address" >
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                            <a routerLink="/member/leads/add" class="button--add-payment u-flex-direction-column">
+                                                {{'CREATE_LEADS' | translate}}
+                                            </a>
+                                        </div>
+                                        
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12" *ngIf="LeadsList && LeadsList.length == 0">
+                                            <div class="box--inner">
+                                                <div class="AG--Shipping AG--Shipping-sm"><img alt="{{'MY_LEADS' | translate}}" class="image-fluid" src="./assets/images/icons/Shipping-Truck.svg"></div>
+                                                <p><strong>Your {{'MY_LEADS' | translate}} is Empty!</strong></p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12 col-lg-6 col-md-6 col-sm-12" *ngFor="let lead of LeadsList; let i =index">
+                                            <div class="box" >
+                                                <div class="box--header" [ngClass]="{'green': lead?.Default_Address}" *ngIf=" lead?.Default_Address">Default</div>
+                                                <button type="button" class="box--header" [ngClass]="{'blue': lead?.Default_Address==0}" *ngIf=" lead?.Default_Address==0" (click)="setDefaultAddress(lead.ID);">Set as Default</button>
+                                                <div class="">
+                                                    <p class="u-mb--5"><strong class="u-capitalize">{{lead?.First_Name+' '+lead?.Last_Name}}</strong></p>
+                                                    <p class="u-mb--5" *ngIf="ASK_COMPANY_NAME && lead?.Company_Name"><strong class="u-capitalize"><span style="color:#999;">{{lead?.Company_Name}}</span></strong></p>
+                                                    <p class="u-mb--5" style="line-height: 1.25;">
+                                                        {{lead?.Address}}<br>
+                                                        <span [innerHtml]="(lead && lead?.Address2) ? ((lead?.Address2 + '<br>') | safeHtml) : ''"></span>
+                                                        {{lead?.City+','}} {{(lead?.State) ? lead?.State : ''}} {{(lead?.ZipCode) ? lead?.ZipCode : ''}}<br>
+                                                        {{lead?.Country | translate}}
+                                                    </p>
+                                                    <p *ngIf="PHONE_NUMBER_MASK" class="u-mb--5"><span>{{lead?.Phone_Number | mask: '(000) 000-0000'}}</span></p>
+                                                    <p *ngIf="!PHONE_NUMBER_MASK" class="u-mb--5"><span>{{lead?.Phone_Number}}</span></p>
+                                                    
+                                                </div>
+                                                <div class="lead">
+                                                    <a routerLink="{{'/member/leads/edit/'+lead.ID}}" class="link-green">{{'EDIT' | translate}}</a> <span>|</span> 
+                                                    <a href="javascript:void(0);" (click)="removeLead(lead.ID,lead.Default_Address)" class="link-red">{{'REMOVE' | translate}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Newsletter component here -->
+<app-newsletter></app-newsletter>

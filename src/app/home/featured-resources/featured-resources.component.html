@@ -1,0 +1,70 @@
+<div class="featured-products featured-products-xs" *ngIf="AllResources && AllResources.length">
+    <div class="container pl-0 pr-0">
+        <div class="sectionTitle-wrapper sectionTitle-wrapper-xs">
+            <h2 class="heading--title--medium heading--title--medium-xs">{{'EXPLORE_COOL_CLASSROOM_TEACHER_TOOLS' | translate}}</h2>
+        </div>
+    </div>
+    <div class="recent--uploads recent--uploads-sm p-0 mt-4 sm:mt-0" *ngIf="AllResources && AllResources.length">
+        <div class="container pl-0 pr-0">
+            <div class="row">
+                <div class="col-12 col-lg-4 col-md-4 col-sm-12" *ngFor="let item of AllResources; let i = index">
+                    <div class="card--option per-row3 p-0">
+                        <div class="card-100 card-100-sm">   
+                            <article class="video--post postType3 p-0">
+                                <div class="inner">
+                                    <a routerLink="{{'/resource/'+item.slug}}">
+                                        <div class="video--image">
+                                            <figure class="video--image--wrapper">
+                                                <span [ngClass]="(item && (item.video_url || item.video_file)) ? 'video--image--wrapper--inner' : 'video--image--wrapper--inner'">
+
+                                                    <img *ngIf="item.image" src="{{ PORTAL_URL + 'files/blog/' + item.CID + '/' + item.image }}" onerror="this.onerror=null; this.src='./assets/images/media/no--image.jpg'" alt="" width="160" height="110">
+
+                                                    <img *ngIf="!item.image" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+
+                                                </span>
+                                            </figure>
+                                            <div class="play--btn" *ngIf="(item && (item.video_url || item.video_file))">
+                                                <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                                                    <path class="stroke-solid" fill="none" stroke="none" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5" />
+                                                    <path class="icon" fill="none" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z" />
+                                                </svg>
+                                            </div>
+                                            <!-- <div *ngIf="item.media_type==='video'" class="media--length" >{{item.Video_Time}}</div> -->
+                                        </div>
+                                    </a>
+                                    <div class="post--data post--data-sm p-3">
+                                        <div class="post--channel mb-2"><time class="duration">{{ item.created_at | date: 'mediumDate' }}</time></div>
+
+                                        <h3 class="post--title post--title-sm" style="font-size: 18px;">
+                                            <a routerLink="{{'/resource/'+item.slug}}" [innerHtml]="((item && item?.title)? item?.title : '') | safeHtml"></a>
+                                        </h3>
+                                        <!--
+                                        <p class="author" *ngIf="item && item.author">
+                                            <i class="fe-user"></i> by <a href="javascript;">{{item.author}}</a>
+                                        </p>
+
+                                        <time class="date"><i class="fe-clock"></i> {{ item.created_at | date: 'mediumDate' }}</time>
+                                        -->
+
+                                        <div class="post--categories d-flex align-items-center pt-2" *ngIf="item && item._categories && item._categories.length">
+                                            <div *ngFor="let cat of item._categories;" class="post--category d-flex align-items-center mr-2">
+                                                <div class="post--category--hierarchies d-flex align-items-center flex-wrap">
+                                                    <div *ngFor="let _cat of cat.hierarchies; let icat = index;" >
+                                                        <span class="text" [innerHtml]="((_cat && _cat?.name)? _cat?.name : '') | safeHtml"></span>
+                                                        <span class="ml-2 mr-2" *ngIf="icat+1 < cat.hierarchies.length"> → </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>

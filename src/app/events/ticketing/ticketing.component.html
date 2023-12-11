@@ -1,0 +1,210 @@
+<style type="text/css">
+.ticket-table .action-btns .btn-sm{padding:3px 5px;font-size:11px}
+</style>
+
+<div class="w-100 py-4 py-md-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-11 col-md-12 col-sm-12">
+                <div class="row">
+                    
+                    <aside class="col-12 col-lg-3 col-xl-3">
+                        <app-left-nav></app-left-nav>
+                    </aside>
+                    
+                    <div class="col-12 col-lg-9 col-xl-9 pl-md-5">
+                        <div class="c-breadcrumb d-flex align-items-center justify-content-between mb-5">
+                            <nav class="missio-breadcrumb mb-0">
+                                <a class="breadcrumb-link" routerLink="/">Home</a>
+                                <a class="breadcrumb-link" routerLink="/member/profile">My Dashboard</a>
+                                <span class="breadcrumb-last">{{ "YOUR_TICKETS" | translate }}</span>
+                            </nav>
+                                
+                            <a routerLink="/tickets/create" class="button button--green button-inline button-xs button-radius"><i class="fe-plus mr-2"></i>{{ "CREATE_TICKETS" | translate }}</a>
+                        </div>
+                        
+                        <div class="page-head page-head-sm">
+                            <h3 class="u-heading--small u-heading--small-sm mb-3">{{ "YOUR_TICKETS" | translate }}</h3>
+                            <div class="welcome-msg">
+                                <p class="fs-15 text-dark-50">{{ "LEADS_MSG" | translate }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="w-100">
+                            <div class="product--specifications">
+                                <ul class="w-100 nav nav-tabs nav-tabs--items5" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link" [ngClass]="{'active': setTab=='All'}" data-toggle="tab" href="javascript:;" (click)="setTab='All';get_tickets();" role="tab">{{ "ALL_TICKETS" | translate }}</a>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                        <a class="nav-link" [ngClass]="{'active': setTab=='Resolved'}" data-toggle="tab" href="javascript:;" (click)="setTab='Resolved';get_tickets();" role="tab">Resolved</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" [ngClass]="{'active': setTab=='Closed'}" data-toggle="tab" href="javascript:;" (click)="setTab='Closed';get_tickets();" role="tab">Closed</a>
+                                    </li>
+
+                                    <div class="d-flex align-items-center form-group search-ticket m-0">
+                                        <input class="form-control solid rounded" id="email" name="email" type="text" placeholder="{{ 'SEARCH_TICKETS' | translate }}">
+                                    </div>
+                                </ul>
+                                
+                                <div class="tab-content tab-content-xs no-padding" id="myTabContent">
+                                    
+                                    <div *ngIf="setTab=='All'; then All"></div>
+                                    <div *ngIf="setTab=='Resolved'; then Resolved;"></div>
+                                    <div *ngIf="setTab=='Closed'; then Closed;"></div>
+                                    
+                                    <ng-template #All>
+                                        <div class="tab-pane show active">
+                                            <div class="w-100 tab-content--inner">
+                                                <table *ngIf="TicketsList && TicketsList.length" class="table table-bordered table-full-width ticket-table">
+                                                    <thead>
+                                                        <tr role="row" class="heading">
+                                                            <th style="width: 15%;">Product</th>
+                                                            <th style="width: 15%;">SubProduct</th>
+                                                            <th style="width: 15%;">Request</th>
+                                                            <th style="width: 15%;">Status</th>
+                                                            <th style="width: 20%;">Contact</th>
+                                                            <th style="width: 20%;">Added On</th>
+                                                            <th style="width: 5%;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    
+                                                    <tbody>
+                                                        <tr *ngFor="let ticket of TicketsList; let i = index" >
+                                                            <td>{{ticket.Product}}</td>
+                                                            <td>{{ticket.SubProduct}}</td>
+                                                            <td>{{ticket.Request}}</td>
+                                                            <td>{{ticket.Status}}</td>
+                                                            <td>
+                                                                <a href="" class="d-flex align-items-center">
+                                                                    <img src="/assets/images/avatar-80.jpeg" class="avatar">
+                                                                    <span class="person text-dark-75">{{ticket.ContactName}}</span>
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ticket.created_at}}</td>
+                                                            
+                                                            <td>
+                                                                <div class="d-flex align-items-center action-btns">
+                                                                    <a routerLink="/tickets/view/{{ticket.ID}}" class="btn btn-primary btn-sm mr-1"><i class="fe-eye mr-1"></i>View</a>
+                                                                    <a href="javascript:;" (click)="CloseTicket(ticket.ID)" class="btn btn-danger btn-sm ml-1"><i class="fe-x mr-1"></i>Close</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                                <div *ngIf="TicketsList && TicketsList.length == 0" class="info-box">
+                                                    <p>There are no tickets to display in this tab. <a routerLink="/tickets/create" class="link-primary link-blue">{{ "NO_TICKETS" | translate }}</a></p>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                    
+                                    <ng-template #Closed>
+                                        <div class="tab-pane  show active">
+                                            <div class="w-100 tab-content--inner">
+                                                <table *ngIf="TicketsList && TicketsList.length" class="table table-bordered table-full-width ticket-table">
+                                                    <thead>
+                                                        <tr role="row" class="heading">
+                                                            <th style="width: 15%;">Product</th>
+                                                            <th style="width: 15%;">SubProduct</th>
+                                                            <th style="width: 15%;">Request</th>
+                                                            <th style="width: 15%;">Status</th>
+                                                            <th style="width: 20%;">Contact</th>
+                                                            <th style="width: 20%;">Added On</th>
+                                                            <th style="width: 5%;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    
+                                                    <tbody>
+                                                        <tr *ngFor="let ticket of TicketsList; let i = index" >
+                                                            <td>{{ticket.Product}}</td>
+                                                            <td>{{ticket.SubProduct}}</td>
+                                                            <td>{{ticket.Request}}</td>
+                                                            <td>{{ticket.Status}}</td>
+                                                            <td>
+                                                                <a href="" class="d-flex align-items-center">
+                                                                    <img src="/assets/images/avatar-80.jpeg" class="avatar">
+                                                                    <span class="person text-dark-75">{{ticket.ContactName}}</span>
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ticket.created_at}}</td>
+                                                            
+                                                            <td>
+                                                                <div class="d-flex align-items-center action-btns">
+                                                                    <a routerLink="/tickets/view/{{ticket.ID}}" class="btn btn-primary btn-sm mr-1"><i class="fe-eye mr-1"></i>View</a>
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                                <div *ngIf="TicketsList && TicketsList.length == 0" class="info-box">
+                                                    <p>{{ "NO_TICKETS" | translate }} <a routerLink="/tickets/create" class="link-primary link-blue">{{ "CLICK_TICKETS" | translate }}</a></p>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </ng-template>
+
+                                    <ng-template #Resolved>
+                                        <div class="tab-pane  show active">
+                                            <div class="w-100 tab-content--inner">
+                                                <table *ngIf="TicketsList && TicketsList.length" class="table table-bordered table-full-width ticket-table">
+                                                    <thead>
+                                                        <tr role="row" class="heading">
+                                                            <th style="width: 15%;">Product</th>
+                                                            <th style="width: 15%;">SubProduct</th>
+                                                            <th style="width: 15%;">Request</th>
+                                                            <th style="width: 15%;">Status</th>
+                                                            <th style="width: 20%;">Contact</th>
+                                                            <th style="width: 20%;">Added On</th>
+                                                            <th style="width: 5%;">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    
+                                                    <tbody>
+                                                        <tr *ngFor="let ticket of TicketsList; let i = index" >
+                                                            <td>{{ticket.Product}}</td>
+                                                            <td>{{ticket.SubProduct}}</td>
+                                                            <td>{{ticket.Request}}</td>
+                                                            <td>{{ticket.Status}}</td>
+                                                            <td>
+                                                                <a href="" class="d-flex align-items-center">
+                                                                    <img src="/assets/images/avatar-80.jpeg" class="avatar">
+                                                                    <span class="person text-dark-75">{{ticket.ContactName}}</span>
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ticket.created_at}}</td>
+                                                            
+                                                            <td>
+                                                                <div class="d-flex align-items-center action-btns">
+                                                                    <a routerLink="/tickets/view/{{ticket.ID}}" class="btn btn-primary btn-sm mr-1"><i class="fe-eye mr-1"></i>View</a>
+                                                                    <a href="javascript:;" (click)="CloseTicket(ticket.ID)" class="btn btn-danger btn-sm ml-1"><i class="fe-x mr-1"></i>Close</a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                                <div *ngIf="TicketsList && TicketsList.length == 0" class="info-box">
+                                                    <p>{{ "NO_TICKETS" | translate }} <a routerLink="/tickets/create" class="link-primary link-blue">{{ "CLICK_TICKETS" | translate }}</a></p>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

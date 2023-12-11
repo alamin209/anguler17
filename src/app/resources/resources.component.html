@@ -1,0 +1,298 @@
+<!--
+<app-resources-banner></app-resources-banner>
+-->
+
+<section class="my--resources my--resources-sm">
+    <!--<app-left-side-bar></app-left-side-bar>-->
+
+    <div class="my--rightsidebar my--rightsidebar-sm p-0">
+        <div class="video--carousel video--carousel-sm mb-5 sm:mb-5" *ngIf="RecentVideos && RecentVideos.length">
+            <h2>{{ "RECENT_VIDEOS" | translate }}</h2>
+            <div class="recent--uploads recent--uploads-sm p-0">
+                <div class="container-fluid p-0">
+                    <div class="p-0" id="RecentVideos" >
+                        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                            <div ngxSlickItem class=" item" *ngFor="let item of RecentVideos; let i = index">
+                                <article class="video--post postType4">
+                                    <div class="inner">
+                                        <a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}">
+                                            <div class="video--image">
+                                                <figure class="video--image--wrapper">
+                                                    <span class="video--image--wrapper--inner">
+                                                        <img *ngIf="(item.Video_Source == 'youtube' || item.Video_Source == 'vimeo') && item.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="https://{{item.Video_Thumbnail_Small}}" />
+
+                                                        <img *ngIf="item.Video_UploadedOn == 'S3' && item.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="{{item.Video_Thumbnail_Small}}" />
+
+                                                        <img *ngIf="!item.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+                                                    </span>
+                                                </figure>
+                                                <div class="play--btn">
+                                                    <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                                                        <path class="stroke-solid" fill="none" stroke="none" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5" />
+                                                        <path class="icon" fill="none" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="post--data post--data-sm relative">
+                                            <!--<div class="video--like"><i class="fe-thumbs-up mr-1"></i>Like</div>-->
+                                            
+                                            <div class="video--like">
+                                                <div class="d-flex align-items-center relative ">
+                                                    <button (click)="LikeVideo(item.ID,item.Liked);" title="Like" class="btn--counter " [ngClass]="(item && item.Liked) ? 'is--selected' : ''"><span><i class="fe-thumbs-up mr-1"></i>Like</span></button>
+                                                    <div class="like--counter"><span>{{item.Video_Likes}}</span></div>
+                                                </div>
+                                                <div class="btn--hover relative">
+                                                    <button class="btn--dropdown"><i class="fe-more-vertical"></i></button>
+                                                    <div class="dropdown-menu pull-right">
+                                                        <ul>
+                                                            <li><a href="javascript:;" (click)="AddtoLibrary(item.ID);"><i class="teachicon-queue mr-1"></i>{{'ADD_TO_LIBRARY' | translate }}</a></li>
+                                                            <li><a href="javascript:;" (click)="Watchlater(item.ID);"><i class="teachicon-watch-later mr-1"></i>{{'WATCH_LATER' | translate }}</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="post--channel mb-2"><time class="date">{{ item.Video_Upload_Date | date: 'mediumDate' }}</time></div>
+                                            
+                                            <h3 class="post--title post--title-sm">
+                                                <a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}" [innerHtml]="((item && item?.Video_Title)? item?.Video_Title : '') | safeHtml"></a>
+                                            </h3>
+                                            
+                                            <!--
+                                            <p class="author" *ngIf="item && item?.Added_From == 'frontend'">
+                                                <i class="fe-user"></i> by <a href="javascript;">{{item.screen_name}}</a>
+                                            </p>
+                                            <p class="author" *ngIf="item && item?.Added_From == 'backend'">
+                                                <i class="fe-user"></i> by <a href="javascript;">{{'TITLE' | translate}}</a>
+                                            </p>
+                                            <time class="date"><i class="fe-clock"></i> {{ item.Video_Upload_Date | date: 'mediumDate' }}</time>
+                                            -->
+                                            
+                                            <div class="post--category"><a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}"><i class="fe-grid mr-1"></i> <span [innerHtml]="((item && item?.Category_Name)? item?.Category_Name : '') | safeHtml"></span></a></div>
+                                            
+                                        </div>
+                                        
+                                        <!--<div class="post--footer post--footer-sm">
+                                            <div class="post--category"><a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}"><i class="fe-grid mr-1"></i> <span [innerHtml]="((item && item?.Category_Name)? item?.Category_Name : '') | safeHtml"></span></a></div>
+                                            <div class="post--views">
+                                                <a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}"><i class="fe-eye"></i> {{item.Video_Views || 0}}</a>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </article>
+                            </div>
+                        </ngx-slick-carousel>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="resources--uploads resources--uploads-sm new-resources--uploads pt-0 pb-5">
+            <div class="container-fluid container-fluid-sm w-100">
+                <div class="row">
+                    <div class="col-12 col-lg-3 col-md-3 col-sm-12">
+                        <div class="resources--categories resources--categories-sm d-resources--categories" *ngIf="ResourcesCategories && ResourcesCategories.length">
+                            <ng-container *ngFor="let parent_cats of ResourcesCategories">
+                                <ul class="resources--categories--lists" >
+                                    <li class="resources--categories--lists-items">
+                                        <div class="checkbox checkbox-primary">
+                                            <input type="checkbox" id="{{parent_cats.ID}}" [checked]="addFilter(parent_cats.ID)" (change)="applyFilters($event.target.checked, parent_cats.ID)" />
+                                            <label for="{{parent_cats.ID}}"><h4>{{ parent_cats.name }}</h4></label>
+                                        </div>
+                                        <ul class="resources--categories--lists" >
+                                            <li class="resources--categories--lists-items ml-4" *ngFor="let sub_cats of parent_cats.Subcategories">
+                                                <div class="checkbox checkbox-primary">
+                                                    <input type="checkbox" id="{{sub_cats.ID}}" [checked]="addFilter(sub_cats.ID)" (change)="applyFilters($event.target.checked, sub_cats.ID)" />
+                                                    
+                                                    <label for="{{sub_cats.ID}}">{{ sub_cats.name }}</label>
+                                                </div>
+                                                <ul class="resources--categories--lists" >
+                                                    <li class="resources--categories--lists-items ml-4" *ngFor="let sub_cats2 of sub_cats.Subcategories">
+                                                        <div class="checkbox checkbox-primary">
+                                                            <input type="checkbox" id="{{sub_cats2.ID}}" [checked]="addFilter(sub_cats2.ID)" (change)="applyFilters($event.target.checked, sub_cats2.ID)" />
+                                                            
+                                                            <label for="{{sub_cats2.ID}}">{{ sub_cats2.name }}</label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    
+                                </ul>
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-9 col-md-9 col-sm-12">
+                        <div class="resources--filter resources--filter-sm">
+                            
+                            <div class="mobile--filter">
+                                <button class="button button--filter" (click)="ShowMobileFilters();"><span class="fe-settings"></span></button>
+                            </div>
+                            
+                            <button *ngIf="CateGorySearch || TagSearch || Keyword" class="button button--grey button-xs button-radius mr-2 is-active" routerLink="/resources" (click)="checkKeyParam();" style="white-space: nowrap;"><span class="fe-x mr-1"></span>Clear Filters</button>
+                            
+                            <div class="resources--filter--search resources--filter--search-sm" style="width: calc(100% - 0px); max-width: calc(100% - 0px);">
+                                <div class="sidebar--widget__search">
+                                  <div class="input-group">
+                                    <input
+                                      #searchKey
+                                      (keyup)="SearchByKeywordEnter($event, $event.target.value)"
+                                      value="{{ Keyword }}"
+                                      class="form-control js-typeahead"
+                                      (input)="SearchResourceValue($event.target.value)"
+                                      name="q"
+                                      type="search"
+                                      autofocus=""
+                                      autocomplete="off"
+                                      placeholder="Search..."
+                                    />
+            
+                                    <div class="input-group-append">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="button" (click)="SearchByKeyword(searchKey.value)"><i class="fe-search"></i></button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        </div>
+                        
+                        <div class="recent--uploads recent--uploads-sm p-0 mt-4 sm:mt-0" *ngIf="AllResources && AllResources.length">
+                            <div class="container-fluid p-0">
+                                <div class="card--option per-row3 p-0">
+                                    <div class="card-100 card-100-sm" *ngFor="let item of AllResources; let i = index">   
+                                        <article class="video--post postType3 p-0">
+                                            <div class="inner">
+                                                <a routerLink="{{'/resource/'+item.slug}}">
+                                                    <div class="video--image">
+                                                        <figure class="video--image--wrapper">
+                                                            <span [ngClass]="(item && (item.video_url || item.video_file)) ? 'video--image--wrapper--inner' : 'video--image--wrapper--inner'">
+                                                                
+                                                                <img *ngIf="item.image" src="{{ PORTAL_URL + 'files/blog/' + item.CID + '/' + item.image }}" onerror="this.onerror=null; this.src='./assets/images/media/no--image.jpg'" alt="" width="160" height="110">
+                                                                
+                                                                <img *ngIf="!item.image" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+                                                            </span>
+                                                        </figure>
+                                                        <div class="play--btn" *ngIf="(item && (item.video_url || item.video_file))">
+                                                            <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                                                                <path class="stroke-solid" fill="none" stroke="none" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5" />
+                                                                <path class="icon" fill="none" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z" />
+                                                            </svg>
+                                                        </div>
+                                                        <!-- <div *ngIf="item.media_type==='video'" class="media--length" >{{item.Video_Time}}</div> -->
+                                                    </div>
+                                                </a>
+                                                <div class="post--data post--data-sm pl-0 pr-0">
+                                                    
+                                                    <div class="post--channel mb-2"><time class="duration">{{ item.created_at | date: 'mediumDate' }}</time></div>
+                                                    
+                                                    <h3 class="post--title post--title-sm" style="font-size: 18px;">
+                                                        <a routerLink="{{ '/cp/'+item?.product_identifier+'/'+ item?.slug }}" [innerHtml]="((item && item?.title)? item?.title : '') | safeHtml"></a>
+                                                    </h3>
+                                                    <!--
+                                                    <p class="author" *ngIf="item && item.author">
+                                                        <i class="fe-user"></i> by <a href="javascript;">{{item.author}}</a>
+                                                    </p>
+                                                    
+                                                    <time class="date"><i class="fe-clock"></i> {{ item.created_at | date: 'mediumDate' }}</time>
+                                                    -->
+                                                    
+                                                    <div class="post--categories d-flex align-items-center" *ngIf="item && item._categories && item._categories.length">
+                                                        <div *ngFor="let cat of item._categories;" class="post--category d-flex align-items-center mr-2">
+                                                            <div class="post--category--hierarchies d-flex align-items-center flex-wrap">
+                                                                <div *ngFor="let _cat of cat.hierarchies; let icat = index;" >
+                                                                    <span class="text" [innerHtml]="((_cat && _cat?.name)? _cat?.name : '') | safeHtml"></span>
+                                                                    <span class="ml-2 mr-2" *ngIf="icat+1 < cat.hierarchies.length"> → </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                </div>
+                                                
+                                                <!--<div class="post--footer post--footer-sm">
+                                                    <div class="post--category"><a routerLink="{{'/resource/'+item.slug}}"><i class="fe-grid mr-1"></i> <span [innerHtml]="((item && item?.categories)? item?.categories : '') | safeHtml"></span></a></div>
+                                                    <div class="post--views">
+                                                        <a routerLink="{{'/detials/'+item.slug}}}"><i class="fe-eye"></i> {{item.total_hits || 0}}</a>
+                                                    </div>
+                                                </div>-->
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center product-not-found product-not-found-sm u-mt--40" *ngIf="AllResourcesNotFound"> 
+                            {{'NEWS_NOT_FOUND' | translate}} 
+                        </div>
+                        <!--
+                        <div class="products-footer u-mt--40" *ngIf="(AllResources && totalItems > AllResources.length)">
+                            <div class="pagination--list">
+                                <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="get_all_resources($event)" [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="limit"></pagination>
+                            </div>
+                        </div>
+                        -->
+                        <div class="search-results"
+                                  infiniteScroll
+                                  [infiniteScrollDistance]="2"
+                                  [infiniteScrollUpDistance]="1.5"
+                                  [infiniteScrollThrottle]="50"
+                                  (scrolled)="onLoadMore()"></div>
+                        
+                    </div>
+                    
+                    <!-- Begin(s) Tip of the day -->
+                    <!--
+                    <div class="col-12 col-lg-4 col-md-4 col-sm-12">
+                        <div class="right-box">
+                            <app-tip></app-tip>
+                        </div>
+                    </div>
+                    -->
+                    <!-- //End(s) Tip of the day -->
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Begin Responsive Mobile Menu -->
+<aside class="mobile--categoryMenu" [ngClass]="{'navigation-active': MobileFilters}">
+    <div class="mobile--categoryMenu--Close jsClose" (click)="CloseMobileFilters()"><span class="icon_close"></span></div>
+    <div class="widget__menuArea">
+        <div class="widget__menuArea__content">
+            <div class="widget__menuArea__content--body widget-scroll has-scrollbar">
+                <div class="widget__Header">
+                    <div class="page--logo"><a [routerLink]="['']"><img src="./assets/images/logo.svg" class="image-fluid" alt="{{'TITLE' | translate}}" /></a></div>
+                </div>
+                
+                <div class="widget-scroll-content listVerticalScrollBar">
+                    <div class="resources--categories resources--categories-sm" *ngIf="ResourcesCategories && ResourcesCategories.length">
+                        <ng-container *ngFor="let parent_cats of ResourcesCategories">
+                            <ul class="resources--categories--lists" *ngIf="parent_cats.Subcategories && parent_cats.Subcategories.length">
+                                <li class="resources--categories--lists-items">
+                                    <h4>{{ parent_cats.name }}</h4>
+                                </li>
+                                <li class="resources--categories--lists-items" *ngFor="let sub_cats of parent_cats.Subcategories">
+                                    <div class="checkbox checkbox-primary">
+                                        <input type="checkbox" id="{{sub_cats.ID}}" [checked]="addFilter(sub_cats.ID)" (change)="applyFilters($event.target.checked, sub_cats.ID)" />
+
+                                        <label for="{{sub_cats.ID}}">{{ sub_cats.name }}</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+<div class="mobile--categoryMenu--Overlay" (click)="CloseMobileFilters()" [style.display]="MobileFilters ? 'block' :'none'"></div>

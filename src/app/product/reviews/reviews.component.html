@@ -1,0 +1,216 @@
+<div class="product--specifications">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="javascript:;" [ngClass]="{'active': reQuesTab=='reviews'}" data-toggle="tab" href="javascript:;" (click)="reQuesTab='reviews';getProductReviews();" role="tab">{{'REVIEWS' | translate}}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="javascript:;" [ngClass]="{'active': reQuesTab=='questionAnswer'}" data-toggle="tab" href="javascript:;" (click)="reQuesTab='questionAnswer';getProductQA();" [innerHtml]="'QUESTIONS_ANSWERS' | translate" role="tab"></a>
+        </li>
+    </ul>
+    <div class="tab-content tab-content-xs no-padding" id="myTabContent2">
+
+        <div *ngIf="reQuesTab=='reviews'; then reviews"></div>
+
+        <div *ngIf="reQuesTab=='questionAnswer'; then questionAnswer;"></div>
+
+        <ng-template #reviews>
+            <div class="tab-pane show active" id="Reviews">
+                <div class="tab-content--inner">
+                    <div class="reviews--summary u-flexed u-align-center">
+                        <div class="star-rating">
+                            <span class="star-badge">
+                                <span class="star-badge-wrap">
+                                    <i [ngClass]="(AverageRatings && AverageRatings.average_rating >= 1) ? 'fa fa-star' : 'far fa-star'" ></i>
+                                    <i [ngClass]="(AverageRatings && AverageRatings.average_rating >= 2) ? 'fa fa-star' : 'far fa-star'" ></i>
+                                    <i [ngClass]="(AverageRatings && AverageRatings.average_rating >= 3) ? 'fa fa-star' : 'far fa-star'" ></i>
+                                    <i [ngClass]="(AverageRatings && AverageRatings.average_rating >= 4) ? 'fa fa-star' : 'far fa-star'" ></i>
+                                    <i [ngClass]="(AverageRatings && AverageRatings.average_rating >= 5) ? 'fa fa-star' : 'far fa-star'" ></i>
+                                </span>
+                                <span *ngIf="(productReviews && productReviews.length)" class="star-badge-caption">Based on {{AverageRatings.numberOfReviews}} review</span>
+                                <span *ngIf="(productReviews && productReviews.length == 0)" class="star-badge-caption">No Reviews</span>
+                            </span>
+                        </div>
+                        <div class="ml-auto">
+                            <a href="javascript:;" (click)="openModal(WriteReviewModal)" class="button button--green button-sm">{{'WRITE_A_REVIEW' | translate}}</a>
+                        </div>
+                    </div>
+
+                    <div class="reviews--content--inner">
+                        <div *ngFor="let pReview of productReviews let pi=index" [hidden]="pi+1 > ShowReviewsCount"  class="reviews--content">
+                            <div class="reviews--content__header">
+                                <div class="star-rating u-mb--15">
+                                    <span class="star-badge">
+                                        <span class="star-badge-wrap">
+                                        <i [ngClass]="(pReview && pReview.Rating >= 1) ? 'fa fa-star' : 'far fa-star'" ></i>
+                                        <i [ngClass]="(pReview && pReview.Rating >= 2) ? 'fa fa-star' : 'far fa-star'" ></i>
+                                        <i [ngClass]="(pReview && pReview.Rating >= 3) ? 'fa fa-star' : 'far fa-star'" ></i>
+                                        <i [ngClass]="(pReview && pReview.Rating >= 4) ? 'fa fa-star' : 'far fa-star'" ></i>
+                                        <i [ngClass]="(pReview && pReview.Rating >= 5) ? 'fa fa-star' : 'far fa-star'" ></i>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="reviews--content__header--title">
+                                    <h3 class="user-name">{{pReview.first_name}} {{pReview.last_name}}</h3>
+                                    <p class="byline" [innerHtml]="((pReview && pReview.Title)? pReview.Title : '') | safeHtml"></p>
+                                    <strong>{{pReview.AddedOn}}</strong>
+                                </div>
+                            </div>
+                            <div class="reviews--content__body">
+                                <p [innerHtml]="((pReview && pReview.Message)? pReview.Message : '') | safeHtml"></p>
+                            </div>
+                        </div>
+                        <a *ngIf="(HideViewReviewsMore && productReviews.length > 1)" class="moreless-button text-green" (click)="ViewMoreReviews(productReviews.length)" href="javascript:;">View all {{productReviews.length}} reviews</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #questionAnswer>
+            <div class="tab-pane show active" id="QuestionAnswer">
+                <div class="tab-content--inner">
+                    
+                    
+                    <div class="page-head page-head-xs u-justify-start noborder u-mb--40 u-mb--40-sm">
+                        <a href="javascript:;" (click)="openModal(PostQuestionModal,'ques')" class="button button--red button-sm u-mr--20">{{'ASK_QUESTION' | translate}}</a>
+                        <h3 *ngIf="(productQAs && productQAs.length == 0)" class="u-mb--0">Be the first to Ask A Question!</h3>
+                    </div>
+                    
+                    <div class="questions--answers">
+                        <div *ngFor="let pQA of productQAs let i=index" [hidden]="i+1 > ShowQsCount"  class="questions--answers--block">
+                            <div class="questions--answers--q">
+                                <div class="questions--answers--q__left"><span class="d-none d-sm-block">Question :</span><span class="d-block d-sm-none">Qn :</span></div>
+                                <div class="questions--answers--q__right">
+                                    <div class="fs16">
+                                        <div  class="link-green" [innerHtml]="((pQA && pQA.Message)? pQA.Message : '') | safeHtml"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngFor="let Answer of pQA.Answers let i1=index" class="questions--answers--ans">
+                                <div *ngIf="(i1 == 0)" class="questions--answers--ans__left"><span class="d-none d-sm-block">Answer :</span><span class="d-block d-sm-none">Ans :</span></div>
+                                <div class="questions--answers--ans__right">
+                                    <div class="questions--answers--ans--row">
+                                        <div class="fs16" [innerHtml]="((Answer && Answer.Message)? Answer.Message : '') | safeHtml"></div>
+                                        <div *ngIf="Answer.Seller == 0" class="fs14">By {{Answer.First_Name}} {{Answer.Last_Name}} on {{Answer.AddedOn}}</div>
+                                        <div *ngIf="Answer.Seller == 1" class="fs14 text-green"><span class="fe-user ag--icons"tooltip="Posted by Seller"></span> By {{Answer.Answered_By}} on {{Answer.AddedOn}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="(pQA && pQA.Answers && pQA.Answers.length == 0)" class="questions--answers--ans">
+                                Not any answer yet.
+                            </div>
+                            
+                            <a href="javascript:;" (click)="openModal(PostQuestionModal,'ans',pQA.ID)" class="button button--reply">{{'POST_ANSWER' | translate}}</a>
+                        </div>
+                        <a *ngIf="(HideViewQsMore && productQAs.length > 1)" class="moreless-button text-green" (click)="ViewMoreQA(productQAs.length)" href="javascript:;">View all {{productQAs.length}} questions</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+    </div>
+    <div class="clearfix"></div>
+
+</div>
+
+<!-- Write a review Modal -->
+<ng-template #WriteReviewModal>
+    <div class="modal-dialog-medium modal-dialog-medium-md">
+        <div class="modal-header modal-header-sm">
+            <h3>{{'WRITE_A_REVIEW' | translate}} </h3>
+            <button type="button" class="modal-close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body modal-body-sm">
+            <form [formGroup]="reviewForm" (ngSubmit)="onSubmit(reviewForm.value)">
+                <div class="row justify-content-center u-mb--15">
+                    <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                        <div [ngClass]="reviewForm.controls['Rating'].dirty && reviewForm.controls['Rating'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                            <rating id="Rating" name="Rating" formControlName="Rating" [max]="max" [readonly]="isReadonly"></rating>
+                            <div *ngIf="reviewForm.controls['Rating'].dirty && reviewForm.controls['Rating'].errors">
+                                <div *ngIf="reviewForm.controls['Rating'].errors.required">
+                                    <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center u-mb--15">
+                    <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                        <div [ngClass]="reviewForm.controls['Title'].dirty && reviewForm.controls['Title'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                            <input type="text" class="form-control solid rounded" formControlName="Title" id="Title" name="Title" placeholder="{{'REVIEW_TITLE' | translate}}">
+                            <div *ngIf="reviewForm.controls['Title'].dirty && reviewForm.controls['Title'].errors">
+                                <div *ngIf="reviewForm.controls['Title'].errors.required">
+                                    <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row justify-content-center u-mb--15">
+                    <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                        <div [ngClass]="reviewForm.controls['Message'].dirty && reviewForm.controls['Message'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                            <textarea type="text" class="form-control solid rounded" formControlName="Message" id="Message" name="Message" required placeholder="{{'REVIEW_MESSAGE' | translate}}" rows="5"></textarea>
+                            <div *ngIf="reviewForm.controls['Message'].dirty && reviewForm.controls['Message'].errors">
+                                <div *ngIf="reviewForm.controls['Message'].errors.required">
+                                    <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-start u-align-center">
+                    <div class="col-12 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <button type="submit" class="button button--green button-md">{{'POST' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+<!-- //End Write a review Modal -->
+
+
+<!-- Post Question Answer Modal -->
+<ng-template #PostQuestionModal>
+    <div class="modal-dialog-medium modal-dialog-medium-md">
+        <div class="modal-header modal-header-sm">
+            <h3 *ngIf="this.QType == 'ques'">{{'POST_QUESTION' | translate}} </h3>
+            <h3 *ngIf="this.QType == 'ans'">{{'POST_ANSWER' | translate}} </h3>
+            <button type="button" class="modal-close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body modal-body-sm">
+            <form [formGroup]="QAForm" (ngSubmit)="onSubmitQAForm(QAForm.value)">
+                <div class="row justify-content-center u-mb--15">
+                    <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                        <div [ngClass]="QAForm.controls['Message'].dirty && QAForm.controls['Message'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                            <textarea type="text" class="form-control solid rounded" formControlName="Message" id="Message" name="Message" required placeholder="{{this.QType == 'ques' ? 'Write Your Question here' : 'Write Your Answer here'}}" rows="5"></textarea>
+                            <div *ngIf="QAForm.controls['Message'].dirty && QAForm.controls['Message'].errors">
+                                <div *ngIf="QAForm.controls['Message'].errors.required">
+                                    <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-start u-align-center">
+                    <div class="col-12 col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <button type="submit" class="button button--green button-md">{{'POST' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>
+<!-- //End Post Question Answer Modal -->

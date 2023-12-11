@@ -1,0 +1,203 @@
+<div class="container video-wrapper mt-4">
+    <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 d-pr-0">
+            <!-- The video -->
+            <div class="video-responsive video-responsive-sm position-relative" *ngIf="VideoDetail?.Video_Source == 'Uploaded' && VideoDetail?.Video_UploadedOn == 'S3'">
+                
+                <video *ngIf="VideoDetail?.Video_Thumbnail_Small" poster="{{VideoDetail?.Video_Thumbnail_Small}}" preload="metadata" width="100%" height="100%" id="S3Video" plays-inline controls controls="true" >
+                    <source *ngIf="VideoDetail?.Video_Source == 'Uploaded' && VideoDetail?.Video_UploadedOn == 'S3'" type="video/{{VideoDetail?.Video_Type}}" src="{{AWSBUCKETURL+'files/videos/'+VideoDetail?.CID+'/'+VideoDetail?.Video_Url}}" /> </video>
+                
+                <video *ngIf="!VideoDetail?.Video_Thumbnail_Small" poster="./assets/images/TIP-No--Poster.jpg" preload="metadata" width="100%" height="100%" id="S3Video" plays-inline controls controls="true" >
+                    <source *ngIf="VideoDetail?.Video_Source == 'Uploaded' && VideoDetail?.Video_UploadedOn == 'S3'" type="video/{{VideoDetail?.Video_Type}}" src="{{AWSBUCKETURL+'files/videos/'+VideoDetail?.CID+'/'+VideoDetail?.Video_Url}}" /> </video>
+                
+                <video poster="./assets/images/TIP-No--Poster.jpg" preload="metadata" width="100%" height="100%" id="NoVideo" plays-inline controls controls="true" *ngIf="VideoDetail?.Video_Url == ''">
+                    <source *ngIf="VideoDetail?.Video_Url == ''" src="./assets/video/181125_06_Christmas_010_preview.mp4" type="video/mp4" /> 
+                </video>
+            </div>
+
+            <!-- YT Video -->
+            <div class="yt--video yt--video-sm" *ngIf="VideoDetail?.Video_Source == 'youtube'">
+                <iframe width="100%" height="100%" id="YVideo"  controls=0 [src]="VideoURL"></iframe>
+            </div>
+
+            <!-- Vimeo Video -->
+            <div class="vimeo--video vimeo--video-sm" *ngIf="VideoDetail?.Video_Source == 'vimeo'">
+                <iframe width="100%" height="100%" id="MVideo" [src]="VideoURL"></iframe>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 d-pl-0">
+            <div class="video--content video--content-sm h-100 p-0">
+                <div class="p-4">
+                    <h1 class="title title-sm mb-3" [innerHtml]="((VideoDetail && VideoDetail?.Video_Title)? VideoDetail?.Video_Title : '') | safeHtml"></h1>
+                    <ul class="metas mb-3">
+                        <li class="mr-3 mb-2"><i class="fe-archive mr-1"></i>  <span [innerHtml]="((VideoDetail && VideoDetail?.Category_Name)? VideoDetail?.Category_Name : '') | safeHtml"></span> </li>
+                        <li class="mr-3 mb-2"> <span><i aria-hidden="true" class="fe-calendar mr-1"></i></span><time class="updated" datetime="2018-04-20T08:43:04+00:00">{{ VideoDetail?.Video_Upload_Date | date: 'mediumDate' }}</time></li>
+                        <li class="mr-3 mb-2"><span><i aria-hidden="true" class="fe-eye mr-1"></i>{{VideoDetail?.Video_Views || 0}}</span></li>
+                        <li class="mr-3 mb-2"><i aria-hidden="true" class="fe-tag mr-1"></i><span [innerHtml]="((VideoDetail && VideoDetail?.Tags)? VideoDetail?.Tags : '') | safeHtml"></span></li>
+                    </ul>
+                    
+                    <!-- Begin Channel Name & Subscribe -->
+                    <div *ngIf="VideoDetail && VideoDetail?.ChannelId" class="d-flex align-items-center justify-content-between w-100 mb-3">
+                        <a href="javascript:;" routerLink="/academy/channel/{{VideoDetail?.Channel_Slug}}" class="channel--name d-flex align-items-center">
+                            <i class="teachicon-subscription mr-1" style="font-size: 22px"></i>
+                            
+                            <strong><span cl [innerHtml]="((VideoDetail && VideoDetail?.Channel_Name)? VideoDetail?.Channel_Name : '') | safeHtml"></span></strong>
+                            
+                        </a>
+                        
+                        
+                        
+                        <button *ngIf="VideoDetail && !VideoDetail?.Subscribed" class="button button--red button-xs button-radius" (click)="SubscribeVideoChannel(VideoDetail?.ID,VideoDetail?.ChannelId,VideoDetail?.Subscribed);" type="button"><i class="teachicon-notification mr-1"></i>Subscribe</button>
+                        
+                        <button *ngIf="VideoDetail && VideoDetail?.Subscribed" class="button button--red button-xs button-radius button--grey" (click)="openModal(UnsubscribeModal)" type="button"><i class="teachicon-notification mr-1"></i>Subscribed</button>
+                        
+                    </div>
+                    <!-- //End Video Description -->
+
+                    <!-- Begin Channel Name & Subscribe -->
+                    <div class="video--desc" [innerHtml]="((VideoDetail && VideoDetail?.Video_Description)? VideoDetail?.Video_Description : '') | safeHtml"></div>
+                    <!-- //End Video Description -->
+                    
+                    <div class="user--block">
+                        <!-- Begin Video Like Action -->
+                        <div class="video--like">
+                            <div class="d-flex align-items-center relative ">
+                                <button (click)="LikeVideo(VideoDetail?.ID,VideoDetail?.Liked);" title="Like" class="btn--counter " [ngClass]="(VideoDetail && VideoDetail?.Liked) ? 'is--selected' : ''"><span><i class="fe-thumbs-up mr-1"></i>Like</span></button>
+                                <div class="like--counter"><span>{{VideoDetail?.Video_Likes}}</span></div>
+                            </div>
+                            
+                            <ul class="d-flex align-items-end justify-content-end flex-wrap" style="max-width: 250px;">
+                                <li class="ml-2 mb-1">
+                                    <a *ngIf="VideoDetail && VideoDetail?.Library" href="javascript:;" (click)="AddtoLibrary(VideoDetail?.ID);" class="d-flex align-items-center justify-content-center btn-video-controls"><i class="teachicon-delete iconfs-18 mr-1"></i>{{'REMOVE_FROM_LIBRARY' | translate }}</a>
+
+                                    <a *ngIf="VideoDetail && !VideoDetail?.Library" href="javascript:;" (click)="AddtoLibrary(VideoDetail?.ID);" class="d-flex align-items-center justify-content-center btn-video-controls"><i class="teachicon-queue iconfs-18 mr-1"></i>{{'ADD_TO_LIBRARY' | translate }}</a>
+                                </li>
+                                <li class="ml-2 mb-1">
+                                    <a *ngIf="VideoDetail && VideoDetail?.WatchLater" href="javascript:;" (click)="Watchlater(VideoDetail?.ID);" class="d-flex align-items-center justify-content-center btn-video-controls"><i class="teachicon-delete iconfs-18 mr-1"></i>{{'DELETE_FROM_WATCH_LATER' | translate }}</a>
+
+                                    <a *ngIf="VideoDetail && !VideoDetail?.WatchLater" href="javascript:;" (click)="Watchlater(VideoDetail?.ID);" class="d-flex align-items-center justify-content-center btn-video-controls"><i class="teachicon-watch-later iconfs-18 mr-1"></i>{{'WATCH_LATER' | translate }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- //End Video Like Action -->
+
+                        <div class="user user-sm mb-0 mr-2"> 
+                            <img
+                                *ngIf="VideoDetail &&
+                                  VideoDetail?.profile_picture && VideoDetail?.Added_From == 'frontend'"
+                                src="{{ AWSBUCKETURL }}/avatar/{{
+                                  VideoDetail?.profile_picture
+                                }}"
+                                alt="{{
+                                  VideoDetail && VideoDetail && VideoDetail?.first_name
+                                    ? VideoDetail?.first_name
+                                    : ''
+                                }}"
+                              />
+                              <img
+                                *ngIf="VideoDetail &&
+                                  !VideoDetail?.profile_picture || VideoDetail?.Added_From == 'backend'"
+                                src="./assets/images/300_1.jpg"
+                                alt="{{'TITLE' | translate}}"
+                              />
+                        </div>
+                        <div class="user--name" *ngIf="VideoDetail && VideoDetail?.Added_From == 'frontend'">{{VideoDetail?.screen_name}}</div>
+                        <div class="user--name" *ngIf="VideoDetail && VideoDetail?.Added_From == 'backend'">{{'TITLE' | translate}}</div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="recent--uploads recent--uploads-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="title_row">
+                    <h3>Related Videos</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <article *ngFor="let item of RelatedVideos; let i = index" class="col-12 col-lg-3 col-md-4 col-sm-6 video--post postType3">
+                <div class="inner">
+                    <a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}">
+                        <div class="video--image">
+                            <figure class="video--image--wrapper">
+                                <span class="video--image--wrapper--inner">
+                                    <img *ngIf="(item.Video_Source == 'youtube' || item.Video_Source == 'vimeo') && item.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="https://{{item.Video_Thumbnail_Small}}" />
+
+                                    <img *ngIf="item.Video_UploadedOn == 'S3' && item.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="{{item.Video_Thumbnail_Small}}" />
+
+                                    <img *ngIf="!item.Video_Thumbnail_Small" alt="Thumbnail" class="lazy cast img-fluid" src="./assets/images/media/no--image.jpg" />
+                                </span>
+                            </figure>
+                            <div class="play--btn">
+                                <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                                    <path class="stroke-solid" fill="none" stroke="none" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5" />
+                                    <path class="icon" fill="none" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z" />
+                                </svg>
+                            </div>
+                            <div class="media--length">{{item.Video_Time}}</div>
+                        </div>
+                    </a>
+                    <div class="post--data post--data-sm relative">
+                        <!--<div class="video--like"><i class="fe-thumbs-up mr-1"></i>Like</div>-->
+
+                        <div class="video--like">
+                            <div class="d-flex align-items-center relative ">
+                                <button (click)="LikeVideo(item.ID,item.Liked);" title="Like" class="btn--counter " [ngClass]="(item && item.Liked) ? 'is--selected' : ''"><span><i class="fe-thumbs-up mr-1"></i>Like</span></button>
+                                <div class="like--counter"><span>{{item.Video_Likes}}</span></div>
+                            </div>
+                            <div class="btn--hover relative">
+                                <button class="btn--dropdown"><i class="fe-more-vertical"></i></button>
+                                <div class="dropdown-menu pull-right">
+                                    <ul>
+                                        <li><a href="javascript:;" (click)="AddtoLibrary(item.ID);"><i class="teachicon-queue mr-1"></i>{{'ADD_TO_LIBRARY' | translate }}</a></li>
+                                        <li><a href="javascript:;" (click)="Watchlater(item.ID);"><i class="teachicon-watch-later mr-1"></i>{{'WATCH_LATER' | translate }}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="post--title post--title-sm">
+                            <a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}" [innerHtml]="((item && item?.Video_Title)? item?.Video_Title : '') | safeHtml"></a>
+                        </h3>
+                        <p class="author" *ngIf="item && item?.Added_From == 'frontend'">
+                            <i class="fe-user"></i> by <a href="javascript;">{{item.screen_name}}</a>
+                        </p>
+                        <p class="author" *ngIf="item && item?.Added_From == 'backend'">
+                            <i class="fe-user"></i> by <a href="javascript;">{{'TITLE' | translate}}</a>
+                        </p>
+                        <time class="date"><i class="fe-clock"></i> {{ item.Video_Upload_Date | date: 'mediumDate' }}</time>
+                    </div>
+                    <div class="post--footer post--footer-sm">
+                        <div class="post--category"><a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}"><i class="fe-grid mr-1"></i> <span [innerHtml]="((item && item?.Category_Name)? item?.Category_Name : '') | safeHtml"></span></a></div>
+                        <div class="post--views">
+                            <a routerLink="{{'/academy/video/'+item.Video_slug+'-'+item.ID}}"><i class="fe-eye"></i> {{item.Video_Views || 0}}</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<!-- Write a review Modal -->
+<ng-template #UnsubscribeModal>
+    <div class="modal-dialog-medium modal-dialog-medium-md UnsubscribeModal" style="min-height: inherit !important">
+        <div class="modal-header modal-header-sm">
+            <h3>Unsubscribe From <strong><span cl [innerHtml]="((VideoDetail && VideoDetail?.Channel_Name)? VideoDetail?.Channel_Name : '') | safeHtml"></span></strong> </h3>
+        </div>
+        <div class="modal-footer modal-footer-sm justify-content-center" style="min-height: inherit !important">
+            <button type="button" class="button button--canecl button-md" (click)="modalRef.hide()">Cancel</button>
+            <button type="button" class="button button--unsubscribe button-md" (click)="SubscribeVideoChannel(VideoDetail?.ID,VideoDetail?.ChannelId,VideoDetail?.Subscribed);modalRef.hide();" >Unsubscribe</button>
+        </div>
+    </div>
+</ng-template>
+<!-- //End Write a review Modal -->

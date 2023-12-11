@@ -1,0 +1,52 @@
+/* Unishippers Page
+------------------------------------*/
+.uni--height {
+    &--40 {
+        height: calc(100% - 40px);
+    }
+    &--50 {
+        height: calc(100% - 50px);
+        @include padding-top(10);
+    }
+}
+
+.button--clear {
+    z-index: 2;
+    color: $white;
+    position: relative;
+    @include padding(7 12);
+    @include font-size(13);
+    @include padding-left(15);
+    line-height: 1;
+    background-color: $green;
+    @include border-radius(3px);
+    
+    > span {
+        z-index: 2;
+        position: relative;
+    }
+    
+    &:before {
+        top: 50%;
+        left: 0px;
+        content: '';
+        position: absolute;
+        @include size(20px);
+        background-color: $green;
+        @include margin-left(-8);
+        @include margin-top(-10);
+        @include border-radius(3px);
+        @include transform(rotate(-45deg));
+    }
+    
+    &:after {
+        top: 50%;
+        left: -1px;
+        z-index: 3;
+        content: '\f00d';
+        position: absolute;
+        @include size(15px);
+        font-family: $iconfont;
+        @include transform(translateY(-42.5%));
+    }
+}

@@ -1,0 +1,1084 @@
+<!-- Begin Product Detail Section -->
+<div class="product-details product-details-xs single-product-detail">
+    <div class="container">
+        <div class="row u-mb--60 u-mb--60-sm">
+
+            <!-- Begin Product Gallery Section -->
+            <div class="col-12 col-lg-7 col-md-12 col-sm-12 gallery-images ">
+                <div class="u-flexed product-img-slide">
+                    <div class="product-images">
+                        <div class="product-main-image js-product-slider"
+                            *ngIf="productInfo && productInfo?.slider && productInfo?.slider.length">
+                            <div class="item" *ngFor="let slide of productInfo?.slider; let ind=index;"
+                                [ngClass]="{'youtube': slide.type =='video'}">
+                                <!--<div class="" *ngFor="let slide of productInfo?.slider" [ngClass]="{'youtube': slide.type =='video'}">-->
+                               <!-- <a href="javascript:void(0);" class="hover-images effect zoomer">
+                                    <img [src]="slide.mediumUrl" alt="photo" [id]="ind" class="img-reponsive js-zoom"
+                                        (mousemove)="zoomIn($event,ind,slide.imageUrl)" (mouseleave)="zoomOut(ind)">
+                                    <div [id]="ind+'p'" class="preview" (mousemove)="zoomIn($event,ind,slide.imageUrl)">
+                                    </div>-->
+                                    <!-- <ngx-image-zoom [thumbImage]="slide.thumbimageUrl" [fullImage]="slide.imageUrl"
+                                        [magnification]="1" [enableScrollZoom]="true" [enableLens]="ture"
+                                        [lensWidth]="600" [lensHeight]="500"></ngx-image-zoom>-->
+                                <!--</a>-->
+                                <a href="javascript:void(0);" class="hover-images">
+                                    <img *ngIf="!(slide.type =='video')" [id]="'product'+ind" [src]="slide.mediumUrl" alt="photo"
+                                    (mousemove)="jqueryProductZoom(ind,slide.imageUrl)"/>
+                                    
+                                    <img *ngIf="(slide.type =='video')" [id]="'product'+ind" [src]="slide.mediumUrl" alt="photo"/>
+                                </a>
+                                <div class="missio--product-video__gallery" *ngIf="slide.type =='video'">
+                                    <a href="javascript:;" (click)="openModal(VideoModal)"><span>Watch video</span></a>
+                                </div>
+
+                                <div class="missio--product__additional-galleries">
+                                    <div class="missio--product__gallery">
+                                        <a href="javascript:;" class="js-show-product-gallery"
+                                            id="js-show-product-gallery" (click)="openPhotoSwipe(ind)"><span>Click to
+                                                Enlarge</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="multiple-img-list-ver2 js-click-product"
+                        *ngIf="productInfo && productInfo?.slider && productInfo?.slider.length">
+                        <div class="product-col" *ngFor="let slide of productInfo?.slider">
+                            <div class="img" [ngClass]="{'video': slide.type =='video'}">
+                                <a href="javascript:;" class="play" *ngIf=" slide.type =='video'"
+                                    (click)="openModal(VideoModal)"><span class="play_icon"></span></a>
+                                <img [src]="slide.thumbimageUrl" alt="photo" width="114" height="114"
+                                    class="img-reponsive">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- //End Product Gallery Section -->
+
+            <!-- Begin Summary Detail Section -->
+            <div class="col-12 col-lg-5 col-md-12 col-sm-12 summary entry-summary" *ngIf="productInfo && productInfo?.ID">
+                <div class="summary-inner summary-inner-xs">
+                    <div class="single-breadcrumbs-wrapper mb-3">
+                        <div class="single-breadcrumbs d-flex flex-wrap align-items-center">
+                            <nav class="missio-breadcrumb mb-0 w-50">
+                                <a class="breadcrumb-link" routerLink="/" >Home</a>
+                                <a [ngClass]="(breadCumbs?.length == 0) ? 'breadcrumb-last' : 'breadcrumb-link'" routerLink="/shop">Shop</a>
+                                <span *ngIf="(breadCumbs && breadCumbs.length > 0)">
+                                    <span *ngFor="let CategoriesB of breadCumbs let i=index">
+                                        <a routerLink="{{'/shop/'+CategoriesB.Category_Slug}}"
+                                            [innerHtml]="((CategoriesB) ? CategoriesB.Category_Name : '') | safeHtml"
+                                            class="breadcrumb-link"></a>
+                                    </span>
+                                </span>
+
+                                <span class="breadcrumb-last" [innerHtml]="((productInfo && productInfo?.Product_Name)? productInfo?.Product_Name : '') | safeHtml"></span>
+                            </nav>
+                            
+                            <div class="missio-products-nav mb-0 ml-0 mt-3 mt-sm-0 ml-sm-auto">
+                                <a href="javascript:void(0);" routerLink="/shop" class="button button--grey button-sm button--continue rounded">{{'CONTINUE_SHOPPING' | translate}}</a>
+                            </div>
+                            
+                            <div class="missio-products-nav" *ngIf="productInfo">
+                                <!-- Prev Product Item(s)
+                                <div class="product-btn product-prev"
+                                    *ngIf="productInfo && productInfo?.previousProduct && productInfo?.previousProduct.length">
+                                    <a routerLink="{{'/shop/product/p/'+productInfo?.previousProduct[0]?.Product_Slug}}"><b
+                                            data-translate="products.product.product_prev">Previous product</b><span
+                                            class="product-btn-icon"></span></a>
+                                    <div class="wrapper-short">
+                                        <div class="product-short">
+                                            <div class="product-short-image">
+                                                <a routerLink="{{'/shop/product/p/'+productInfo?.previousProduct[0]?.Product_Slug}}"
+                                                    class="product-thumb">
+                                                    <img src="{{productInfo?.previousProduct[0]?.Image}}" class=""
+                                                        alt="" width="200" height="230"></a>
+                                            </div>
+                                            <div class="product-short-description">
+                                                <a class="product-title"
+                                                    routerLink="{{'/shop/product/p/'+productInfo?.previousProduct[0]?.Product_Slug}}"
+                                                    [innerHtml]="((productInfo && productInfo?.previousProduct)? productInfo?.previousProduct[0]?.Product_Name : '') | safeHtml"></a>
+                                                <strong
+                                                    routerLink="{{'/shop/product/p/'+productInfo?.previousProduct[0]?.Product_Slug}}"
+                                                    class="price text-green">${{productInfo?.previousProduct[0]?.Product_Price}}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <!-- Back to Shop
+                                <a routerLink="/shop" class="product-back-btn" data-placement="top"
+                                    tooltip="{{'BACK_TO_SHOP' | translate}}"><span>{{'BACK_TO_SHOP' | translate}}</span></a> -->
+
+                                <!-- Next Product Item(s)
+                                <div *ngIf="productInfo && productInfo?.nextProduct && productInfo?.nextProduct.length"
+                                    class="product-btn product-next"><a
+                                        routerLink="{{'/shop/product/p/'+productInfo?.nextProduct[0]?.Product_Slug}}"><b>{{'NEXT_PRODUCT' | translate}}</b><span
+                                            class="product-btn-icon"></span></a>
+                                    <div class="wrapper-short">
+                                        <div class="product-short">
+                                            <div class="product-short-image">
+                                                <a class="product-thumb"
+                                                    routerLink="{{'/shop/product/p/'+productInfo?.nextProduct[0]?.Product_Slug}}"><img
+                                                        src="{{productInfo?.nextProduct[0]?.Image}}" class="" alt=""
+                                                        width="200" height="230"></a>
+                                            </div>
+                                            <div class="product-short-description">
+                                                <a routerLink="{{'/shop/product/p/'+productInfo?.nextProduct[0]?.Product_Slug}}"
+                                                    class="product-title"
+                                                    [innerHtml]="((productInfo && productInfo?.nextProduct)? productInfo?.nextProduct[0]?.Product_Name : '') | safeHtml"></a>
+                                                <strong class="price text-green"
+                                                    routerLink="{{'/shop/product/p/'+productInfo?.nextProduct[0]?.Product_Slug}}">${{productInfo?.nextProduct[0]?.Product_Price}}</strong>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 itemprop="product-name" class="product_title product_title-sm"
+                        [innerHtml]="((productInfo && productInfo?.Product_Name)? productInfo?.Product_Name : '') | safeHtml">
+                    </h1>
+                    <p itemprop="manufacturer-name" class="manufacturer_name"
+                        *ngIf="sellerData && sellerData.Company_Name && sellerData.Logo && (sellerData.BrandVisible == 'Yes')">
+                        Manufacturer : {{sellerData.Company_Name}}
+                        <!--<span class="manufacturer__thumb">
+                            <img *ngIf="sellerData && sellerData.Logo" src="{{PORTAL_URL}}files/logos/{{sellerData.ID}}/{{sellerData.Logo}}" alt="{{sellerData.Company_Name}}" data-placement="top" tooltip="{{sellerData.Company_Name}}">
+                        </span>-->
+                    </p>
+
+                    <div class="product-rating">
+                        <div class="star-rating">
+
+                            <button type="button" class="star-badge" [ngx-scroll-to]="'#c'"
+                                [ngx-scroll-to-offset]="scrollToOffset" data-placement="top"
+                                tooltip="{{'SCROLL_TO_REVIEWS' | translate}}"
+                                style="display: block; position: relative; z-index: 10;">
+                                <span class="star-badge-wrap">
+                                    <i
+                                        [ngClass]="(productInfo && productInfo?.Product_Ratings && AverageRating >= 1) ? 'fa fa-star' : 'far fa-star'"></i>
+                                    <i
+                                        [ngClass]="(productInfo && productInfo?.Product_Ratings && AverageRating >= 2) ? 'fa fa-star' : 'far fa-star'"></i>
+                                    <i
+                                        [ngClass]="(productInfo && productInfo?.Product_Ratings && AverageRating >= 3) ? 'fa fa-star' : 'far fa-star'"></i>
+                                    <i
+                                        [ngClass]="(productInfo && productInfo?.Product_Ratings && AverageRating >= 4) ? 'fa fa-star' : 'far fa-star'"></i>
+                                    <i
+                                        [ngClass]="(productInfo && productInfo?.Product_Ratings && AverageRating >= 5) ? 'fa fa-star' : 'far fa-star'"></i>
+                                </span>
+                                <span
+                                    *ngIf="(productInfo && productInfo?.Product_Ratings && productInfo?.Product_Ratings.numberOfReviews > 0)"
+                                    class="star-badge-caption">Based on {{productInfo?.Product_Ratings.numberOfReviews}}
+                                    review</span>
+                                <span
+                                    *ngIf="(productInfo && productInfo?.Product_Ratings && productInfo?.Product_Ratings.numberOfReviews == 0)"
+                                    class="star-badge-caption">No reviews</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="price-box">
+                        <div class="price-box--wrap">
+                            <del
+                                *ngIf="productInfo && (productInfo?.DiscountType=='amount' || productInfo?.DiscountType=='percent')">${{(productInfo && productInfo?.Product_Price )?productInfo?.Product_Price :''}}</del>
+                            <ins
+                                *ngIf="productInfo && (productInfo?.DiscountType=='amount' || productInfo?.DiscountType=='percent')">${{(productInfo && productInfo?.Discount_Price )? productInfo?.Discount_Price : ''}}</ins>
+                            <ins
+                                *ngIf="!(productInfo && (productInfo?.DiscountType=='amount' || productInfo?.DiscountType=='percent'))">${{(productInfo && productInfo?.Product_Price )?productInfo?.Product_Price :''}}</ins>
+                        </div>
+
+
+                        <div class="has-info d-none">
+                            <div class="has-info--time">{{'ESTIMATED_LOAD_TIME'| translate}}
+                                <span>({{(productInfo && productInfo?.Estimated_Leed_Count )?productInfo?.Estimated_Leed_Count :''}}
+                                    {{(productInfo && productInfo?.Estimated_Leed_Type )?productInfo?.Estimated_Leed_Type :''}})</span>
+                            </div>
+                            <div class="has-info--shipping"
+                                *ngIf="productInfo  && productInfo?.Shipping == 'Free'">
+                                <div class="order-shipping">
+                                    <label class="badge">{{'FREE_SHIPPING'| translate}}</label>
+                                </div>
+                            </div>
+                            <div class="has-info--shipping"
+                                *ngIf="productInfo  && productInfo?.Shipping == 'Discounted'">
+                                <div class="order-shipping">
+                                    <label class="badge">Discounted Shipping</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="short-description" *ngIf="productInfo && productInfo?.Product_Short_Description" [innerHtml]="productInfo?.Product_Short_Description | safeHtml">
+                    </div>
+                    <!--
+                    <div class="ag--subproducts u-mb--30 u-mb--30-sm" *ngIf="productInfo && Sub_Products && Sub_Products.length">
+                        <div class="cart-table-section cart-table-section-xs u-mb--0">
+                            <table class="shop_table shop_table_responsive cart u-mb--0" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th class="product-thumbnail">Product</th>
+                                        <th class="product-name">&nbsp;</th>
+                                        <th class="product-quantity">Qty</th>
+                                        <th class="product-subtotal">Price</th>
+                                        <th class="product-action">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="cart_item" *ngFor="let Sub_Product of Sub_Products let i=index">
+                                        <td class="product-thumbnail">
+                                            <a href="/product/solimo-chopping-7-knife">
+                                                <img alt="{{Sub_Product.Product_Name}}" src="{{Sub_Product.thumbimageUrl}}" width="130" height="491">
+                                            </a>
+                                        </td>
+                                        <td class="product-name">
+                                            <a class="text-black" href="javascript:;" routerLink="{{'/shop/product/p/'+Sub_Product?.Product_Slug}}" [innerHtml]="((Sub_Product && Sub_Product.Product_Name)? Sub_Product.Product_Name : '') | safeHtml"></a>
+                                        </td>
+                                        
+                                        <td class="product-quantity">
+                                            
+                                            <div class="quantity">
+                                                <input type="button" value="-" class="minus" (click)="UpdateQty(Sub_Product.R_Product_ID,Sub_Product.Product_Stock,false)">
+                                                <input type="text" id="qty" name="quantity" value="{{Sub_Products[i].Quantity}}" min="1"
+                                                    class="input-text qty text" size="4">
+                                                <input type="button" value="+" class="plus"
+                                                    (click)="UpdateQty(Sub_Product.R_Product_ID,Sub_Product.Product_Stock, true)">
+                                            </div>
+                                        </td>
+                                        <td class="product-subtotal">
+                                            <span class="amount"
+                                                *ngIf="(Sub_Product && (Sub_Product.DiscountType=='amount' || Sub_Product.DiscountType=='percent'))">
+                                                ${{Sub_Product.Discount_Price}}</span>
+                                            <span class="amount"
+                                                *ngIf="!(Sub_Product && (Sub_Product.DiscountType=='amount' || Sub_Product.DiscountType=='percent'))">
+                                                ${{Sub_Product.Product_Price}}</span>
+                                        </td>
+                                        <td class="product-subtotal">
+                                            <a href="javascript:;" (click)="subproductAddToCart(Sub_Product,Sub_Product.CID, 1,true, Sub_Product.Shipping_API)" class="link-green">Add to Cart</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    -->
+
+                    <div class="ag--subproducts u-mb--20 u-mb--20-sm"
+                        *ngIf="productInfo && productInfo?.ID && Sub_Products && Sub_Products.length">
+                        <h5><strong>Select Model:</strong></h5>
+                        <div class="cart-table-section cart-table-section-xs u-mb--0">
+                            <div class="cart-table--product cart-table--product-sm">
+                                <div class="cart-table--product__items cart-table--product__items-sm"
+                                    *ngIf="productInfo && productInfo?.ID && Sub_Products && Sub_Products.length">
+                                    <div class="product--controls product--controls-sm">
+                                        <div class="radio radio-primary mb-2"
+                                            routerLink="{{'/shop/product/p/'+productInfo?.Product_Slug}}">
+                                            <input id="radio_00" type="radio" name="choose_product" value="00" checked>
+                                            <label for="radio_00"></label>
+                                        </div>
+                                    </div>
+                                    <div class="product--thumbnail product--thumbnail-sm">
+                                        <a href="javascript:;" routerLink="{{'/shop/product/p/'+productInfo?.Product_Slug}}">
+                                            <img alt="{{productInfo?.Product_Name}}" src="{{productImage}}" width="130">
+                                        </a>
+                                    </div>
+
+                                    <div class="product--name product--name-sm">
+                                        <a class="text-black" href="javascript:;"
+                                            routerLink="{{'/shop/product/p/'+productInfo?.Product_Slug}}"
+                                            [innerHtml]="((productInfo && productInfo?.Product_Name)? productInfo?.Product_Name : '') | safeHtml"></a>
+                                        <span class="amount"
+                                            *ngIf="(productInfo && (productInfo?.DiscountType=='amount' || productInfo?.DiscountType=='percent'))">
+                                            ${{productInfo?.Discount_Price}}</span>
+                                        <span class="amount"
+                                            *ngIf="!(productInfo && (productInfo?.DiscountType=='amount' || productInfo?.DiscountType=='percent'))">
+                                            ${{productInfo?.Product_Price}}</span>
+                                    </div>
+                                    <!--
+                                    <div class="product--clear">
+                                        <a href="javascript:;" class="button_clear_filter d-inline fs12 first" >Clear</a>
+                                    </div>
+                                    -->
+                                </div>
+
+                                <div class="cart-table--product__items cart-table--product__items-sm"
+                                    *ngFor="let Sub_Product of Sub_Products let i=index">
+                                    <div class="product--controls product--controls-sm">
+                                        <div class="radio radio-primary mb-2"
+                                            routerLink="{{'/shop/product/p/'+Sub_Product?.Product_Slug}}">
+                                            <input id="radio_{{i}}" type="radio" name="choose_product"
+                                                value="{{i}}"><label for="radio_{{i}}"></label>
+                                        </div>
+                                    </div>
+                                    <div class="product--thumbnail product--thumbnail-sm">
+                                        <a href="javascript:;" routerLink="{{'/shop/product/p/'+Sub_Product?.Product_Slug}}">
+                                            <img alt="{{Sub_Product.Product_Name}}" src="{{Sub_Product.thumbimageUrl}}"
+                                                width="130">
+                                        </a>
+                                    </div>
+
+                                    <div class="product--name product--name-sm">
+                                        <a class="text-black" href="javascript:;"
+                                            routerLink="{{'/shop/product/p/'+Sub_Product?.Product_Slug}}"
+                                            [innerHtml]="((Sub_Product && Sub_Product.Product_Name)? Sub_Product.Product_Name : '') | safeHtml"></a>
+                                        <span class="amount"
+                                            *ngIf="(Sub_Product && (Sub_Product.DiscountType=='amount' || Sub_Product.DiscountType=='percent'))">
+                                            ${{Sub_Product.Discount_Price}}</span>
+                                        <span class="amount"
+                                            *ngIf="!(Sub_Product && (Sub_Product.DiscountType=='amount' || Sub_Product.DiscountType=='percent'))">
+                                            ${{Sub_Product.Product_Price}}</span>
+                                    </div>
+                                    <!--
+                                    <div class="product--clear">
+                                        <a href="javascript:;" class="button_clear_filter d-inline fs12 first" >Clear</a>
+                                    </div>
+                                    -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="sidebar--widget__colors" >
+                        
+                        <li class="sidebar--widget__colors--items form-group align-items-center"
+                            *ngFor="let attribute of Product_Attributes?.all_attributes">
+                            
+                            <!--info_attributes-->
+                            <span *ngIf="attribute && attribute.Attribute_Value && (attribute.Field_Type == 'Text' || attribute.Field_Type == 'Text2')">
+                                <span *ngIf="attribute && (attribute.Field_Type == 'Text' || attribute.Field_Type == 'Text2')" class="u-bold">{{attribute.Label_Name}}:</span> 
+                                <span class="u-ml--10" [ngClass]="{'u-ml--10-sm': attribute.Field_Type == 'Text2'}">{{attribute.Attribute_Value}}</span>
+                            </span>
+                            
+                            <!--color_attributes-->
+                            <span class="u-bold" style="" *ngIf="attribute && (attribute.ShowFrontendAs == 'Color' && attribute.Field_Type == 'Button')">{{attribute.Label_Name}}:</span>
+                            <div *ngIf="attribute && (attribute.ShowFrontendAs == 'Color' && attribute.Field_Type == 'Button')" class="w-auto u-flexed u-align-center u-ml--10 u-ml--10-sm">
+                                <div class="items" *ngFor="let otpItem of attribute.OptsData"
+                                    [ngClass]="{'active': SelectedColor == otpItem.ID}">
+                                    <span class="color-swatch" title="{{(otpItem.Option)? otpItem.Option : ''}}"
+                                        (click)="SetOptionValue(attribute,otpItem.ID);">
+                                        <i class="color_box" [style.background-color]="otpItem.Color_Code"></i>
+                                    </span>
+                                    <!--<span class="name">{{(otpItem)? otpItem : ''}}</span>-->
+                                </div>
+                                <a *ngIf="(SelectedColor != '')" href="javascript:;"
+                                    class="button_clear_filter d-inline fs12 first"
+                                    (click)="SetOptionValue(attribute,'');">Clear</a>
+                            </div>
+                            
+                            <!--button_attributes-->
+                            <div class="ag--button__grp" *ngIf="attribute && (attribute.ShowFrontendAs == 'Selection' && attribute.Field_Type == 'Button')">
+                                <div class="ag--button__grp--items" *ngFor="let otpItem of attribute.OptsData"
+                                    [ngClass]="{'is-selected': attribute.Selected == otpItem.ID}">
+                                    <button class="ag--button" type="button"
+                                        (click)="SetOptionValue(attribute,otpItem.ID);">
+                                        <div class="ag--button__top">
+                                            <span class="a-size-base">{{otpItem.Option}}</span>
+                                        </div>
+                                        <div class="ag--button__bottom">
+                                            <span
+                                                class="a-size-mini">{{(otpItem && otpItem.Option_Price && otpItem.Option_Price > 0)? '($'+otpItem.Option_Price+')' :''}}</span>
+                                        </div>
+                                    </button>
+                                </div>
+                                <div *ngIf="(attribute.Selected != '')" class="ag--button__grp--items">
+                                    <a href="javascript:;" class="button_clear_filter d-inline fs12"
+                                        (click)="SetOptionValue(attribute,'');">Clear</a>
+                                </div>
+                            </div>
+                            
+                            <!--field_attributes-->
+                            <span class="u-bold" style="text-align: justify; line-height: normal;" *ngIf="attribute && (attribute.Field_Type == 'Dropdown') && (attribute.ShowFrontendAs == 'Selection' || attribute.ShowFrontendAs == 'Color')">{{attribute.Label_Name}}:</span>
+                            <span *ngIf="attribute && (attribute.Field_Type == 'Dropdown') && (attribute.ShowFrontendAs == 'Selection' || attribute.ShowFrontendAs == 'Color')" class="sku u-flexed u-align-center u-ml--10 u-ml--10-sm">
+                                <div class="selectdropdown">
+                                    <select id="Sel_{{attribute.ID}}" class="form-control solid rounded"
+                                        placeholder="attribute.Field_Name"
+                                        (change)="SetOptionValue(attribute,$event.target.value);">
+                                        <option class="placeholder" value="">Select Option</option>
+                                        <option *ngFor="let otpItem of attribute.OptsData" value="{{otpItem.ID}}">
+                                            {{otpItem.Option}}
+                                            {{(otpItem && otpItem.Option_Price && otpItem.Option_Price > 0)? '($'+otpItem.Option_Price+')' :''}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <a *ngIf="(attribute.Selected != '')" class="button_clear_filter d-inline fs12 u-ml--15"
+                                    href="javascript:;"
+                                    (click)="SetOptionValue(attribute,'');ReSetOptionValue(attribute.ID);">Clear</a>
+                            </span>
+
+
+                        </li>
+                        <!--
+                        <li class="sku_wrapper" *ngIf="productInfo?.Product_Model_Number != ''">
+                            <strong>Model #:</strong><span class="sku">{{productInfo?.Product_Model_Number}}</span>
+                        </li>
+                        -->
+                        
+                        
+                        
+                        <li class="posted_in" *ngIf="productInfo && productInfo?.Product_Types && productInfo?.Product_Types.length">
+                            <strong>Types: </strong>
+                            <span *ngFor="let Product_Cate of productInfo?.Product_Types let i=index" [innerHtml]="((Product_Cate && Product_Cate.Name)? Product_Cate.Name+((productInfo?.Product_Types.length > i+1)?', ':'') : '') | safeHtml"></span>
+                        </li>
+                        <br>
+                        <li class="posted_in" *ngIf="productInfo && productInfo?.Product_Categories && productInfo?.Product_Categories.length">
+                            <strong>{{'CATEGORIES'| translate}}: </strong>
+                            <a *ngFor="let Product_Cate of productInfo?.Product_Categories let i=index"  class="breadcrumb-link"
+                                    routerLink="{{'/shop/'+((Product_Cate && Product_Cate.Category_Slug)? Product_Cate.Category_Slug : '')}}"
+                                    [innerHtml]="((Product_Cate && Product_Cate.Category_Name)? Product_Cate.Category_Name+((productInfo?.Product_Categories.length > i+1)?', ':'') : '') | safeHtml"></a>
+                        </li>
+                        <br>
+                    </ul>
+                    <div class="clearfix"></div>
+
+                    <div style="text-align: center;color: red;font-weight: bold;font-size: 20px;" class="single_variation_wrap" *ngIf="(productInfo && productInfo?.Product_Status != '1')">
+                        {{'PRODUCT_NOT_AVAILABLE' | translate}}
+                    </div>
+                    <div style="text-align: center;color: red;font-weight: bold;font-size: 20px;" class="single_variation_wrap" *ngIf="(productInfo && productInfo?.Product_Stock < 1)">
+                        {{'PRODUCT_OUTOF_STOCK' | translate}}
+                    </div>
+                    <div class="single_variation_wrap" *ngIf="(productInfo && productInfo?.Product_Status == '1' && productInfo?.Product_Stock > 0)">
+                        <div class="quantity">
+                            <input type="button" value="-" class="minus"
+                                (click)="manageProductQuantity(productInfo?.Product_Stock,false)">
+                            <input type="text" id="qty" name="quantity" value="{{productQuantity}}" min="1"
+                                class="input-text qty text" size="4">
+                            <input type="button" value="+" class="plus"
+                                (click)="manageProductQuantity(productInfo?.Product_Stock, true)">
+                        </div>
+
+                        <a href="javascript:;" name="add"
+                            (click)="productAddToCart(productInfo,productInfo?.CID, productQuantity,true, productInfo?.Shipping_API)"
+                            class="button button--lgreen button-md button--cart rounded">{{'ADD_TO_CART' | translate}}</a>
+                    </div>
+
+                    <div class="product_button-groups" *ngIf="(productInfo && productInfo?.Product_Status == '1')">
+                        <a href="javascript:;"
+                            (click)="AddtoWishlist(productInfo?.ID,productInfo?.Product_Slug,WishlistModal); "
+                            class="link-wishlist add_to_wishlist">{{'ADD_TO_WISH_LIST' | translate}}</a>
+
+                        <a *ngIf="productInfo && productInfo?.SizeGuide" href="javascript:;"
+                            (click)="openModal(SizingGuideModal)"
+                            class="link-guide size_guide">{{'SIZE_GUIDE' | translate}}</a>
+
+                        <a *ngIf="!userData" href="javascript:void(0);" data-placement="top"
+                            tooltip="{{'LOGIN_SIGNUP_TO_USE_FINANCING_OPTIONS' | translate}}"
+                            class="link-wishlist finance">{{'FINANCING_AVAILABEL' | translate}}</a>
+
+                        <a *ngIf="userData" href="javascript:void(0);" (click)="openModalOne('financing')"
+                            class="link-wishlist finance">{{'FINANCING_AVAILABEL' | translate}}</a>
+
+                        <!--<a href="javascript:;" class="link-wishlist add_to_wishlist loading">Add to Wish List</a>-->
+                    </div>
+
+
+                    <ul class="product_meta" *ngIf="productInfo">
+
+                        
+                        
+                        <li class="product-share">
+                            <strong>Share: </strong> <div class="sharethis-inline-share-buttons" attr.data-url="{{ProductLink}}" ></div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- //End Summary Detail Section -->
+
+        </div>
+
+        <div class="row" *ngIf="productInfo && productInfo?.ID">
+            <div class="col-sm-12 poduct-tabs-inner">
+
+                <div class="product--specifications">
+                    <ul class="nav nav-tabs nav-tabs--items5" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': setTab=='description'}"
+                                *ngIf="productInfo && productInfo?.Product_Description" data-toggle="tab"
+                                href="javascript:;" (click)="setTab='description'"
+                                role="tab">{{'DESCRIPTION' | translate}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': setTab=='specifications'}"
+                                *ngIf="productInfo && productInfo?.Specifications" data-toggle="tab" href="javascript:;"
+                                (click)="setTab='specifications'" role="tab">{{'SPECIFICATIONS' | translate}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="{'active': setTab=='warranty'}"
+                                *ngIf="productInfo && productInfo?.Warranty" data-toggle="tab" href="javascript:;"
+                                (click)="setTab='warranty'" role="tab">{{'WARRANTY' | translate}}</a>
+                        </li>
+                        <li class="nav-item" *ngIf="Product_Accessories && Product_Accessories.length">
+                            <a class="nav-link" [ngClass]="{'active': setTab=='accessories'}" data-toggle="tab"
+                                href="javascript:;" (click)="setTab='accessories'"
+                                role="tab">{{'BOUGHTTOGETHER' | translate}}</a>
+                        </li>
+                        <li class="nav-item"
+                            *ngIf="productInfo &&  productInfo?.Product_Parts && productInfo?.Product_Parts.length">
+                            <a class="nav-link" [ngClass]="{'active': setTab=='orderParts'}" data-toggle="tab"
+                                href="javascript:;" (click)="setTab='orderParts'" role="tab">
+                                {{'ORDER_PARTS' | translate}} </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content tab-content-xs no-padding" id="myTabContent">
+
+                        <div *ngIf="setTab=='description'; then description"></div>
+                        <div *ngIf="setTab=='specifications'; then specifications;"></div>
+                        <div *ngIf="setTab=='warranty'; then warranty;"></div>
+                        <div *ngIf="setTab=='accessories'; then accessories;"></div>
+                        <div *ngIf="setTab=='orderParts'; then orderParts;"></div>
+
+                        <ng-template #description>
+                            <div class="tab-pane show active" *ngIf="productInfo && productInfo?.Product_Description">
+                                <div class="tab-content--inner" [innerHtml]="productInfo && productInfo?.Product_Description | safeHtml">
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #specifications>
+                            <div class="tab-pane show active">
+                                <!--<div class="tab-content--inner" [innerHtml]="productInfo && productInfo?.Specifications | safeHtml">
+                                <div class="tab-content--inner">
+                                    <h3 class="section--title">Specifications</h3>
+
+                                    <h6>Dimensions:</h6>
+                                    <div class="specifications--table">
+                                        <div class="table-responsive table-responsive-sm">
+                                            <table class="table table-striped">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Card Length :</td>
+                                                        <td>6(ft.)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Width :</td>
+                                                        <td>27(in.)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Depth with Door Closed :</td>
+                                                        <td>29.75(in.)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Height to Top of Cabinet :</td>
+                                                        <td>38.69</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Height to Door Open :</td>
+                                                        <td>52(in.)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Shipping Depth :</td>
+                                                        <td>31.31(in.)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Shipping Width :</td>
+                                                        <td>29.5(in.)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Shipping Height :</td>
+                                                        <td>43.31(in.)</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <h6>Appliance Features:</h6>
+                                    <div class="specifications--table">
+                                        <div class="table-responsive table-responsive-sm">
+                                            <table class="table table-striped">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Wash Agitator :</td>
+                                                        <td>Tumble Action (Motion)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Quite Package :</td>
+                                                        <td>Yes</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Maximum Spin Speed :</td>
+                                                        <td>1300(rpm)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Remote Diagnostics :</td>
+                                                        <td>Uses Phone Receiver</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Water Factor :</td>
+                                                        <td>3.20</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Speaciality Options :</td>
+                                                        <td>Yes</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dispensers :</td>
+                                                        <td>Detergent</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dispensers :</td>
+                                                        <td>Bleech Dispenser</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dispensers :</td>
+                                                        <td>Fabric Softner Dispenser</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>-->
+                                <div class="tab-content--inner"
+                                    [innerHtml]="productInfo && productInfo?.Specifications | safeHtml"></div>
+
+                            </div>
+                        </ng-template>
+
+                        <ng-template #warranty>
+                            <div class="tab-pane show active">
+                                <div class="tab-content--inner"
+                                    [innerHtml]="productInfo && productInfo?.Warranty | safeHtml">
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #accessories>
+                            <div class="tab-pane show active" *ngIf="Product_Accessories && Product_Accessories.length">
+                                <!--<div class="tab-content--inner" [innerHtml]="productInfo && productInfo?.Accessories | safeHtml">-->
+                                <div class="tab-content--inner">
+                                    <div class="tab-content--accessories">
+                                        <div class="row">
+                                            <div *ngFor="let Accessory of Product_Accessories"
+                                                class="col-12 col-md-2 mobile--half">
+                                                <div class="accessories--box">
+                                                    <a routerLink="{{'/shop/product/p/'+Accessory.Product_Slug}}"
+                                                        class="accessories--box--product">
+                                                        <img src="{{Accessory.thumbimageUrl}}" alt=""
+                                                            class="img-responsive">
+                                                    </a>
+                                                    <div class="accessories--box--details">
+                                                        <p class="accessories--name accessories--name-sm"
+                                                            [innerHtml]="Accessory && Accessory.Product_Name | safeHtml">
+                                                        </p>
+                                                        <div class="accessories--price accessories--price-sm">
+                                                            ${{Accessory.Product_Price}}</div>
+                                                    </div>
+                                                    <footer class="accessories--box--footer">
+                                                        <a (click)="setQuickProductData(Accessory)" class="btn-view"
+                                                            href="javascript:;"><i class="quick-view"></i> Quick
+                                                            View</a>
+                                                        <a (click)="productAddToCart2(Accessory,Accessory.CID,1,false, Accessory.Shipping_API)"
+                                                            href="javascript:;" class="btn-cart" data-placement="top"
+                                                            tooltip="{{'ADD_TO_CART' | translate}}"><i
+                                                                class="fa fa-shopping-cart"></i></a>
+                                                    </footer>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #orderParts>
+                            <div class="tab-pane show active" *ngIf="productInfo && productInfo?.Product_Parts.length">
+                                <div class="tab-content--inner">
+                                    <div class="row">
+                                        <div class="col-12 col-md-5"
+                                            *ngIf="productInfo && productInfo?.PartsDiagram != ''">
+                                            <figure>
+                                                <div class="zoomer">
+                                                    <img id="partsIds"
+                                                        src="{{PORTAL_URL + 'files/shop/products/' + productInfo?.CID + '/' + productInfo?.ID + '/' + productInfo?.PartsDiagram}}"
+                                                        class="img-fluid" alt="Order Parts">
+                                                    <!--<img id="partsIds"
+                                                        src="{{PORTAL_URL + 'files/shop/products/' + productInfo?.CID + '/' + productInfo?.ID + '/' + productInfo?.PartsDiagram}}"
+                                                        class="img-fluid" alt=""
+                                                        (mousemove)="partsZoomIn($event,'partsIds',PORTAL_URL + 'files/shop/products/' + productInfo?.CID + '/' + productInfo?.ID + '/' + productInfo?.PartsDiagram)"
+                                                        (mouseleave)="partsZoomOut('partsIds')">
+                                                    <div id="partsIdsp" class="preview"
+                                                        (mousemove)="partsZoomIn($event,'partsIds',PORTAL_URL + 'files/shop/products/' + productInfo?.CID + '/' + productInfo?.ID + '/' + productInfo?.PartsDiagram)">
+                                                    </div>-->
+                                                    <div class="missio--product__additional-galleries">
+                                                        <div class="missio--product__gallery">
+                                                            <a href="javascript:;" class="js-show-product-gallery"
+                                                                (click)="openModal(partDiagrams)"><span>Click to
+                                                                    Zoom</span></a>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Begin Parts Modal -->
+                                                    <ng-template #partDiagrams>
+                                                        <div class="modal-dialog-exlarge modal-dialog-exlarge-md"
+                                                            *ngIf="productInfo && productInfo?.PartsDiagram != ''">
+                                                            <button type="button" class="modal-close pull-right"
+                                                                aria-label="Close" (click)="modalRef.hide()">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            <div class="modal-body modal-body-sm less-padd text-center">
+                                                                <img src="{{PORTAL_URL + 'files/shop/products/' + productInfo?.CID + '/' + productInfo?.ID + '/' + productInfo?.PartsDiagram}}"
+                                                                    class="img-fluid" alt="Order Parts">
+                                                            </div>
+                                                        </div>
+                                                    </ng-template>
+                                                    <!-- //End Parts Modal -->
+
+                                                </div>
+                                            </figure>
+                                        </div>
+                                        <div class="col-12 col-md-7">
+                                            <div class="custom-table">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="5%" scope="col"><span
+                                                                        tooltip="Reference Number">#</span></th>
+                                                                <th width="10%" scope="col">Qty</th>
+                                                                <th width="12%" scope="col">P/N</th>
+                                                                <th width="43%" scope="col">Description</th>
+                                                                <th width="15%" scope="col">Price</th>
+                                                                <th width="15%" scope="col">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let Parts of productInfo?.Product_Parts let i=index">
+                                                                <td scope="row">{{i+1}}</td>
+                                                                <td>{{Parts.Product_Stock}}</td>
+                                                                <td>{{Parts.Product_Name}}</td>
+                                                                <td
+                                                                    [innerHtml]="((Parts && Parts.Product_Short_Description)? Parts.Product_Short_Description : '') | safeHtml">
+                                                                </td>
+                                                                <td>${{Parts.Product_Price}}</td>
+                                                                <td><a (click)="productAddToCart2(Parts,Parts.CID,1,false, Parts.Shipping_API)"
+                                                                        href="javascript:;" class="btn-cart"
+                                                                        tooltip="{{'ADD_TO_CART' | translate}}"><i
+                                                                            class="fa fa-shopping-cart"></i></a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="Other--Documents u-mb--50"
+                        *ngIf="productInfo && productInfo?.documents && productInfo?.documents.length">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#OtherDocuments" role="tab">Other
+                                    Documents</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content tab-content-xs no-padding" id="myTabContent3">
+                            <div class="tab-pane show active" id="OtherDocuments">
+                                <div class="tab-content--inner">
+                                    <ul class="Other--Documents__Inner">
+                                        <li *ngFor="let document of productInfo?.documents">
+                                            <a href="{{document.DocUrl}}" target="_blank" class="icon__wrap">
+                                                <img src="./assets/images/icons/{{document.file_type}}.svg"
+                                                    class="" alt="{{document.file_type}}">
+                                            </a>
+                                            <a href="{{document.DocUrl}}" target="_blank"
+                                                class="document__name text-black">{{document.file_name}}</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <!--Product reviews sectons start here -->
+                    <div id="ReviewSection" #ReviewSection>
+                        <app-reviews [ProductID]="productID" *ngIf="productInfo && productInfo?.ID"
+                            [ProductCID]="productInfo?.CID"></app-reviews>
+                    </div>
+                    <!--Product reviews sectons start end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- //End Product Detail Section -->
+
+
+    <!--Model section start here -->
+    <!-- Begin Video Modal -->
+    <ng-template #VideoModal>
+        <div class="modal-dialog-exlarge modal-dialog-exlarge-md" *ngIf="productInfo && productInfo?.Product_Video">
+            <button type="button" class="modal-close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body modal-body-sm less-padd">
+                <div class="embed-responsive embed-responsive-16by9">
+
+                    <!-- This is enabled for Youtube and Viemo format -->
+                    <iframe class="embed-responsive-item" [src]="safeSrc" frameborder="0" webkitallowfullscreen
+                        mozallowfullscreen allowfullscreen></iframe>
+
+                    <!-- This is enabled when we've Video in MP4 format -->
+                    <!--<video class="embed-responsive-item" controls autoplay loop>
+                        <source src="./assets/images/1iux7oCQIl8.mp4" type="video/mp4">
+                    </video>-->
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <!-- //End Video Modal -->
+
+
+    <!-- Begin Financing Available Modal -->
+    <ng-template #FinanceModal>
+        <div class="modal-dialog-medium modal-dialog-medium-md">
+            <div class="modal-header modal-header-sm">
+                <h3>{{'FINANCING_AVAILABEL' | translate}}</h3>
+                <button type="button" class="modal-close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-sm">
+                <div class="u-mb--30">
+                    <p>Garden year-round. Grow fresh herbs, vegetables, salad greens, flowers and more in this smart
+                        countertop garden Up to 6 plants can be grown at a time. Plants grow in water,not soil. Advanced
+                        hydroponics made simple High-performance, full spectrum 20-watt LED lighting system is tuned to
+                        the specific spectrum that allows plants to maximize photosynthesis, resulting in rapid, natural
+                        growth and abundant harvests</p>
+                </div>
+                <div class="modal-body--buttons">
+                    <a href="#" class="button button-block button--lgreen button-md">Finance Option 01</a>
+                    <a href="#" class="button button-block button--lgreen button-md">Finance Option 02</a>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <!-- //End Financing Available Modal -->
+
+
+    <!-- Begin Sizing Guide Modal -->
+    <ng-template #SizingGuideModal>
+        <div class="modal-dialog-exlarge modal-dialog-exlarge-md">
+            <div class="modal-header modal-header-sm">
+                <h3>{{'SIZE_GUIDE' | translate}}</h3>
+                <button type="button" class="modal-close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-sm">
+                <img src="{{(productInfo && productInfo?.SizeGuide) ? PORTAL_URL + 'files/shop/products/' + productInfo?.CID + '/'+ productInfo?.ID + '/' + productInfo?.SizeGuide : './assets/images/sizing-guide/01.png'}}"
+                    alt="" class="img-fluid">
+            </div>
+        </div>
+    </ng-template>
+    <!-- //End Sizing Guide Modal -->
+
+
+    <!-- Begin WishList Modal -->
+    <ng-template #WishlistModal>
+        <div class="modal-dialog-exlarge modal-dialog-exlarge-md">
+            <div class="modal-header modal-header-sm">
+                <h3>{{'WISH_LIST' | translate}}</h3>
+                <button type="button" class="modal-close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-sm">
+
+                <div class="cart-table-section cart-table-section-xs">
+                    <table class="shop_table shop_table_responsive cart u-mb--0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th class="product-thumbnail" colspan="2">Product Name</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-quantity">Stock Status</th>
+                                <th class="product-subtotal">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cart_item" *ngFor="let Wishlist of Wishlists">
+
+                                <td class="th--prdt" colspan="2">
+                                    <div class="u-flexed u-align-center">
+                                        <div class="prdt--image">
+                                            <a routerLink="{{'/shop/product/p/'+Wishlist.Product_Slug}}"
+                                                class="product-image-link">
+                                                <img src="{{Wishlist.imageUrl}}" alt="{{Wishlist.Product_Name}}"
+                                                    height="491">
+                                            </a>
+                                        </div>
+                                        <div class="prdt--name">
+                                            <a class="text-black" routerLink="{{'/shop/product/p/'+Wishlist.Product_Slug}}"
+                                                [innerHtml]="((Wishlist && Wishlist.Product_Name)? Wishlist.Product_Name : '') | safeHtml"></a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="wishlist-product-price">${{Wishlist.Product_Price}}</td>
+                                <td class="product-stock-status">
+                                    <span
+                                        class="wishlist-in-stock">{{(Wishlist.Product_Stock > 0)?'In Stock':'Out of Stock'}}</span>
+                                </td>
+                                <td class="product-subtotal">
+                                    <a *ngIf="(Wishlist.Product_Stock > 0)" href="javascript:;"
+                                        (click)="productAddToCart2(Wishlist,Wishlist.Product_CID,1,false, Wishlist.Shipping_API)"
+                                        class="button button--green button-sm button-inline button--cart">{{'ADD_TO_CART' | translate}}</a>
+                                </td>
+                            </tr>
+                            <tr class="cart_item" *ngIf="(Wishlists.length == 0)">
+                                <td class="product-remove" colspan="6">
+                                    <div class="prdt--name">
+                                        {{'NO_PRODUCTS_IN_WISHLIST' | translate}}
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <!-- //End WishList Modal -->
+
+
+
+    <!--Model secton end here -->
+
+</div>
+
+<div class="featured-products featured-products-xs"
+    *ngIf="(productInfo && productInfo?.Related_Products && productInfo?.Related_Products.length)">
+    <div class="container">
+        <div class="sectionTitle-wrapper sectionTitle-wrapper-xs">
+            <h2 class="heading--title--medium heading--title--medium-xs">You may also like...</h2>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Begin Featured Products Row -->
+        <div class="row">
+            <div class="col-md-3 col-sm-4 col-xs-6" *ngFor="let storeItem of productInfo?.Related_Products let i=index">
+                <div class="product-grid-item product-hover-base" *ngIf="storeItem && storeItem.Product_Slug">
+                    <div class="content-product-imagin" style="margin-bottom:-135px;"></div>
+                    <div class="product-element-top">
+                        <a routerLink="{{'/shop/product/p/'+storeItem?.Product_Slug}}" class="product-image-link"><img
+                                src="{{storeItem.thumbimageUrl}}" alt="{{storeItem.Product_Name}}"></a>
+                        <div class="hover-img">
+                            <a routerLink="{{'/shop/product/p/'+storeItem?.Product_Slug}}">
+                                <img src="{{storeItem.imageUrl}}" alt="{{storeItem.Product_Name}}">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-information">
+                        <h3 class="product-title">
+                            <a routerLink="{{'/shop/product/p/'+storeItem?.Product_Slug}}"
+                                [innerHtml]="(storeItem.Product_Name | safeHtml) | truncate:[50, '...']"></a>
+                        </h3>
+                        <div class="product-cats">
+                            <a routerLink="{{'/shop/product/p/'+storeItem?.Product_Slug}}"
+                                [innerHtml]="storeItem.Category_Name | safeHtml"></a>
+                        </div>
+                        <div class="product-price"
+                            *ngIf="(storeItem && (storeItem.DiscountType=='amount' || storeItem.DiscountType=='percent'))">
+                            ${{storeItem.Discount_Price}}</div>
+                        <div class="product-price"
+                            *ngIf="!(storeItem && (storeItem.DiscountType=='amount' || storeItem.DiscountType=='percent'))">
+                            ${{storeItem.Product_Price}}</div>
+                        <div class="fade-in-block">
+                            <div class="hover-content more-description">
+                                <div class="product-description js-description"
+                                    [innerHtml]="((storeItem && storeItem.Product_Short_Description)? storeItem.Product_Short_Description : '') | safeHtml">
+                                </div>
+                                <a routerLink="{{'/shop/product/p/'+storeItem.Product_Slug}}"
+                                    class="more-details-btn"><span>more</span></a>
+                            </div>
+                            <div class="product-buttons">
+                                <div class="wrap-wishlist-button"><a
+                                        (click)="AddtoWishlist(storeItem.ID,storeItem.Product_Slug,WishlistModal); "
+                                        href="javascript:;"
+                                        tooltip="{{'ADD_TO_WISH_LIST' | translate}}"><span>{{'ADD_TO_WISH_LIST' | translate}}</span></a>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="add-tocart-btn"><a href="javascript:;"
+                                        (click)="productAddToCart2(storeItem,storeItem.CID,1,false,storeItem.Shipping_API)"
+                                        tooltip="{{'ADD_TO_CART' | translate}}"><span></span></a></div>
+                                <div class="wrap-quickview-button">
+                                    <div class="quick-view">
+                                        <a routerLink="{{'/shop/product/p/'+storeItem.Product_Slug}}" class="quickview-icon"
+                                            tooltip="{{'QUICK_VIEW' | translate}}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //End Featured Products Row -->
+
+        </div>
+    </div>
+</div>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element, as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+        <div class="pswp__container">
+            <!-- don't modify these 3 pswp__item elements, data is added later on -->
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"> </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"> </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>

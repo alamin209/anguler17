@@ -1,0 +1,108 @@
+<div class="new--topic new--topic-sm mb-0" style="background-color: #99cc67">
+  <div class="container">
+    <header class="sectionhead__name sectionhead__name-xs">
+      <h1 class="entry-title">{{'NEW_TOPIC' | translate}}</h1>
+      <p class="text-white">{{'CHALKCHAT_DESC' | translate}}</p>
+    </header>
+  </div>
+</div>
+
+<section class="new--topic new--topic-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-8 col-md-9 col-sm-12 col-centered">
+          
+        <form [formGroup]="topicForm" (ngSubmit)="onSubmit(topicForm.value)">
+            <div [ngClass]="topicForm.controls['title'].dirty && topicForm.controls['title'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                
+                <div class="form-group">
+                    <input
+                      type="text"
+                      style="height: 60px"
+                      id="title"
+                      name="title"
+                      formControlName="title"
+                      placeholder="New Discussion Topic & Audience"
+                      class="form-control big"
+                    />
+                  </div>
+
+                <div *ngIf="topicForm.controls['title'].dirty && topicForm.controls['title'].errors">
+                    <div *ngIf="topicForm.controls['title'].errors.required">
+                        <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-none" [ngClass]="topicForm.controls['short_description'].dirty && topicForm.controls['short_description'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                
+                <div class="form-group">
+                    <textarea
+                      id="short_description"
+                      name="short_description"
+                      formControlName="short_description"
+                      placeholder="Short Description"
+                      class="form-control"></textarea>
+                  </div>
+
+                <div *ngIf="topicForm.controls['short_description'].dirty && topicForm.controls['short_description'].errors">
+                    <div *ngIf="topicForm.controls['short_description'].errors.required">
+                        <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                    </div>
+                </div>
+            </div>
+       
+          <div [ngClass]="topicForm.controls['description'].dirty && topicForm.controls['description'].errors ? 'form-group form-group--has-error' : 'form-group'">
+                
+                <div class="form-group">
+                    <textarea
+                      id="description"
+                      name="description"
+                      rows="8"
+                      formControlName="description"
+                      placeholder="Comment or Ask Question Here and supply few details. Remember, this is a conversation."
+                      class="form-control"></textarea>
+                  </div>
+
+                <div *ngIf="topicForm.controls['description'].dirty && topicForm.controls['description'].errors">
+                    <div *ngIf="topicForm.controls['description'].errors.required">
+                        <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div  [ngClass]="_cats_validated ? 'form-group form-group--has-error' : 'form-group'">
+                <div class="selectdropdown">
+                    
+                    <select class="form-control solid rounded" formArrayName="categories" id="categories" name="categories[]"  placeholder="Categories"  multiple>
+                        <option *ngFor="let cat of ForumCategories let i = index" value="{{cat.ID}}">{{cat.name}}</option>
+                    </select>
+                    <div *ngIf="_cats_validated">
+                        <div *ngIf="_cats_validated">
+                            <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-none" [ngClass]="_tags_validated ? 'form-group form-group--has-error' : 'form-group'">
+                <div class="selectdropdown">
+                    <select class="form-control solid rounded" formArrayName="tags" id="tags" name="tags[]"  placeholder="Tags"  multiple>
+                        <option *ngFor="let tag of ForumTags let i = index" value="{{tag.name}}">{{tag.name}}</option>
+                    </select>
+                    <div *ngIf="_tags_validated">
+                        <div *ngIf="_tags_validated">
+                            <div class="help-block" style="display: block">{{'PLEASE_FILL_OUT_THIS_FIELD' | translate}} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <button type="submit" class="button button--blue button-radius button-md"><i class="fe-send mr-2"></i> POST DISCUSSION</button>
+           
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,124 @@
+<style type="text/css">
+.star-rating{height:42px}
+</style>
+
+<div class="w-100 py-4 py-md-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-11 col-md-12 col-sm-12">
+                <div class="row">
+                    
+                    <aside class="col-12 col-lg-3 col-xl-3">
+                        <app-left-nav></app-left-nav>
+                    </aside>
+                    
+                    <div class="col-12 col-lg-9 col-xl-9 pl-md-5">
+                        <div class="c-breadcrumb d-flex align-items-center justify-content-between mb-5">
+                            <nav class="missio-breadcrumb mb-0">
+                                <a class="breadcrumb-link" routerLink="/">Home</a>
+                                <a class="breadcrumb-link" routerLink="/member/profile">My Dashboard</a>
+                                <span class="breadcrumb-last">Add Documents</span>
+                            </nav>
+                        </div>
+                        
+                        <div class="page-head page-head-sm">
+                            <h3 class="u-heading--small u-heading--small-sm mb-3">Add New Documents</h3>
+                            <div class="welcome-msg">
+                                <p class="fs-15 text-dark-50">Our SLA for customers with Pro plans or higher is 15 minutes. This means we guarantee that within 15 minutes of opening a ticket, one of our technicians will begin working on a resolution for you. SLA for Starter plans is 1 hour.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="w-100">
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="AccountName">Account Name <span class="text-danger">*</span></label>
+                                        <input class="form-control solid rounded" id="AccountName" name="AccountName" type="text" placeholder="Name" value="Ria Nancoo">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="DocumentType">Document Type</label>
+                                        <div class="selectdropdown">
+                                            <select class="form-control solid rounded" id="DocumentType" name="DocumentType" required="">
+                                                <option value="Select Department" selected>Select Document Type</option>
+                                                <option value="Stratus Support">SOW</option>
+                                                <option value="Sales">Quote</option>
+                                                <option value="Billing">NDA</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="BusinessUnit">Business Unit</label>
+                                        <div class="selectdropdown">
+                                            <select class="form-control solid rounded" id="BusinessUnit" name="BusinessUnit" required="">
+                                                <option value="Select Department" selected>Select Business Unit</option>
+                                                <option value="Stratus Support">Stratus Support</option>
+                                                <option value="Sales">Pixafy A</option>
+                                                <option value="Billing">Employer Solutions</option>
+                                                <option value="Test Support">CRM</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="AccountManager">Account Manager</label>
+                                        <div class="selectdropdown">
+                                            <select class="form-control solid rounded" id="AccountManager" name="AccountManager" required="">
+                                                <option value="Select Department" selected>Select Account Manager</option>
+                                                <option value="Stratus Support">Sue M</option>
+                                                <option value="Sales">Joey P</option>
+                                                <option value="Billing">Bill P</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="mb-1" for="CreatedDate">Created Date</label>
+                                        <input class="form-control solid rounded" type="date" name="CreatedDate" id="CreatedDate">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-5">
+                                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group mb-0">
+                                        <div class="bucket">
+                                            <div class="attach-field">
+                                                <div class="with-dpx">
+                                                    <div class="dp-react-widget as-dpui"><div class="new-ticket-attachments"><div><span class="attach-file button"><span class="text">Drag a file in here or</span><span class="fake-button">Choose a file</span><input type="file" name="file[blob]"></span></div></div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row justify-content-start u-align-center">
+                                <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group u-flexed u-align-center">
+                                        <button class="button button--green button-md button-radius2 mr-3" type="submit"><i class="fe-check mr-2"></i>Save </button>
+                                        <button class="button button--grey button-md button-radius2" type="cancel"><i class="fe-x mr-2"></i>Cancel </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

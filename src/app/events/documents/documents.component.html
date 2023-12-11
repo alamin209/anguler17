@@ -1,0 +1,98 @@
+<style type="text/css">
+.ticket-table .action-btns .btn-sm{padding:3px 5px;font-size:11px}
+.ticket-table tbody td{line-height:1.5}
+</style>
+
+<div class="w-100 py-4 py-md-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-11 col-md-12 col-sm-12">
+                <div class="row">
+                    
+                    <aside class="col-12 col-lg-3 col-xl-3">
+                        <app-left-nav></app-left-nav>
+                    </aside>
+                    
+                    <div class="col-12 col-lg-9 col-xl-9 pl-md-5">
+                        <div class="c-breadcrumb d-flex align-items-center justify-content-between mb-5">
+                            <nav class="missio-breadcrumb mb-0">
+                                <a class="breadcrumb-link" routerLink="/">Home</a>
+                                <a class="breadcrumb-link" routerLink="/member/profile">My Dashboard</a>
+                                <span class="breadcrumb-last">Documents</span>
+                            </nav>
+                                
+                            <a routerLink="/add-documents" class="button button--green button-inline button-xs button-radius"><i class="fe-plus mr-2"></i>Add New Documents</a>
+                        </div>
+                        
+                        <div class="page-head page-head-sm">
+                            <h3 class="u-heading--small u-heading--small-sm mb-3">Documents</h3>
+                            <div class="welcome-msg">
+                                <p class="fs-15 text-dark-50">Below is a list of documents added/uploaded.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="w-100">
+                            <table class="table table-bordered table-full-width ticket-table">
+                                <thead>
+                                    <tr role="row" class="heading">
+                                        <th style="width: 25%;">Account Name</th>
+                                        <th style="width: 20%;">Document Type</th>
+                                        <th style="width: 15%;">Business</th>
+                                        <th style="width: 20%;">Manager</th>
+                                        <th style="width: 20%;">Created Date</th>
+                                        <th style="width: 20%;">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td><a href="#" class="link-primary link-blue">Company A</a></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">SOW <span class="fe-paperclip ml-1"></span></div>
+                                        </td>
+                                        <td>Pixafy A</td>
+                                        <td>Sue M</td>
+                                        <td>2/19/2020</td>
+                                        <td>
+                                            <div class="d-flex align-items-center action-btns">
+                                                <a href="" class="btn btn-primary btn-sm mr-1"><i class="fe-download mr-1"></i>Download</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#" class="link-primary link-blue">Company B</a></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">Quote <span class="fe-paperclip ml-1"></span></div>
+                                        </td>
+                                        <td>Employer Solutions</td>
+                                        <td>Joey P</td>
+                                        <td>2/18/2020</td>
+                                        <td>
+                                            <div class="d-flex align-items-center action-btns">
+                                                <a href="" class="btn btn-primary btn-sm mr-1"><i class="fe-download mr-1"></i>Download</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#" class="link-primary link-blue">Company C</a></td>
+                                        <td>
+                                            <div class="d-flex align-items-center">NDA <span class="fe-paperclip ml-1"></span></div>
+                                        </td>
+                                        <td>CRM</td>
+                                        <td>Bill P</td>
+                                        <td>2/11/2020</td>
+                                        <td>
+                                            <div class="d-flex align-items-center action-btns">
+                                                <a href="" class="btn btn-primary btn-sm mr-1"><i class="fe-download mr-1"></i>Download</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

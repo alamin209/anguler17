@@ -1,0 +1,81 @@
+<div class="featured-products featured-products-xs" *ngIf="storeList && storeList.length">
+    <div class="container pl-0 pr-0">
+        <div class="sectionTitle-wrapper sectionTitle-wrapper-xs">
+            <h2 class="heading--title--medium heading--title--medium-xs">{{'PURCHASE_CLASSROOM_SUPPLIES' | translate}}</h2>
+        </div>
+    </div>
+
+    <div class="container pl-0 pr-0">
+        <!-- Begin Featured Products Row -->
+        <div class="row" *ngIf="storeList && storeList.length">
+            <div class="col-12 col-md-12">
+                <div id="FeaturedProducts" class="FeaturedProducts js-product-slider">
+                    <!--<owl-carousel-o [options]="featuredSliderOptions" [items]="products" [carouselClasses]="['owl-theme', 'sliding']">-->
+                        <div class="" *ngFor="let storeItem of storeList let i=index">
+                            <div class="product-grid-item product-hover-base">
+                                <div class="content-product-imagin" style="margin-bottom: -135px;"></div>
+                                <div class="product-element-top">
+                                    <a routerLink="{{'product/'+storeItem.Product_Slug}}" class="product-image-link">
+                                        <img src="{{storeItem.thumbimageUrl}}" alt="{{storeItem.Product_Name}}">
+                                    </a>
+                                    <div class="hover-img">
+                                        <a routerLink="{{'product/'+storeItem.Product_Slug}}">
+                                            <img src="{{storeItem.thumbimageUrl}}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="wrapp-swatches">
+                                        <div class="swatches-on-grid">
+                                            <div class="swatch-on-grid" style="background-color:#D52727;">Red</div>
+                                            <div class="swatch-on-grid" style="background-color:#fcba08;">Yellow</div>
+                                        </div>
+                                        <div class="product-compare-button"><a href="javascript:;" data-toggle="tooltip" data-placement="left" title="{{'ADD_TO_COMPARE' | translate}}"></a></div>
+                                    </div>
+                                </div>
+                                <div class="product-information">
+                                    <h3 class="product-title">
+                                        <a routerLink="{{'product/'+storeItem.Product_Slug}}" [innerHtml]="(storeItem.Product_Name | safeHtml) | truncate:[50, '...']"></a>
+                                    </h3>
+                                    <div class="product-cats" style="display: none;"><a routerLink="{{'product/'+storeItem.Product_Slug}}" [innerHtml]="storeItem.Category_Name | safeHtml"></a>
+                                    </div>
+                                    <div class="product-price" *ngIf="(storeItem && (storeItem.DiscountType=='amount' || storeItem.DiscountType=='percent'))" >${{storeItem.Discount_Price}}</div>
+                                    <div class="product-price" *ngIf="!(storeItem && (storeItem.DiscountType=='amount' || storeItem.DiscountType=='percent'))" >${{storeItem.Product_Price}}</div>
+
+                                    <div  class="seller-name-wrap d-flex align-items-center">
+                                        <figure class="seller-brand p-0 mr-2">
+                                            <img src="assets/images/seller/brand/2-100x100.png" alt="Brand" width="80" height="80">
+                                        </figure>
+                                        
+                                        <a *ngIf="storeItem && storeItem?.added_from == 'backend'" class="seller-name" routerLink="/shop/seller/{{storeItem.Emp_First_Name ? storeItem.Emp_First_Name+'-' : ''}}{{storeItem.Emp_Last_Name ? storeItem.Emp_Last_Name+'-' : ''}}{{storeItem.Product_AddedBy}}" [innerHtml]="(storeItem?.Emp_Full_Name) | safeHtml"></a>
+
+                                        <a *ngIf="storeItem && storeItem?.added_from == 'frontend'" class="seller-name" routerLink="/shop/seller/{{storeItem.first_name ? storeItem.first_name+'-' : ''}}{{storeItem.last_name ? storeItem.last_name+'-' : ''}}{{storeItem.Product_AddedBy}}" [innerHtml]="(storeItem.first_name+' '+storeItem.last_name) | safeHtml"></a>
+                                    </div>
+
+                                    <div class="fade-in-block">
+                                        <div class="hover-content more-description">
+                                            <div class="product-description js-description" *ngIf="storeItem.Product_Short_Description.length>2" [innerHtml]="(storeItem?.Product_Short_Description | safeHtml) | truncate:[108, '...']"></div>
+                                            <a routerLink="{{'product/'+storeItem.Product_Slug}}" class="more-details-btn"><span>more</span></a>
+                                        </div>
+                                        <div class="product-buttons">
+                                            <div class="wrap-wishlist-button">
+                                                <a href="javascript:void(0);" (click)="AddtoWishlist(storeItem.ID,storeItem.Product_Slug,WishlistModal); "
+                                                    tooltip="{{'ADD_TO_WISH_LIST' | translate}}"  id="{{storeItem.ID}}_add_to_wish_list"><span></span></a>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="add-tocart-btn"><a href="javascript:void(0);"  id="{{storeItem.ID}}_add_to_cart" (click)="productAddToCart(storeItem,1)" tooltip="{{'ADD_TO_CART' | translate}}"><span></span></a></div>
+                                            <div class="wrap-quickview-button">
+                                                <div class="quick-view">
+                                                    <a href="javascript:void(0);" id="{{storeItem.ID}}_quick_view" (click)="setQuickProductData(storeItem)" class="quickview-icon" tooltip="{{'QUICK_VIEW' | translate}}"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!--</owl-carousel-o>-->
+                </div>
+            </div>
+            <!-- //End Featured Products Row -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+<!-- Include home cms page content here -->
+<div class="content__wrap content__wrap-sm">
+  <!-- Include slider component here -->
+  <app-slider
+    *ngIf="sliderData && sliderData.length && !PageLocked"
+    [sliderData]="sliderData"
+    [ISHomePage]="ISHomePage"
+  ></app-slider>
+
+  <app-homecms
+    *ngIf="cmsPageData && cmsPageData.ID && !PageLocked"
+    [cmsPageData]="cmsPageData"
+  ></app-homecms>
+
+  <div
+    bsModal
+    #PageProtectModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="dialog-child-name"
+    [config]="{ backdrop: true, keyboard: false, ignoreBackdropClick: true }"
+  >
+    <!-- This will open when page is password protected -->
+    <div class="modal-dialog-medium modal-dialog-medium-md">
+      <div class="modal-header modal-header-sm">
+        <h3>{{ "SECURED_PAGE" | translate }}</h3>
+      </div>
+      <div class="modal-body modal-body-sm">
+        <div class="u-mb--30">
+          <p>{{ "SECURED_PAGE_MESSAGE" | translate }}</p>
+        </div>
+        <form
+          [formGroup]="secureForm"
+          (ngSubmit)="onSubmitSecureForm(secureForm.value)"
+        >
+          <div class="row justify-content-center u-mb--15">
+            <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+              <div
+                [ngClass]="
+                  secureForm.controls['p_username'].dirty &&
+                  secureForm.controls['p_username'].errors
+                    ? 'form-group form-group--has-error'
+                    : 'form-group'
+                "
+              >
+                <input
+                  type="text"
+                  class="form-control solid rounded"
+                  formControlName="p_username"
+                  id="p_username"
+                  name="p_username"
+                  placeholder="Username"
+                />
+                <div
+                  *ngIf="
+                    secureForm.controls['p_username'].dirty &&
+                    secureForm.controls['p_username'].errors
+                  "
+                >
+                  <div
+                    *ngIf="secureForm.controls['p_username'].errors.required"
+                  >
+                    <div class="help-block" style="display: block">
+                      {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center u-mb--15">
+            <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+              <div
+                [ngClass]="
+                  secureForm.controls['p_password'].dirty &&
+                  secureForm.controls['p_password'].errors
+                    ? 'form-group form-group--has-error'
+                    : 'form-group'
+                "
+              >
+                <input
+                  type="password"
+                  class="form-control solid rounded"
+                  formControlName="p_password"
+                  id="p_password"
+                  name="p_password"
+                  placeholder="Password"
+                />
+                <div
+                  *ngIf="
+                    secureForm.controls['p_password'].dirty &&
+                    secureForm.controls['p_password'].errors
+                  "
+                >
+                  <div
+                    *ngIf="secureForm.controls['p_password'].errors.required"
+                  >
+                    <div class="help-block" style="display: block">
+                      {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-start u-align-center">
+            <div class="col-12 col-md-6 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <button type="submit" class="button button--green button-md">
+                  {{ "SUBMIT" | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- //End This will open when page is password protected -->
+</div>

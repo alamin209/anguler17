@@ -1,0 +1,20 @@
+<div class="ticketing-sidebar">
+    <div class="row u-mb--30 u-mb--30-sm">
+        <div class="col-12 col-lg-12 col-xl-12">
+            <h3 class="section--title section--title-sm">My Account</h3>
+        </div>
+    </div>
+
+    <div class="profile--box profile--box-sm">
+        <ul class="profile--actions">
+            <li class="profile--actions__items" [ngClass]="(ActivePage == 'overview')?'is-selected':''" ><a routerLink="/overview"><span class="fe-airplay ag--icons"></span>Overview</a></li>
+            <li class="profile--actions__items" [ngClass]="(ActivePage == 'tickets' || ActivePage == 'create-ticket' || ActivePage == 'tickets/view')?'is-selected':''"><a routerLink="/tickets"><span class="fe-tag ag--icons"></span>{{ "TICKETS" | translate }}</a></li>
+            <li class="profile--actions__items" ><a routerLink="/member/profile"><span class="fe-user ag--icons"></span>Profile</a></li>
+            <!--
+            <li class="profile--actions__items" [ngClass]="(ActivePage == 'overview')?'is-selected':''"><a routerLink="/overview"><span class="fe-credit-card ag--icons"></span>Billing</a></li>
+            <li class="profile--actions__items" [ngClass]="(ActivePage == 'overview')?'is-selected':''"><a routerLink="/overview"><span class="fe-file-text ag--icons"></span>Invoices</a></li>
+            -->
+            <li class="profile--actions__items" [ngClass]="(ActivePage == 'documents' || ActivePage == 'add-document')?'is-selected':''"><a routerLink="/documents"><span class="fe-file-text ag--icons"></span>Documents</a></li>
+        </ul>
+    </div>
+</div>

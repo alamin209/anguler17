@@ -1,0 +1,247 @@
+<div class="hero__inner large large-xs overlay u-image--cover mb-4" style="background: rgba(0, 0, 0, 0) url('https://admin.missio.io/portal/files/media/314/Tip--Blog.jpg') no-repeat center right;">
+    <div class="container">
+        <header class="hero__inner--content hero__inner--content-xs">
+            <div class="subhead subhead-xs text-white">
+                <h1 class="subhead subhead-xs u-upper" style="color:#FFFFFF;">Blog</h1>
+            </div>
+        </header>
+    </div>
+</div>
+
+<!-- Begin Blog Page Content Area -->
+<section class="seminar--page">
+    <div class="seminar--section seminar--section-sm">
+      <div class="container-fluid p-0 w-100">
+        <div class="row">
+          <div class="col-12 col-lg-9 col-md-8 col-sm-12">
+            <div class="page--withSidebar page--withSidebar-sm columns-3">
+              <div
+                *ngFor="let news of newsList; let i = index"
+                class="tip--seminar__lists"
+              >
+                  <div class="tip--seminar__lists--inner p-0" style="cursor: pointer;" routerLink="{{ '/blog/post/' + news.slug }}">
+                    <div class="video--image">
+                        <figure class="video--image--wrapper mb-0"><a class="video--image--wrapper--inner" routerLink="{{ '/blog/post/' + news.slug }}"><img srcset="{{(news && news.image) ? PORTAL_URL + 'files/blog/' + news.CID + '/medium_' + news.image : './assets/images/news/detail.jpg'}},
+                        {{(news && news.image) ? PORTAL_URL + 'files/blog/' + news.CID + '/medium_2x_' + news.image : './assets/images/news/detail.jpg'}} 1.5x,
+                        {{(news && news.image) ? PORTAL_URL + 'files/blog/' + news.CID + '/medium_2x_' + news.image : './assets/images/news/detail.jpg'}} 2x"
+                         src="{{
+                            news && news.image
+                              ? PORTAL_URL + 'files/blog/' + news.CID + '/medium_' + news.image
+                              : './assets/images/news/detail.jpg'
+                          }}"
+                         class="img-fluid b-0" alt="{{ news.title }}"></a></figure>
+                    </div>
+                    
+                    <div class="p-4">
+                        <div class="tip--seminar__heading">
+                          <h3 class="post--title post--title-sm js-EnabledHeading">
+                            <a
+                              routerLink="{{ '/blog/post/' + news.slug }}"
+                              [innerHtml]="news.title | safeHtml"
+                            ></a>
+                          </h3>
+                          <div class="meta fs--12 d-flex pb-2 mb-2">
+                              <time class="published mb-0"
+                                ><i class="fe-calendar mr-1"></i>
+                                {{ news.created_at }}</time
+                              >
+                              <div class="author ml-2 mb-0">
+                                <span class="name mb-0"
+                                  ><i class="fe-user mr-1"></i>
+                                  {{ news.Creater_name }}</span
+                                >
+                              </div>
+                            </div>
+                          <div class="post--categories d-flex pt-0">
+                            <span class="" *ngIf="news && news.tags && news.tags.length">
+                              <a
+                                *ngFor="let ntag of news.tags; let i = index"
+                                class="tag level-top"
+                                routerLink="{{ '/blog/tag/' + ntag.slug }}"
+                                (click)="checkKeyParam()"
+                                [innerHtml]="ntag.name | safeHtml"
+                              ></a>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="tip--seminar__desc clearfix">
+                          <div
+                            class="excerpt js-EnabledExcerpt mb-4 clearfix"
+                            [innerHtml]="news.short_description | safeHtml"
+                          ></div>
+                          <div class="post__controls clearfix">
+                            <a routerLink="{{ '/blog/post/' + news.slug }}" class="link--blue">Continue Reading<span>...</span></a>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Start Pagination -->
+            <div class="text-center product-not-found product-not-found-sm u-mt--40" *ngIf="NewsNotFound"> 
+                    {{'NEWS_NOT_FOUND' | translate}} 
+            </div>
+
+            <div class="products-footer u-mt--40" *ngIf="(newsList && totalItems > newsList.length)">
+                <div class="pagination--list">
+                    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="get_news_list($event)" [boundaryLinks]="true" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [itemsPerPage]="limit"></pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+          </div>
+
+          <aside
+            class="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12 content-with-sidebar content-with-sidebar-xs order2"
+          >
+            <div class="rightSidebar sidebar" id="sidebar">
+              <div class="sidebar__inner">
+                <div class="blog__sidebar theiaStickySidebar">
+                  <!--
+                  <button *ngIf="CateGorySearch || TagSearch || KeywordSearch" class="is-active" routerLink="/blog" (click)="checkKeyParam();" style="margin: b;margin-bottom: 5px;color: #99cc67;">Clear Filters</button>
+                  <div class="sidebar--widget sidebar--widget-xs">
+                    <div class="sidebar--widget__search">
+                      <div class="input-group">
+                        <input
+                          (keyup)="SearchByKeywordEnter($event)"
+                          value="{{ Keyword }}"
+                          class="form-control js-typeahead"
+                          (input)="SearchBlogValue($event.target.value)"
+                          name="q"
+                          type="search"
+                          autofocus=""
+                          autocomplete="off"
+                          placeholder="Search options..."
+                        />
+
+                        <div class="input-group-append">
+                          <button
+                            (click)="SearchByKeyword()"
+                            type="button"
+                            class="button button--black"
+                          >
+                            Search
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  -->
+                  <div class="sidebar--widget sidebar--widget-xs">
+                    <h2  class="sidebar--widget__subtitle">Categories</h2>
+                    
+                    <div class="sidebar--widget__content">
+                      <ul class="sidebar--widget__categories">
+                        <li *ngFor="let newscategory of newscategoryList; let i = index" class="sidebar--widget__categories--items">
+                            <a [ngClass]="{'is-active': newscategory.slug==CateGorySearch}" routerLink="/blog" [queryParams]="{category: newscategory.slug}" (click)="checkKeyParam();" class="level-top" [innerHtml]="newscategory.name | safeHtml"></a>
+                            
+                            <ul class="sidebar--widget__categories" *ngIf="newscategory && newscategory.subcategories && newscategory.subcategories.length" style="margin-left: 26px;">
+                                <li *ngFor="let newscategory of newscategory.subcategories; let i = index" class="sidebar--widget__categories--items">
+                                  <a [ngClass]="{'is-active': newscategory.slug==CateGorySearch}" routerLink="/blog" [queryParams]="{category: newscategory.slug}" (click)="checkKeyParam();" class="level-top" [innerHtml]="newscategory.name | safeHtml"></a>
+                                </li>
+                            </ul>
+                            
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="sidebar--widget sidebar--widget-xs" *ngIf="recentnewsList && recentnewsList.length">
+                    <h2 class="sidebar--widget__subtitle">Recent Posts</h2>
+                    <div class="sidebar--widget__content">
+                      <ul class="sidebar--widget__blogLists">
+                        <li
+                          *ngFor="let recentnews of recentnewsList; let i = index"
+                          class="sidebar--widget__blogLists--items"
+                        >
+                          <a
+                            routerLink="{{ '/blog/post/' + recentnews.slug }}"
+                            class="widget-item-image"
+                          >
+                            <img srcset="{{
+                                (recentnews && recentnews.image)
+                                  ? PORTAL_URL +
+                                    'files/blog/' +
+                                    recentnews.CID +
+                                    '/small_' +
+                                    recentnews.image
+                                  : './assets/images/news/detail.jpg'
+                              }}, {{
+                                (recentnews && recentnews.image)
+                                  ? PORTAL_URL +
+                                    'files/blog/' +
+                                    recentnews.CID +
+                                    '/small_' +
+                                    recentnews.image
+                                  : './assets/images/news/detail.jpg'
+                              }} 1.5x, {{
+                                (recentnews && recentnews.image)
+                                  ? PORTAL_URL +
+                                    'files/blog/' +
+                                    recentnews.CID +
+                                    '/small_' +
+                                    recentnews.image
+                                  : './assets/images/news/detail.jpg'
+                              }} 2x"
+                              src="{{
+                                recentnews && recentnews.image
+                                  ? PORTAL_URL +
+                                    'files/blog/' +
+                                    recentnews.CID +
+                                    '/small_' +
+                                    recentnews.image
+                                  : './assets/images/news/detail.jpg'
+                              }}"
+                              width="63"
+                              height="63"
+                            />
+                          </a>
+                          <div class="widget-item-info">
+                            <h3 class="product-title">
+                              <a
+                                routerLink="{{ '/blog/post/s' + recentnews.slug }}"
+                                [innerHtml]="recentnews.title | safeHtml"
+                              ></a>
+                            </h3>
+                            <div class="star-rating widget-rating">
+                              <span class="star-badge">
+                                <span class="star-badge-wrap">{{
+                                  recentnews.created_at
+                                }}</span>
+                              </span>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div
+                    class="sidebar--widget sidebar--widget-xs d-none"
+                    *ngIf="newstagsList && newstagsList.length"
+                  >
+                    <h2 class="sidebar--widget__subtitle">Tags</h2>
+                    <div class="sidebar--widget__tagslist">
+                      <a *ngFor="let newstag of newstagsList let i=index" routerLink="/blog" (click)="checkKeyParam();" [queryParams]="{tag: newstag.slug}" [innerHtml]="newstag.name | safeHtml" [ngClass]="{'is-active': newstag.slug ==TagSearch}"></a>
+                    </div>
+                  </div>
+
+                  <div class="sidebar--widget sidebar--widget-xs d-none" *ngIf="newstagsList && newstagsList.length">
+                    <h2 class="sidebar--widget__subtitle">Follow Us</h2>
+                    <ul class="sidebar--widget__social">
+                        <li class="facebook"><a href="{{'https://'+siteSettings?.facebook}}" target="_blank"><i class="fe-facebook"></i></a></li>
+                        <li class="twitter"><a href="{{'https://'+siteSettings?.twitter}}"><i class="fe-twitter"></i></a></li>
+                        <li class="linkedin"><a href="{{'https://'+siteSettings?.LinkedIn}}"><i class="fe-linkedin"></i></a></li>
+                        <li class="instagram"><a href="{{'https://'+siteSettings?.instagram}}"><i class="fe-instagram"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+</section>
+<!-- //End Blog Page Content Area -->
+<div class="clearfix"></div>

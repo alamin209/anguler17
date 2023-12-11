@@ -1,0 +1,252 @@
+<div class="auth--body auth--body-md Order--History checkout--Page checkout--Page-sm">
+    <div class="auth--body__inner auth--body__inner-md">
+        <div class="container" *ngIf="OrderData && OrderData.ID">
+            
+            <div class="row u-mb--40 u-mb--40-sm" *ngIf="ShowThanks">
+                <div class="col-12 col-sm-12">
+                    <div class="Thankyou--Message Thankyou--Message-sm">
+                        <div class="graphic--100 graphic--100-sm"><img src="./assets/images/thank-you.svg" alt="" class="img-fluid"></div>
+                        <h1 class="message--title message--title-sm">Thank You for Shopping {{'TITLE' | translate}}</h1>
+                        <p class="message--description message--description-sm">An email will be sent shortly with your Tracking, Shipping & Delivery Details.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row u-mb--30 u-mb--30-sm">
+                <div class="col-12 col-sm-12">
+                    <div class="product--specifications">
+                        <div class="table__wrapper">
+                            <table class="reverse--table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Order Number</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Payment Method</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-header="Order Number"><p>{{OrderData.OrderID}}</p></td>
+                                        <td data-header="Date"><p>{{OrderData.Order_Date}}</p></td>
+                                        <td data-header="Email"><p>{{OrderData.Billing_Email}}</p></td>
+                                        <td data-header="Total"><p>${{OrderData.Payment_Grandtotal}}</p></td>
+                                        <td data-header="Payment Method"><p>Card Ending in {{OrderData.Payment_CCNumber}}</p></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-vertical form-vertical-sm">
+                        <div class="row u-mb--40">
+                            <div class="col-12 col-lg-12 col-sm-12">
+                                <h2 class="subTitle subTitle-sm with--border with--border--full">BILLING / SHIPPING DETAILS:</h2>
+                                <div class="row">
+                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12">
+                                       <!-- <div class="ship--details ship--details-sm">
+                                            <p class="text no-padd">{{OrderData.Shipping_First_Name}} {{OrderData.Shipping_Last_Name}}</p>
+                                            <p class="text no-padd">{{OrderData.Shipping_Address}} {{OrderData.Shipping_Address2}}, {{OrderData.Shipping_State}}, {{OrderData.Shipping_Zip}},
+                                              {{OrderData.Shipping_Country}}</p>
+                                            <p class="text no-padd">{{OrderData.Billing_Email}}</p>
+                                            
+                                            <p class="text no-padd"><span>{{OrderData.Billing_Phone | mask: '(000) 000-0000'}}</span></p>
+                                            
+                                        </div>-->
+                                        <div class="ship--details ship--details-sm">
+                                            <p class="text">BILL TO:</p>                                        
+                                            <p class="form-control-static u-mb--5">
+                                                <strong class="u-capitalize">{{OrderData?.Billing_First_Name+' '+OrderData?.Billing_Last_Name}}</strong>
+                                            </p>
+                                            <p *ngIf="ASK_COMPANY_NAME" class="form-control-static u-mb--5"><strong class="u-capitalize">
+                                                <span style="color:#999;">{{OrderData?.Billing_Company_Name}}</span></strong>
+                                            </p>
+                                            <p class="form-control-static u-mb--5">
+                                                {{OrderData?.Billing_Address}}<br>
+                                                <span [innerHtml]="(OrderData && OrderData?.Billing_Address2) ? ((OrderData?.Billing_Address2 + '<br>') | safeHtml) : ''"></span>
+                                                {{OrderData?.Billing_City+','}}
+                                                {{OrderData?.Billing_State}}
+                                                {{OrderData?.Billing_Zip}}<br>
+                                                {{OrderData?.Billing_Country | translate}}
+                                            </p>
+                                            <p *ngIf="PHONE_NUMBER_MASK" class="form-control-static u-mb--5">
+                                                <span>{{OrderData?.Billing_Phone | mask: '(000) 000-0000'}}</span>
+                                            </p>
+                                            <p *ngIf="!PHONE_NUMBER_MASK" class="form-control-static u-mb--5">
+                                                <span>{{OrderData?.Billing_Phone}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 col-md-6 col-sm-12" [ngClass]="Physical_Items_in_Cart ? '' : 'd-none'">
+                                        <div class="ship--details ship--details-sm">
+                                            <p class="text">SHIP TO:</p>
+                                            <p class="form-control-static u-mb--5">
+                                                <strong class="u-capitalize">{{OrderData?.Shipping_First_Name+' '+OrderData?.Shipping_Last_Name}}</strong>
+                                            </p>
+                                            <p *ngIf="ASK_COMPANY_NAME" class="form-control-static u-mb--5">
+                                                <strong class="u-capitalize">
+                                                    <span style="color:#999;">{{OrderData?.Shipping_Company_Name}}</span>
+                                                </strong>
+                                            </p>
+                                            <p class="form-control-static u-mb--5">
+                                                {{OrderData?.Shipping_Address}}<br>
+                                                <span [innerHtml]="(OrderData && OrderData?.Shipping_Address2) ? ((OrderData?.Shipping_Address2 + '<br>') | safeHtml) : ''"></span>
+                                                {{OrderData?.Shipping_City+','}}
+                                                {{OrderData?.Shipping_State}}
+                                                {{OrderData?.Shipping_Zip}}<br>
+                                                {{OrderData?.Shipping_Country | translate}}
+                                            </p>
+                                            <p *ngIf="PHONE_NUMBER_MASK" class="form-control-static u-mb--5">
+                                                <span>{{OrderData?.Shipping_Phone | mask: '(000) 000-0000'}}</span>
+                                            </p>
+                                            <p *ngIf="!PHONE_NUMBER_MASK" class="form-control-static u-mb--5">
+                                                <span>{{OrderData?.Shipping_Phone}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row u-mb--40 d-none">
+                            <div class="col-12 col-lg-12 col-sm-12">
+                                <h2 class="subTitle subTitle-sm with--border with--border--full">SHIPPING CHECK LIST:</h2>
+                                <div class="row">
+                                    <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                                        <div class="checklists--details checklists--details-sm noStyle">
+                                            <p *ngIf="OrderData.Shipping_Type">{{(OrderData.Shipping_Type) ? OrderData.Shipping_Type : ''}}</p>
+                                            <p *ngIf="OrderData.Shipping_Pickup">{{(OrderData.Shipping_Pickup) ? 'Local Pickup' : ''}}</p>
+                                            <p *ngIf="OrderData.Shipping_LoadingDock">{{(OrderData.Shipping_LoadingDock) ? 'Loading Dock' : ''}}</p>
+                                            <p *ngIf="OrderData.Shipping_EqpUpload">{{(OrderData.Shipping_EqpUpload) ? 'Have Equipment to Unload' : ''}}</p>
+                                            <p *ngIf="OrderData.Shipping_LiftGate">{{(OrderData.Shipping_LiftGate) ? 'Need Lift Gate' : ''}}</p>
+                                            <p *ngIf="OrderData.Shipping_SemiTrucks">{{(OrderData.Shipping_SemiTrucks) ? 'Limited Access for Semi-Trucks' : ''}}</p>
+                                            <p *ngIf="OrderData.Shipping_CallAhead">{{(OrderData.Shipping_CallAhead) ? 'Call Ahead '+ (OrderData?.Shipping_Phone | mask: '(000) 000-0000') : ''}}</p>
+                                            
+                                            <p *ngIf="OrderData.Extra_Info"><strong>Additional Notes:</strong><br>
+                                            {{(OrderData.Extra_Info) ? OrderData.Extra_Info : ''}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                
+                <!-- Sidebar -->
+                <div class="col-12 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    <div class="checkout--order__review checkout--order__review-sm">
+                        <h3 class="subTitle subTitle-sm">ORDER DETAILS</h3>
+
+                        <div class="checkout--order__review--inner u-mb--15">
+                            <div class="cart__totals">
+                                <div class="cart__totals--inner">
+                                    
+                                    <table class="shop_table shop_table_responsive checkout--order__review--table u-mb--5" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-name">PRODUCT / QUANTITY</th>
+                                                <th class="product-name"></th>
+                                                <th class="product-total"></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr class="cart_item" *ngFor="let product of OrderData.products; let ii = iindex">
+                                                <td class="product-name">
+                                                    <span [innerHtml]="((product && product.Product_Name)? product.Product_Name : '') | safeHtml"></span>
+                                                    <strong class="product-quantity"> x {{product.Product_Count}}</strong>
+                                                    <div *ngFor="let Product_Option of product.Product_Options; let ip=index" class="money text-green fs12 u-pb--0">{{Product_Option.value}} {{(Product_Option && Product_Option.Price && Product_Option.Price > 0)? '($'+Product_Option.Price+')' :''}}</div>
+                                                    <a *ngIf="product.ProductType == 'Digital'" href="{{PORTAL_URL}}modules/store_orders/download_order_files.php?UID={{OrderData.MemberID}}&OID={{OrderData.ID}}&PID={{product.Product_ID}}" class="u-ml--10" role="button">Download Files</a>
+
+                                                </td>
+                                                <td class="product-name">
+                                                    <!--<strong class="text-green">{{product.Estimated_Leed_Count}} {{product.Estimated_Leed_Type}}</strong>-->
+                                                </td>
+                                                <td class="product-total">
+                                                    ${{product.total_price}}
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="(OrderData.Coupon_Code && OrderData.Coupon_Discount > 0)" style="border: 0px none;">
+                                                <td colspan="2" style="border: 0px none;">{{'COUPON_DISCOUNT' | translate}} ({{OrderData.Coupon_Code}})</td>
+                                                <td style="padding-top: 11px; padding-bottom: 0px; border: 0px none;">
+                                                    <div class="discounted--shipping u-upper">
+                                                        <span class="text-green"> - ${{(OrderData.Coupon_Discount)? OrderData.Coupon_Discount.toFixed(2) : '0.00'}}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="cart_item" >
+                                                <td class="product-name u-upper" >
+                                                    <strong>{{'SUBTOTAL' | translate}}</strong>
+                                                </td>
+                                                <td class="product-total" colspan="2" >
+                                                    <strong>${{OrderData.Payment_Subtotal}}</strong>
+                                                </td>
+                                            </tr>
+                                            <tr class="cart_item">
+                                                <td class="product-name u-upper" colspan="2">
+                                                    <strong>Tax</strong>
+                                                </td>
+                                                <td class="product-total">
+                                                    <strong>${{OrderData.Payment_Tax}} {{(OrderData.TaxExemptApplied == 1) ? ' (Tax Exempt Applied)' : ''}}</strong>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="cart_item" style="border: 0px none;" [ngClass]="Physical_Items_in_Cart ? '' : 'd-none'">
+                                                <td class="product-name u-upper"  >
+                                                    <strong>Shipping</strong>
+                                                </td>
+                                                <td class="product-total" colspan="2" >
+                                                    <strong>${{OrderData.Payment_Shipping}}</strong>
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="(OrderData.Payment_Shipping_Discount && OrderData.Payment_Shipping_Discount > 0)" style="border: 0px none;">
+                                                <td  style="border: 0px none;"></td>
+                                                <td colspan="2" style="padding-top:0px;padding-bottom:0px;border: 0px none;">
+                                                    <div class="discounted--shipping u-upper text-green">
+                                                        Shipping Discount Applied
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr *ngIf="(OrderData.Payment_Shipping_Discount && OrderData.Payment_Shipping_Discount > 0)" style="border: 0px none;" class="cart_item">
+                                                <td style="border: 0px none;"></td>
+                                                <td colspan="2" style="border: 0px none;">
+                                                    <span class="text-green">$ {{(OrderData.Payment_Discounted_Shipping)? OrderData.Payment_Discounted_Shipping.toFixed(2) : '0.00'}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" style="padding:0;"></td>
+                                            </tr>
+                                            <tr class="order-total">
+                                                <th><span class="u-upper">{{'TOTAL' | translate}}</span></th>
+                                                <td colspan="2"><span class="text-green">${{OrderData.Payment_Grandtotal}}</span></td>
+                                            </tr>
+                                            <tr><td colspan="3" style="padding:0;"></td></tr>
+                                            
+                                        </tbody>
+                                    </table>
+
+                                    <div class="cart__totals--proceed-to-checkout no-btp d-none">
+                                        <div class="privacy-policy-text">
+                                            <p>*All Lead Times are estimated and provided by Manufacturer.</p>
+                                        </div>
+                                    </div>
+                                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

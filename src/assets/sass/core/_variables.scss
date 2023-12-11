@@ -1,0 +1,178 @@
+$primary: #073664 !default;
+$primary_sh1: #0094d4 !default;
+$primary_sh2: #1081cc !default;
+$primary_sh3: #082246 !default;
+$primary_sh4: #0095d5 !default;
+
+$greyish: #686868 !default;
+$grey: #555555 !default;
+$grey_sh1: #747474 !default;
+$grey_sh2: #818181 !default;
+$grey_sh3: #e1e1e1 !default;
+$grey_sh4: #222222 !default;
+$dark-gray: #808284 !default;
+$transparent: rgba(0, 0, 0, 0) !default;
+
+/* Black Color Variation(s) */
+$black: #020001 !default;
+$blackred: #ac001a !default;
+$black_sh1: #252326 !default;
+$black_sh2: #323232 !default; /* color code == #666666 also (0,0,0,0.6) */
+$black_sh3: lighten($black_sh1, 40%) !default; /* color code == #999999 */
+$black_sh4: lighten($black_sh1, 60%) !default; /* color code == #cccccc */
+$black_sh5: lighten($black_sh1, 41%) !default; /* color code == #9c9c9c */
+$black_sh6: #6c757d !default;
+$black_sh7: #231f20 !default;
+$black_sh8: #404040 !default;
+
+/* Blue Color Variation(s) */
+$blue: $primary !default;
+$blue_sh1: #050b3f !default;
+$blue_sh2: #4772cc !default;
+$blue_sh3: #2566a0 !default;
+$blue_sh4: #282c35 !default;
+$blue_sh5: #004165 !default;
+$blue_sh6: #004165 !default;
+$blue_sh7: #8481b0 !default;
+$blue_sh8: #4167b1 !default;
+$blue_sh9: #0e2b5c !default;
+$blue_sh10: #0f80ca !default;
+$blue_sh11: #e8f5fb !default;
+$blue_sh12: #d6eef8 !default;
+$purple: #8b7dbf !default;
+
+/* Red Color Variation(s) */
+$red: #ef576e !default;
+$red_sh1: #f15b5b !default;
+$red_sh2: #f3e6e1 !default;
+$red_sh3: #ec5b56 !default;
+$error: #fc1d4c !default;
+
+/* Green Color Variation(s) */
+$green: $primary_sh1 !default;
+$success: #1bcf6f !default;
+$green_sh1: #065a2e !default;
+$green_sh2: #749c29 !default;
+$green_sh3: #296e61 !default;
+$green_sh4: $primary !default;
+$green_sh5: #73b58c !default;
+$green_sh6: #718f23 !default;
+
+$warning: #fcba08 !default;
+$info: #213f9e !default;
+$footer: $primary_sh3 !default;
+$footer_sh1: #031530 !default;
+
+$yellow: #ffd800 !default;
+$secondary: #dbb958 !default;
+$premium: #fecb45 !default;
+$deluxe: #ec781c !default;
+$pricingText: #585728 !default;
+
+$heroPrimary: #8f8b88 !default;
+
+/* White Color Variation(s) */
+$white: #ffffff !default;
+$white_sh1: darken($white, 1.5%) !default; /* color code == #f9f9f9 */
+$white_sh2: darken($white, 5%) !default; /* color code == #bbb */
+$white_sh3: #f1f4f5 !default;
+$white_sh4: #cccccc !default;
+$offwhite: #e7e7e7 !default;
+$white_sh5: #ececec !default;
+$white_sh6: #f5f5f5 !default;
+
+/* Misc Color Variation(s) */
+$border: #d6dae1 !default;
+$border_sh1: #dedede !default;
+$field: $border !default;
+$hoverColor: lighten($primary, 0%) !default;
+$unsuccessful: #ff3569 !default;
+$infoBorder: #2e86bd !default;
+$infoBG: #e7faff !default;
+
+$gold: #f3b544 !default;
+$orange: #ec781c !default;
+$figure: #eff1f3 !default;
+
+$facebook: #3b5998 !default;
+$twitter: #00aeef !default;
+$pinterest: #bd081c !default;
+$googleplus: #e34829 !default;
+$youtube: #d62423 !default;
+$vimeo: #5bc7ff !default;
+$instagram: #d4035c !default;
+$instagram2: #a5745a !default;
+$linkedin: #1f7bc2 !default;
+$flickr: #377ede !default;
+$lightgrey: #cdcdcd !default;
+$lightborder: #e0e0e0 !default;
+
+/* Event --> Colors */
+$EventMainColor: $primary !default;
+$EventPriceColor: $blue !default;
+
+/* ADA Compliance Color(s) */
+$nightMode: #c2c2c2 !default;
+
+/* Table */
+$table-border-color: #d6dae1 !default;
+$table-border-color2: #c1c7d0 !default;
+$table-border-width: 1px !default;
+
+$color-1: #111433 !default; // Haiti
+$color-2: #3f8654 !default; // Goblin
+$color-3: #ffffff !default; // White
+
+/* Widths ▸ Window Width */
+$viewportSize: 100% !default;
+$max-width: 1920px !default;
+
+// Shadow(s)
+$box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+$box-shadow-sm: 0 0.125rem 0.25rem rgba($black, 0.075);
+$box-shadow-lg: 0 1rem 3rem rgba($black, 0.175);
+$box-shadow-xs: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+$sidebar-box-shadow: 0px 2px 22px 0 rgba(0, 0, 0, 0.2),
+  0px 2px 30px 0 rgba(0, 0, 0, 0.35);
+
+// Dimensions
+
+$screen-xs: 767px !default;
+//** Deprecated `$screen-xs-min` as of v3.2.0
+$screen-xs-min: $screen-xs !default;
+//** Deprecated `$screen-phone` as of v3.0.1
+$screen-phone: $screen-xs-min !default;
+
+// Small screen / tablet
+//** Deprecated `$screen-sm` as of v3.0.1
+$screen-sm: 991px !default;
+$screen-sm-min: $screen-sm !default;
+//** Deprecated `$screen-tablet` as of v3.0.1
+$screen-tablet: $screen-sm-min !default;
+
+// Medium screen / desktop
+//** Deprecated `$screen-md` as of v3.0.1
+$screen-md: 992px !default;
+$screen-md-min: $screen-md !default;
+//** Deprecated `$screen-desktop` as of v3.0.1
+$screen-desktop: $screen-md-min !default;
+
+// Large screen / wide desktop
+//** Deprecated `$screen-lg` as of v3.0.1
+$screen-lg: 1200px !default;
+$screen-lg-min: $screen-lg !default;
+//** Deprecated `$screen-lg-desktop` as of v3.0.1
+$screen-lg-desktop: $screen-lg-min !default;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max: ($screen-sm-min - 1) !default;
+$screen-sm-max: ($screen-md-min - 1) !default;
+$screen-md-max: ($screen-lg-min - 1) !default;
+
+/* Media Query Breakpoints */
+$media-desktop: "screen and (max-width: 1199px)";
+$media-ipadPortrait: "screen and (max-width :991px)";
+$media-iPad: "screen and (min-width : 768px) and (max-width : 991px)";
+$media-ipadSmall: "screen and (max-width :767px)";
+$media-tablet: "screen and (max-width: 575px)";
+$media-phone: "screen and (max-width : 480px)";

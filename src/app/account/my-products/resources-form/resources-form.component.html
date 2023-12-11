@@ -1,0 +1,178 @@
+<style type="text/css">.content__wrap{background-color:#f2f3f8!important;margin-bottom:-30px!important}</style>
+
+<div class="content__wrap content__wrap-sm">
+  <div class="Shop__Listings Shop__Listings-xs memberResource">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="page-head">
+            <h3 class="u-heading--medium u-heading--medium-sm no-upper">{{(recId > 0 ? "RESOURCE_UPDATE" : "RESOURCE_ADD") | translate}}</h3>
+          </div>
+
+          <form name="Resource_Post_Form" id="Resource_Post_Form" [formGroup]="resourceForm" (ngSubmit)="onSubmit(resourceForm.value)">
+            <input type="hidden" formControlName="id" name="id"/>
+            <div class="row">
+              <div class="col-sm-12 col-lg-8 col-md-8">
+                <div class="card-panel">
+                  <div class="card-panel-body">
+                    <div [ngClass]="submitted && resourceForm.controls.title.errors ? 'form-group control-group clearfix form-group--has-error' : 'form-group'">
+                      <label for="title">{{"RESOURCE_TITLE" | translate}} <span class="mandatory_asterisk">*</span>
+                      </label>
+                      <input type="text" class="form-control solid" formControlName="title" id="title" name="title" placeholder="{{ 'RESOURCE_TITLE' | translate }}"/>
+                      <div *ngIf="submitted && resourceForm.controls.title.errors">
+                        <div *ngIf="resourceForm.controls.title.errors.required">
+                          <div class="help-block" style="display: block">
+                            {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div [ngClass]="submitted && resourceForm.controls.short_desc.errors ? 'form-group control-group clearfix form-group--has-error' : 'form-group'">
+                        <label for="short_desc">{{"RESOURCE_SHORTDESC" | translate}} <span class="mandatory_asterisk">*</span></label>
+                        <textarea class="form-control solid rounded" formControlName="short_desc" id="short_desc" name="short_desc" rows="4" placeholder="{{ 'RESOURCE_SHORTDESC' | translate }}"></textarea>
+                        <div *ngIf="submitted && resourceForm.controls.short_desc.errors">
+                          <div *ngIf="resourceForm.controls.short_desc.errors.required">
+                            <div class="help-block" style="display: block">
+                              {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group control-group my-product-listing clearfix">
+                      <label for="desc">{{"RESOURCE_DESC" | translate}}</label>
+                      <ckeditor [editor]="editor" formControlName="desc" data=""></ckeditor>
+                    </div>
+
+                    <div class="form-group control-group my-product-listing clearfix d-none">
+                      <label for="author">{{"RESOURCE_AUTHOR" | translate}}</label>
+                      <input type="text" class="form-control solid" formControlName="author" id="author" name="author" placeholder="{{ 'RESOURCE_AUTHOR' | translate }}"/>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="card-panel position-sticky top-120">
+                  <div class="card-panel-body">
+                    <h3 class="form-section">{{"RESOURCE_FEAIMG" | translate}}</h3>
+                    <div class="row d-flex align-items-center form-group mb-5" *ngIf="imageURL">
+                      <div class="col-12 col-md-9 col-sm-12 col-xs-12">
+                        <div class="profilepic--preview">
+                          <button
+                            (click)="RemovePic()"
+                            type="button"
+                            class="btn--deleteProfile"
+                          >
+                            <i class="fe-x icon"></i>
+                          </button>
+                          <img
+                            [src]="imageURL"
+                            height="200"
+                            *ngIf="imageURL"
+                            class="thumbnail mb-0"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row d-flex align-items-center form-group mb-3">
+                      <div class="col-12 col-md-6 col-sm-12 col-xs-12">
+                        <div class="button-wrap mb-2">
+                          <label
+                            *ngIf="PictureExist"
+                            class="upload--button"
+                            for="upload"
+                            ><i class="fe-upload mr-2"></i>{{"RESOURCE_ADDING" | translate}}
+                            <input
+                              type="file"
+                              #file
+                              type="file"
+                              accept="image/*"
+                              (change)="processFile(file.files)"
+                              class="solid rounded"
+                              id="profile_picture"
+                              name="profile_picture"
+                              placeholder="{{ 'PROFILE_PIC' | translate }}"
+                            />
+                          </label>
+                          <label
+                            *ngIf="!PictureExist"
+                            class="upload--button"
+                            for="upload"
+                          >
+                            <i class="fe-upload mr-2"></i>{{"RESOURCE_ADDING" | translate}}
+                            <input
+                              type="file"
+                              #file
+                              type="file"
+                              accept="image/*"
+                              (change)="processFile(file.files)"
+                              class="solid rounded"
+                              id="profile_picture"
+                              name="profile_picture"
+                              placeholder="{{ 'PROFILE_PIC' | translate }}"
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <h3 class="form-section">{{"CATEGORY" | translate}}</h3>
+                    <div class="control-group mb-4">
+                      <div
+                        [ngClass]="
+                          submitted && resourceForm.controls.selCategory.errors
+                            ? 'form-group form-group--has-error'
+                            : 'form-group'
+                        "
+                      >
+                        <div class="selectdropdown">
+                          <select class="form-control solid rounded CategoryID m-wrap col-12 col-lg-12 col-md-12 col-sm-12 chosen2" name="categories[]" id="CategoryID" formControlName="selCategory" size="">
+                              <option class="placeholder" selected value="">
+                                  {{ "SELECT" | translate }}
+                              </option>
+                              <option *ngFor="let resItem of categoryList let i=index" value={{resItem.ID}}>{{resItem.name}}</option>
+                          </select>
+                        </div>
+                        <div *ngIf="
+                              submitted && resourceForm.controls.selCategory.errors">
+                            <div *ngIf="resourceForm.controls.selCategory.errors.required">
+                              <div class="help-block" style="display: block">
+                                {{ "PLEASE_FILL_OUT_THIS_FIELD" | translate }}
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <h3 class="form-section">{{"TAGS" | translate}}</h3>
+                    <div class="form-group control-group clearfix mb-0">
+                      <div class="controls">
+                          <angular2-multiselect class="form-control solid rounded m-wrap col-12 col-lg-12 col-md-12 col-sm-12" [data]="tagList" [settings]="multiSelectTags" formControlName="selTag" (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-lg-8 col-md-8">
+                <div class="d-flex align-items-center justify-content-between">
+                  <button type="button" class="button button--grey button-md d-inline-block button-radius mr-2" (click)="memberPage()" ><i class="fe-x mr-1"></i> {{ "CANCEL" | translate }}</button>
+
+                  <button id="save_btn" type="submit" class="button button--green button-md d-inline-block button-radius ml-2"  id="save_publish_button"><i class="fe-check mr-1"></i> {{ "SAVE" | translate }}</button>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>

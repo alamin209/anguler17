@@ -1,0 +1,124 @@
+<style type="text/css">
+.banner--video-v.p-0{padding: 0!important}
+@media (max-width: 767px){#banner--video, .o-media-hero{height: auto !important; min-height: auto !important}}
+@media (max-width: 480px){.o-media-hero{min-height: auto !important}}
+</style>
+
+<div id="HeroSlider" class="slideshow-background slideshow-section" *ngIf="
+    ISHomePage || (slidesStore && slidesStore.length && slidesStore.length > 1)
+  " [ngClass]="{
+    'Single--Image':
+      (slidesStore && slidesStore.length && slidesStore.length == 1) == true
+  }" style="height: auto !important; min-height: inherit !important; max-height: inherit !important;">
+    <owl-carousel-o [options]="mainSliderOptions">
+ 
+          <ng-container class="item" *ngFor="let slide of slidesStore; let i = index"> 
+            <ng-template carouselSlide [id]="slide.id">
+                <img *ngIf="slide && slide.is_video == '0'" src="{{ PORTAL_URL }}newcms/files/slider/{{ CID }}/{{
+                    slide.slider_image
+                  }}" class="bg-transparent" />
+                      <div *ngIf="slide && slide.is_video == '0'" class="content_slideshow content_slideshow-xs" [ngClass]="{
+                    'has--content':
+                      (slide && slide.slider_title && slide.slider_title != '') == true
+                  }">
+                          <div class="container" style="position: relative">
+                              <div class="banner--wrapper">
+                                  <div class="row u-flexed u-align-center">
+                                      <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                                          <div class="banner-content">
+                                              <div [innerHtml]="slide.slider_title | safeHtml"></div>
+                                              <div [innerHtml]="slide.slider_desc | safeHtml"></div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <a *ngIf="slide && slide.is_video == '0'" href="{{ slide.slider_link }}" target="{{ slide.link_target }}" class="banner--link"></a>
+                      
+                      <div id="banner--video" class="banner--video-v p-0" style="" *ngIf="slide && slide.is_video == '1'">
+                          <div class="video-responsive video-responsive-sm position-relative">
+                              <video playsinline autoplay loop controls="false">
+                                  <source src="https://dsqqu7oxq6o1v.cloudfront.net/preview-1008554-GGayUwVjTX-high.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                              </video>
+                          </div>
+                      </div>
+              </ng-template>
+
+           
+            </ng-container>
+        <!-- <div class="item" *ngFor="let slide of slidesStore; let i = index"> 
+        <img *ngIf="slide && slide.is_video == '0'" src="{{ PORTAL_URL }}newcms/files/slider/{{ CID }}/{{
+          slide.slider_image
+        }}" class="bg-transparent" />
+            <div *ngIf="slide && slide.is_video == '0'" class="content_slideshow content_slideshow-xs" [ngClass]="{
+          'has--content':
+            (slide && slide.slider_title && slide.slider_title != '') == true
+        }">
+                <div class="container" style="position: relative">
+                    <div class="banner--wrapper">
+                        <div class="row u-flexed u-align-center">
+                            <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="banner-content">
+                                    <div [innerHtml]="slide.slider_title | safeHtml"></div>
+                                    <div [innerHtml]="slide.slider_desc | safeHtml"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a *ngIf="slide && slide.is_video == '0'" href="{{ slide.slider_link }}" target="{{ slide.link_target }}" class="banner--link"></a>
+            
+            <div id="banner--video" class="banner--video-v p-0" style="" *ngIf="slide && slide.is_video == '1'">
+                <div class="video-responsive video-responsive-sm position-relative">
+                    <video playsinline autoplay loop controls="false">
+                        <source src="https://dsqqu7oxq6o1v.cloudfront.net/preview-1008554-GGayUwVjTX-high.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                    </video>
+                </div>
+            </div>
+        </div> -->
+    </owl-carousel-o>
+</div>
+<div class="clearfix"></div>
+<!-- Inner Page Slider(s) -->
+
+<div *ngIf="
+    !ISHomePage && slidesStore && slidesStore.length && slidesStore.length == 1
+  ">
+    <div class="hero__inner large large-xs overlay u-image--covered" *ngIf="slidesStore && slidesStore[0] && slidesStore[0].is_video == '0'" [ngStyle]="{
+      background:
+        'url(' +
+        PORTAL_URL +
+        'newcms/files/slider/' +
+        CID +
+        '/' +
+        slidesStore[0].slider_image +
+        ')'
+    }">
+        <div class="container">
+            <header class="hero__inner--content hero__inner--content-xs">
+                <div class="subhead subhead-xs text-white" [innerHtml]="slidesStore[0].slider_title | safeHtml"></div>
+                <div class="text text-xs text-white" [innerHtml]="slidesStore[0].slider_desc | safeHtml"></div>
+            </header>
+        </div>
+    </div>
+    <div class="hero__inner medium medium-xs overlay u-image--cover" *ngIf="slidesStore && slidesStore[0] && slidesStore[0].is_video == '1'" [ngClass]="{
+      'has--video':
+        (slidesStore && slidesStore[0] && slidesStore[0].is_video == 1) == true
+    }">
+        <div class="video__wrapper video__wrapper-sm jarallax" attr.data-jarallax-video="{{ slidesStore[0].slider_image }}">
+            <div class="video__wrapper--inner video__wrapper--inner-sm">
+                <div class="video__wrapper--content">
+                    <div class="container">
+                        <h1 [innerHtml]="slidesStore[0].slider_title | safeHtml"></h1>
+                        <h2 [innerHtml]="slidesStore[0].slider_desc | safeHtml"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
